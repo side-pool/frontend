@@ -21,6 +21,15 @@ module.exports = merge(baseConfig, {
         use: [
           'style-loader',
           'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [path.join(PROJECT_ROOT, './src/styles')],
+              },
+              additionalData: `@import "index";`,
+            },
+          },
         ],
       },
     ],

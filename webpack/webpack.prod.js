@@ -17,6 +17,15 @@ module.exports = merge(baseConfig, {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [path.join(PROJECT_ROOT, './src/styles')],
+              },
+              additionalData: `@import "index";`,
+            },
+          },
         ],
       },
     ],
