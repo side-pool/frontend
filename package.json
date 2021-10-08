@@ -1,0 +1,19 @@
+{
+  "name": "side-pool-front",
+  "version": "1.0.0",
+  "description": "frontend",
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "jest --watchAll --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/side-pool/frontend.git"
+  },
+  "author": "seung-00",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/side-pool/frontend/issues"
+  },
+  "homepage": "https://github.com/side-pool/frontend#readme"
+}
