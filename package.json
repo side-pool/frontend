@@ -7,7 +7,8 @@
     "start": "webpack serve --config ./webpack/webpack.dev.js",
     "build": "tsc && webpack --config ./webpack/webpack.prod.js",
     "check-types": "tsc",
-    "test": "jest --watchAll --coverage"
+    "test": "jest --watchAll --coverage",
+    "storybook": "start-storybook -p 6006"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,13 @@
     "@babel/preset-typescript": "^7.15.0",
     "@babel/runtime": "^7.15.4",
     "@babel/runtime-corejs3": "^7.15.4",
+    "@storybook/addon-actions": "^6.3.8",
+    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-links": "^6.3.8",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.3.8",
+    "@storybook/manager-webpack5": "^6.3.8",
+    "@storybook/react": "^6.3.8",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",

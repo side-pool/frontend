@@ -1,7 +1,7 @@
 import React from 'react';
 import { setLoading, useAppDispatch, useUiState } from '@src/store';
 import cn from 'classnames';
-import './App.scss';
+import './main.scss';
 
 const HIGHLIGHT = 'highlight';
 
