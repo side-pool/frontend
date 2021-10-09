@@ -9,7 +9,8 @@
     "check-types": "tsc",
     "test": "jest --watchAll --coverage",
     "test:ci": "jest",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
