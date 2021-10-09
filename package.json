@@ -17,7 +17,10 @@
     "url": "git+https://github.com/side-pool/frontend.git"
   },
   "author": "seung-00",
-  "contributors": ["seung-00", "dididy"],
+  "contributors": [
+    "seung-00",
+    "dididy"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/side-pool/frontend/issues"
