@@ -10,5 +10,20 @@ $font-size-medium: 1.6rem;
 $font-size-large: 1.8rem;
 $font-size-x-large: 2.1rem;
 $font-size-xx-large: 2.4rem;
-$font-size-xxx-large: 3.6rem;
-$font-size-xxxx-large: 4.8rem;
+
+$button-hover-transition: ease-out 0.1s;
+
+$shadow-1: 0 0 0.1rem rgba(0, 0, 0, 0.06), 0 0.1rem 0.3rem rgba(0, 0, 0, 0.24);
+$shadow-2: 0 0 0.2rem rgba(0, 0, 0, 0.12), 0 0 1.6rem rgba(0, 0, 0, 0.12);
+$shadow-3: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.15), 0 0.1rem 0.1rem rgba(0, 0, 0, 0.06);
+$shadow-4: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.06), 0 0.3rem 1.2rem rgba(0, 0, 0, 0.15);
+$shadow-5: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.16), 0 0.1rem 0.2rem rgba(0, 0, 0, 0.08),
+  0 1px 4px rgba(0, 0, 0, 0.08);
+$shadow-6: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.06), 0 0.3rem 1.2rem rgba(0, 0, 0, 0.36);
+$shadow-7: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2), 0 0.8rem 2rem rgba(0, 0, 0, 0.24);
+$shadow-inner: inset 0 0.2rem 0.3rem rgba(0, 0, 0, 0.12);
+
+$box-shadow-1: 0 0.5rem 1rem rgba($black, 0.15);
+$box-shadow-2: 0 0.5rem 1rem rgba($black, 0.2);
+
+$font-family-sans: sans-serif;
