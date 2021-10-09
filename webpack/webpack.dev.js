@@ -19,13 +19,8 @@ module.exports = merge(baseConfig, {
       {
         test: /\.s?css$/,
         use: [
-          'style-loader',
-          {
-            loader: "css-loader",
-            options: {
-              modules: true,
-            },
-          },
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
           {
             loader: 'sass-loader',
             options: {

@@ -1,5 +1,8 @@
 import React from 'react';
 import { setLoading, useAppDispatch, useUiState } from '@src/store';
+import cn from 'classnames';
+
+const HIGHLIGHT = 'highlight';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +16,9 @@ const App = () => {
       >
         toggle
       </button>
-      <div>{isLoading ? 'loading' : 'break'}</div>
+      <div>
+        {isLoading ? <p>loading</p> : <p className={cn(HIGHLIGHT)}>break</p>}
+      </div>
     </div>
   );
 };
