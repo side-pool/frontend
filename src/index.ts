@@ -1,7 +1,7 @@
-import "normalize.css";
+import 'normalize.css';
 
-import { app } from "@src/app";
+import { app } from '@src/app';
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener('DOMContentLoaded', () => {
   app();
 });
