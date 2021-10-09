@@ -1,0 +1,168 @@
+$desktop: 'screen and (min-width: 1024px)';
+$tablet: 'screen and (min-width: 758px) and (max-width: 1024px)';
+$mobile: 'screen and (max-width: 758px)';
+
+@mixin desktop {
+  @media #{$desktop} {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media #{$tablet} {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media #{$mobile} {
+    @content;
+  }
+}
+
+@mixin flex_col($justify-content: center, $align-items: center) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin flex_row($justify-content: center, $align-items: center) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin ellipse {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}
+
+// * $bgc: background-color (e.g. #fff)
+// * $fc: font-color (e.g. #111)
+// * $dis-bgc: disabled background-color
+// * $dis-fc: disabled font-color
+@mixin button-color($bgc: $gray_7, $fc: white) {
+  background: $bgc;
+  color: $fc;
+  &:hover {
+    @if $bgc == $gray_1 {
+      color: $gray_8;
+    } @else if $bgc == $gray_7 {
+      background: $gray_8;
+    } @else if $bgc == $blue_5 {
+      background: $blue_6;
+    } @else if $bgc == $red_7 {
+      background: $red_8;
+    } @else {
+      background: darken($bgc, 10%);
+    }
+  }
+  &:active {
+    @if $bgc == $gray_4 {
+      background: $gray_4;
+    } @else if $bgc == $gray_7 {
+      background: $gray_7;
+    } @else if $bgc == $blue_5 {
+      background: $blue_7;
+    } @else if $bgc == $red_7 {
+      background: $red_9;
+    } @else {
+      background: lighten($bgc, 5%);
+    }
+  }
+
+  // Variant
+  &.ghost {
+    background: transparent;
+    border-width: 1px;
+    border-style: solid;
+    color: $bgc;
+    @if $bgc == $gray_1 {
+      // buttonColor="gray"
+      border-color: $gray_4;
+      color: $gray_8;
+    } @else if $bgc == $gray_7 {
+      // buttonColor="black"
+      color: $gray_8;
+    }
+    &:hover {
+      @if $bgc == $gray_1 {
+        // buttonColor="gray"
+        background-color: $gray_1;
+      } @else {
+        background: $bgc;
+        color: $fc;
+        border-color: $bgc;
+      }
+    }
+    &:active {
+      @if $bgc == $gray_1 {
+        // buttonColor="gray"
+        background: $gray_3;
+      } @else if $bgc == $blue_5 {
+        // buttonColor="blue"
+        background: $blue_6;
+        border-color: $blue_6;
+      } @else if $bgc == $red_7 {
+        // buttonColor="red"
+        background: $red_9;
+        border-color: $red_9;
+      } @else {
+        background: darken($bgc, 15%);
+        border-color: darken($bgc, 15%);
+      }
+    }
+  }
+
+  &.quiet {
+    background: transparent;
+    @if $bgc == $gray_1 {
+      // buttonColor="gray"
+      color: $gray_8;
+    } @else if $bgc == $gray_7 {
+      // buttonColor="black"
+      color: $gray_8;
+    } @else {
+      color: $bgc;
+    }
+    &:hover {
+      @if $bgc == $gray_1 {
+        // buttonColor="gray"
+        background: $gray_1;
+      } @else {
+        background: $bgc;
+        color: #fff;
+      }
+    }
+    &:active {
+      @if $bgc == $blue_5 {
+        // buttonColor="blue"
+        background: $blue_6;
+      } @else if $bgc == $red_7 {
+        // buttonColor="red"
+        background: $red_9;
+      } @else if $bgc == $gray_7 {
+        background: $gray_8;
+      } @else {
+        background-color: $gray_3;
+      }
+    }
+  }
+  &.minimal {
+    background: transparent;
+    @if $bgc == $gray_1 {
+      color: $gray_8;
+    } @else if $bgc == $gray_7 {
+      color: $gray_8;
+    } @else {
+      color: $bgc;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
