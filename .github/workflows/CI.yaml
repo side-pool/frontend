@@ -1,0 +1,20 @@
+name: CI
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: 의존성 설치
+        run: npm ci
+      - name: 유닛테스트
+        run: npm run test:ci
+      - name: 빌드
+        run: npm run build

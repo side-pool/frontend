@@ -8,6 +8,7 @@
     "build": "tsc && webpack --config ./webpack/webpack.prod.js",
     "check-types": "tsc",
     "test": "jest --watchAll --coverage",
+    "test:ci": "jest",
     "storybook": "start-storybook -p 6006"
   },
   "repository": {
