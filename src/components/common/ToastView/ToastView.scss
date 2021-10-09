@@ -1,0 +1,34 @@
+@keyframes slidein {
+  from {
+    width: 0%;
+    margin-left: -100%;
+  }
+
+  to {
+    width: 100%;
+    margin-right: 0%;
+  }
+}
+
+._TOAST_VIEW_ {
+  width: 20rem;
+  @include desktop {
+    width: 30rem;
+  }
+  ul {
+    display: grid;
+    row-gap: 1rem;
+  }
+  .toast {
+    list-style: none;
+    animation-duration: 0.8s;
+    animation-name: slidein;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 1rem 3rem;
+    border-radius: 5px;
+    box-shadow: $box-shadow-2;
+  }
+}
