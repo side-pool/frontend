@@ -10,7 +10,6 @@ export interface TextProps
   extends HTMLAttributes<
     HTMLDivElement | HTMLSpanElement | HTMLHeadingElement
   > {
-  className?: string;
   fontSize?: customTypes.ElementSize;
   fontWeight?: FontWeight;
   textAlign?: TextAlign;
@@ -19,7 +18,6 @@ export interface TextProps
 
 const Text = ({
   children,
-  className,
   fontSize = 'md',
   fontWeight = 'regular',
   textAlign = 'start',
@@ -27,7 +25,7 @@ const Text = ({
 }: TextProps) => {
   return (
     <span
-      className={`${S.Text} ${S[fontSize]} ${S[fontWeight]} ${S[textAlign]} ${S[lineHeight]} ${className}}`}
+      className={`${S.Text} ${S[fontSize]} ${S[fontWeight]} ${S[textAlign]} ${S[lineHeight]}`}
     >
       {children}
     </span>
