@@ -1,0 +1,100 @@
+._MODAL_ {
+  @include flex_col();
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba(#000, 0.4);
+  user-select: none;
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  animation: fadein 1s;
+
+  &.fadeout {
+    animation: fadeout 0.5s;
+  }
+
+  .modal-content-box {
+    position: relative;
+    min-width: 32rem;
+    height: max-content;
+    border-radius: 1rem;
+    border: 0.1rem solid $gray-6;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: $shadow-6;
+
+    .close-button {
+      @include flex_col();
+
+      position: absolute;
+      top: calc((4.2rem - 2.8rem) / 2);
+      right: 1.2rem;
+
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+  }
+
+  .modal-header {
+    @include flex_row();
+
+    font-size: $font-size-small;
+    font-weight: $font-weight-medium;
+    padding: 1.2rem 2rem;
+    border-bottom: 0.1rem solid $gray-3;
+  }
+
+  .modal-content {
+    padding: 2rem 1.6rem;
+    max-height: calc(100vh - 4.2rem - 6.8rem - 4rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  .footer {
+    display: flex;
+    background-color: $white;
+    border-radius: 0 0 1rem 1rem;
+    padding: 1rem 2rem;
+
+    button ~ button {
+      margin-left: 0.8rem;
+    }
+
+    &.start {
+      justify-content: flex-start;
+    }
+    &.center {
+      justify-content: center;
+    }
+    &.end {
+      justify-content: flex-end;
+    }
+    &.space-between {
+      justify-content: space-between;
+    }
+  }
+}

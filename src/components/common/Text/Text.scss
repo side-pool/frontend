@@ -1,0 +1,66 @@
+._TEXT_ {
+  font-weight: $font-weight-regular;
+  font-size: $font-size-medium;
+  &.font-size {
+    &-xxs {
+      font-size: $font-size-xx-small;
+    }
+    &-xs {
+      font-size: $font-size-x-small;
+    }
+    &-sm {
+      font-size: $font-size-small;
+    }
+    &-md {
+      font-size: $font-size-medium;
+    }
+    &-l {
+      font-size: $font-size-large;
+    }
+    &-xl {
+      font-size: $font-size-x-large;
+    }
+    &-xxl {
+      font-size: $font-size-xx-large;
+    }
+  }
+  &.font-weight {
+    &-light {
+      font-weight: $font-weight-light;
+    }
+    &-regular {
+      font-weight: $font-weight-regular;
+    }
+    &-medium {
+      font-weight: $font-weight-medium;
+    }
+    &-bold {
+      font-weight: $font-weight-bold;
+    }
+  }
+  &.text-align {
+    &-start {
+      display: block;
+      text-align: start;
+    }
+    &-center {
+      display: block;
+      text-align: center;
+    }
+    &-end {
+      display: block;
+      text-align: end;
+    }
+  }
+  &.line-height {
+    &-narrow {
+      line-height: 0.8;
+    }
+    &-normal {
+      line-height: normal;
+    }
+    &-wide {
+      line-height: 1.6;
+    }
+  }
+}
