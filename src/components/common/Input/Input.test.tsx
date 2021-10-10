@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByTestId } from '@src/test-utils';
+import { render, getByTestId, screen } from '@src/test-utils';
 
 import Input, { InputProps } from '@src/components/common/Input';
 
@@ -14,13 +14,6 @@ describe('<Input />', () => {
   });
 
   context('props를 넘기는 상황에서', () => {
-    it('inputSize props를 넘기면 컴포넌트에 반영된다', () => {
-      const inputSize = 'xs';
-
-      const { container } = renderInput({ inputSize });
-
-      expect(getByTestId(container, 'input').childNodes[0]).toHaveClass('xs');
-    });
     it('password props를 넘기면 컴포넌트에 반영된다', () => {
       const { container } = renderInput({ password: true });
 
@@ -29,9 +22,7 @@ describe('<Input />', () => {
     it('disabled props를 넘기면 컴포넌트에 반영된다', () => {
       const { container } = renderInput({ disabled: true });
 
-      expect(getByTestId(container, 'input').childNodes[0]).toHaveClass(
-        'disabled',
-      );
+      expect(getByTestId(container, 'input')).toHaveClass('disabled');
     });
     it('error props를 넘기면 컴포넌트에 반영된다', () => {
       const { container } = renderInput({ error: true });
@@ -39,9 +30,23 @@ describe('<Input />', () => {
       expect(getByTestId(container, 'input')).toHaveClass('error');
     });
     it('errorMessage props를 넘기면 컴포넌트에 반영된다', () => {
-      const { container } = renderInput({ errorMessage: '에러발생!' });
+      const { container } = renderInput({
+        error: true,
+        errorMessage: '에러발생!',
+      });
 
       expect(getByTestId(container, 'input')).toHaveTextContent('에러발생!');
+    });
+    it('maxWidth props를 넘기면 컴포넌트에 반영된다', () => {
+      const { container } = renderInput({ maxWidth: true });
+
+      expect(getByTestId(container, 'input')).toHaveClass('Input maxWidth');
+    });
+    it('placeholder props를 넘기면 컴포넌트에 반영된다', () => {
+      const placeholder = 'test';
+      renderInput({ placeholder });
+
+      expect(screen.getByPlaceholderText(placeholder)).toBeTruthy();
     });
   });
 });

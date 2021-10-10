@@ -7,11 +7,11 @@ import React, {
 } from 'react';
 import cn from 'classnames';
 import Icon from '@src/components/common/Icon';
-import './Input.scss';
+import css from './Input.module.scss';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   password?: boolean;
-  inputSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  maxWidth?: boolean;
   error?: boolean;
   errorMessage?: string;
 }
@@ -26,13 +26,13 @@ export interface InputRef {
 const Input = React.forwardRef<InputRef, InputProps>(
   (
     {
-      className,
-      inputSize = 'md',
       password,
       disabled,
+      maxWidth,
       error,
       errorMessage,
       onKeyDown,
+      placeholder = '텍스트를 입력해주세요.',
       ...props
     }: InputProps,
     ref,
@@ -68,31 +68,36 @@ const Input = React.forwardRef<InputRef, InputProps>(
 
     return (
       <div
-        className={cn('_INPUTWRAPPER_', className, { error, errorMessage })}
+        className={cn(
+          css.Input,
+          error && css.error,
+          errorMessage && css[errorMessage],
+          maxWidth && css.maxWidth,
+          disabled && css.disabled,
+        )}
         data-testid="input"
       >
         <div
-          className={cn('wrapper', inputSize, {
-            disabled,
-          })}
+          className={cn(css.inputContainer)}
           onClick={() => {
             if (inputRef.current) inputRef.current.focus();
           }}
-          onKeyDown={onKeyDown}
           // https://github.com/evcohen/eslint-plugin-jsx-a11y/tree/master/docs/rules/no-static-element-interactions.md 에러 해결용
           aria-hidden="true"
         >
           <input
             ref={inputRef}
-            className={cn('_INPUT_', { tailing: password })}
+            className={css.inputSection}
             type={password && !revealPw ? 'password' : props.type}
             disabled={disabled}
+            placeholder={placeholder}
+            onKeyDown={onKeyDown}
             {...props}
           />
           {password && (
             <button
               type="button"
-              className="password-toggle-button"
+              className={css.passwordToggleButton}
               disabled={disabled}
               onClick={() => {
                 setRevealPw(!revealPw);
@@ -101,13 +106,14 @@ const Input = React.forwardRef<InputRef, InputProps>(
               <Icon
                 iconName={revealPw ? 'visibility' : 'visibility_off'}
                 color="gray"
+                size={13}
               />
             </button>
           )}
         </div>
-        {errorMessage && (
-          <div className="error-message">
-            <Icon iconName="error_outline" size={15} />
+        {error && errorMessage && (
+          <div className={css.errorMessage}>
+            <Icon iconName="error_outline" size={11} />
             {errorMessage}
           </div>
         )}

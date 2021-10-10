@@ -12,9 +12,10 @@ const Template: Story<InputProps> = (props) => <Input {...props} />;
 export const input = Template.bind({});
 
 input.args = {
-  inputSize: 'md',
+  maxWidth: false,
   password: false,
   disabled: false,
   error: false,
   errorMessage: '',
+  placeholder: '텍스트를 입력해주세요.',
 };
