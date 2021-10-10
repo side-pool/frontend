@@ -13,8 +13,9 @@
     "skipLibCheck": true,
     "paths": {
       "@src/*": ["./src/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./@types/*"]
   },
   "exclude": ["./node_modules"],
-  "include": ["./src"]
+  "include": ["./src", "./@types"]
 }

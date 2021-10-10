@@ -10,14 +10,18 @@
     "test": "jest --watchAll --coverage",
     "test:ci": "jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "eslint --fix --ext .js,.jsx,.tx,.tsx src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/side-pool/frontend.git"
   },
   "author": "seung-00",
-  "contributors": ["seung-00", "dididy"],
+  "contributors": [
+    "seung-00",
+    "dididy"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/side-pool/frontend/issues"
