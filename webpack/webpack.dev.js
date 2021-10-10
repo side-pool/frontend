@@ -20,7 +20,14 @@ module.exports = merge(baseConfig, {
         test: /\.s?css$/,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[local]--[hash:base64:5]',
+              },
+            },
+          },
           {
             loader: 'sass-loader',
             options: {
