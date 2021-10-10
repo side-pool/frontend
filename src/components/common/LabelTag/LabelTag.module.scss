@@ -1,0 +1,33 @@
+.LabelTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 2px 26px;
+  border-radius: 1.5rem;
+  min-height: 2.8rem;
+  &.gray {
+    background-color: #575757;
+  }
+  &.orange {
+    background-color: #ff9900;
+  }
+  &.beige {
+    background-color: #ffefd8;
+  }
+  & + & {
+    margin-left: 1rem;
+  }
+
+  .text {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0.2rem 0rem;
+    &.white {
+      color: #ffffff;
+    }
+    &.orange {
+      color: #e98c00;
+    }
+  }
+}
