@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import S from './LabelTag.module.scss';
+import styles from './LabelTag.module.scss';
 import cn from 'classnames';
 
 export interface LabelTagProps
@@ -16,8 +16,8 @@ function LabelTag({
   textColor = 'white',
 }: LabelTagProps) {
   return (
-    <div className={cn(S.LabelTag, S[wrapperColor])} aria-label="">
-      <p className={cn(S.text, S[textColor])}>{children}</p>
+    <div className={cn(styles.LabelTag, styles[wrapperColor])} aria-label="">
+      <p className={cn(styles.text, styles[textColor])}>{children}</p>
     </div>
   );
 }
