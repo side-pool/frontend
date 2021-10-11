@@ -3,9 +3,9 @@
   align-items: center;
   justify-content: center;
   width: fit-content;
-  padding: 2px 26px;
-  border-radius: 1.5rem;
-  min-height: 2.8rem;
+  padding: 1px 13px;
+  border-radius: 15px;
+  height: 17px;
   &.gray {
     background-color: #575757;
   }
@@ -16,13 +16,13 @@
     background-color: #ffefd8;
   }
   & + & {
-    margin-left: 1rem;
+    margin-left: 10px;
   }
 
   .text {
-    font-size: 1rem;
+    line-height: 15px;
+    font-size: 10px;
     font-weight: 500;
-    margin: 0.2rem 0rem;
     &.white {
       color: #ffffff;
     }
