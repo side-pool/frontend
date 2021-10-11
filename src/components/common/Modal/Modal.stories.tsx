@@ -15,18 +15,12 @@ const Template: Story = (props) => {
 
   return (
     <div>
-      <Button size="xxs" onClick={show}>
-        MODAL 열기
-      </Button>
+      <Button onClick={show}>MODAL 열기</Button>
       <RenderModal
         {...props}
         footer={{
-          cancelButton: (
-            <Button buttonColor="gray" onClick={hide} variant="ghost">
-              취소
-            </Button>
-          ),
-          submitButton: <Button buttonColor="blue">확인</Button>,
+          cancelButton: <Button onClick={hide}>취소</Button>,
+          submitButton: <Button primary>확인</Button>,
           BtnAlign: 'end',
         }}
       >
