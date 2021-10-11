@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import cn from 'classnames';
 import Icon from '@src/components/common/Icon';
-import css from './Input.module.scss';
+import styles from './Input.module.scss';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   password?: boolean;
@@ -69,16 +69,16 @@ const Input = React.forwardRef<InputRef, InputProps>(
     return (
       <div
         className={cn(
-          css.Input,
-          error && css.error,
-          errorMessage && css[errorMessage],
-          maxWidth && css.maxWidth,
-          disabled && css.disabled,
+          styles.Input,
+          error && styles.error,
+          errorMessage && styles[errorMessage],
+          maxWidth && styles.maxWidth,
+          disabled && styles.disabled,
         )}
         data-testid="input"
       >
         <div
-          className={cn(css.inputContainer)}
+          className={cn(styles.inputContainer)}
           onClick={() => {
             if (inputRef.current) inputRef.current.focus();
           }}
@@ -87,7 +87,7 @@ const Input = React.forwardRef<InputRef, InputProps>(
         >
           <input
             ref={inputRef}
-            className={css.inputSection}
+            className={styles.inputSection}
             type={password && !revealPw ? 'password' : props.type}
             disabled={disabled}
             placeholder={placeholder}
@@ -97,7 +97,7 @@ const Input = React.forwardRef<InputRef, InputProps>(
           {password && (
             <button
               type="button"
-              className={css.passwordToggleButton}
+              className={styles.passwordToggleButton}
               disabled={disabled}
               onClick={() => {
                 setRevealPw(!revealPw);
@@ -112,7 +112,7 @@ const Input = React.forwardRef<InputRef, InputProps>(
           )}
         </div>
         {error && errorMessage && (
-          <div className={css.errorMessage}>
+          <div className={styles.errorMessage}>
             <Icon iconName="error_outline" size={11} />
             {errorMessage}
           </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { setLoading, useAppDispatch, useUiState } from '@src/store';
 import cn from 'classnames';
 import './main.scss';
-import css from './App.module.scss';
+import styles from './App.module.scss';
 
 const HIGHLIGHT = 'highlight';
 
@@ -13,7 +13,7 @@ const App = () => {
   return (
     <div>
       <button
-        className={css.test}
+        className={styles.test}
         type="button"
         onClick={() => dispatch(setLoading({ isLoading: !isLoading }))}
       >

@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 import cn from 'classnames';
-import css from './Textarea.module.scss';
+import styles from './Textarea.module.scss';
 
 export interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -62,14 +62,14 @@ const Textarea = React.forwardRef<TextareaRef, TextareaProps>(
     return (
       <div
         className={cn(
-          css.Textarea,
-          maxWidth && css.maxWidth,
-          disabled && css.disabled,
+          styles.Textarea,
+          maxWidth && styles.maxWidth,
+          disabled && styles.disabled,
         )}
         data-testid="textarea"
       >
         <div
-          className={cn(css.textareaContainer)}
+          className={cn(styles.textareaContainer)}
           onClick={() => {
             if (textareaRef.current) textareaRef.current.focus();
           }}
@@ -78,7 +78,7 @@ const Textarea = React.forwardRef<TextareaRef, TextareaProps>(
         >
           <textarea
             ref={textareaRef}
-            className={css.textareaSection}
+            className={styles.textareaSection}
             disabled={disabled}
             placeholder={placeholder}
             onChange={(e) => {
