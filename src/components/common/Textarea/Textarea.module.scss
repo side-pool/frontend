@@ -1,0 +1,61 @@
+.Textarea {
+  @include flex_col();
+
+  padding: 5px 14px;
+
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+
+  background: #f7f7f7;
+  border-radius: 15px;
+
+  &.maxWidth {
+    width: calc(100% - 28px);
+  }
+
+  &.disabled {
+    border-color: $blue-1;
+    background-color: $blue_1;
+    cursor: not-allowed;
+    user-select: none;
+
+    .textareaContainer {
+      .textareaSection::placeholder {
+        color: transparent;
+      }
+    }
+  }
+
+  .textareaContainer {
+    @include flex_row();
+
+    cursor: text;
+
+    transition: all 0.2s ease-out;
+    box-sizing: border-box;
+
+    width: 100%;
+
+    .textareaSection {
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      box-sizing: border-box;
+      border: 0px solid;
+
+      resize: none;
+
+      font-size: 11px;
+      line-height: 18px;
+
+      &::placeholder {
+        color: $gray-6;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
