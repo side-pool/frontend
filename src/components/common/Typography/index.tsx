@@ -1,13 +1,14 @@
 import React, { HTMLAttributes } from 'react';
-import styles from './Text.module.scss';
+import styles from './Typography.module.scss';
 import { customTypes } from 'custom-types';
 import cn from 'classnames';
 
 type FontWeight = 'light' | 'regular' | 'medium' | 'bold';
 type TextAlign = 'start' | 'center' | 'end';
 type LineHeight = 'narrow' | 'normal' | 'wide';
+type TextColor = 'titleBlack' | 'black' | 'gray';
 
-export interface TextProps
+export interface TypographyProps
   extends HTMLAttributes<
     HTMLDivElement | HTMLSpanElement | HTMLHeadingElement
   > {
@@ -15,23 +16,26 @@ export interface TextProps
   fontWeight?: FontWeight;
   textAlign?: TextAlign;
   lineHeight?: LineHeight;
+  textColor?: TextColor;
 }
 
-const Text = ({
+const Typography = ({
   children,
   fontSize = 'md',
   fontWeight = 'regular',
   textAlign = 'start',
   lineHeight = 'normal',
-}: TextProps) => {
+  textColor = 'black',
+}: TypographyProps) => {
   return (
     <span
       className={cn(
-        styles.Text,
+        styles.Typography,
         styles[fontSize],
         styles[fontWeight],
         styles[textAlign],
         styles[lineHeight],
+        styles[textColor],
       )}
     >
       {children}
@@ -39,4 +43,4 @@ const Text = ({
   );
 };
 
-export default Text;
+export default Typography;

@@ -1,6 +1,17 @@
-.Text {
+.Typography {
   font-weight: $font-weight-regular;
   font-size: $font-size-medium;
+
+  /* font color */
+  &.titleBlack {
+    color: $black;
+  }
+  &.black {
+    color: $gray_7;
+  }
+  &.gray {
+    color: $gray_6;
+  }
 
   /* font size */
   &.xxs {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Text from '@src/components/common/Text';
+import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
 
 type Toast = {
@@ -13,9 +13,9 @@ const Toast = (
 ) => {
   return (
     <li key={toast.id} className={'toast'} aria-label={`${toast.id}-toast`}>
-      <Text fontSize="xs" lineHeight="narrow">
+      <Typography fontSize="xs" lineHeight="narrow">
         {toast.message}
-      </Text>
+      </Typography>
       <Button
         onClick={removeToast}
         aria-label={`${toast.id}-toast-close-btn`}
