@@ -5,6 +5,8 @@ import './main.scss';
 import styles from './App.module.scss';
 import api from '@src/api/context';
 import { ACCESS_TOKEN, saveItem } from './utils/storage';
+import { CardWithContent } from './components/common/Card/Card.stories';
+import { LabelTags } from './components/common/LabelTag/LabelTag.stories';
 
 const HIGHLIGHT = 'highlight';
 
@@ -31,6 +33,8 @@ const App = () => {
       <div>
         {isLoading ? <p>loading</p> : <p className={cn(HIGHLIGHT)}>break</p>}
       </div>
+      <CardWithContent />
+      <LabelTags />
     </div>
   );
 };

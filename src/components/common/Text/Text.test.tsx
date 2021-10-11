@@ -20,13 +20,4 @@ describe('<Text />', () => {
 
     expect(text).toBeInTheDocument();
   });
-
-  it('className props를 넘기면 컴포넌트에 반영되어야 한다', () => {
-    const className = 'test-class';
-
-    renderText({ className, children: testContent });
-    const text = screen.getByText(testContent);
-
-    expect(text).toHaveClass(className);
-  });
 });
