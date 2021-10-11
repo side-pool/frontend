@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@src/test-utils';
+import { render, screen, fireEvent, within } from '@src/utils/test-utils';
 import ToastView from '@src/components/common/ToastView';
 
 describe('<ToastView /> 테스트', () => {

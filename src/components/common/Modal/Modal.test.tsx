@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByTestId } from '@src/test-utils';
+import { render, getByTestId } from '@src/utils/test-utils';
 
 import Modal, { ModalProps, Portal } from '@src/components/common/Modal';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByTestId } from '@src/test-utils';
+import { render, getByTestId } from '@src/utils/test-utils';
 import Skeleton, { SkeletonProps } from '@src/components/common/Skeleton';
 
 const testQuote = `"I find the harder I work, the more luck I have" - Thomas Jefferson`;
