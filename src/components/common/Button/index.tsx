@@ -1,29 +1,22 @@
-import React, { ButtonHTMLAttributes, ReactElement } from 'react';
+import React, { ButtonHTMLAttributes, ReactElement, ReactNode } from 'react';
 import cn from 'classnames';
-import './Button.scss';
-import { customTypes } from 'custom-types';
+import styles from './Button.module.scss';
+import Icon from '@src/components/common/Icon';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: customTypes.ElementSize;
-  variant?: 'ghost' | 'solid' | 'quiet' | 'minimal';
-  buttonColor?: customTypes.ElementColor;
+  variant?: 'normal' | 'floating' | 'text';
+  primary?: boolean;
   fullWidth?: boolean;
-  rounded?: boolean;
-  shadow?: boolean;
   labelText?: string;
-  children?: ReactElement | string;
+  children?: ReactNode;
 }
 
 const Button = ({
-  className,
   children,
-  size = 'md',
-  variant = 'solid',
+  variant = 'normal',
+  primary,
   disabled,
   fullWidth,
-  rounded,
-  shadow,
-  buttonColor = 'black',
   labelText,
   ...restProps
 }: ButtonProps): ReactElement => {
@@ -31,16 +24,21 @@ const Button = ({
     <button
       type="button"
       data-testid="button"
-      className={cn(`_BUTTON_`, className, size, variant, buttonColor, {
-        rounded,
-        disabled,
-        'full-width': fullWidth,
-        shadow,
-      })}
+      className={cn(
+        styles.Button,
+        styles[variant],
+        primary && styles.primary,
+        disabled && styles.disabled,
+        fullWidth && variant !== 'floating' && styles.fullWidth,
+      )}
       disabled={disabled}
       {...restProps}
     >
-      <span>{labelText ? <>{labelText} </> : children}</span>
+      {variant === 'floating' ? (
+        <Icon iconName="add" color="white" size={35} bold pointer />
+      ) : (
+        <span>{labelText ? <> {labelText} </> : children}</span>
+      )}
     </button>
   );
 };
