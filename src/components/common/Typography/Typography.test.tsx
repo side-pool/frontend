@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@src/test-utils';
+import { render, screen } from '@src/utils/test-utils';
 import Typography, { TypographyProps } from '@src/components/common/Typography';
 
 const renderTypography = (props: TypographyProps) => {

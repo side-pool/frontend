@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByTestId, screen } from '@src/test-utils';
+import { render, getByTestId, screen } from '@src/utils/test-utils';
 
 import Input, { InputProps } from '@src/components/common/Input';
 

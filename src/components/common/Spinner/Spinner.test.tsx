@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByTestId } from '@src/test-utils';
+import { render, getByTestId } from '@src/utils/test-utils';
 import Spinner, { SpinnerProps } from '@src/components/common/Spinner';
 
 const renderSpinner = (props: SpinnerProps) => {
