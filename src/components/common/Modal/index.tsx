@@ -2,15 +2,16 @@ import React, { useEffect, useState, MouseEvent } from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
 
-import './Modal.scss';
-import Icon from '@src/components/common/Icon';
+import Card from '@src/components/common/Card';
+
+import styles from './Modal.module.scss';
+import Typography from '../Typography';
 
 interface Children {
   children?: React.ReactChild;
 }
 
 export interface ModalProps extends Children {
-  className?: string;
   variant?: 'default' | 'alt';
   closeModal?: () => void;
   fadeout?: boolean;
@@ -18,10 +19,8 @@ export interface ModalProps extends Children {
   footer?: {
     cancelButton?: React.ReactElement;
     submitButton?: React.ReactElement;
-    BtnAlign?: 'start' | 'center' | 'end' | 'space-between';
   };
   zIndex?: number;
-  width?: number;
 }
 
 const PORTAL_ID = 'portal';
@@ -52,10 +51,8 @@ const Modal = ({
   children,
   closeModal,
   fadeout,
-  className,
   headerText,
   footer,
-  width,
 }: ModalProps) => {
   const handleCloseModal = (e: MouseEvent) => {
     if (closeModal && e.target === e.currentTarget) {
@@ -66,30 +63,31 @@ const Modal = ({
   return (
     <Portal>
       <div
-        className={cn('_MODAL_', { fadeout })}
+        className={cn(styles.Modal, fadeout && styles.fadeout)}
         data-testid="modal"
         onClick={handleCloseModal}
         aria-hidden="true"
       >
-        <div className={cn('modal-content-box', className)} style={{ width }}>
-          {closeModal && (
-            <div
-              className={cn('close-button')}
-              onClick={closeModal}
-              aria-hidden="true"
-            >
-              <Icon size={28} iconName="close" pointer />
+        <Card>
+          {headerText && (
+            <div className={styles.modalHeader}>
+              <Typography
+                fontSize={'md'}
+                fontWeight={'medium'}
+                textColor="blueActive"
+              >
+                {headerText}
+              </Typography>
             </div>
           )}
-          {headerText && <div className="modal-header">{headerText}</div>}
-          <div className={cn('modal-content')}>{children}</div>
+          <div className={styles.modalContent}>{children}</div>
           {footer && (
-            <div className={cn('footer', footer.BtnAlign || 'end')}>
-              {footer.cancelButton}
+            <div className={styles.footer}>
               {footer.submitButton}
+              {footer.cancelButton}
             </div>
           )}
-        </div>
+        </Card>
       </div>
     </Portal>
   );
