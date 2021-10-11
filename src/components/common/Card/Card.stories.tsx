@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
 import Card from '@src/components/common/Card';
-import Text from '@src/components/common/Text';
+import Typography from '@src/components/common/Typography';
 
 export default {
   title: 'Card',
@@ -13,14 +13,14 @@ export const EmptyCard = () => <Card />;
 export const CardWithContent = () => {
   return (
     <Card>
-      <Text textAlign={'center'} lineHeight={'wide'} fontSize={'xl'}>
+      <Typography textAlign={'center'} lineHeight={'wide'} fontSize={'xl'}>
         The Old Man and the Sea
-      </Text>
+      </Typography>
       <br />
-      <Text fontSize={'md'}>
+      <Typography fontSize={'md'}>
         &quot;But man is not made for defeat,”&nbsp;&nbsp;he said.&nbsp;&nbsp;“A
         man can be destroyed but not defeated.&quot;
-      </Text>
+      </Typography>
     </Card>
   );
 };

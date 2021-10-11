@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { Story, Meta } from '@storybook/react';
-import Text, { TextProps } from '@src/components/common/Text';
+import Typography, { TypographyProps } from '@src/components/common/Typography';
 
 export default {
-  title: 'Text',
-  component: Text,
+  title: 'Typography',
+  component: Typography,
   argTypes: {
     fontSize: {
       options: ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
@@ -13,11 +13,11 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TextProps> = (props) => <Text {...props} />;
+const Template: Story<TypographyProps> = (props) => <Typography {...props} />;
 
-export const text = Template.bind({});
+export const Default = Template.bind({});
 
-text.args = {
+Default.args = {
   children: 'give me the text',
   fontSize: 'md',
   fontWeight: 'regular',
@@ -42,29 +42,29 @@ export const Variant = () => {
   return (
     <Fragment>
       {getHeader('타입/타이틀1')}
-      <Text fontSize={'xxl'} fontWeight={'bold'} textColor="titleBlack">
+      <Typography fontSize={'xxl'} fontWeight={'bold'} textColor="titleBlack">
         타이틀1
-      </Text>
+      </Typography>
       {getHeader('타입/메뉴버튼')}
-      <Text fontSize={'lg'} fontWeight={'bold'} textColor="black">
+      <Typography fontSize={'lg'} fontWeight={'bold'} textColor="black">
         메뉴버튼
-      </Text>
+      </Typography>
       {getHeader('타입/텍스트')}
-      <Text fontSize={'sm'} fontWeight={'medium'} textColor="black">
+      <Typography fontSize={'sm'} fontWeight={'medium'} textColor="black">
         답글달기
-      </Text>
+      </Typography>
       {getHeader('타입/본문 타이틀')}
-      <Text fontSize={'md'} fontWeight={'medium'} textColor="black">
+      <Typography fontSize={'md'} fontWeight={'medium'} textColor="black">
         본문 타이틀
-      </Text>
+      </Typography>
       {getHeader('타입/본문, 아이디')}
-      <Text fontSize={'xs'} fontWeight={'regular'} textColor="black">
+      <Typography fontSize={'xs'} fontWeight={'regular'} textColor="black">
         본문/아이디
-      </Text>
+      </Typography>
       {getHeader('타입/21시간 전')}
-      <Text fontSize={'xxs'} fontWeight={'regular'} textColor="gray">
+      <Typography fontSize={'xxs'} fontWeight={'regular'} textColor="gray">
         21시간 전
-      </Text>
+      </Typography>
     </Fragment>
   );
 };

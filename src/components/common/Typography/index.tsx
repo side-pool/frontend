@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import styles from './Text.module.scss';
+import styles from './Typography.module.scss';
 import { customTypes } from 'custom-types';
 import cn from 'classnames';
 
@@ -8,7 +8,7 @@ type TextAlign = 'start' | 'center' | 'end';
 type LineHeight = 'narrow' | 'normal' | 'wide';
 type TextColor = 'titleBlack' | 'black' | 'gray';
 
-export interface TextProps
+export interface TypographyProps
   extends HTMLAttributes<
     HTMLDivElement | HTMLSpanElement | HTMLHeadingElement
   > {
@@ -19,18 +19,18 @@ export interface TextProps
   textColor?: TextColor;
 }
 
-const Text = ({
+const Typography = ({
   children,
   fontSize = 'md',
   fontWeight = 'regular',
   textAlign = 'start',
   lineHeight = 'normal',
   textColor = 'black',
-}: TextProps) => {
+}: TypographyProps) => {
   return (
     <span
       className={cn(
-        styles.Text,
+        styles.Typography,
         styles[fontSize],
         styles[fontWeight],
         styles[textAlign],
@@ -43,4 +43,4 @@ const Text = ({
   );
 };
 
-export default Text;
+export default Typography;
