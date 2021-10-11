@@ -1,41 +1,13 @@
-import React, { useEffect } from 'react';
-import { setLoading, useAppDispatch, useUiState } from '@src/store';
-import cn from 'classnames';
-import './main.scss';
-import styles from './App.module.scss';
-import api from '@src/api/context';
-import { ACCESS_TOKEN, saveItem } from './utils/storage';
-import { CardWithContent } from './components/common/Card/Card.stories';
-import { LabelTags } from './components/common/LabelTag/LabelTag.stories';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-const HIGHLIGHT = 'highlight';
+import LandingPage from '@src/pages/LandingPage';
 
 const App = () => {
-  const dispatch = useAppDispatch();
-  const { isLoading } = useUiState();
-
-  useEffect(() => {
-    (async () => {
-      await saveItem(ACCESS_TOKEN, 'testtesttest');
-      const { data } = await api.get('/');
-      console.log(data);
-    })();
-  }, []);
   return (
-    <div>
-      <button
-        className={styles.test}
-        type="button"
-        onClick={() => dispatch(setLoading({ isLoading: !isLoading }))}
-      >
-        toggle
-      </button>
-      <div>
-        {isLoading ? <p>loading</p> : <p className={cn(HIGHLIGHT)}>break</p>}
-      </div>
-      <CardWithContent />
-      <LabelTags />
-    </div>
+    <Switch>
+      <Route exact path="/" component={LandingPage} />
+    </Switch>
   );
 };
 
