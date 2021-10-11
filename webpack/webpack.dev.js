@@ -13,6 +13,7 @@ module.exports = merge(baseConfig, {
     hot: true,
     port: '5050',
     host: '127.0.0.1',
+    historyApiFallback: true,
   },
   module: {
     rules: [
