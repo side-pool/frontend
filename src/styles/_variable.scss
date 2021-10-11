@@ -1,7 +1,8 @@
+// fixed style
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
-$font-weight-bold: 600;
+$font-weight-bold: 700;
 
 $font-size-xx-small: 1.2rem;
 $font-size-x-small: 1.3rem;
@@ -15,11 +16,14 @@ $button-hover-transition: ease-out 0.1s;
 
 $shadow-1: 0 0 0.1rem rgba(0, 0, 0, 0.06), 0 0.1rem 0.3rem rgba(0, 0, 0, 0.24);
 $shadow-2: 0 0 0.2rem rgba(0, 0, 0, 0.12), 0 0 1.6rem rgba(0, 0, 0, 0.12);
-$shadow-3: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.15), 0 0.1rem 0.1rem rgba(0, 0, 0, 0.06);
-$shadow-4: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.06), 0 0.3rem 1.2rem rgba(0, 0, 0, 0.15);
-$shadow-5: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.16), 0 0.1rem 0.2rem rgba(0, 0, 0, 0.08),
-  0 1px 4px rgba(0, 0, 0, 0.08);
-$shadow-6: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.06), 0 0.3rem 1.2rem rgba(0, 0, 0, 0.36);
+$shadow-3: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.15),
+  0 0.1rem 0.1rem rgba(0, 0, 0, 0.06);
+$shadow-4: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.06),
+  0 0.3rem 1.2rem rgba(0, 0, 0, 0.15);
+$shadow-5: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.16),
+  0 0.1rem 0.2rem rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.08);
+$shadow-6: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.06),
+  0 0.3rem 1.2rem rgba(0, 0, 0, 0.36);
 $shadow-7: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2), 0 0.8rem 2rem rgba(0, 0, 0, 0.24);
 $shadow-inner: inset 0 0.2rem 0.3rem rgba(0, 0, 0, 0.12);
 
