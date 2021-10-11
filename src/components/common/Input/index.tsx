@@ -78,7 +78,7 @@ const Input = React.forwardRef<InputRef, InputProps>(
         data-testid="input"
       >
         <div
-          className={cn(styles.inputContainer)}
+          className={styles.inputContainer}
           onClick={() => {
             if (inputRef.current) inputRef.current.focus();
           }}
