@@ -20,9 +20,7 @@ const Toast = (
         onClick={removeToast}
         aria-label={`${toast.id}-toast-close-btn`}
         data-toast-id={toast.id}
-        variant={'quiet'}
-        size={'xs'}
-        buttonColor={'red'}
+        variant={'text'}
       >
         x
       </Button>

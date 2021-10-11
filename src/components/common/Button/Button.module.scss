@@ -1,0 +1,77 @@
+.Button {
+  @include flex_row();
+
+  position: relative;
+  outline: none;
+  border: none;
+  letter-spacing: 0;
+  font: inherit;
+  text-align: center;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: $button-hover-transition;
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  &.normal {
+    padding: 5px 14px;
+
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+
+    border-radius: 15px;
+
+    &.primary {
+      background: $blue_active;
+      color: $white;
+    }
+
+    background: $gray_3;
+    color: $gray_7;
+  }
+
+  &.floating {
+    width: 54px;
+    height: 54px;
+    border-radius: 100%;
+    background-color: $black;
+    box-shadow: $shadow-button;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &.text {
+    background-color: transparent;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  span {
+    font-size: 11px;
+    line-height: 18px;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    .Icon {
+      cursor: not-allowed;
+    }
+  }
+
+  &.fullWidth {
+    width: 100%;
+  }
+}

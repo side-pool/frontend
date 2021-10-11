@@ -8,7 +8,14 @@ module.exports = async ({ config }) => {
     test: /\.s?css$/,
     use: [
       'style-loader',
-      'css-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          modules: {
+            localIdentName: '[local]',
+          },
+        },
+      },
       {
         loader: 'sass-loader',
         options: {

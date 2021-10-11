@@ -12,12 +12,9 @@ const Template: Story<ButtonProps> = (props) => <Button {...props} />;
 export const button = Template.bind({});
 
 button.args = {
-  size: 'md',
-  variant: 'solid',
+  variant: 'normal',
+  primary: false,
   disabled: false,
   fullWidth: false,
-  rounded: false,
-  shadow: false,
-  buttonColor: 'black',
   labelText: 'TEST',
 };

@@ -42,5 +42,10 @@ describe('<Icon />', () => {
 
       expect(getByTestId(container, 'icon')).toHaveClass('pointer');
     });
+    it('bold props를 넘기면 컴포넌트에 반영된다', () => {
+      const { container } = renderIcon({ bold: true });
+
+      expect(getByTestId(container, 'icon')).toHaveClass('bold');
+    });
   });
 });

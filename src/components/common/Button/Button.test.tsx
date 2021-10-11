@@ -21,15 +21,16 @@ describe('<Button />', () => {
 
       expect(getByTestId(container, 'button')).toHaveClass(className);
     });
-    it('size props를 넘기면 컴포넌트에 반영된다', () => {
-      const { container } = renderButton({ size: 'lg' });
 
-      expect(getByTestId(container, 'button')).toHaveClass('lg');
-    });
     it('variant props를 넘기면 컴포넌트에 반영된다', () => {
-      const { container } = renderButton({ variant: 'solid' });
+      const { container } = renderButton({ variant: 'normal' });
 
-      expect(getByTestId(container, 'button')).toHaveClass('solid');
+      expect(getByTestId(container, 'button')).toHaveClass('normal');
+    });
+    it('primary props를 넘기면 컴포넌트에 반영된다', () => {
+      const { container } = renderButton({ primary: true });
+
+      expect(getByTestId(container, 'button')).toHaveClass('primary');
     });
     it('disabled props를 넘기면 컴포넌트에 반영된다', () => {
       const { container } = renderButton({ disabled: true });
@@ -39,22 +40,7 @@ describe('<Button />', () => {
     it('fullWidth props를 넘기면 컴포넌트에 반영된다', () => {
       const { container } = renderButton({ fullWidth: true });
 
-      expect(getByTestId(container, 'button')).toHaveClass('full-width');
-    });
-    it('rounded props를 넘기면 컴포넌트에 반영된다', () => {
-      const { container } = renderButton({ rounded: true });
-
-      expect(getByTestId(container, 'button')).toHaveClass('rounded');
-    });
-    it('shadow props를 넘기면 컴포넌트에 반영된다', () => {
-      const { container } = renderButton({ shadow: true });
-
-      expect(getByTestId(container, 'button')).toHaveClass('shadow');
-    });
-    it('buttonColor props를 넘기면 컴포넌트에 반영된다', () => {
-      const { container } = renderButton({ buttonColor: 'gray' });
-
-      expect(getByTestId(container, 'button')).toHaveClass('gray');
+      expect(getByTestId(container, 'button')).toHaveClass('fullWidth');
     });
     it('disabled props를 넘기면 컴포넌트에 반영된다', () => {
       const labelText = 'hooker';
