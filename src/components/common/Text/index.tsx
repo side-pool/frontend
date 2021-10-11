@@ -1,6 +1,7 @@
 import React, { HTMLAttributes } from 'react';
 import S from './Text.module.scss';
 import { customTypes } from 'custom-types';
+import cn from 'classnames';
 
 type FontWeight = 'light' | 'regular' | 'medium' | 'bold';
 type TextAlign = 'start' | 'center' | 'end';
@@ -25,7 +26,13 @@ const Text = ({
 }: TextProps) => {
   return (
     <span
-      className={`${S.Text} ${S[fontSize]} ${S[fontWeight]} ${S[textAlign]} ${S[lineHeight]}`}
+      className={cn(
+        S.Text,
+        S[fontSize],
+        S[fontWeight],
+        S[textAlign],
+        S[lineHeight],
+      )}
     >
       {children}
     </span>
