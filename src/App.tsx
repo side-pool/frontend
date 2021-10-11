@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setLoading, useAppDispatch, useUiState } from '@src/store';
 import cn from 'classnames';
 import './main.scss';
 import styles from './App.module.scss';
+import api from '@src/api/context';
+import { ACCESS_TOKEN, saveItem } from './utils/storage';
 
 const HIGHLIGHT = 'highlight';
 
@@ -10,6 +12,13 @@ const App = () => {
   const dispatch = useAppDispatch();
   const { isLoading } = useUiState();
 
+  useEffect(() => {
+    (async () => {
+      await saveItem(ACCESS_TOKEN, 'testtesttest');
+      const { data } = await api.get('/');
+      console.log(data);
+    })();
+  }, []);
   return (
     <div>
       <button
