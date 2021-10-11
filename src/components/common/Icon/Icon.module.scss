@@ -1,7 +1,11 @@
-._ICON_ {
+.Icon {
   cursor: default;
 
   &.pointer {
     cursor: pointer;
+  }
+
+  &.bold {
+    font-weight: bold;
   }
 }
