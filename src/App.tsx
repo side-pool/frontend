@@ -3,6 +3,8 @@ import { setLoading, useAppDispatch, useUiState } from '@src/store';
 import cn from 'classnames';
 import './main.scss';
 import css from './App.module.scss';
+import { CardWithContent } from './components/common/Card/Card.stories';
+import { LabelTags } from './components/common/LabelTag/LabelTag.stories';
 
 const HIGHLIGHT = 'highlight';
 
@@ -22,6 +24,8 @@ const App = () => {
       <div>
         {isLoading ? <p>loading</p> : <p className={cn(HIGHLIGHT)}>break</p>}
       </div>
+      <CardWithContent />
+      <LabelTags />
     </div>
   );
 };

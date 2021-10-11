@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from 'react';
-import './Text.scss';
-import cn from 'classnames';
+import styles from './Text.module.scss';
 import { customTypes } from 'custom-types';
+import cn from 'classnames';
 
 type FontWeight = 'light' | 'regular' | 'medium' | 'bold';
 type TextAlign = 'start' | 'center' | 'end';
@@ -11,7 +11,6 @@ export interface TextProps
   extends HTMLAttributes<
     HTMLDivElement | HTMLSpanElement | HTMLHeadingElement
   > {
-  className?: string;
   fontSize?: customTypes.ElementSize;
   fontWeight?: FontWeight;
   textAlign?: TextAlign;
@@ -20,7 +19,6 @@ export interface TextProps
 
 const Text = ({
   children,
-  className,
   fontSize = 'md',
   fontWeight = 'regular',
   textAlign = 'start',
@@ -29,12 +27,11 @@ const Text = ({
   return (
     <span
       className={cn(
-        `_TEXT_`,
-        `font-size-${fontSize}`,
-        `font-weight-${fontWeight}`,
-        `text-align-${textAlign}`,
-        `line-height-${lineHeight}`,
-        className,
+        styles.Text,
+        styles[fontSize],
+        styles[fontWeight],
+        styles[textAlign],
+        styles[lineHeight],
       )}
     >
       {children}

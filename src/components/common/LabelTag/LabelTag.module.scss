@@ -1,0 +1,33 @@
+.LabelTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 1px 13px;
+  border-radius: 15px;
+  height: 17px;
+  &.gray {
+    background-color: #575757;
+  }
+  &.orange {
+    background-color: #ff9900;
+  }
+  &.beige {
+    background-color: #ffefd8;
+  }
+  & + & {
+    margin-left: 10px;
+  }
+
+  .text {
+    line-height: 15px;
+    font-size: 10px;
+    font-weight: 500;
+    &.white {
+      color: #ffffff;
+    }
+    &.orange {
+      color: #e98c00;
+    }
+  }
+}
