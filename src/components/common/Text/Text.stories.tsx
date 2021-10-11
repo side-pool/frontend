@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Story, Meta } from '@storybook/react';
 import Text, { TextProps } from '@src/components/common/Text';
 
@@ -14,13 +14,22 @@ export default {
 } as Meta;
 
 const Template: Story<TextProps> = (props) => <Text {...props} />;
-const testContent = `"But man is not made for defeat,” he said. “A man can be destroyed but not defeated."`;
+const emptyContent = ``;
 
 export const text = Template.bind({});
 
 text.args = {
-  children: testContent,
+  children: emptyContent,
   fontSize: 'md',
   fontWeight: 'regular',
   textAlign: 'start',
 };
+
+export const ExampleText = (props: TextProps) => (
+  <Fragment>
+    <Text fontSize={'sm'} {...props}>
+      &quot;But man is not made for defeat,” he said. “A man can be destroyed
+      but not defeated.&quot;
+    </Text>
+  </Fragment>
+);
