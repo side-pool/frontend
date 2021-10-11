@@ -2,7 +2,6 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 import Card from '@src/components/common/Card';
 import Text from '@src/components/common/Text';
-import { ExampleText } from '@src/components/common/Text/Text.stories';
 
 export default {
   title: 'Card',
@@ -18,7 +17,10 @@ export const CardWithContent = () => {
         The Old Man and the Sea
       </Text>
       <br />
-      <ExampleText />
+      <Text fontSize={'md'}>
+        &quot;But man is not made for defeat,”&nbsp;&nbsp;he said.&nbsp;&nbsp;“A
+        man can be destroyed but not defeated.&quot;
+      </Text>
     </Card>
   );
 };

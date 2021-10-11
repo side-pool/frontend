@@ -14,22 +14,57 @@ export default {
 } as Meta;
 
 const Template: Story<TextProps> = (props) => <Text {...props} />;
-const emptyContent = ``;
 
 export const text = Template.bind({});
 
 text.args = {
-  children: emptyContent,
+  children: 'give me the text',
   fontSize: 'md',
   fontWeight: 'regular',
   textAlign: 'start',
 };
 
-export const ExampleText = (props: TextProps) => (
-  <Fragment>
-    <Text fontSize={'sm'} {...props}>
-      &quot;But man is not made for defeat,” he said. “A man can be destroyed
-      but not defeated.&quot;
-    </Text>
-  </Fragment>
-);
+const getHeader = (content: string) => {
+  return (
+    <header
+      style={{
+        color: '#1C7ED6',
+        fontSize: '15px',
+        padding: '15px 0px 5px 0px',
+      }}
+    >
+      {content}
+    </header>
+  );
+};
+
+export const Variant = () => {
+  return (
+    <Fragment>
+      {getHeader('타입/타이틀1')}
+      <Text fontSize={'xxl'} fontWeight={'bold'} textColor="titleBlack">
+        타이틀1
+      </Text>
+      {getHeader('타입/메뉴버튼')}
+      <Text fontSize={'lg'} fontWeight={'bold'} textColor="black">
+        메뉴버튼
+      </Text>
+      {getHeader('타입/텍스트')}
+      <Text fontSize={'sm'} fontWeight={'medium'} textColor="black">
+        답글달기
+      </Text>
+      {getHeader('타입/본문 타이틀')}
+      <Text fontSize={'md'} fontWeight={'medium'} textColor="black">
+        본문 타이틀
+      </Text>
+      {getHeader('타입/본문, 아이디')}
+      <Text fontSize={'xs'} fontWeight={'regular'} textColor="black">
+        본문/아이디
+      </Text>
+      {getHeader('타입/21시간 전')}
+      <Text fontSize={'xxs'} fontWeight={'regular'} textColor="gray">
+        21시간 전
+      </Text>
+    </Fragment>
+  );
+};

@@ -6,6 +6,7 @@ import cn from 'classnames';
 type FontWeight = 'light' | 'regular' | 'medium' | 'bold';
 type TextAlign = 'start' | 'center' | 'end';
 type LineHeight = 'narrow' | 'normal' | 'wide';
+type TextColor = 'titleBlack' | 'black' | 'gray';
 
 export interface TextProps
   extends HTMLAttributes<
@@ -15,6 +16,7 @@ export interface TextProps
   fontWeight?: FontWeight;
   textAlign?: TextAlign;
   lineHeight?: LineHeight;
+  textColor?: TextColor;
 }
 
 const Text = ({
@@ -23,6 +25,7 @@ const Text = ({
   fontWeight = 'regular',
   textAlign = 'start',
   lineHeight = 'normal',
+  textColor = 'black',
 }: TextProps) => {
   return (
     <span
@@ -32,6 +35,7 @@ const Text = ({
         styles[fontWeight],
         styles[textAlign],
         styles[lineHeight],
+        styles[textColor],
       )}
     >
       {children}
