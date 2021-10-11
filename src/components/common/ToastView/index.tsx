@@ -17,8 +17,7 @@ const ToastView = ({ message }: ToastProps) => {
         onClick={() => {
           addToast(message);
         }}
-        variant={'minimal'}
-        size={'xs'}
+        variant={'text'}
       >
         toast
       </Button>
