@@ -7,7 +7,7 @@ import styles from './Sidebar.module.scss';
 
 export const Sidebar = () => {
   return (
-    <div className={cn(styles.Sidebar)}>
+    <div className={styles.Sidebar}>
       <div className={styles.tabContainer}>
         <div className={styles.upperArea}>
           <div className={styles.tabButton}>
