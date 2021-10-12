@@ -1,0 +1,39 @@
+.Sidebar {
+  @include flex_col();
+
+  width: 120px;
+  height: 100vh;
+
+  background-color: $gray_1;
+
+  .tabContainer {
+    @include flex_col(space-between);
+    
+    height: calc(100% - 120px);
+
+    .upperArea {
+      .tabButton {
+        @include flex_col();
+
+        .circle {
+          width: 60px;
+          height: 60px;
+          border: 4px solid $gray_6;
+          border-radius: 100%;
+
+          margin: 15px 0px;
+        }
+      }
+    }
+
+    .downArea {
+      @include flex_col(center, flex-start);
+      
+      width: 100%;
+
+      > div > button:first-child {
+        margin-bottom: 4px;
+      }
+    }
+  }
+}
