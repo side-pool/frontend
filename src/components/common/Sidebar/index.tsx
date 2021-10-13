@@ -1,5 +1,4 @@
 import React from 'react';
-import cn from 'classnames';
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
 

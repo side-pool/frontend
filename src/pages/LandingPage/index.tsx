@@ -6,6 +6,8 @@ import { ACCESS_TOKEN, saveItem } from '@src/utils/storage';
 import { CardWithContent } from '@src/components/common/Card/Card.stories';
 import { LabelTags } from '@src/components/common/LabelTag/LabelTag.stories';
 
+import styles from '@src/pages/LandingPage/LandingPage.module.scss';
+
 const HIGHLIGHT = 'highlight';
 
 const LandingPage = () => {
@@ -21,7 +23,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.LandingPage}>
       <button
         type="button"
         onClick={() => dispatch(setLoading({ isLoading: !isLoading }))}

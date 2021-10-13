@@ -2,13 +2,13 @@
   @include flex_col();
 
   width: 120px;
-  height: 100vh;
+  height: 100%;
 
   background-color: $gray_1;
 
   .tabContainer {
     @include flex_col(space-between);
-    
+
     height: calc(100% - 120px);
 
     .upperArea {
@@ -28,7 +28,7 @@
 
     .downArea {
       @include flex_col(center, flex-start);
-      
+
       width: 100%;
 
       > div > button:first-child {
