@@ -1,0 +1,36 @@
+.JoinPage {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  @include flex_col(normal, center);
+
+  .title {
+    margin: 110px 0px;
+  }
+  .wideCard {
+    width: 600px;
+    padding: 60px 90px 42px 85px;
+    @include flex_col(normal, center);
+  }
+  .topArea {
+    width: 100%;
+    @include flex_row(space-between, stretch);
+    .infoArea {
+      width: 100%;
+      margin-right: 26px;
+      dd {
+        width: 180px;
+      }
+    }
+  }
+  .infoList {
+    margin: 0px;
+    @include flex_row(space-between);
+  }
+  .infoList + .infoList {
+    margin-top: 32px;
+  }
+  .JoinButton {
+    margin-top: 61px;
+  }
+}
