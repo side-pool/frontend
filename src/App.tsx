@@ -5,6 +5,7 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 
 import LandingPage from '@src/pages/LandingPage';
 import LoginPage from '@src/pages/LoginPage';
+import JoinPage from './pages/JoinPage';
 
 import Sidebar from '@src/components/common/Sidebar';
 import styles from '@src/App.module.scss';
@@ -22,6 +23,7 @@ const App = () => {
           <div className={styles.content}>
             <Route exact path="/" component={LandingPage} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/join" component={JoinPage} />
           </div>
         </div>
       </Switch>

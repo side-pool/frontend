@@ -7,7 +7,7 @@
   width: fit-content;
   height: fit-content;
 
-  background: #f7f7f7;
+  background: $gray_2;
   border-radius: 15px;
 
   &.maxWidth {
@@ -53,7 +53,7 @@
       line-height: 18px;
 
       &::placeholder {
-        color: $gray-6;
+        color: $gray_5;
       }
 
       &:focus {
