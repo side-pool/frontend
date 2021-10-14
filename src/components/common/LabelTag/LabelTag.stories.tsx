@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import LabelTag, { LabelTagProps } from '@src/components/common/LabelTag';
 
 export default {
-  title: 'LabelTag',
+  title: 'Common/LabelTag',
   component: LabelTag,
 } as Meta;
 

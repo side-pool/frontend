@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import Spinner, { SpinnerProps } from '@src/components/common/Spinner';
 
 export default {
-  title: 'Spinner',
+  title: 'Common/Spinner',
   component: Spinner,
   argTypes: {
     size: {

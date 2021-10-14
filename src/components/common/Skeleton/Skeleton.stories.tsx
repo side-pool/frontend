@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import Skeleton, { SkeletonProps } from '@src/components/common/Skeleton';
 
 export default {
-  title: 'Skeleton',
+  title: 'Common/Skeleton',
   component: Skeleton,
   argTypes: {
     size: {
