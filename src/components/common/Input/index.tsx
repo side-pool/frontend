@@ -14,6 +14,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   maxWidth?: boolean;
   error?: boolean;
   errorMessage?: string;
+  className?: string;
 }
 
 export interface InputRef {
@@ -33,6 +34,7 @@ const Input = React.forwardRef<InputRef, InputProps>(
       errorMessage,
       onKeyDown,
       placeholder = '텍스트를 입력해주세요.',
+      className,
       ...props
     }: InputProps,
     ref,
@@ -74,6 +76,7 @@ const Input = React.forwardRef<InputRef, InputProps>(
           errorMessage && styles[errorMessage],
           maxWidth && styles.maxWidth,
           disabled && styles.disabled,
+          className,
         )}
         data-testid="input"
       >

@@ -17,6 +17,7 @@ export interface TypographyProps
   textAlign?: TextAlign;
   lineHeight?: LineHeight;
   textColor?: TextColor;
+  className?: string;
 }
 
 const Typography = ({
@@ -26,6 +27,8 @@ const Typography = ({
   textAlign = 'start',
   lineHeight = 'normal',
   textColor = 'black',
+  className,
+  ...props
 }: TypographyProps) => {
   return (
     <span
@@ -36,7 +39,9 @@ const Typography = ({
         styles[textAlign],
         styles[lineHeight],
         styles[textColor],
+        className,
       )}
+      {...props}
     >
       {children}
     </span>

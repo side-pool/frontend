@@ -4,9 +4,9 @@ import Button from '@src/components/common/Button';
 
 import styles from './Sidebar.module.scss';
 
-export const Sidebar = () => {
+export const Sidebar = (className?: string) => {
   return (
-    <div className={styles.Sidebar}>
+    <div className={(styles.Sidebar, className)}>
       <div className={styles.tabContainer}>
         <div className={styles.upperArea}>
           <div className={styles.tabButton}>
