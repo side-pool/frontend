@@ -5,7 +5,16 @@ import Card from '@src/components/common/Card';
 import Input from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
 
+import { useLoginUser } from '@src/hooks/useUserApi';
+
 const LoginPage = () => {
+  const setLoginUser = useLoginUser();
+  const handleLogin = () => {
+    const username = '';
+    const password = '';
+    setLoginUser.mutate({ username, password });
+  };
+
   return (
     <div className={styles.LoginPage}>
       <Typography
@@ -37,7 +46,11 @@ const LoginPage = () => {
             <Input placeholder="password" maxWidth={true} />
           </dd>
         </dl>
-        <Button className={styles.loginButton} primary={true}>
+        <Button
+          className={styles.loginButton}
+          primary={true}
+          onClick={() => handleLogin()}
+        >
           로그인
         </Button>
         <Button className={styles.joinButton} variant={'text'}>
