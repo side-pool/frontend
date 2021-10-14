@@ -1,12 +1,18 @@
 import React from 'react';
+import cn from 'classnames';
+
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
 
 import styles from './Sidebar.module.scss';
 
-export const Sidebar = (className?: string) => {
+export interface SidebarProps {
+  className?: string;
+}
+
+export const Sidebar = ({ className }: SidebarProps) => {
   return (
-    <div className={(styles.Sidebar, className)}>
+    <div className={cn(styles.Sidebar, className)}>
       <div className={styles.tabContainer}>
         <div className={styles.upperArea}>
           <div className={styles.tabButton}>
