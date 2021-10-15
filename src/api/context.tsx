@@ -12,8 +12,15 @@ api.interceptors.request.use(
   async (config): Promise<AxiosRequestConfig> => {
     const token = await loadItem(ACCESS_TOKEN);
 
+    config.headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
+      'Access-Control-Allow-Headers':
+        'Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization',
+    };
+
     if (token) {
-      config.headers = { Authorization: `Bearer ${token}` };
+      config.headers = { ...config.headers, Authorization: `Bearer ${token}` };
     }
 
     return config;
