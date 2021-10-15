@@ -1,18 +1,24 @@
 import React from 'react';
+import cn from 'classnames';
+
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
 
 import styles from './Sidebar.module.scss';
 
-export const Sidebar = () => {
+export interface SidebarProps {
+  className?: string;
+}
+
+export const Sidebar = ({ className }: SidebarProps) => {
   return (
-    <div className={styles.Sidebar}>
+    <div className={cn(styles.Sidebar, className)}>
       <div className={styles.tabContainer}>
         <div className={styles.upperArea}>
           <div className={styles.tabButton}>
             <div className={styles.circle}></div>
             <Button variant="text">
-              <Typography fontSize="md" fontWeight="bold" textColor="black">
+              <Typography fontSize="md" fontWeight="bold" textColor="gray">
                 사이드
               </Typography>
             </Button>
@@ -20,7 +26,7 @@ export const Sidebar = () => {
           <div className={styles.tabButton}>
             <div className={styles.circle}></div>
             <Button variant="text">
-              <Typography fontSize="md" fontWeight="bold" textColor="black">
+              <Typography fontSize="md" fontWeight="bold" textColor="gray">
                 아이디어
               </Typography>
             </Button>

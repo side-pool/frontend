@@ -8,6 +8,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   primary?: boolean;
   fullWidth?: boolean;
   labelText?: string;
+  className?: string;
   children?: ReactNode;
 }
 
@@ -18,6 +19,7 @@ const Button = ({
   disabled,
   fullWidth,
   labelText,
+  className,
   ...restProps
 }: ButtonProps): ReactElement => {
   return (
@@ -30,6 +32,7 @@ const Button = ({
         primary && styles.primary,
         disabled && styles.disabled,
         fullWidth && variant !== 'floating' && styles.fullWidth,
+        className,
       )}
       disabled={disabled}
       {...restProps}

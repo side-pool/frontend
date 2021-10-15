@@ -21,6 +21,7 @@ export interface ModalProps extends Children {
     submitButton?: React.ReactElement;
   };
   zIndex?: number;
+  className?: string;
 }
 
 const PORTAL_ID = 'portal';
@@ -53,6 +54,7 @@ const Modal = ({
   fadeout,
   headerText,
   footer,
+  className,
 }: ModalProps) => {
   const handleCloseModal = (e: MouseEvent) => {
     if (closeModal && e.target === e.currentTarget) {
@@ -63,7 +65,7 @@ const Modal = ({
   return (
     <Portal>
       <div
-        className={cn(styles.Modal, fadeout && styles.fadeout)}
+        className={cn(styles.Modal, fadeout && styles.fadeout, className)}
         data-testid="modal"
         onClick={handleCloseModal}
         aria-hidden="true"

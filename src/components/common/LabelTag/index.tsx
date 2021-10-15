@@ -14,9 +14,13 @@ function LabelTag({
   children,
   wrapperColor = 'gray',
   textColor = 'white',
+  className,
 }: LabelTagProps) {
   return (
-    <div className={cn(styles.LabelTag, styles[wrapperColor])} aria-label="">
+    <div
+      className={cn(styles.LabelTag, styles[wrapperColor], className)}
+      aria-label=""
+    >
       <p className={cn(styles.text, styles[textColor])}>{children}</p>
     </div>
   );

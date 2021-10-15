@@ -18,6 +18,7 @@ export interface TextareaRef {
   get: () => string;
   reset: () => void;
   rawRef: () => React.RefObject<HTMLTextAreaElement>;
+  className?: string;
 }
 
 const Textarea = React.forwardRef<TextareaRef, TextareaProps>(
@@ -27,6 +28,7 @@ const Textarea = React.forwardRef<TextareaRef, TextareaProps>(
       maxWidth,
       onKeyDown,
       placeholder = '텍스트를 입력해주세요.',
+      className,
       ...props
     }: TextareaProps,
     ref,
@@ -65,6 +67,7 @@ const Textarea = React.forwardRef<TextareaRef, TextareaProps>(
           styles.Textarea,
           maxWidth && styles.maxWidth,
           disabled && styles.disabled,
+          className,
         )}
         data-testid="textarea"
       >
