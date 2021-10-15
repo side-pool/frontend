@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import Typography, { TypographyProps } from '@src/components/common/Typography';
 
 export default {
-  title: 'Typography',
+  title: 'Common/Typography',
   component: Typography,
   argTypes: {
     fontSize: {

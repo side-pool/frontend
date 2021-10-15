@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import Icon, { IconProps } from '@src/components/common/Icon';
 
 export default {
-  title: 'Icon',
+  title: 'Common/Icon',
   component: Icon,
 };
 

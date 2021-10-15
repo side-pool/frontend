@@ -8,7 +8,7 @@ import Button from '@src/components/common/Button';
 import Skeleton from '@src/components/common/Skeleton';
 
 export default {
-  title: 'Modal',
+  title: 'Common/Modal',
 } as Meta;
 
 const Template: Story<ModalProps> = (props) => {

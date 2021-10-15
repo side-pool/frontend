@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import ToastView, { ToastProps } from '@src/components/common/ToastView';
 
 export default {
-  title: 'Toast View',
+  title: 'Common/Toast View',
   component: ToastView,
 } as Meta;
 

@@ -4,7 +4,7 @@ import Card from '@src/components/common/Card';
 import Typography from '@src/components/common/Typography';
 
 export default {
-  title: 'Card',
+  title: 'Common/Card',
   component: Card,
 } as Meta;
 
