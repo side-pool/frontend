@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 import { loadItem, ACCESS_TOKEN } from '@src/utils/storage';
 
-export const SERVER_URL = 'http://demo4261295.mockable.io';
+export const SERVER_URL = 'http://13.209.171.179:80';
 
 const api = axios.create({
   baseURL: SERVER_URL,
