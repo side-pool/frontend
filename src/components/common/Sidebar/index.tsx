@@ -18,7 +18,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
           <div className={styles.tabButton}>
             <div className={styles.circle}></div>
             <Button variant="text">
-              <Typography fontSize="md" fontWeight="bold" textColor="black">
+              <Typography fontSize="md" fontWeight="bold" textColor="gray">
                 사이드
               </Typography>
             </Button>
@@ -26,7 +26,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
           <div className={styles.tabButton}>
             <div className={styles.circle}></div>
             <Button variant="text">
-              <Typography fontSize="md" fontWeight="bold" textColor="black">
+              <Typography fontSize="md" fontWeight="bold" textColor="gray">
                 아이디어
               </Typography>
             </Button>
