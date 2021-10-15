@@ -86,6 +86,7 @@ export const useLoginUser = () => {
     {
       onSuccess: async ({ type, token }: LoginRepsonseParamas) => {
         await saveItem(ACCESS_TOKEN, `${type} ${token}`);
+        console.log('in');
         useGetUserInfo();
       },
       onError: (e) => {
