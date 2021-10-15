@@ -5,7 +5,20 @@ import Card from '@src/components/common/Card';
 import Input from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
 
+import { useGetUserInfo, useLoginUser } from '@src/hooks/useUserApi';
+
 const LoginPage = () => {
+  const { data, error, isError } = useGetUserInfo();
+  const setLoginUser = useLoginUser();
+
+  const handleLogin = () => {
+    const username = 'username1';
+    const password = 'password1';
+
+    setLoginUser.mutate({ username, password });
+  };
+
+  console.log(data, error, isError);
   const [form, setForm] = useState({ username: '', password: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -4,8 +4,18 @@ import styles from './JoinPage.module.scss';
 import Card from '@src/components/common/Card';
 import Input from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
+import { usePostJoin } from '@src/hooks/useUserApi';
 
 const JoinPage = () => {
+  const setPostUser = usePostJoin();
+
+  const handleJoin = () => {
+    const username = 'test';
+    const password = 'qwer1234';
+    const nickname = 'text';
+    setPostUser.mutate({ username, password, nickname });
+  };
+
   const [form, setForm] = useState({
     username: '',
     password: '',
@@ -83,7 +93,12 @@ const JoinPage = () => {
             </div>
             <Button className={styles.checkButton}>중복확인</Button>
           </div>
-          <Button className={styles.JoinButton} primary={true} type="submit">
+          <Button
+            className={styles.JoinButton}
+            primary={true}
+            type="submit"
+            onClick={() => handleJoin()}
+          >
             회원가입
           </Button>
         </form>
