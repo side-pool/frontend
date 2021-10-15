@@ -14,6 +14,11 @@ module.exports = merge(baseConfig, {
     port: '5050',
     host: '127.0.0.1',
     historyApiFallback: true,
+    // proxy: {
+    //   '/': {
+    //     target: 'http://13.209.171.179:80',
+    //   },
+    // },
   },
   module: {
     rules: [
