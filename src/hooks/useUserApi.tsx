@@ -84,8 +84,8 @@ export const useLoginUser = () => {
       return await api.post(`${SERVER_URL}/login`, params);
     },
     {
-      onSuccess: async ({ token }: LoginRepsonseParamas) => {
-        await saveItem(ACCESS_TOKEN, token);
+      onSuccess: async ({ type, token }: LoginRepsonseParamas) => {
+        await saveItem(ACCESS_TOKEN, `${type} ${token}`);
         useGetUserInfo();
       },
       onError: (e) => {
@@ -103,6 +103,6 @@ export const useLogoutUser = () => {
   queryClient.removeQueries('me');
 };
 
-export default function useGetUserInfo() {
-  return useQuery('me', async () => await api.get(`${SERVER_URL}$/me`));
+export function useGetUserInfo() {
+  return useQuery('me', async () => await api.get(`${SERVER_URL}/me`));
 }

@@ -5,15 +5,20 @@ import Card from '@src/components/common/Card';
 import Input from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
 
-import { useLoginUser } from '@src/hooks/useUserApi';
+import { useGetUserInfo, useLoginUser } from '@src/hooks/useUserApi';
 
 const LoginPage = () => {
+  const { data, error, isError } = useGetUserInfo();
   const setLoginUser = useLoginUser();
+
   const handleLogin = () => {
-    const username = '';
-    const password = '';
+    const username = 'username1';
+    const password = 'password1';
+
     setLoginUser.mutate({ username, password });
   };
+
+  console.log(data, error, isError);
 
   return (
     <div className={styles.LoginPage}>
