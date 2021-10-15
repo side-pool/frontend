@@ -84,8 +84,9 @@ export const useLoginUser = () => {
       return await api.post(`${SERVER_URL}/login`, params);
     },
     {
-      onSuccess: ({ token }: LoginRepsonseParamas) => {
-        saveItem(ACCESS_TOKEN, token);
+      onSuccess: async ({ token }: LoginRepsonseParamas) => {
+        await saveItem(ACCESS_TOKEN, token);
+        useGetUserInfo();
       },
       onError: (e) => {
         // TODO: status code에 따라 분기 처리?
