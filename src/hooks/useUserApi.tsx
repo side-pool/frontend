@@ -1,7 +1,6 @@
-import api from '@src/api/context';
+import { api, apiWithToken } from '@src/api/context';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 
-import { SERVER_URL } from '@src/api/context';
 import { saveItem, removeItem, ACCESS_TOKEN } from '@src/utils/storage';
 
 interface JoinParams {
@@ -13,7 +12,7 @@ interface JoinParams {
 export const usePostJoin = () => {
   return useMutation(
     async (params: JoinParams) => {
-      return await api.post(`${SERVER_URL}/users`, { data: params });
+      return await apiWithToken.post(`/users`, { data: params });
     },
     {
       onSuccess: () => {
@@ -35,7 +34,9 @@ interface EditParams {
 export const usePutUserInfo = (id: number) => {
   return useMutation(
     async (params: EditParams) => {
-      return await api.put(`${SERVER_URL}/users/${id}`, { data: params });
+      return await apiWithToken.put(`/users/${id}`, {
+        data: params,
+      });
     },
     {
       onSuccess: () => {
@@ -54,7 +55,7 @@ export const useDeleteUser = (id: number) => {
 
   return useMutation(
     async () => {
-      return await api.delete(`${SERVER_URL}/users/${id}`);
+      return await apiWithToken.delete(`/users/${id}`);
     },
     {
       onSuccess: () => {
@@ -81,10 +82,13 @@ interface LoginRepsonseParamas {
 export const useLoginUser = () => {
   return useMutation(
     async (params: LoginRequestParams): Promise<LoginRepsonseParamas> => {
-      return await api.post(`${SERVER_URL}/login`, params);
+      alert('good');
+      return await api.post(`/login`, params);
     },
     {
       onSuccess: async ({ type, token }: LoginRepsonseParamas) => {
+        alert(type);
+        alert(token);
         await saveItem(ACCESS_TOKEN, `${type} ${token}`);
         console.log('in');
         useGetUserInfo();
@@ -105,5 +109,5 @@ export const useLogoutUser = () => {
 };
 
 export function useGetUserInfo() {
-  return useQuery('me', async () => await api.get(`${SERVER_URL}/me`));
+  return useQuery('me', async () => await apiWithToken.get(`/me`));
 }
