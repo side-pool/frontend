@@ -1,35 +1,27 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Typography from '@src/components/common/Typography';
 import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
-import Input from '@src/components/common/Input';
+import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
 
 import { useGetUserInfo, useLoginUser } from '@src/hooks/useUserApi';
 
 const LoginPage = () => {
+  const usernameRef = useRef({} as ParentRef);
+  const passwordRef = useRef({} as ParentRef);
+
   const { data, error, isError } = useGetUserInfo();
   const setLoginUser = useLoginUser();
 
-  const handleLogin = () => {
-    const username = 'username1';
-    const password = 'password1';
+  const submitLoginInfo = (event: React.FormEvent) => {
+    event.preventDefault();
+    // submit to sever
+    alert(`${usernameRef.current.get()}, ${passwordRef.current.get()}`);
+    const username = usernameRef.current.get();
+    const password = passwordRef.current.get();
 
     setLoginUser.mutate({ username, password });
-  };
-
-  console.log(data, error, isError);
-  const [form, setForm] = useState({ username: '', password: '' });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setForm({ ...form, [name]: value });
-    console.log(form);
-  };
-
-  const submitLoginInfo = () => {
-    // submit to sever
-    alert(Object.entries(form).map(([key, value]) => `\n${key} : ${value}`));
   };
 
   return (
@@ -55,7 +47,7 @@ const LoginPage = () => {
               name="username"
               placeholder="username"
               maxWidth={true}
-              onChange={handleChange}
+              ref={usernameRef}
             />
           </div>
           <div className={styles.infoRow}>
@@ -69,8 +61,8 @@ const LoginPage = () => {
               name="password"
               placeholder="password"
               maxWidth={true}
-              type={'password'}
-              onChange={handleChange}
+              password={true}
+              ref={passwordRef}
             />
           </div>
           <Button className={styles.loginButton} primary={true} type="submit">
