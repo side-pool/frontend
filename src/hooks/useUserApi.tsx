@@ -74,7 +74,7 @@ interface LoginRequestParams {
   password: string;
 }
 
-interface LoginRepsonseParamas {
+interface LoginResponse {
   data: {
     token: string;
     type: string;
@@ -83,12 +83,12 @@ interface LoginRepsonseParamas {
 
 export const useLoginUser = () => {
   return useMutation(
-    async (params: LoginRequestParams): Promise<LoginRepsonseParamas> => {
+    async (params: LoginRequestParams): Promise<LoginResponse> => {
       alert('good');
       return await api.post(`/login`, params);
     },
     {
-      onSuccess: async ({ data: { token } }: LoginRepsonseParamas) => {
+      onSuccess: async ({ data: { token } }: LoginResponse) => {
         await saveItem(ACCESS_TOKEN, `${token}`);
         useGetUserInfo();
       },
