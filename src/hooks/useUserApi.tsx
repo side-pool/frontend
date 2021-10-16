@@ -75,8 +75,10 @@ interface LoginRequestParams {
 }
 
 interface LoginRepsonseParamas {
-  token: string;
-  type: string;
+  data: {
+    token: string;
+    type: string;
+  };
 }
 
 export const useLoginUser = () => {
@@ -86,11 +88,8 @@ export const useLoginUser = () => {
       return await api.post(`/login`, params);
     },
     {
-      onSuccess: async ({ type, token }: LoginRepsonseParamas) => {
-        alert(type);
-        alert(token);
-        await saveItem(ACCESS_TOKEN, `${type} ${token}`);
-        console.log('in');
+      onSuccess: async ({ data: { token } }: LoginRepsonseParamas) => {
+        await saveItem(ACCESS_TOKEN, `${token}`);
         useGetUserInfo();
       },
       onError: (e) => {
