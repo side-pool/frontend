@@ -4,24 +4,44 @@ import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-
-import { useGetUserInfo, useLoginUser } from '@src/hooks/useUserApi';
+import { useLogin } from '@src/hooks/useAuth';
+import useModal from '@src/hooks/useModal';
 
 const LoginPage = () => {
   const usernameRef = useRef({} as ParentRef);
   const passwordRef = useRef({} as ParentRef);
+  const [modalText, setModalText] = useState('');
 
-  const { data, error, isError } = useGetUserInfo();
-  const setLoginUser = useLoginUser();
+  const { show, hide, RenderModal } = useModal();
+  const loginMutation = useLogin();
 
   const submitLoginInfo = (event: React.FormEvent) => {
     event.preventDefault();
-    // submit to sever
-    alert(`${usernameRef.current.get()}, ${passwordRef.current.get()}`);
-    const username = usernameRef.current.get();
-    const password = passwordRef.current.get();
 
-    setLoginUser.mutate({ username, password });
+    const [username, password] = [
+      usernameRef.current.get(),
+      passwordRef.current.get(),
+    ];
+
+    if (!username || !password) {
+      setModalText('값을 모두 입력해주세요');
+      show();
+      return;
+    }
+    // alert(`${usernameRef.current.get()}, ${passwordRef.current.get()}`);
+
+    // submit to sever
+    loginMutation.mutate({ username, password });
+
+    if (loginMutation.isError) {
+      // TODO: isError 가 확인이 안 됨
+      setModalText('알 수 없는 에러');
+    } else if (loginMutation.isSuccess) {
+      setModalText('로그인 성공');
+    }
+
+    console.log(loginMutation.status);
+    show();
   };
 
   return (
@@ -73,6 +93,17 @@ const LoginPage = () => {
           회원가입
         </Button>
       </Card>
+      <RenderModal
+        footer={{
+          submitButton: (
+            <Button primary onClick={hide}>
+              확인
+            </Button>
+          ),
+        }}
+      >
+        <>{modalText}</>
+      </RenderModal>
     </div>
   );
 };
