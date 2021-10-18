@@ -8,6 +8,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   primary?: boolean;
   fullWidth?: boolean;
   labelText?: string;
+  iconName?: string;
   className?: string;
   children?: ReactNode;
 }
@@ -19,6 +20,7 @@ const Button = ({
   disabled,
   fullWidth,
   labelText,
+  iconName,
   className,
   ...restProps
 }: ButtonProps): ReactElement => {
@@ -38,7 +40,7 @@ const Button = ({
       {...restProps}
     >
       {variant === 'floating' ? (
-        <Icon iconName="add" color="white" size={35} bold pointer />
+        <Icon iconName={iconName} color="white" size={35} bold pointer />
       ) : (
         <span>{labelText ? <> {labelText} </> : children}</span>
       )}

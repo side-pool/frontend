@@ -1,0 +1,24 @@
+.IdeaModalInner {
+  @include flex_col(space-between);
+
+  height: 350px;
+
+  .titleArea {
+    width: 100%;
+  }
+
+  .contentArea {
+    @include flex_col();
+
+    width: 100%;
+    margin: 20px 0px;
+
+    .textareaSection {
+      height: 250px !important;
+    }
+  }
+
+  .hashtagArea {
+    width: 100%;
+  }
+}

@@ -1,20 +1,20 @@
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+@keyframes fadein {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
 
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
+@keyframes fadeout {
+  from {
+    opacity: 1;
   }
+  to {
+    opacity: 0;
+  }
+}
 
 .Modal {
   @include flex_col();
@@ -30,7 +30,7 @@
   user-select: none;
 
   &.fadein {
-  animation: fadein 1s;
+    animation: fadein 1s;
   }
 
   &.fadeout {
@@ -46,6 +46,11 @@
     max-height: 50%;
 
     padding: 16px;
+
+    &.isWide {
+      max-width: 1020px;
+      width: 80%;
+    }
 
     .closeButton {
       @include flex_col();
