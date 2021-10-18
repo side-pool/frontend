@@ -1,0 +1,18 @@
+.IdeaPage {
+  @include flex_col();
+
+  width: 100%;
+  height: 100%;
+  
+  .scrollTopButton {
+    position: fixed;
+    bottom: 135px;
+    right: 30px;
+  }
+
+  .createSideButton {
+    position: fixed;
+    bottom: 65px;
+    right: 30px;
+  }
+}
