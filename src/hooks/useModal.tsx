@@ -15,7 +15,7 @@ const useModal = () => {
     setTimeout(() => {
       hide();
       setFadeout(false);
-    }, 500);
+    });
   };
 
   const RenderModal = ({ children, ...restProps }: ModalProps) => (
