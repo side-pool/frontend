@@ -9,8 +9,21 @@ import JoinPage from './pages/JoinPage';
 
 import Sidebar from '@src/components/common/Sidebar';
 import styles from '@src/App.module.scss';
+import { getApiInstance } from '@src/utils/context';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queryFn: async ({ queryKey: [url] }) => {
+        if (typeof url === 'string') {
+          const { data } = await getApiInstance().get(url);
+          return data;
+        }
+        throw new Error('Invalid QueryKey');
+      },
+    },
+  },
+});
 
 const App = () => {
   return (
