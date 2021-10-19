@@ -11,10 +11,19 @@
     @include flex_col();
 
     width: 100%;
+    height: 250px;
+    height: 100%;
     margin: 20px 0px;
 
-    .textareaSection {
-      height: 250px !important;
+    .Textarea {
+      height: 100%;
+      .textareaContainer {
+        height: 100%;
+        .textareaSection {
+          height: 100% !important;
+          max-height: 250px !important;
+        }
+      }
     }
   }
 
