@@ -1,8 +1,9 @@
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
 
 import Card from '@src/components/common/Card';
+import Button from '@src/components/common/Button';
 
 import styles from './Modal.module.scss';
 import Typography from '../Typography';
@@ -12,9 +13,7 @@ interface Children {
 }
 
 export interface ModalProps extends Children {
-  variant?: 'default' | 'alt';
-  closeModal?: () => void;
-  fadeout?: boolean;
+  closeModal: () => void;
   headerText?: string;
   footer?: {
     cancelButton?: React.ReactElement;
@@ -53,17 +52,21 @@ export const Portal = ({ children }: Children): React.ReactPortal | null => {
 const Modal = ({
   children,
   closeModal,
-  fadeout,
   headerText,
   footer,
   className,
   isWide,
   isVisible,
 }: ModalProps) => {
-  const handleCloseModal = (e: MouseEvent) => {
-    if (closeModal && e.target === e.currentTarget) {
+  const [fadeout, setFadeout] = useState(false);
+
+  const handleCloseModal = async () => {
+    await setFadeout(true);
+
+    setTimeout(() => {
       closeModal();
-    }
+      setFadeout(false);
+    }, 500);
   };
 
   return (
@@ -71,12 +74,16 @@ const Modal = ({
       <div
         className={cn(
           styles.Modal,
-          fadeout ? styles.fadeout : styles.fadein,
-          !isVisible && styles.isNotVisible,
+          isVisible && fadeout ? styles.fadeout : styles.fadein,
+          isVisible ? styles.isVisible : styles.isNotVisible,
           className,
         )}
         data-testid="modal"
-        onClick={handleCloseModal}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            handleCloseModal();
+          }
+        }}
         aria-hidden="true"
       >
         <Card className={cn(isWide && styles.isWide)}>
@@ -95,7 +102,11 @@ const Modal = ({
           {footer && (
             <div className={styles.footer}>
               {footer.submitButton}
-              {footer.cancelButton}
+              {footer.cancelButton ? (
+                footer.cancelButton
+              ) : (
+                <Button onClick={handleCloseModal}>취소</Button>
+              )}
             </div>
           )}
         </Card>

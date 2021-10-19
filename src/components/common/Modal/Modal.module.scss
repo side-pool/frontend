@@ -30,16 +30,19 @@
   user-select: none;
 
   &.fadein {
-    visibility: visible;
-    animation: fadein 1s;
+    animation: fadein 2s;
   }
 
   &.fadeout {
     animation: fadeout 0.5s;
   }
 
+  &.isVisible {
+    visibility: visible;
+  }
+
   &.isNotVisible {
-    visibility: hidden !important;
+    visibility: hidden;
   }
 
   .Card {
