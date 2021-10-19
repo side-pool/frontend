@@ -15,17 +15,18 @@ const useModal = () => {
     setTimeout(() => {
       hide();
       setFadeout(false);
-    });
+    }, 500);
   };
 
   const RenderModal = ({ children, ...restProps }: ModalProps) => (
-    <>
-      {isVisible && (
-        <Modal closeModal={handleFadeout} fadeout={fadeout} {...restProps}>
-          {children}
-        </Modal>
-      )}
-    </>
+    <Modal
+      closeModal={handleFadeout}
+      fadeout={fadeout}
+      isVisible={isVisible}
+      {...restProps}
+    >
+      {children}
+    </Modal>
   );
 
   return {

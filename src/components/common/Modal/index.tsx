@@ -23,6 +23,7 @@ export interface ModalProps extends Children {
   zIndex?: number;
   className?: string;
   isWide?: boolean;
+  isVisible?: boolean;
 }
 
 const PORTAL_ID = 'portal';
@@ -57,6 +58,7 @@ const Modal = ({
   footer,
   className,
   isWide,
+  isVisible,
 }: ModalProps) => {
   const handleCloseModal = (e: MouseEvent) => {
     if (closeModal && e.target === e.currentTarget) {
@@ -70,6 +72,7 @@ const Modal = ({
         className={cn(
           styles.Modal,
           fadeout ? styles.fadeout : styles.fadein,
+          !isVisible && styles.isNotVisible,
           className,
         )}
         data-testid="modal"
