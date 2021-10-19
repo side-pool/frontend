@@ -4,66 +4,77 @@ import styles from './JoinPage.module.scss';
 import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-import { useCreateUser } from '@src/hooks/useUserApi';
+import { useCreateUser, useUserExist } from '@src/hooks/useUserQuery';
 import useModal from '@src/hooks/useModal';
+import { isValidPasswd, getErrorText } from '@src/utils/common';
+import { GuideText } from '@src/constant/enums';
+
+const INVALID_PASSWD_TEXT = '8~15자, 숫자, 문자 하나 이상 (특수문자 제외)';
 
 const JoinPage = () => {
   const usernameRef = useRef({} as ParentRef);
-  const passwordRef = useRef({} as ParentRef);
   const nicknameRef = useRef({} as ParentRef);
-  const [modalText, setModalText] = useState('');
-  const [isCheckedId, setIsCheckedId] = useState(false);
+  const [modalDesc, setModalDesc] = useState('');
+  const [modalTitle, setModalTitle] = useState('알림');
+  const [username, setUsername] = useState('');
+  const [passwd, setPasswd] = useState('');
+  const [isValidUsername, setIsValidUsername] = useState(false);
 
   const { show, hide, RenderModal } = useModal();
 
   const createUserMutation = useCreateUser();
+  const { isLoading, data, refetch } = useUserExist(username);
+
+  const handlePasswd = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswd(e.target?.value);
+  };
 
   const checkRedundancy = (event: React.MouseEvent) => {
-    const username = usernameRef.current.get();
-    if (!username) {
-      setModalText('유저네임을 입력해주세요!');
+    const curUsername = usernameRef.current.get();
+    if (!curUsername) {
+      setModalDesc('유저네임을 입력해주세요!');
       return;
     }
+
     // submit to sever
 
-    // TODO: mutation.status 로 분기 나누기
+    setUsername(curUsername);
+    refetch();
 
-    // success
-    setModalText('유효한 유저네임입니다');
-    setIsCheckedId(true);
+    // TODO: query result status 로 분기 나누기
 
-    // failure
-    // setModalText('중복된 유저네임입니다');
-
-    show();
+    // setModalTitle(...)
+    // setModalDesc('...');
+    // setIsValidUsername(...)
+    // show();
+    // history.push("/login")
   };
 
   const submitJoinInfo = (event: React.FormEvent) => {
     event.preventDefault();
     // submit to sever
+    const nickname = nicknameRef.current.get();
 
-    const [username, password, nickname] = [
-      usernameRef.current.get(),
-      passwordRef.current.get(),
-      nicknameRef.current.get(),
-    ];
-
-    if (!username || !password || !nicknameRef) {
-      setModalText('값을 모두 입력해주세요');
+    if (!username || !passwd || !nickname) {
+      setModalDesc(GuideText.FILL_ALL_FORM);
       show();
       return;
     }
 
-    createUserMutation.mutate({ username, password, nickname });
-
-    // TODO: mutation.status 로 분기 나누기
-
-    // success
-    setModalText('회원가입 성공');
-    // TODO: redirect
-
-    // failure
-    // setModalText('회원 가입 실패');
+    createUserMutation.mutate(
+      { username, passwd, nickname },
+      {
+        onSuccess: () => {
+          setModalDesc('회원가입 성공');
+        },
+        onError: (error) => {
+          setModalDesc(getErrorText(error));
+        },
+        onSettled: () => {
+          show();
+        },
+      },
+    );
   };
 
   return (
@@ -92,22 +103,24 @@ const JoinPage = () => {
                   placeholder="username"
                   maxWidth={true}
                   ref={usernameRef}
-                  disabled={isCheckedId}
+                  disabled={isValidUsername}
                 />
               </div>
               <div className={styles.infoRow}>
-                <label htmlFor="password">
+                <label htmlFor="passwd">
                   <Typography fontSize="md" fontWeight="medium">
                     Password
                   </Typography>
                 </label>
                 <Input
-                  id="password"
-                  name="password"
-                  placeholder="password"
+                  id="passwd"
+                  name="passwd"
+                  placeholder="passwd"
                   maxWidth={true}
                   password={true}
-                  ref={passwordRef}
+                  error={passwd.length !== 0 && !isValidPasswd(passwd)}
+                  errorMessage={INVALID_PASSWD_TEXT}
+                  onChange={handlePasswd}
                 />
               </div>
               <div className={styles.infoRow}>
@@ -133,15 +146,15 @@ const JoinPage = () => {
             className={styles.JoinButton}
             primary={true}
             type="submit"
-            disabled={!isCheckedId}
-            title={'중복확인 해주세요'}
-            onClick={show}
+            // disabled={!isValidUsername}
+            title={isValidUsername ? '회원가입' : '중복확인 해주세요'}
           >
             회원가입
           </Button>
         </form>
       </Card>
       <RenderModal
+        headerText={modalTitle}
         footer={{
           submitButton: (
             <Button primary onClick={hide}>
@@ -150,7 +163,14 @@ const JoinPage = () => {
           ),
         }}
       >
-        <>{modalText}</>
+        <Typography
+          fontSize={'xs'}
+          fontWeight={'regular'}
+          textColor="black"
+          textAlign="center"
+        >
+          {modalDesc}
+        </Typography>
       </RenderModal>
     </div>
   );
