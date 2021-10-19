@@ -20,3 +20,8 @@ export const getErrorText = (error: AxiosError<unknown>) => {
       return REST_ERROR_TEXT;
   }
 };
+
+export const isValidPasswd = (passwd: string) => {
+  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/;
+  return re.test(passwd);
+};
