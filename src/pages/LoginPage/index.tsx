@@ -82,7 +82,7 @@ const LoginPage = () => {
               id="username"
               name="username"
               placeholder="username"
-              maxWidth={true}
+              maxWidth
               ref={usernameRef}
             />
           </div>
@@ -96,12 +96,12 @@ const LoginPage = () => {
               id="password"
               name="password"
               placeholder="password"
-              maxWidth={true}
-              password={true}
+              maxWidth
+              password
               ref={passwordRef}
             />
           </div>
-          <Button className={styles.loginButton} primary={true} type="submit">
+          <Button className={styles.loginButton} primary type="submit">
             로그인
           </Button>
         </form>

@@ -101,7 +101,7 @@ const JoinPage = () => {
                   id="username"
                   name="username"
                   placeholder="username"
-                  maxWidth={true}
+                  maxWidth
                   ref={usernameRef}
                   disabled={isValidUsername}
                 />
@@ -116,8 +116,8 @@ const JoinPage = () => {
                   id="passwd"
                   name="passwd"
                   placeholder="passwd"
-                  maxWidth={true}
-                  password={true}
+                  maxWidth
+                  password
                   error={passwd.length !== 0 && !isValidPasswd(passwd)}
                   errorMessage={INVALID_PASSWD_TEXT}
                   onChange={handlePasswd}
@@ -133,7 +133,7 @@ const JoinPage = () => {
                   id="nickname"
                   name="nickname"
                   placeholder="nickname"
-                  maxWidth={true}
+                  maxWidth
                   ref={nicknameRef}
                 />
               </div>
@@ -144,7 +144,7 @@ const JoinPage = () => {
           </div>
           <Button
             className={styles.JoinButton}
-            primary={true}
+            primary
             type="submit"
             // disabled={!isValidUsername}
             title={isValidUsername ? '회원가입' : '중복확인 해주세요'}
