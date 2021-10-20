@@ -5,18 +5,17 @@ import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
 import { useCreateUser, useUserExist } from '@src/hooks/useUserQuery';
-import Modal from '@src/components/common/Modal';
 import { isValidPasswd, getErrorText } from '@src/utils/common';
 import { GuideText } from '@src/constant/enums';
+
+import { useAppDispatch, showAlertModal } from '@src/store';
 
 const INVALID_PASSWD_TEXT = '8~15자, 숫자, 문자 하나 이상 (특수문자 제외)';
 
 const JoinPage = () => {
+  const dispatch = useAppDispatch();
   const usernameRef = useRef({} as ParentRef);
   const nicknameRef = useRef({} as ParentRef);
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const showModal = () => setIsModalVisible(true);
-  const hideModal = () => setIsModalVisible(false);
 
   const [modalDesc, setModalDesc] = useState<string>('');
   const [modalTitle, setModalTitle] = useState<string>('알림');
@@ -62,7 +61,11 @@ const JoinPage = () => {
 
     if (!username || !password || !nickname) {
       setModalDesc(GuideText.FILL_ALL_FORM);
-      showModal();
+      dispatch(
+        showAlertModal({
+          alertModalContent: GuideText.FILL_ALL_FORM,
+        }),
+      );
       return;
     }
 
@@ -76,7 +79,11 @@ const JoinPage = () => {
           setModalDesc(getErrorText(error));
         },
         onSettled: () => {
-          showModal();
+          dispatch(
+            showAlertModal({
+              alertModalContent: modalDesc,
+            }),
+          );
         },
       },
     );
@@ -158,27 +165,6 @@ const JoinPage = () => {
           </Button>
         </form>
       </Card>
-      <Modal
-        closeModal={hideModal}
-        headerText={modalTitle}
-        footer={{
-          submitButton: (
-            <Button primary onClick={hideModal}>
-              확인
-            </Button>
-          ),
-        }}
-        isVisible={isModalVisible}
-      >
-        <Typography
-          fontSize={'xs'}
-          fontWeight={'regular'}
-          textColor="black"
-          textAlign="center"
-        >
-          {modalDesc}
-        </Typography>
-      </Modal>
     </div>
   );
 };

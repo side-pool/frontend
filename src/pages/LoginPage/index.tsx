@@ -1,10 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Typography from '@src/components/common/Typography';
 import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-import Modal from '@src/components/common/Modal';
 import { saveItem, ACCESS_TOKEN } from '@src/utils/storage';
 import { useLogin } from '@src/hooks/useAuthQuery';
 import { HttpStatusCode } from '@src/constant/enums';
@@ -12,15 +11,12 @@ import { getErrorText } from '@src/utils/common';
 import { GuideText } from '@src/constant/enums';
 import { Link } from 'react-router-dom';
 
+import { useAppDispatch, showAlertModal } from '@src/store';
+
 const LoginPage = () => {
+  const dispatch = useAppDispatch();
   const usernameRef = useRef({} as ParentRef);
   const passwordRef = useRef({} as ParentRef);
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const showModal = () => setIsModalVisible(true);
-  const hideModal = () => setIsModalVisible(false);
-
-  const [modalDesc, setModalDesc] = useState<string>('');
-  const [modalTitle, setModalTitle] = useState<string>('알림');
 
   const loginMutation = useLogin();
 
@@ -33,9 +29,11 @@ const LoginPage = () => {
     ];
 
     if (!username || !password) {
-      setModalDesc(GuideText.FILL_ALL_FORM);
-      showModal();
-
+      dispatch(
+        showAlertModal({
+          alertModalContent: GuideText.FILL_ALL_FORM,
+        }),
+      );
       return;
     }
 
@@ -45,19 +43,29 @@ const LoginPage = () => {
       {
         onSuccess: ({ token }) => {
           saveItem(ACCESS_TOKEN, `${token}`);
-          setModalTitle('짝짝짝!');
-          setModalDesc('로그인 성공');
 
-          showModal();
+          dispatch(
+            showAlertModal({
+              alertModalTitle: '짝짝짝!',
+              alertModalContent: '로그인 성공',
+            }),
+          );
         },
         onError: (error) => {
           if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
-            setModalDesc('아이디 혹은 비밀번호가 틀렸습니다 😅');
+            dispatch(
+              showAlertModal({
+                alertModalContent: '아이디 혹은 비밀번호가 틀렸습니다 😅',
+              }),
+            );
           } else {
-            setModalDesc(getErrorText(error));
+            dispatch(
+              showAlertModal({
+                alertModalContent: getErrorText(error),
+              }),
+            );
           }
           passwordRef.current.reset();
-          showModal();
         },
       },
     );
@@ -114,27 +122,6 @@ const LoginPage = () => {
           </Button>
         </Link>
       </Card>
-      <Modal
-        closeModal={hideModal}
-        headerText={modalTitle}
-        footer={{
-          submitButton: (
-            <Button primary onClick={hideModal}>
-              확인
-            </Button>
-          ),
-        }}
-        isVisible={isModalVisible}
-      >
-        <Typography
-          fontSize={'xs'}
-          fontWeight={'regular'}
-          textColor="black"
-          textAlign="center"
-        >
-          {modalDesc}
-        </Typography>
-      </Modal>
     </div>
   );
 };
