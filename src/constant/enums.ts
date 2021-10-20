@@ -1,4 +1,4 @@
-export enum HttpStatusCode {
+export enum httpStatusCode {
   OK = 200,
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
@@ -7,6 +7,6 @@ export enum HttpStatusCode {
   INTERNAL_SERVER_ERROR = 500,
 }
 
-export enum GuideText {
+export enum guideText {
   FILL_ALL_FORM = '값을 모두 입력해주세요',
 }
