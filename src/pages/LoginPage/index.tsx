@@ -1,35 +1,47 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Typography from '@src/components/common/Typography';
 import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
-import Input from '@src/components/common/Input';
+import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-
-import { useGetUserInfo, useLoginUser } from '@src/hooks/useUserApi';
+import { useLogin } from '@src/hooks/useAuth';
+import useModal from '@src/hooks/useModal';
 
 const LoginPage = () => {
-  const { data, error, isError } = useGetUserInfo();
-  const setLoginUser = useLoginUser();
+  const usernameRef = useRef({} as ParentRef);
+  const passwordRef = useRef({} as ParentRef);
+  const [modalText, setModalText] = useState('');
 
-  const handleLogin = () => {
-    const username = 'username1';
-    const password = 'password1';
+  const { show, hide, RenderModal } = useModal();
+  const loginMutation = useLogin();
 
-    setLoginUser.mutate({ username, password });
-  };
+  const submitLoginInfo = (event: React.FormEvent) => {
+    event.preventDefault();
 
-  console.log(data, error, isError);
-  const [form, setForm] = useState({ username: '', password: '' });
+    const [username, password] = [
+      usernameRef.current.get(),
+      passwordRef.current.get(),
+    ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setForm({ ...form, [name]: value });
-    console.log(form);
-  };
+    if (!username || !password) {
+      setModalText('값을 모두 입력해주세요');
+      show();
+      return;
+    }
+    // alert(`${usernameRef.current.get()}, ${passwordRef.current.get()}`);
 
-  const submitLoginInfo = () => {
     // submit to sever
-    alert(Object.entries(form).map(([key, value]) => `\n${key} : ${value}`));
+    loginMutation.mutate({ username, password });
+
+    if (loginMutation.isError) {
+      // TODO: isError 가 확인이 안 됨
+      setModalText('알 수 없는 에러');
+    } else if (loginMutation.isSuccess) {
+      setModalText('로그인 성공');
+    }
+
+    console.log(loginMutation.status);
+    show();
   };
 
   return (
@@ -55,7 +67,7 @@ const LoginPage = () => {
               name="username"
               placeholder="username"
               maxWidth={true}
-              onChange={handleChange}
+              ref={usernameRef}
             />
           </div>
           <div className={styles.infoRow}>
@@ -69,8 +81,8 @@ const LoginPage = () => {
               name="password"
               placeholder="password"
               maxWidth={true}
-              type={'password'}
-              onChange={handleChange}
+              password={true}
+              ref={passwordRef}
             />
           </div>
           <Button className={styles.loginButton} primary={true} type="submit">
@@ -81,6 +93,17 @@ const LoginPage = () => {
           회원가입
         </Button>
       </Card>
+      <RenderModal
+        footer={{
+          submitButton: (
+            <Button primary onClick={hide}>
+              확인
+            </Button>
+          ),
+        }}
+      >
+        <>{modalText}</>
+      </RenderModal>
     </div>
   );
 };
