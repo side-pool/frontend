@@ -22,7 +22,7 @@ export interface ModalProps extends Children {
   zIndex?: number;
   className?: string;
   isWide?: boolean;
-  isVisible?: boolean;
+  isVisible: boolean;
 }
 
 const PORTAL_ID = 'portal';
@@ -74,7 +74,7 @@ const Modal = ({
       <div
         className={cn(
           styles.Modal,
-          isVisible && fadeout ? styles.fadeout : styles.fadein,
+          fadeout && styles.fadeout,
           isVisible ? styles.isVisible : styles.isNotVisible,
           className,
         )}
