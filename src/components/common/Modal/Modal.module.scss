@@ -2,6 +2,9 @@
   from {
     opacity: 0;
   }
+  20% {
+    opacity: 0;
+  }
   to {
     opacity: 1;
   }
@@ -29,9 +32,8 @@
   background-color: rgba(#000, 0.4);
   user-select: none;
 
-  &.fadein {
-    animation: fadein 2s;
-  }
+  animation: fadein 2s;
+  visibility: visible;
 
   &.fadeout {
     animation: fadeout 0.5s;
@@ -42,7 +44,7 @@
   }
 
   &.isNotVisible {
-    visibility: hidden;
+    visibility: hidden !important;
   }
 
   .Card {
