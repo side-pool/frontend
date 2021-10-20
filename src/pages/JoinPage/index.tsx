@@ -5,7 +5,7 @@ import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
 import { useCreateUser, useUserExist } from '@src/hooks/useUserQuery';
-import useModal from '@src/hooks/useModal';
+import Modal from '@src/components/common/Modal';
 import { isValidPasswd, getErrorText } from '@src/utils/common';
 import { guideText } from '@src/constant/enums';
 
@@ -14,13 +14,15 @@ const INVALID_PASSWD_TEXT = '8~15자, 숫자, 문자 하나 이상 (특수문자
 const JoinPage = () => {
   const usernameRef = useRef({} as ParentRef);
   const nicknameRef = useRef({} as ParentRef);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const showModal = () => setIsModalVisible(true);
+  const hideModal = () => setIsModalVisible(false);
+
   const [modalDesc, setModalDesc] = useState('');
   const [modalTitle, setModalTitle] = useState('알림');
   const [username, setUsername] = useState('');
   const [passwd, setPasswd] = useState('');
   const [isValidUsername, setIsValidUsername] = useState(false);
-
-  const { show, hide, RenderModal } = useModal();
 
   const createUserMutation = useCreateUser();
   const { isLoading, data, refetch } = useUserExist(username);
@@ -29,7 +31,7 @@ const JoinPage = () => {
     setPasswd(e.target?.value);
   };
 
-  const checkRedundancy = (event: React.MouseEvent) => {
+  const checkRedundancy = () => {
     const curUsername = usernameRef.current.get();
     if (!curUsername) {
       setModalDesc('유저네임을 입력해주세요!');
@@ -56,8 +58,8 @@ const JoinPage = () => {
     const nickname = nicknameRef.current.get();
 
     if (!username || !passwd || !nickname) {
-      setModalDesc(guideText.FILL_ALL_FORM);
-      show();
+      setModalDesc(GuideText.FILL_ALL_FORM);
+      showModal();
       return;
     }
 
@@ -71,7 +73,7 @@ const JoinPage = () => {
           setModalDesc(getErrorText(error));
         },
         onSettled: () => {
-          show();
+          showModal();
         },
       },
     );
@@ -153,15 +155,17 @@ const JoinPage = () => {
           </Button>
         </form>
       </Card>
-      <RenderModal
+      <Modal
+        closeModal={hideModal}
         headerText={modalTitle}
         footer={{
           submitButton: (
-            <Button primary onClick={hide}>
+            <Button primary onClick={hideModal}>
               확인
             </Button>
           ),
         }}
+        isVisible={isModalVisible}
       >
         <Typography
           fontSize={'xs'}
@@ -171,7 +175,7 @@ const JoinPage = () => {
         >
           {modalDesc}
         </Typography>
-      </RenderModal>
+      </Modal>
     </div>
   );
 };

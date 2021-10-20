@@ -1,3 +1,24 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .Modal {
   @include flex_col();
 
@@ -11,28 +32,19 @@
   background-color: rgba(#000, 0.4);
   user-select: none;
 
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-
-  animation: fadein 1s;
+  animation: fadein 2s;
+  visibility: visible;
 
   &.fadeout {
     animation: fadeout 0.5s;
+  }
+
+  &.isVisible {
+    visibility: visible;
+  }
+
+  &.isNotVisible {
+    visibility: hidden !important;
   }
 
   .Card {
@@ -44,6 +56,11 @@
     max-height: 50%;
 
     padding: 16px;
+
+    &.isWide {
+      max-width: 1020px;
+      width: 80%;
+    }
 
     .closeButton {
       @include flex_col();

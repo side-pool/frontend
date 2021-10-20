@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import useModal from '@src/hooks/useModal';
-import { ModalProps } from '@src/components/common/Modal';
+import Modal, { ModalProps } from '@src/components/common/Modal';
 
 import Button from '@src/components/common/Button';
 import Skeleton from '@src/components/common/Skeleton';
@@ -12,15 +11,19 @@ export default {
 } as Meta;
 
 const Template: Story<ModalProps> = (props) => {
-  const { show, hide, RenderModal } = useModal();
+  const [isModalVisible, seIsModalVisible] = useState<boolean>(false);
+
+  const closeModal = () => seIsModalVisible(false);
+  const showModal = () => seIsModalVisible(true);
 
   return (
     <div>
-      <Button onClick={show}>MODAL 열기</Button>
-      <RenderModal
+      <Button onClick={showModal}>MODAL 열기</Button>
+      <Modal
         {...props}
+        isVisible={isModalVisible}
+        closeModal={closeModal}
         footer={{
-          cancelButton: <Button onClick={hide}>취소</Button>,
           submitButton: <Button primary>확인</Button>,
         }}
       >
@@ -35,7 +38,7 @@ const Template: Story<ModalProps> = (props) => {
           <Skeleton maxWidth />
           <Skeleton maxWidth />
         </>
-      </RenderModal>
+      </Modal>
     </div>
   );
 };
@@ -43,7 +46,6 @@ const Template: Story<ModalProps> = (props) => {
 export const modal = Template.bind({});
 
 modal.args = {
-  variant: 'default',
   headerText: 'modal',
   zIndex: 10,
 };

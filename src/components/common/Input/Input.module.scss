@@ -1,11 +1,11 @@
 .Input {
   @include flex_col();
 
-  padding: 5px 14px;
+  padding: 0px 14px;
 
   position: relative;
   width: fit-content;
-  height: fit-content;
+  height: 28px;
 
   background: $gray_2;
   border-radius: 15px;
