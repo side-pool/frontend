@@ -29,7 +29,7 @@ const JoinPage = () => {
     setPasswd(e.target?.value);
   };
 
-  const checkRedundancy = (event: React.MouseEvent) => {
+  const checkRedundancy = () => {
     const curUsername = usernameRef.current.get();
     if (!curUsername) {
       setModalDesc('유저네임을 입력해주세요!');
