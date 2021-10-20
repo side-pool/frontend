@@ -19,8 +19,8 @@ const LoginPage = () => {
   const showModal = () => setIsModalVisible(true);
   const hideModal = () => setIsModalVisible(false);
 
-  const [modalDesc, setModalDesc] = useState('');
-  const [modalTitle, setModalTitle] = useState('알림');
+  const [modalDesc, setModalDesc] = useState<string>('');
+  const [modalTitle, setModalTitle] = useState<string>('알림');
 
   const loginMutation = useLogin();
 

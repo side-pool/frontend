@@ -18,10 +18,10 @@ const JoinPage = () => {
   const showModal = () => setIsModalVisible(true);
   const hideModal = () => setIsModalVisible(false);
 
-  const [modalDesc, setModalDesc] = useState('');
-  const [modalTitle, setModalTitle] = useState('알림');
-  const [username, setUsername] = useState('');
-  const [passwd, setPasswd] = useState('');
+  const [modalDesc, setModalDesc] = useState<string>('');
+  const [modalTitle, setModalTitle] = useState<string>('알림');
+  const [username, setUsername] = useState<string>('');
+  const [passwd, setPasswd] = useState<string>('');
   const [isValidUsername, setIsValidUsername] = useState(false);
 
   const createUserMutation = useCreateUser();
