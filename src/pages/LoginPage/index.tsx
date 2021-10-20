@@ -1,35 +1,63 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Typography from '@src/components/common/Typography';
 import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
-import Input from '@src/components/common/Input';
+import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-
-import { useGetUserInfo, useLoginUser } from '@src/hooks/useUserApi';
+import useModal from '@src/hooks/useModal';
+import { saveItem, ACCESS_TOKEN } from '@src/utils/storage';
+import { useLogin } from '@src/hooks/useAuthQuery';
+import { HttpStatusCode } from '@src/constant/enums';
+import { getErrorText } from '@src/utils/common';
+import { GuideText } from '@src/constant/enums';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
-  const { data, error, isError } = useGetUserInfo();
-  const setLoginUser = useLoginUser();
+  const usernameRef = useRef({} as ParentRef);
+  const passwordRef = useRef({} as ParentRef);
+  const [modalDesc, setModalDesc] = useState('');
+  const [modalTitle, setModalTitle] = useState('알림');
 
-  const handleLogin = () => {
-    const username = 'username1';
-    const password = 'password1';
+  const { show, hide, RenderModal } = useModal();
 
-    setLoginUser.mutate({ username, password });
-  };
+  const loginMutation = useLogin();
 
-  console.log(data, error, isError);
-  const [form, setForm] = useState({ username: '', password: '' });
+  const submitLoginInfo = (event: React.FormEvent) => {
+    event.preventDefault();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setForm({ ...form, [name]: value });
-    console.log(form);
-  };
+    const [username, password] = [
+      usernameRef.current.get(),
+      passwordRef.current.get(),
+    ];
 
-  const submitLoginInfo = () => {
+    if (!username || !password) {
+      setModalDesc(GuideText.FILL_ALL_FORM);
+      show();
+      return;
+    }
+
     // submit to sever
-    alert(Object.entries(form).map(([key, value]) => `\n${key} : ${value}`));
+    loginMutation.mutate(
+      { username, password },
+      {
+        onSuccess: ({ token }) => {
+          saveItem(ACCESS_TOKEN, `${token}`);
+          setModalTitle('짝짝짝!');
+          setModalDesc('로그인 성공');
+
+          show();
+        },
+        onError: (error) => {
+          if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
+            setModalDesc('아이디 혹은 비밀번호가 틀렸습니다 😅');
+          } else {
+            setModalDesc(getErrorText(error));
+          }
+          passwordRef.current.reset();
+          show();
+        },
+      },
+    );
   };
 
   return (
@@ -54,8 +82,8 @@ const LoginPage = () => {
               id="username"
               name="username"
               placeholder="username"
-              maxWidth={true}
-              onChange={handleChange}
+              maxWidth
+              ref={usernameRef}
             />
           </div>
           <div className={styles.infoRow}>
@@ -68,19 +96,40 @@ const LoginPage = () => {
               id="password"
               name="password"
               placeholder="password"
-              maxWidth={true}
-              type={'password'}
-              onChange={handleChange}
+              maxWidth
+              password
+              ref={passwordRef}
             />
           </div>
-          <Button className={styles.loginButton} primary={true} type="submit">
+          <Button className={styles.loginButton} primary type="submit">
             로그인
           </Button>
         </form>
-        <Button className={styles.joinButton} variant={'text'}>
-          회원가입
-        </Button>
+        <Link to="/join">
+          <Button className={styles.joinButton} variant={'text'}>
+            회원가입
+          </Button>
+        </Link>
       </Card>
+      <RenderModal
+        headerText={modalTitle}
+        footer={{
+          submitButton: (
+            <Button primary onClick={hide}>
+              확인
+            </Button>
+          ),
+        }}
+      >
+        <Typography
+          fontSize={'xs'}
+          fontWeight={'regular'}
+          textColor="black"
+          textAlign="center"
+        >
+          {modalDesc}
+        </Typography>
+      </RenderModal>
     </div>
   );
 };
