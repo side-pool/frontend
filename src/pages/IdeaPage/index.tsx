@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import styles from './IdeaPage.module.scss';
 
 import Modal from '@src/components/common/Modal';
-import Input from '@src/components/common/Input';
-import Textarea from '@src/components/common/Textarea';
+import Input, { ParentRef } from '@src/components/common/Input';
+import Textarea, { TextareaParentRef } from '@src/components/common/Textarea';
 import Button from '@src/components/common/Button';
 
 import { useCreateIdea } from '@src/hooks/useIdeaQuery';
@@ -14,15 +14,15 @@ const IdeaPage = () => {
   const showModal = () => setIsModalVisible(true);
   const hideModal = () => setIsModalVisible(false);
 
-  const titleRef = useRef<HTMLInputElement>();
-  const contentRef = useRef<HTMLTextAreaElement>();
+  const titleRef = useRef({} as ParentRef);
+  const contentRef = useRef({} as TextareaParentRef);
   const [hashtags, setHashtags] = useState<string[]>([]);
 
   const createIdeaMutation = useCreateIdea();
 
   const handleCreateIdea = () => {
-    const title = titleRef?.current.get() || '';
-    const content = contentRef?.current.get() || '';
+    const title = titleRef.current.get() || '';
+    const content = contentRef.current.get() || '';
 
     if (title.length < 1 || content.length < 1) {
       return alert('하나라도 입력해야 함');
