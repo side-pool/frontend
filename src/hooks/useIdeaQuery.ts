@@ -1,4 +1,4 @@
-import api from '@src/api/context';
+import { getApiInstance } from '@src/utils/context';
 import { useMutation } from 'react-query';
 
 interface IdeaData {
@@ -9,18 +9,18 @@ interface IdeaData {
 
 export const useCreateIdea = () => {
   return useMutation<string, unknown, IdeaData>(async (params) => {
-    return await api.post('/ideas', { data: params });
+    return await getApiInstance().post('/ideas', { data: params });
   });
 };
 
 export const useUpdateIdea = () => {
   return useMutation<unknown, unknown, IdeaData>(async (params) => {
-    return await api.put('/ideas', { data: params });
+    return await getApiInstance().put('/ideas', { data: params });
   });
 };
 
 export const useDeleteIdea = () => {
   return useMutation<unknown, unknown, string>(async (id) => {
-    return await api.delete(`/ideas/${id}`);
+    return await getApiInstance().delete(`/ideas/${id}`);
   });
 };
