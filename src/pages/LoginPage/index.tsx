@@ -4,15 +4,22 @@ import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-import { useLogin } from '@src/hooks/useAuth';
 import useModal from '@src/hooks/useModal';
+import { saveItem, ACCESS_TOKEN } from '@src/utils/storage';
+import { useLogin } from '@src/hooks/useAuthQuery';
+import { httpStatusCode } from '@src/constant/enums';
+import { getErrorText } from '@src/utils/common';
+import { guideText } from '@src/constant/enums';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const usernameRef = useRef({} as ParentRef);
   const passwordRef = useRef({} as ParentRef);
-  const [modalText, setModalText] = useState('');
+  const [modalDesc, setModalDesc] = useState('');
+  const [modalTitle, setModalTitle] = useState('알림');
 
   const { show, hide, RenderModal } = useModal();
+
   const loginMutation = useLogin();
 
   const submitLoginInfo = (event: React.FormEvent) => {
@@ -24,24 +31,33 @@ const LoginPage = () => {
     ];
 
     if (!username || !password) {
-      setModalText('값을 모두 입력해주세요');
+      setModalDesc(guideText.FILL_ALL_FORM);
       show();
       return;
     }
-    // alert(`${usernameRef.current.get()}, ${passwordRef.current.get()}`);
 
     // submit to sever
-    loginMutation.mutate({ username, password });
+    loginMutation.mutate(
+      { username, password },
+      {
+        onSuccess: ({ token }) => {
+          saveItem(ACCESS_TOKEN, `${token}`);
+          setModalTitle('짝짝짝!');
+          setModalDesc('로그인 성공');
 
-    if (loginMutation.isError) {
-      // TODO: isError 가 확인이 안 됨
-      setModalText('알 수 없는 에러');
-    } else if (loginMutation.isSuccess) {
-      setModalText('로그인 성공');
-    }
-
-    console.log(loginMutation.status);
-    show();
+          show();
+        },
+        onError: (error) => {
+          if (error.response?.status === httpStatusCode.UNAUTHORIZED) {
+            setModalDesc('아이디 혹은 비밀번호가 틀렸습니다 😅');
+          } else {
+            setModalDesc(getErrorText(error));
+          }
+          passwordRef.current.reset();
+          show();
+        },
+      },
+    );
   };
 
   return (
@@ -66,7 +82,7 @@ const LoginPage = () => {
               id="username"
               name="username"
               placeholder="username"
-              maxWidth={true}
+              maxWidth
               ref={usernameRef}
             />
           </div>
@@ -80,20 +96,23 @@ const LoginPage = () => {
               id="password"
               name="password"
               placeholder="password"
-              maxWidth={true}
-              password={true}
+              maxWidth
+              password
               ref={passwordRef}
             />
           </div>
-          <Button className={styles.loginButton} primary={true} type="submit">
+          <Button className={styles.loginButton} primary type="submit">
             로그인
           </Button>
         </form>
-        <Button className={styles.joinButton} variant={'text'}>
-          회원가입
-        </Button>
+        <Link to="/join">
+          <Button className={styles.joinButton} variant={'text'}>
+            회원가입
+          </Button>
+        </Link>
       </Card>
       <RenderModal
+        headerText={modalTitle}
         footer={{
           submitButton: (
             <Button primary onClick={hide}>
@@ -102,7 +121,14 @@ const LoginPage = () => {
           ),
         }}
       >
-        <>{modalText}</>
+        <Typography
+          fontSize={'xs'}
+          fontWeight={'regular'}
+          textColor="black"
+          textAlign="center"
+        >
+          {modalDesc}
+        </Typography>
       </RenderModal>
     </div>
   );
