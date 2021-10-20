@@ -4,7 +4,7 @@ import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-import useModal from '@src/hooks/useModal';
+import Modal from '@src/components/common/Modal';
 import { saveItem, ACCESS_TOKEN } from '@src/utils/storage';
 import { useLogin } from '@src/hooks/useAuthQuery';
 import { HttpStatusCode } from '@src/constant/enums';
@@ -15,10 +15,12 @@ import { Link } from 'react-router-dom';
 const LoginPage = () => {
   const usernameRef = useRef({} as ParentRef);
   const passwordRef = useRef({} as ParentRef);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const showModal = () => setIsModalVisible(true);
+  const hideModal = () => setIsModalVisible(false);
+
   const [modalDesc, setModalDesc] = useState('');
   const [modalTitle, setModalTitle] = useState('알림');
-
-  const { show, hide, RenderModal } = useModal();
 
   const loginMutation = useLogin();
 
@@ -32,7 +34,7 @@ const LoginPage = () => {
 
     if (!username || !password) {
       setModalDesc(GuideText.FILL_ALL_FORM);
-      show();
+      showModal();
       return;
     }
 
@@ -45,7 +47,7 @@ const LoginPage = () => {
           setModalTitle('짝짝짝!');
           setModalDesc('로그인 성공');
 
-          show();
+          showModal();
         },
         onError: (error) => {
           if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
@@ -54,7 +56,7 @@ const LoginPage = () => {
             setModalDesc(getErrorText(error));
           }
           passwordRef.current.reset();
-          show();
+          showModal();
         },
       },
     );
@@ -111,15 +113,17 @@ const LoginPage = () => {
           </Button>
         </Link>
       </Card>
-      <RenderModal
+      <Modal
+        closeModal={hideModal}
         headerText={modalTitle}
         footer={{
           submitButton: (
-            <Button primary onClick={hide}>
+            <Button primary onClick={hideModal}>
               확인
             </Button>
           ),
         }}
+        isVisible={isModalVisible}
       >
         <Typography
           fontSize={'xs'}
@@ -129,7 +133,7 @@ const LoginPage = () => {
         >
           {modalDesc}
         </Typography>
-      </RenderModal>
+      </Modal>
     </div>
   );
 };
