@@ -1,4 +1,4 @@
-import { httpStatusCode } from '@src/constant/enums';
+import { HttpStatusCode } from '@src/constant/enums';
 import { AxiosError } from 'axios';
 
 /**
@@ -12,10 +12,10 @@ export const getErrorText = (error: AxiosError<unknown>) => {
   const REST_ERROR_TEXT = '알 수 없는 오류가 발생했습니다 😭';
 
   switch (error.response?.status) {
-    case httpStatusCode.NOT_FOUND:
+    case HttpStatusCode.NOT_FOUND:
       return NOT_FOUND_TEXT;
-    case httpStatusCode.BAD_REQUEST:
-    case httpStatusCode.UNAUTHORIZED:
+    case HttpStatusCode.BAD_REQUEST:
+    case HttpStatusCode.UNAUTHORIZED:
     default:
       return REST_ERROR_TEXT;
   }
