@@ -21,14 +21,14 @@ const JoinPage = () => {
   const [modalDesc, setModalDesc] = useState<string>('');
   const [modalTitle, setModalTitle] = useState<string>('알림');
   const [username, setUsername] = useState<string>('');
-  const [passwd, setPasswd] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [isValidUsername, setIsValidUsername] = useState(false);
 
   const createUserMutation = useCreateUser();
   const { isLoading, data, refetch } = useUserExist(username);
 
   const handlePasswd = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswd(e.target?.value);
+    setPassword(e.target?.value);
   };
 
   const checkRedundancy = () => {
@@ -55,16 +55,19 @@ const JoinPage = () => {
   const submitJoinInfo = (event: React.FormEvent) => {
     event.preventDefault();
     // submit to sever
-    const nickname = nicknameRef.current.get();
+    const [username, nickname] = [
+      nicknameRef.current.get(),
+      usernameRef.current.get(),
+    ];
 
-    if (!username || !passwd || !nickname) {
+    if (!username || !password || !nickname) {
       setModalDesc(guideText.FILL_ALL_FORM);
       showModal();
       return;
     }
 
     createUserMutation.mutate(
-      { username, passwd, nickname },
+      { username, password, nickname },
       {
         onSuccess: () => {
           setModalDesc('회원가입 성공');
@@ -109,18 +112,18 @@ const JoinPage = () => {
                 />
               </div>
               <div className={styles.infoRow}>
-                <label htmlFor="passwd">
+                <label htmlFor="password">
                   <Typography fontSize="md" fontWeight="medium">
                     Password
                   </Typography>
                 </label>
                 <Input
-                  id="passwd"
-                  name="passwd"
-                  placeholder="passwd"
+                  id="password"
+                  name="password"
+                  placeholder="password"
                   maxWidth
                   password
-                  error={passwd.length !== 0 && !isValidPasswd(passwd)}
+                  error={password.length !== 0 && !isValidPasswd(password)}
                   errorMessage={INVALID_PASSWD_TEXT}
                   onChange={handlePasswd}
                 />
