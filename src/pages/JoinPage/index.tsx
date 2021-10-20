@@ -58,7 +58,7 @@ const JoinPage = () => {
     const nickname = nicknameRef.current.get();
 
     if (!username || !passwd || !nickname) {
-      setModalDesc(GuideText.FILL_ALL_FORM);
+      setModalDesc(guideText.FILL_ALL_FORM);
       showModal();
       return;
     }

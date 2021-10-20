@@ -33,7 +33,7 @@ const LoginPage = () => {
     ];
 
     if (!username || !password) {
-      setModalDesc(GuideText.FILL_ALL_FORM);
+      setModalDesc(guideText.FILL_ALL_FORM);
       showModal();
 
       return;
