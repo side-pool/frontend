@@ -4,7 +4,7 @@ import { useQuery, useMutation } from 'react-query';
 
 interface UserVariable {
   username: string;
-  passwd: string;
+  password: string;
   nickname: string;
 }
 
