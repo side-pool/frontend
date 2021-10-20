@@ -7,7 +7,7 @@ import Button from '@src/components/common/Button';
 import { useCreateUser, useUserExist } from '@src/hooks/useUserQuery';
 import useModal from '@src/hooks/useModal';
 import { isValidPasswd, getErrorText } from '@src/utils/common';
-import { GuideText } from '@src/constant/enums';
+import { guideText } from '@src/constant/enums';
 
 const INVALID_PASSWD_TEXT = '8~15자, 숫자, 문자 하나 이상 (특수문자 제외)';
 
@@ -56,7 +56,7 @@ const JoinPage = () => {
     const nickname = nicknameRef.current.get();
 
     if (!username || !passwd || !nickname) {
-      setModalDesc(GuideText.FILL_ALL_FORM);
+      setModalDesc(guideText.FILL_ALL_FORM);
       show();
       return;
     }

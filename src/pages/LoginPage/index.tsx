@@ -7,9 +7,9 @@ import Button from '@src/components/common/Button';
 import useModal from '@src/hooks/useModal';
 import { saveItem, ACCESS_TOKEN } from '@src/utils/storage';
 import { useLogin } from '@src/hooks/useAuthQuery';
-import { HttpStatusCode } from '@src/constant/enums';
+import { httpStatusCode } from '@src/constant/enums';
 import { getErrorText } from '@src/utils/common';
-import { GuideText } from '@src/constant/enums';
+import { guideText } from '@src/constant/enums';
 import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -31,7 +31,7 @@ const LoginPage = () => {
     ];
 
     if (!username || !password) {
-      setModalDesc(GuideText.FILL_ALL_FORM);
+      setModalDesc(guideText.FILL_ALL_FORM);
       show();
       return;
     }
@@ -48,7 +48,7 @@ const LoginPage = () => {
           show();
         },
         onError: (error) => {
-          if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
+          if (error.response?.status === httpStatusCode.UNAUTHORIZED) {
             setModalDesc('아이디 혹은 비밀번호가 틀렸습니다 😅');
           } else {
             setModalDesc(getErrorText(error));
