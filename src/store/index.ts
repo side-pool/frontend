@@ -1,7 +1,11 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
 
-import uiReducer, { setLoading } from '@src/store/uiSlice';
+import uiReducer, {
+  setLoading,
+  showAlertModal,
+  hideAlertModal,
+} from '@src/store/uiSlice';
 
 const reducers = combineReducers({
   ui: uiReducer,
@@ -11,7 +15,7 @@ const store = configureStore({ reducer: reducers });
 
 export default store;
 
-export { setLoading };
+export { setLoading, showAlertModal, hideAlertModal };
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
