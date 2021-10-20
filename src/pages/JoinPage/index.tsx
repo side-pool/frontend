@@ -7,7 +7,7 @@ import Button from '@src/components/common/Button';
 import { useCreateUser, useUserExist } from '@src/hooks/useUserQuery';
 import Modal from '@src/components/common/Modal';
 import { isValidPasswd, getErrorText } from '@src/utils/common';
-import { guideText } from '@src/constant/enums';
+import { GuideText } from '@src/constant/enums';
 
 const INVALID_PASSWD_TEXT = '8~15자, 숫자, 문자 하나 이상 (특수문자 제외)';
 
@@ -18,17 +18,17 @@ const JoinPage = () => {
   const showModal = () => setIsModalVisible(true);
   const hideModal = () => setIsModalVisible(false);
 
-  const [modalDesc, setModalDesc] = useState('');
-  const [modalTitle, setModalTitle] = useState('알림');
-  const [username, setUsername] = useState('');
-  const [passwd, setPasswd] = useState('');
+  const [modalDesc, setModalDesc] = useState<string>('');
+  const [modalTitle, setModalTitle] = useState<string>('알림');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [isValidUsername, setIsValidUsername] = useState(false);
 
   const createUserMutation = useCreateUser();
   const { isLoading, data, refetch } = useUserExist(username);
 
   const handlePasswd = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswd(e.target?.value);
+    setPassword(e.target?.value);
   };
 
   const checkRedundancy = () => {
@@ -55,16 +55,19 @@ const JoinPage = () => {
   const submitJoinInfo = (event: React.FormEvent) => {
     event.preventDefault();
     // submit to sever
-    const nickname = nicknameRef.current.get();
+    const [username, nickname] = [
+      nicknameRef.current.get(),
+      usernameRef.current.get(),
+    ];
 
-    if (!username || !passwd || !nickname) {
+    if (!username || !password || !nickname) {
       setModalDesc(GuideText.FILL_ALL_FORM);
       showModal();
       return;
     }
 
     createUserMutation.mutate(
-      { username, passwd, nickname },
+      { username, password, nickname },
       {
         onSuccess: () => {
           setModalDesc('회원가입 성공');
@@ -109,18 +112,18 @@ const JoinPage = () => {
                 />
               </div>
               <div className={styles.infoRow}>
-                <label htmlFor="passwd">
+                <label htmlFor="password">
                   <Typography fontSize="md" fontWeight="medium">
                     Password
                   </Typography>
                 </label>
                 <Input
-                  id="passwd"
-                  name="passwd"
-                  placeholder="passwd"
+                  id="password"
+                  name="password"
+                  placeholder="password"
                   maxWidth
                   password
-                  error={passwd.length !== 0 && !isValidPasswd(passwd)}
+                  error={password.length !== 0 && !isValidPasswd(password)}
                   errorMessage={INVALID_PASSWD_TEXT}
                   onChange={handlePasswd}
                 />
