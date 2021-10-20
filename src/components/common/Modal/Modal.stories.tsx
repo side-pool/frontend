@@ -11,7 +11,7 @@ export default {
 } as Meta;
 
 const Template: Story<ModalProps> = (props) => {
-  const [isModalVisible, seIsModalVisible] = useState<boolean>();
+  const [isModalVisible, seIsModalVisible] = useState<boolean>(false);
 
   const closeModal = () => seIsModalVisible(false);
   const showModal = () => seIsModalVisible(true);
