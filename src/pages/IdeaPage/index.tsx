@@ -1,14 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import styles from './IdeaPage.module.scss';
 
 import Modal from '@src/components/common/Modal';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Textarea, { TextareaParentRef } from '@src/components/common/Textarea';
+import HashtagInput, { Hashtag } from '@src/components/HashtagInput';
+
 import Button from '@src/components/common/Button';
 
 import { useCreateIdea } from '@src/hooks/useIdeaQuery';
 
+import { useAppDispatch, showAlertModal } from '@src/store';
+import { GuideText } from '@src/constant/enums';
+
 const IdeaPage = () => {
+  const dispatch = useAppDispatch();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const showModal = () => setIsModalVisible(true);
@@ -16,7 +24,25 @@ const IdeaPage = () => {
 
   const titleRef = useRef({} as ParentRef);
   const contentRef = useRef({} as TextareaParentRef);
-  const [hashtags, setHashtags] = useState<string[]>([]);
+  const [hashtag, setHashtag] = useState<string>('');
+  const [hashtagArr, setHashtagArr] = useState<Hashtag[]>([]);
+
+  const onKeyUp = useCallback(
+    (e) => {
+      if (
+        (e.keyCode === 13 || e.keyCode === 32) &&
+        hashtag.length !== 0 &&
+        hashtag.trim()
+      ) {
+        setHashtagArr((prev) => [...prev, { id: uuidv4(), content: hashtag }]);
+        setHashtag('');
+      }
+      if (e.keyCode === 8 && hashtag.length === 0) {
+        setHashtagArr((prev) => prev.slice(0, -1));
+      }
+    },
+    [hashtag, hashtagArr],
+  );
 
   const createIdeaMutation = useCreateIdea();
 
@@ -25,14 +51,22 @@ const IdeaPage = () => {
     const content = contentRef.current.get() || '';
 
     if (title.length < 1 || content.length < 1) {
-      return alert('하나라도 입력해야 함');
+      dispatch(
+        showAlertModal({
+          alertModalContent: GuideText.FILL_ALL_FORM,
+        }),
+      );
+      return;
     }
 
     createIdeaMutation.mutate(
       {
         title,
         content,
-        hashtags,
+        hashtags: hashtagArr?.reduce<string[]>(
+          (acc: Partial<string>[], cur: Hashtag) => [...acc, cur.content],
+          [],
+        ),
       },
       {
         onSuccess: () => {
@@ -40,6 +74,10 @@ const IdeaPage = () => {
         },
       },
     );
+  };
+
+  const handleDeleteHashtag = (targetId: string) => {
+    setHashtagArr((prev) => prev.filter(({ id }) => targetId !== id));
   };
 
   return (
@@ -70,7 +108,18 @@ const IdeaPage = () => {
             />
           </div>
           <div className={styles.hashtagArea}>
-            <Input placeholder="#을 이용해 태그를 입력해보세요." maxWidth />
+            <HashtagInput
+              maxWidth
+              hashtagArr={hashtagArr}
+              deleteHashtag={handleDeleteHashtag}
+              placeholder={
+                hashtagArr.length === 0 ? '#을 이용해 태그를 입력해보세요.' : ''
+              }
+              type="text"
+              value={hashtag}
+              onChange={({ target: { value } }) => setHashtag(value)}
+              onKeyUp={onKeyUp}
+            />
           </div>
         </div>
       </Modal>
