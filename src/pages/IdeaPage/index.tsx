@@ -27,6 +27,8 @@ const IdeaPage = () => {
   const [hashtag, setHashtag] = useState<string>('');
   const [hashtagArr, setHashtagArr] = useState<Hashtag[]>([]);
 
+  const createIdeaMutation = useCreateIdea();
+
   const onKeyUp = useCallback(
     (e) => {
       if (
@@ -44,7 +46,9 @@ const IdeaPage = () => {
     [hashtag, hashtagArr],
   );
 
-  const createIdeaMutation = useCreateIdea();
+  const handleDeleteHashtag = (targetId: string) => {
+    setHashtagArr((prev) => prev.filter(({ id }) => targetId !== id));
+  };
 
   const handleCreateIdea = () => {
     const title = titleRef.current.get() || '';
@@ -74,10 +78,6 @@ const IdeaPage = () => {
         },
       },
     );
-  };
-
-  const handleDeleteHashtag = (targetId: string) => {
-    setHashtagArr((prev) => prev.filter(({ id }) => targetId !== id));
   };
 
   return (
