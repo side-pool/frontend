@@ -12,6 +12,7 @@ export const ALabelTag = Template.bind({});
 
 ALabelTag.args = {
   children: '# 해시태그',
+  isDeleteButton: false,
 };
 
 export const LabelTags = () => (
