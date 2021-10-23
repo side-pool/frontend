@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState, useCallback } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 
 import cn from 'classnames';
 import LabelTag from '@src/components/common/LabelTag';

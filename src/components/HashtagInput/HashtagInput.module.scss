@@ -24,10 +24,12 @@
   .inputArea {
     background: transparent;
     border: none;
+
     &:focus {
       outline: none;
     }
-    padding: 0px 8px;
+    
+    padding: 0px 10px;
     width: 100%;
     min-width: 100px;
   }
