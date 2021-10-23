@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 
 import { QueryClientProvider, QueryClient } from 'react-query';
 
@@ -13,12 +13,14 @@ import styles from '@src/App.module.scss';
 const queryClient = new QueryClient();
 
 const App = () => {
+  const { pathname } = useLocation();
+
   return (
     <QueryClientProvider client={queryClient}>
       <Switch>
         <div className={styles.App}>
           <div className={styles.sidebar}>
-            <Sidebar />
+            <Sidebar pathname={pathname} />
           </div>
           <div className={styles.content}>
             <Route exact path="/" component={LandingPage} />
