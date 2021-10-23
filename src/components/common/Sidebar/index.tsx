@@ -18,7 +18,7 @@ export interface SidebarProps {
   pathname: string;
 }
 
-export const Sidebar = ({ className, pathname }: SidebarProps) => {
+export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
   const isSide = useMemo(() => pathname.includes('side'), [pathname]);
   const isIdea = useMemo(() => pathname.includes('idea'), [pathname]);
