@@ -3,10 +3,10 @@ import cn from 'classnames';
 
 import { useHistory } from 'react-router-dom';
 
-import SideColorIcon from '@src/assets/side_color.svg';
-import SideMonoIcon from '@src/assets/side_mono.svg';
-import IdeaColorIcon from '@src/assets/idea_color.svg';
-import IdeaMonoIcon from '@src/assets/idea_mono.svg';
+import SideColorIcon from '@src/assets/SideColor.svg';
+import SideMonoIcon from '@src/assets/SideMono.svg';
+import IdeaColorIcon from '@src/assets/IdeaColor.svg';
+import IdeaMonoIcon from '@src/assets/IdeaMono.svg';
 
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
