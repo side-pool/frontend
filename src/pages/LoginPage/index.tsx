@@ -1,28 +1,37 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Typography from '@src/components/common/Typography';
 import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-import Modal from '@src/components/common/Modal';
 import { saveItem, ACCESS_TOKEN } from '@src/utils/storage';
 import { useLogin } from '@src/hooks/useAuthQuery';
 import { HttpStatusCode } from '@src/constant/enums';
 import { getErrorText } from '@src/utils/common';
 import { GuideText } from '@src/constant/enums';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import useModalControl from '@src/hooks/useModalControl';
+import AlertModal from '@src/components/AlertModal';
 
 const LoginPage = () => {
   const usernameRef = useRef({} as ParentRef);
   const passwordRef = useRef({} as ParentRef);
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const showModal = () => setIsModalVisible(true);
-  const hideModal = () => setIsModalVisible(false);
-
-  const [modalDesc, setModalDesc] = useState<string>('');
-  const [modalTitle, setModalTitle] = useState<string>('알림');
+  const history = useHistory();
+  const {
+    isModalVisible: isAlertVisible,
+    modalMessage: alertMessage,
+    showModal: showAlert,
+    hideModal: hideAlert,
+  } = useModalControl();
 
   const loginMutation = useLogin();
+
+  const handleConfirm = () => {
+    hideAlert();
+    if (loginMutation.isSuccess) {
+      history.push('/');
+    }
+  };
 
   const submitLoginInfo = (event: React.FormEvent) => {
     event.preventDefault();
@@ -33,9 +42,7 @@ const LoginPage = () => {
     ];
 
     if (!username || !password) {
-      setModalDesc(GuideText.FILL_ALL_FORM);
-      showModal();
-
+      showAlert(GuideText.FILL_ALL_FORM);
       return;
     }
 
@@ -45,19 +52,16 @@ const LoginPage = () => {
       {
         onSuccess: ({ token }) => {
           saveItem(ACCESS_TOKEN, `${token}`);
-          setModalTitle('짝짝짝!');
-          setModalDesc('로그인 성공');
 
-          showModal();
+          showAlert('로그인 성공');
         },
         onError: (error) => {
           if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
-            setModalDesc('아이디 혹은 비밀번호가 틀렸습니다 😅');
+            showAlert('아이디 혹은 비밀번호가 틀렸습니다 😅');
           } else {
-            setModalDesc(getErrorText(error));
+            showAlert(getErrorText(error));
           }
           passwordRef.current.reset();
-          showModal();
         },
       },
     );
@@ -114,27 +118,11 @@ const LoginPage = () => {
           </Button>
         </Link>
       </Card>
-      <Modal
-        closeModal={hideModal}
-        headerText={modalTitle}
-        footer={{
-          submitButton: (
-            <Button primary onClick={hideModal}>
-              확인
-            </Button>
-          ),
-        }}
-        isVisible={isModalVisible}
-      >
-        <Typography
-          fontSize={'xs'}
-          fontWeight={'regular'}
-          textColor="black"
-          textAlign="center"
-        >
-          {modalDesc}
-        </Typography>
-      </Modal>
+      {isAlertVisible && (
+        <>
+          <AlertModal content={alertMessage} handleConfirm={handleConfirm} />
+        </>
+      )}
     </div>
   );
 };
