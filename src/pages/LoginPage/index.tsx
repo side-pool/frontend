@@ -1,35 +1,70 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import Typography from '@src/components/common/Typography';
 import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
-import Input from '@src/components/common/Input';
+import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
-
-import { useGetUserInfo, useLoginUser } from '@src/hooks/useUserApi';
+import { saveItem, ACCESS_TOKEN } from '@src/utils/storage';
+import { useLogin } from '@src/hooks/useAuthQuery';
+import { HttpStatusCode } from '@src/constant/enums';
+import { getErrorText } from '@src/utils/common';
+import { GuideText } from '@src/constant/enums';
+import { Link, useHistory } from 'react-router-dom';
+import useModalControl from '@src/hooks/useModalControl';
+import AlertModal from '@src/components/AlertModal';
 
 const LoginPage = () => {
-  const { data, error, isError } = useGetUserInfo();
-  const setLoginUser = useLoginUser();
+  const usernameRef = useRef({} as ParentRef);
+  const passwordRef = useRef({} as ParentRef);
+  const history = useHistory();
+  const {
+    isModalVisible: isAlertVisible,
+    modalMessage: alertMessage,
+    showModal: showAlert,
+    hideModal: hideAlert,
+  } = useModalControl();
 
-  const handleLogin = () => {
-    const username = 'username1';
-    const password = 'password1';
+  const loginMutation = useLogin();
 
-    setLoginUser.mutate({ username, password });
+  const handleConfirm = () => {
+    hideAlert();
+    if (loginMutation.isSuccess) {
+      history.push('/');
+    }
   };
 
-  console.log(data, error, isError);
-  const [form, setForm] = useState({ username: '', password: '' });
+  const submitLoginInfo = (event: React.FormEvent) => {
+    event.preventDefault();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setForm({ ...form, [name]: value });
-    console.log(form);
-  };
+    const [username, password] = [
+      usernameRef.current.get(),
+      passwordRef.current.get(),
+    ];
 
-  const submitLoginInfo = () => {
+    if (!username || !password) {
+      showAlert(GuideText.FILL_ALL_FORM);
+      return;
+    }
+
     // submit to sever
-    alert(Object.entries(form).map(([key, value]) => `\n${key} : ${value}`));
+    loginMutation.mutate(
+      { username, password },
+      {
+        onSuccess: ({ token }) => {
+          saveItem(ACCESS_TOKEN, `${token}`);
+
+          showAlert('로그인 성공');
+        },
+        onError: (error) => {
+          if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
+            showAlert('아이디 혹은 비밀번호가 틀렸습니다 😅');
+          } else {
+            showAlert(getErrorText(error));
+          }
+          passwordRef.current.reset();
+        },
+      },
+    );
   };
 
   return (
@@ -54,8 +89,8 @@ const LoginPage = () => {
               id="username"
               name="username"
               placeholder="username"
-              maxWidth={true}
-              onChange={handleChange}
+              maxWidth
+              ref={usernameRef}
             />
           </div>
           <div className={styles.infoRow}>
@@ -68,19 +103,26 @@ const LoginPage = () => {
               id="password"
               name="password"
               placeholder="password"
-              maxWidth={true}
-              type={'password'}
-              onChange={handleChange}
+              maxWidth
+              password
+              ref={passwordRef}
             />
           </div>
-          <Button className={styles.loginButton} primary={true} type="submit">
+          <Button className={styles.loginButton} primary type="submit">
             로그인
           </Button>
         </form>
-        <Button className={styles.joinButton} variant={'text'}>
-          회원가입
-        </Button>
+        <Link to="/join">
+          <Button className={styles.joinButton} variant={'text'}>
+            회원가입
+          </Button>
+        </Link>
       </Card>
+      {isAlertVisible && (
+        <>
+          <AlertModal content={alertMessage} handleConfirm={handleConfirm} />
+        </>
+      )}
     </div>
   );
 };

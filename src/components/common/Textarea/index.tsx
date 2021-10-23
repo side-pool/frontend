@@ -13,7 +13,7 @@ export interface TextareaProps
   maxWidth?: boolean;
 }
 
-export interface TextareaRef {
+export interface TextareaParentRef {
   focus: () => void;
   get: () => string;
   reset: () => void;
@@ -21,7 +21,7 @@ export interface TextareaRef {
   className?: string;
 }
 
-const Textarea = React.forwardRef<TextareaRef, TextareaProps>(
+const Textarea = React.forwardRef<TextareaParentRef, TextareaProps>(
   (
     {
       disabled,
@@ -31,33 +31,33 @@ const Textarea = React.forwardRef<TextareaRef, TextareaProps>(
       className,
       ...props
     }: TextareaProps,
-    ref,
+    parentRef,
   ) => {
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const childRef = useRef<HTMLTextAreaElement>(null);
     const [currentValue, setCurrentValue] = useState(''); // you can manage data with it
 
-    useImperativeHandle(ref, () => {
+    useImperativeHandle(parentRef, () => {
       return {
         focus: () => {
-          if (textareaRef.current) textareaRef.current.focus();
+          if (childRef.current) childRef.current.focus();
         },
         get: () => {
-          return textareaRef.current?.value || '';
+          return childRef.current?.value || '';
         },
         reset: () => {
-          if (textareaRef.current) textareaRef.current.value = '';
+          if (childRef.current) childRef.current.value = '';
         },
         rawRef: () => {
-          return textareaRef;
+          return childRef;
         },
       };
     });
 
     useEffect(() => {
-      if (textareaRef.current) {
-        textareaRef.current.style.height = '0px';
-        const scrollHeight = textareaRef.current.scrollHeight;
-        textareaRef.current.style.height = scrollHeight + 'px';
+      if (childRef.current) {
+        childRef.current.style.height = '0px';
+        const scrollHeight = childRef.current.scrollHeight;
+        childRef.current.style.height = scrollHeight + 'px';
       }
     }, [currentValue]);
 
@@ -74,13 +74,13 @@ const Textarea = React.forwardRef<TextareaRef, TextareaProps>(
         <div
           className={cn(styles.textareaContainer)}
           onClick={() => {
-            if (textareaRef.current) textareaRef.current.focus();
+            if (childRef.current) childRef.current.focus();
           }}
           // https://github.com/evcohen/eslint-plugin-jsx-a11y/tree/master/docs/rules/no-static-element-interactions.md 에러 해결용
           aria-hidden="true"
         >
           <textarea
-            ref={textareaRef}
+            ref={childRef}
             className={styles.textareaSection}
             disabled={disabled}
             placeholder={placeholder}

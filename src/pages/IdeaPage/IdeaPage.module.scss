@@ -1,0 +1,52 @@
+.IdeaPage {
+  @include flex_col();
+
+  width: 100%;
+  height: 100%;
+
+  .scrollTopButton {
+    position: fixed;
+    bottom: 135px;
+    right: 30px;
+  }
+
+  .createSideButton {
+    position: fixed;
+    bottom: 65px;
+    right: 30px;
+  }
+}
+
+.IdeaModalInner {
+  @include flex_col(space-between);
+
+  height: 350px;
+
+  .titleArea {
+    width: 100%;
+  }
+
+  .contentArea {
+    @include flex_col();
+
+    width: 100%;
+    height: 250px;
+    height: 100%;
+    margin: 20px 0px;
+
+    .Textarea {
+      height: 100%;
+      .textareaContainer {
+        height: 100%;
+        .textareaSection {
+          height: 100% !important;
+          max-height: 250px !important;
+        }
+      }
+    }
+  }
+
+  .hashtagArea {
+    width: 100%;
+  }
+}

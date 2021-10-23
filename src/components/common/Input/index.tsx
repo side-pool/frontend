@@ -3,7 +3,6 @@ import React, {
   useImperativeHandle,
   useRef,
   useState,
-  useEffect,
 } from 'react';
 import cn from 'classnames';
 import Icon from '@src/components/common/Icon';
@@ -17,14 +16,15 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-export interface InputRef {
+export interface ParentRef {
   focus: () => void;
   get: () => string;
   reset: () => void;
   rawRef: () => React.RefObject<HTMLInputElement>;
+  select: () => void;
 }
 
-const Input = React.forwardRef<InputRef, InputProps>(
+const Input = React.forwardRef<ParentRef, InputProps>(
   (
     {
       password,
@@ -37,36 +37,39 @@ const Input = React.forwardRef<InputRef, InputProps>(
       className,
       ...props
     }: InputProps,
-    ref,
+    parentRef,
   ) => {
-    const inputRef = useRef<HTMLInputElement>(null);
+    const childRef = useRef<HTMLInputElement>(null);
     const [revealPw, setRevealPw] = useState<boolean>(false);
 
-    useImperativeHandle(ref, () => {
+    useImperativeHandle(parentRef, () => {
       return {
         focus: () => {
-          if (inputRef.current) inputRef.current.focus();
+          if (childRef.current) {
+            childRef.current.focus();
+          }
         },
         get: () => {
-          return inputRef.current?.value || '';
+          return childRef.current?.value || '';
         },
         reset: () => {
-          if (inputRef.current) inputRef.current.value = '';
+          if (childRef.current) {
+            childRef.current.value = '';
+          }
         },
         rawRef: () => {
-          return inputRef;
+          return childRef;
+        },
+        select: () => {
+          if (childRef.current) {
+            childRef.current.setSelectionRange(
+              0,
+              childRef.current.value.length,
+            );
+          }
         },
       };
     });
-
-    useEffect(() => {
-      if (inputRef.current) {
-        inputRef.current.setSelectionRange(
-          inputRef.current.value.length,
-          inputRef.current.value.length,
-        );
-      }
-    }, [revealPw]);
 
     return (
       <div
@@ -83,13 +86,15 @@ const Input = React.forwardRef<InputRef, InputProps>(
         <div
           className={styles.inputContainer}
           onClick={() => {
-            if (inputRef.current) inputRef.current.focus();
+            if (childRef.current) {
+              childRef.current.focus();
+            }
           }}
           // https://github.com/evcohen/eslint-plugin-jsx-a11y/tree/master/docs/rules/no-static-element-interactions.md 에러 해결용
           aria-hidden="true"
         >
           <input
-            ref={inputRef}
+            ref={childRef}
             className={styles.inputSection}
             type={password && !revealPw ? 'password' : props.type}
             disabled={disabled}

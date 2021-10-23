@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import cn from 'classnames';
-
+import { loadItem, ACCESS_TOKEN } from '@src/utils/storage';
 import { useHistory } from 'react-router-dom';
 
 import SideColorIcon from '@src/assets/SideColor.svg';
@@ -10,9 +10,7 @@ import IdeaMonoIcon from '@src/assets/IdeaMono.svg';
 
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
-
 import styles from './Sidebar.module.scss';
-
 export interface SidebarProps {
   className?: string;
   pathname: string;
@@ -20,8 +18,18 @@ export interface SidebarProps {
 
 export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
+  const [isLogin, setIsLogin] = useState(false);
+
   const isSide = useMemo(() => pathname.includes('side'), [pathname]);
   const isIdea = useMemo(() => pathname.includes('idea'), [pathname]);
+
+  useEffect(() => {
+    if (loadItem(ACCESS_TOKEN) === null) {
+      setIsLogin(false);
+    } else {
+      setIsLogin(true);
+    }
+  }, []);
 
   return (
     <div className={cn(styles.Sidebar, className)}>
@@ -53,18 +61,36 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
           </div>
         </div>
         <div className={styles.downArea}>
-          <div className={styles.authButton}>
-            <Button variant="text">
-              <Typography fontSize="sm" fontWeight="regular" textColor="black">
-                로그인
-              </Typography>
-            </Button>
-            <Button variant="text">
-              <Typography fontSize="sm" fontWeight="regular" textColor="black">
-                회원가입
-              </Typography>
-            </Button>
-          </div>
+          {!isLogin && (
+            <div className={styles.authButton}>
+              <Button
+                variant="text"
+                onClick={() => {
+                  history.push('/login');
+                }}
+              >
+                <Typography
+                  fontSize="sm"
+                  fontWeight="regular"
+                  textColor="black"
+                >
+                  로그인
+                </Typography>
+              </Button>
+              <Button variant="text">
+                <Typography
+                  fontSize="sm"
+                  fontWeight="regular"
+                  textColor="black"
+                  onClick={() => {
+                    history.push('/join');
+                  }}
+                >
+                  회원가입
+                </Typography>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
