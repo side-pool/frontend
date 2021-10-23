@@ -1,11 +1,12 @@
 .LabelTag {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: fit-content;
-  padding: 1px 13px;
+  padding: 0px 13px;
   border-radius: 15px;
   height: 17px;
+
   &.gray {
     background-color: #575757;
   }
@@ -19,10 +20,29 @@
     margin-left: 10px;
   }
 
+  &.isDeleteButton {
+    position: relative;
+    .Icon {
+      position: absolute;
+
+      top: 2px;
+      right: 10px;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+
   .text {
     line-height: 15px;
     font-size: 10px;
     font-weight: 500;
+
+    width: max-content;
+
+    padding-right: 20px;
+
     &.white {
       color: #ffffff;
     }
