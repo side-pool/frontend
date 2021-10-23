@@ -1,7 +1,8 @@
 module.exports = {
   setupFilesAfterEnv: ['jest-plugin-context/setup', './jest.setup'],
   transform: {
-    '^.+\\.[jt]sx?$': 'babel-jest',
+    '^.+\\.[jt]sx?$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
+    '^.+\\.svg$': '<rootDir>/svgTransform.js',
   },
   coverageThreshold: {
     global: {
