@@ -26,7 +26,7 @@ const Template = ({
       data-testid="modal"
       aria-hidden="true"
     >
-      <Overlay close={handleConfirm} />
+      <Overlay onClick={handleConfirm} />
       <Card className={styles.alertCard}>
         <div className={styles.title}>
           <Typography
