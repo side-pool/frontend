@@ -28,9 +28,24 @@ module.exports = async ({ config }) => {
     ],
   });
 
+  config.module.rules.push({
+    test: /\.svg$/,
+    use: [
+      {
+        loader: '@svgr/webpack',
+      },
+    ],
+  });
+  
   config.resolve.alias = {
     '@src': SRC_PATH,
   };
+
+  const fileLoaderRule = config.module.rules.find(
+    (rule) => rule.test && rule.test.test(".svg")
+  );
+  
+  fileLoaderRule.exclude = /\.svg$/;
 
   // don't forget to return.
   return config;

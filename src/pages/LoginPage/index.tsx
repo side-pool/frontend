@@ -9,16 +9,29 @@ import { useLogin } from '@src/hooks/useAuthQuery';
 import { HttpStatusCode } from '@src/constant/enums';
 import { getErrorText } from '@src/utils/common';
 import { GuideText } from '@src/constant/enums';
-import { Link } from 'react-router-dom';
-
-import { useAppDispatch, showAlertModal } from '@src/store';
+import { Link, useHistory } from 'react-router-dom';
+import useModalControl from '@src/hooks/useModalControl';
+import AlertModal from '@src/components/AlertModal';
 
 const LoginPage = () => {
-  const dispatch = useAppDispatch();
   const usernameRef = useRef({} as ParentRef);
   const passwordRef = useRef({} as ParentRef);
+  const history = useHistory();
+  const {
+    isModalVisible: isAlertVisible,
+    modalMessage: alertMessage,
+    showModal: showAlert,
+    hideModal: hideAlert,
+  } = useModalControl();
 
   const loginMutation = useLogin();
+
+  const handleConfirm = () => {
+    hideAlert();
+    if (loginMutation.isSuccess) {
+      history.push('/');
+    }
+  };
 
   const submitLoginInfo = (event: React.FormEvent) => {
     event.preventDefault();
@@ -29,11 +42,7 @@ const LoginPage = () => {
     ];
 
     if (!username || !password) {
-      dispatch(
-        showAlertModal({
-          alertModalContent: GuideText.FILL_ALL_FORM,
-        }),
-      );
+      showAlert(GuideText.FILL_ALL_FORM);
       return;
     }
 
@@ -44,26 +53,13 @@ const LoginPage = () => {
         onSuccess: ({ token }) => {
           saveItem(ACCESS_TOKEN, `${token}`);
 
-          dispatch(
-            showAlertModal({
-              alertModalTitle: '짝짝짝!',
-              alertModalContent: '로그인 성공',
-            }),
-          );
+          showAlert('로그인 성공');
         },
         onError: (error) => {
           if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
-            dispatch(
-              showAlertModal({
-                alertModalContent: '아이디 혹은 비밀번호가 틀렸습니다 😅',
-              }),
-            );
+            showAlert('아이디 혹은 비밀번호가 틀렸습니다 😅');
           } else {
-            dispatch(
-              showAlertModal({
-                alertModalContent: getErrorText(error),
-              }),
-            );
+            showAlert(getErrorText(error));
           }
           passwordRef.current.reset();
         },
@@ -122,6 +118,11 @@ const LoginPage = () => {
           </Button>
         </Link>
       </Card>
+      {isAlertVisible && (
+        <>
+          <AlertModal content={alertMessage} handleConfirm={handleConfirm} />
+        </>
+      )}
     </div>
   );
 };

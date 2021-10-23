@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import cn from 'classnames';
 import { loadItem, ACCESS_TOKEN } from '@src/utils/storage';
+import { useHistory } from 'react-router-dom';
+
+import SideColorIcon from '@src/assets/SideColor.svg';
+import SideMonoIcon from '@src/assets/SideMono.svg';
+import IdeaColorIcon from '@src/assets/IdeaColor.svg';
+import IdeaMonoIcon from '@src/assets/IdeaMono.svg';
+
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
 import styles from './Sidebar.module.scss';
-import { useHistory } from 'react-router';
-
 export interface SidebarProps {
   className?: string;
+  pathname: string;
 }
 
-export const Sidebar = ({ className }: SidebarProps) => {
-  const [isLogin, setIsLogin] = useState(false);
+export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
+  const [isLogin, setIsLogin] = useState(false);
+
+  const isSide = useMemo(() => pathname.includes('side'), [pathname]);
+  const isIdea = useMemo(() => pathname.includes('idea'), [pathname]);
 
   useEffect(() => {
     if (loadItem(ACCESS_TOKEN) === null) {
@@ -27,17 +36,25 @@ export const Sidebar = ({ className }: SidebarProps) => {
       <div className={styles.tabContainer}>
         <div className={styles.upperArea}>
           <div className={styles.tabButton}>
-            <div className={styles.circle}></div>
-            <Button variant="text">
-              <Typography fontSize="md" fontWeight="bold" textColor="gray">
+            <Button variant="text" onClick={() => history.push('side')}>
+              {isSide ? <SideColorIcon /> : <SideMonoIcon />}
+              <Typography
+                fontSize="md"
+                fontWeight="bold"
+                textColor={isSide ? 'black' : 'gray'}
+              >
                 사이드
               </Typography>
             </Button>
           </div>
           <div className={styles.tabButton}>
-            <div className={styles.circle}></div>
-            <Button variant="text">
-              <Typography fontSize="md" fontWeight="bold" textColor="gray">
+            <Button variant="text" onClick={() => history.push('idea')}>
+              {isIdea ? <IdeaColorIcon /> : <IdeaMonoIcon />}
+              <Typography
+                fontSize="md"
+                fontWeight="bold"
+                textColor={isIdea ? 'black' : 'gray'}
+              >
                 아이디어
               </Typography>
             </Button>

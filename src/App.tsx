@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 
 import { QueryClientProvider, QueryClient } from 'react-query';
 
@@ -38,6 +38,7 @@ const App = () => {
   const dispatch = useAppDispatch();
   const { alertModalIsVisible, alertModalTitle, alertModalContent } =
     useUiState();
+  const { pathname } = useLocation();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -66,7 +67,7 @@ const App = () => {
           </Modal>
 
           <div className={styles.sidebar}>
-            <Sidebar />
+            <Sidebar pathname={pathname} />
           </div>
           <div className={styles.content}>
             <Route exact path="/" component={LandingPage} />
