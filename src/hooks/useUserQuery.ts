@@ -8,21 +8,37 @@ interface UserVariable {
   nickname: string;
 }
 
+interface UserExistData {
+  duplicated: boolean;
+}
+
 export const useGetUser = () => useQuery('me');
 
-export const useUserExist = (username: string) =>
-  useQuery<string, AxiosError<unknown>, unknown, string[]>(
+export const useUserExist = (
+  username: string,
+  callback: (data: boolean) => void,
+) =>
+  useQuery<boolean, AxiosError<unknown>>(
     ['/users/exists', username],
-    async (username) => {
-      const { data } = await getApiInstance().get(`/users/exists`, {
-        params: {
-          username,
-        },
-      });
-      return data;
+    async ({ queryKey }) => {
+      const username = queryKey[1];
+      const { data } = await getApiInstance().get<UserExistData>(
+        `/users/exists/${username}`,
+      );
+
+      if (data.duplicated === undefined) {
+        throw Error;
+      }
+
+      return data.duplicated;
     },
     {
-      enabled: false,
+      enabled: username !== '',
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      onSuccess: (data) => {
+        callback(data);
+      },
     },
   );
 
