@@ -1,31 +1,51 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Typography from '@src/components/common/Typography';
 import styles from './JoinPage.module.scss';
 import Card from '@src/components/common/Card';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Button from '@src/components/common/Button';
 import { useCreateUser, useUserExist } from '@src/hooks/useUserQuery';
-import Modal from '@src/components/common/Modal';
 import { isValidPasswd, getErrorText } from '@src/utils/common';
 import { GuideText } from '@src/constant/enums';
+import { useHistory } from 'react-router-dom';
+import useModalControl from '@src/hooks/useModalControl';
+import AlertModal from '@src/components/AlertModal';
 
 const INVALID_PASSWD_TEXT = '8~15자, 숫자, 문자 하나 이상 (특수문자 제외)';
 
 const JoinPage = () => {
   const usernameRef = useRef({} as ParentRef);
   const nicknameRef = useRef({} as ParentRef);
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const showModal = () => setIsModalVisible(true);
-  const hideModal = () => setIsModalVisible(false);
+  useEffect(() => {
+    console.log(userExistResult?.data);
+  });
 
-  const [modalDesc, setModalDesc] = useState<string>('');
-  const [modalTitle, setModalTitle] = useState<string>('알림');
+  const {
+    isModalVisible: isAlertVisible,
+    modalMessage: alertMessage,
+    showModal: showAlert,
+    hideModal: hideAlert,
+  } = useModalControl();
+
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [isValidUsername, setIsValidUsername] = useState(false);
+  const history = useHistory();
 
   const createUserMutation = useCreateUser();
-  const { isLoading, data, refetch } = useUserExist(username);
+
+  // TODO: 초기값 넣어줄 수 있을듯
+  const userExistResult = useUserExist(username, (data: boolean) => {
+    data
+      ? showAlert('중복된 username 입니다.')
+      : showAlert('사용 가능한 username 입니다.');
+  });
+
+  const handleConfirm = () => {
+    hideAlert();
+    if (createUserMutation.isSuccess) {
+      history.push('/');
+    }
+  };
 
   const handlePasswd = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target?.value);
@@ -34,22 +54,12 @@ const JoinPage = () => {
   const checkRedundancy = () => {
     const curUsername = usernameRef.current.get();
     if (!curUsername) {
-      setModalDesc('유저네임을 입력해주세요!');
+      showAlert('유저네임을 입력해주세요!');
       return;
     }
 
     // submit to sever
-
     setUsername(curUsername);
-    refetch();
-
-    // TODO: query result status 로 분기 나누기
-
-    // setModalTitle(...)
-    // setModalDesc('...');
-    // setIsValidUsername(...)
-    // show();
-    // history.push("/login")
   };
 
   const submitJoinInfo = (event: React.FormEvent) => {
@@ -61,8 +71,7 @@ const JoinPage = () => {
     ];
 
     if (!username || !password || !nickname) {
-      setModalDesc(GuideText.FILL_ALL_FORM);
-      showModal();
+      showAlert(GuideText.FILL_ALL_FORM);
       return;
     }
 
@@ -70,13 +79,10 @@ const JoinPage = () => {
       { username, password, nickname },
       {
         onSuccess: () => {
-          setModalDesc('회원가입 성공');
+          showAlert('회원가입 성공');
         },
         onError: (error) => {
-          setModalDesc(getErrorText(error));
-        },
-        onSettled: () => {
-          showModal();
+          showAlert(getErrorText(error));
         },
       },
     );
@@ -108,7 +114,6 @@ const JoinPage = () => {
                   placeholder="username"
                   maxWidth
                   ref={usernameRef}
-                  disabled={isValidUsername}
                 />
               </div>
               <div className={styles.infoRow}>
@@ -151,34 +156,17 @@ const JoinPage = () => {
             className={styles.JoinButton}
             primary
             type="submit"
-            // disabled={!isValidUsername}
-            title={isValidUsername ? '회원가입' : '중복확인 해주세요'}
+            disabled={userExistResult.data ?? true}
           >
             회원가입
           </Button>
         </form>
       </Card>
-      <Modal
-        closeModal={hideModal}
-        headerText={modalTitle}
-        footer={{
-          submitButton: (
-            <Button primary onClick={hideModal}>
-              확인
-            </Button>
-          ),
-        }}
-        isVisible={isModalVisible}
-      >
-        <Typography
-          fontSize={'xs'}
-          fontWeight={'regular'}
-          textColor="black"
-          textAlign="center"
-        >
-          {modalDesc}
-        </Typography>
-      </Modal>
+      {isAlertVisible && (
+        <>
+          <AlertModal content={alertMessage} handleConfirm={handleConfirm} />
+        </>
+      )}
     </div>
   );
 };
