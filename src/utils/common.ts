@@ -25,3 +25,41 @@ export const isValidPasswd = (passwd: string) => {
   const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/;
   return re.test(passwd);
 };
+
+type DateProps = Record<string, Date>;
+
+interface GetDiffTimeProps {
+  newDate: Date;
+  oldDate: Date;
+}
+
+export const getDiffTime = ({ newDate, oldDate }: GetDiffTimeProps) => {
+  const SEC = 1000;
+  const MIN = SEC * 60;
+  const HOUR = MIN * 60;
+  const DAY = HOUR * 24;
+  const WEEK = DAY * 7;
+  const MON = DAY * 30;
+  const YEAR = DAY * 365;
+
+  const diff = newDate.getTime() - oldDate.getTime();
+
+  if (diff <= SEC) {
+    // 1초보다 차이가 적다면
+    return `방금 전`;
+  } else if (diff < MIN) {
+    return `${Math.round(diff / SEC)} 초 전`; // 1분보다 차이가 적다면 초 반환
+  } else if (diff < HOUR) {
+    return `${Math.round(diff / MIN)} 분 전`; // 1시간 보다 차이가 적다면 분 반환
+  } else if (diff < DAY) {
+    return `${Math.round(diff / HOUR)} 시간 전`; // 1시간 보다 차이가 적다면 분 반환
+  } else if (diff < WEEK) {
+    return `${Math.round(diff / DAY)} 일 전`; // 일
+  } else if (diff < MON) {
+    return `${Math.round(diff / WEEK)} 주 전`; // 주
+  } else if (diff < YEAR) {
+    return `${Math.round(diff / MON)} 달 전`; // 월
+  } else {
+    return `${Math.round(diff / YEAR)} 년 전`; // 년
+  }
+};
