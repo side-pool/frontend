@@ -57,7 +57,7 @@ const LoginPage = () => {
         },
         onError: (error) => {
           if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
-            showAlert('아이디 혹은 비밀번호가 틀렸습니다 😅');
+            showAlert('아이디 또는 비밀번호가 잘못 입력 되었습니다 😅');
           } else {
             showAlert(getErrorText(error));
           }
