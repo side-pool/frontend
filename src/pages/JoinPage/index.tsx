@@ -16,9 +16,6 @@ const INVALID_PASSWD_TEXT = '8~15자, 숫자, 문자 하나 이상 (특수문자
 const JoinPage = () => {
   const usernameRef = useRef({} as ParentRef);
   const nicknameRef = useRef({} as ParentRef);
-  useEffect(() => {
-    console.log(userExistResult?.data);
-  });
 
   const {
     isModalVisible: isAlertVisible,
@@ -66,8 +63,8 @@ const JoinPage = () => {
     event.preventDefault();
     // submit to sever
     const [username, nickname] = [
-      nicknameRef.current.get(),
       usernameRef.current.get(),
+      nicknameRef.current.get(),
     ];
 
     if (!username || !password || !nickname) {
