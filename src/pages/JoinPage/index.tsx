@@ -32,9 +32,9 @@ const JoinPage = () => {
 
   // TODO: 초기값 넣어줄 수 있을듯
   const userExistResult = useUserExist(username, (data: boolean) => {
-    data
-      ? showAlert('중복된 username 입니다.')
-      : showAlert('사용 가능한 username 입니다.');
+    showAlert(
+      data ? '중복된 username 입니다.' : '사용 가능한 username 입니다.',
+    );
   });
 
   const handleConfirm = () => {
