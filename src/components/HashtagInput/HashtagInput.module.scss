@@ -25,6 +25,10 @@
     background: transparent;
     border: none;
 
+    &::placeholder {
+      color: $gray_5;
+    }
+
     &:focus {
       outline: none;
     }
