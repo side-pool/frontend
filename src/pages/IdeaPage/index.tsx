@@ -36,7 +36,11 @@ const IdeaPage = () => {
         iconName="add"
       />
       {isIdeaFormVisible && (
-        <IdeaFormModal hideIdeaForm={hideIdeaForm} showAlert={showAlert} />
+        <IdeaFormModal
+          hideIdeaForm={hideIdeaForm}
+          showAlert={showAlert}
+          isCreate
+        />
       )}
       {isAlertVisible && (
         <AlertModal content={alertMessage} handleConfirm={hideAlert} />

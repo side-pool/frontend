@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import cn from 'classnames';
 import styles from './IdeaFormModal.module.scss';
 import Card from '@src/components/common/Card';
 import { convertPortal } from '@src/utils/portalUtils';
-import { useCreateIdea } from '@src/hooks/useIdeaQuery';
+import { useCreateIdea, useUpdateIdea } from '@src/hooks/useIdeaQuery';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Textarea, { TextareaParentRef } from '@src/components/common/Textarea';
 import HashtagInput, { Hashtag } from '@src/components/HashtagInput';
@@ -16,23 +16,44 @@ import ModalBottom from '@src/components/modals/ModalBottom';
 
 export interface IdeaFormModalProps {
   hideIdeaForm: (event?: React.MouseEvent) => void;
-  title?: string;
   className?: string;
   showAlert: (title: string) => void;
+  isCreate: boolean;
+  initialValue?: {
+    title: string;
+    content: string;
+    hashtags: string[];
+  };
 }
 
 const Template = ({
-  title = '알림',
   hideIdeaForm,
   className,
   showAlert,
+  isCreate,
+  initialValue = {
+    title: '',
+    content: '',
+    hashtags: [],
+  },
 }: IdeaFormModalProps) => {
   const titleRef = useRef({} as ParentRef);
   const contentRef = useRef({} as TextareaParentRef);
   const [hashtag, setHashtag] = useState<string>('');
-  const [hashtagArr, setHashtagArr] = useState<Hashtag[]>([]);
+  const [hashtagArr, setHashtagArr] = useState<Hashtag[]>(
+    initialValue.hashtags.reduce<Hashtag[]>(
+      (acc: Hashtag[], cur: string) => [...acc, { id: uuidv4(), content: cur }],
+      [],
+    ),
+  );
+
+  useEffect(() => {
+    titleRef.current.set(initialValue.title);
+    contentRef.current.set(initialValue.content);
+  }, []);
 
   const createIdeaMutation = useCreateIdea();
+  const updateIdeaMutation = useUpdateIdea();
 
   const onKeyUp = useCallback(
     (e) => {
@@ -64,7 +85,7 @@ const Template = ({
       return;
     }
 
-    createIdeaMutation.mutate(
+    (isCreate ? createIdeaMutation : updateIdeaMutation).mutate(
       {
         title,
         content,
@@ -76,11 +97,12 @@ const Template = ({
       {
         onSuccess: () => {
           hideIdeaForm();
-          showAlert('아이디어 생성을 성공하였습니다.');
+          showAlert(`아이디어 ${isCreate ? '생성' : '수정'}을 성공하였습니다.`);
         },
       },
     );
   };
+
   return (
     <div
       className={cn(styles.IdeaFormModal, className)}
@@ -89,7 +111,7 @@ const Template = ({
     >
       <Overlay onClick={hideIdeaForm} />
       <Card className={styles.ideaFormCard}>
-        <ModalTop title={title} />
+        <ModalTop title="아이디어 제안하기" />
         <div className={styles.content}>
           <div className={styles.titleArea}>
             <Input ref={titleRef} placeholder="제목을 입력해주세요." maxWidth />
@@ -119,6 +141,7 @@ const Template = ({
         <ModalBottom
           handleConfirm={handleCreateIdea}
           handleCancel={hideIdeaForm}
+          confirmText={isCreate ? '생성' : '수정'}
         />
       </Card>
     </div>
