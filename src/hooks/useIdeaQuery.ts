@@ -9,13 +9,13 @@ interface IdeaData {
 
 export const useCreateIdea = () => {
   return useMutation<string, unknown, IdeaData>(async (params) => {
-    return await getApiInstance().post('/ideas', { data: params });
+    return await getApiInstance().post('/ideas', { ...params });
   });
 };
 
 export const useUpdateIdea = () => {
   return useMutation<unknown, unknown, IdeaData>(async (params) => {
-    return await getApiInstance().put('/ideas', { data: params });
+    return await getApiInstance().put('/ideas', { ...params });
   });
 };
 
