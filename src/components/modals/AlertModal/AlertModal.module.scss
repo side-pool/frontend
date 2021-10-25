@@ -1,0 +1,27 @@
+
+.AlertModal {
+  @include modal_wrapper();
+
+  .alertCard {
+    z-index: $modal-depth;
+    position: relative;
+    min-width: 388px;
+    min-height: 200px;
+    max-height: 50%;
+
+    padding: 20px;
+  }
+
+  .content {
+    text-align: center;
+
+    font-size: 11px;
+    color: $gray_7;
+
+    margin: 35px 0px;
+    width: 100%;
+
+    overflow-y: auto;
+  }
+  
+}

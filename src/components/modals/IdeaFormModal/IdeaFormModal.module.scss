@@ -1,0 +1,52 @@
+.IdeaFormModal {
+  @include modal_wrapper();
+
+  .ideaFormCard {
+    z-index: $modal-depth;
+    position: relative;
+    width: 1024px;
+    height: 512px;
+
+    padding: 20px;
+
+    .content {
+      @include flex_col(space-between);
+
+
+      font-size: 11px;
+      color: $gray_7;
+  
+      margin: 35px 0px;
+      width: 100%;
+      max-height: calc(100% - 140px);
+      height: calc(100% - 140px);
+  
+      overflow-y: auto;
+      .titleArea {
+        width: 100%;
+      }
+
+      .contentArea {
+        @include flex_col();
+
+        width: 100%;
+        height: 100%;
+        margin: 20px 0px;
+
+        .Textarea {
+          height: 100%;
+          .textareaContainer {
+            height: 100%;
+            .textareaSection {
+              height: 100% !important;
+              max-height: 250px !important;
+            }
+          }
+        }
+      }
+      .hashtagArea {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.ModalTop {
+  @include flex_row();
+
+  padding-bottom: 16px;
+  width: 100%;
+
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  border-bottom: 1px solid $blue_active;
+}

@@ -1,0 +1,9 @@
+.ModalBottom {
+  @include flex_row();
+  background-color: $white;
+  border-radius: 0 0 10px 10px;
+
+  button ~ button {
+    margin-left: 10px;
+  }
+}

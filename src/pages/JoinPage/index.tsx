@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Typography from '@src/components/common/Typography';
 import styles from './JoinPage.module.scss';
 import Card from '@src/components/common/Card';
@@ -9,7 +9,7 @@ import { isValidPasswd, getErrorText } from '@src/utils/common';
 import { GuideText } from '@src/constant/enums';
 import { useHistory } from 'react-router-dom';
 import useModalControl from '@src/hooks/useModalControl';
-import AlertModal from '@src/components/AlertModal';
+import AlertModal from '@src/components/modals/AlertModal';
 
 const INVALID_PASSWD_TEXT = '8~15자, 숫자, 문자 하나 이상 (특수문자 제외)';
 

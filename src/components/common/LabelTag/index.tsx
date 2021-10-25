@@ -1,4 +1,7 @@
 import React, { HTMLAttributes } from 'react';
+
+import Icon from '@src/components/common/Icon';
+
 import styles from './LabelTag.module.scss';
 import cn from 'classnames';
 
@@ -8,6 +11,7 @@ export interface LabelTagProps
   > {
   wrapperColor?: 'gray' | 'orange' | 'beige';
   textColor?: 'white' | 'orange';
+  isDeleteButton?: boolean;
 }
 
 function LabelTag({
@@ -15,13 +19,25 @@ function LabelTag({
   wrapperColor = 'gray',
   textColor = 'white',
   className,
+  isDeleteButton = false,
+  ...restProps
 }: LabelTagProps) {
   return (
     <div
-      className={cn(styles.LabelTag, styles[wrapperColor], className)}
+      className={cn(
+        styles.LabelTag,
+        styles[wrapperColor],
+        className,
+        isDeleteButton && styles.isDeleteButton,
+      )}
       aria-label=""
     >
       <p className={cn(styles.text, styles[textColor])}>{children}</p>
+      {isDeleteButton && (
+        <div {...restProps}>
+          <Icon iconName="close" color="white" size={14} />
+        </div>
+      )}
     </div>
   );
 }

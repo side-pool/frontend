@@ -3,9 +3,9 @@ import cn from 'classnames';
 import styles from './AlertModal.module.scss';
 import Card from '@src/components/common/Card';
 import { convertPortal } from '@src/utils/portalUtils';
-import Typography from '@src/components/common/Typography';
-import Button from '@src/components/common/Button';
 import Overlay from '@src/components/common/Overlay';
+import ModalTop from '@src/components/modals/ModalTop';
+import ModalBottom from '@src/components/modals/ModalBottom';
 
 export interface AlertModalProps {
   content: string;
@@ -28,19 +28,9 @@ const Template = ({
     >
       <Overlay onClick={handleConfirm} />
       <Card className={styles.alertCard}>
-        <div className={styles.title}>
-          <Typography
-            fontSize={'md'}
-            fontWeight={'medium'}
-            textColor="blueActive"
-          >
-            {title}
-          </Typography>
-        </div>
+        <ModalTop title={title} />
         <div className={styles.content}>{content}</div>
-        <div className={styles.footer}>
-          <Button onClick={handleConfirm}>확인</Button>
-        </div>
+        <ModalBottom handleConfirm={handleConfirm} />
       </Card>
     </div>
   );
