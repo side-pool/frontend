@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import AlertModal, { AlertModalProps } from '@src/components/AlertModal';
+import AlertModal, { AlertModalProps } from '@src/components/modals/AlertModal';
 import useModalControl from '@src/hooks/useModalControl';
 import Button from '@src/components/common/Button';
 
