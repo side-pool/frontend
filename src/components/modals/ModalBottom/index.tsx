@@ -5,13 +5,18 @@ import Button from '@src/components/common/Button';
 export interface MoalTopProps {
   handleConfirm: (event: React.MouseEvent) => void;
   handleCancel?: (event: React.MouseEvent) => void;
+  confirmText?: string;
 }
 
-const ModalBottom = ({ handleConfirm, handleCancel }: MoalTopProps) => {
+const ModalBottom = ({
+  handleConfirm,
+  handleCancel,
+  confirmText = '확인',
+}: MoalTopProps) => {
   return (
     <div className={styles.ModalBottom}>
       <Button onClick={handleConfirm} primary>
-        확인
+        {confirmText}
       </Button>
       {handleCancel && <Button onClick={handleCancel}>취소</Button>}
     </div>
