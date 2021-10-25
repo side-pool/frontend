@@ -19,6 +19,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export interface ParentRef {
   focus: () => void;
   get: () => string;
+  set: (value: string) => void;
   reset: () => void;
   rawRef: () => React.RefObject<HTMLInputElement>;
   select: () => void;
@@ -51,6 +52,11 @@ const Input = React.forwardRef<ParentRef, InputProps>(
         },
         get: () => {
           return childRef.current?.value || '';
+        },
+        set: (value: string) => {
+          if (childRef.current) {
+            childRef.current.value = value;
+          }
         },
         reset: () => {
           if (childRef.current) {
