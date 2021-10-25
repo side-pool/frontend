@@ -18,7 +18,7 @@ export interface IdeaFormModalProps {
   hideIdeaForm: (event?: React.MouseEvent) => void;
   className?: string;
   showAlert: (title: string) => void;
-  isCreate: boolean;
+  isCreate?: boolean;
   initialValue?: {
     title: string;
     content: string;

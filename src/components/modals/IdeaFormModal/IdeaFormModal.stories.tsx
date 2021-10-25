@@ -36,7 +36,48 @@ export const view: Story<IdeaFormModalProps> = () => {
         MODAL 열기
       </Button>
       {isIdeaFormVisible && (
-        <IdeaFormModal hideIdeaForm={hideIdeaForm} showAlert={showAlert} />
+        <IdeaFormModal
+          hideIdeaForm={hideIdeaForm}
+          showAlert={showAlert}
+          isCreate
+        />
+      )}
+      {isAlertVisible && (
+        <AlertModal content={alertMessage} handleConfirm={hideAlert} />
+      )}
+    </>
+  );
+};
+
+export const initValue: Story<IdeaFormModalProps> = () => {
+  const {
+    isModalVisible: isAlertVisible,
+    modalMessage: alertMessage,
+    showModal: showAlert,
+    hideModal: hideAlert,
+  } = useModalControl();
+
+  const {
+    isModalVisible: isIdeaFormVisible,
+    showModal: showIdeaForm,
+    hideModal: hideIdeaForm,
+  } = useModalControl();
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          showIdeaForm();
+        }}
+      >
+        MODAL 열기
+      </Button>
+      {isIdeaFormVisible && (
+        <IdeaFormModal
+          hideIdeaForm={hideIdeaForm}
+          showAlert={showAlert}
+          initialValue={{ title: 'test', content: 'test', hashtags: ['sg'] }}
+        />
       )}
       {isAlertVisible && (
         <AlertModal content={alertMessage} handleConfirm={hideAlert} />
