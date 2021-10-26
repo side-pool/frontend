@@ -1,11 +1,10 @@
 import React, { useState, useRef } from 'react';
 import styles from './IdeaPage.module.scss';
-
+import IdeaList from '@src/components/IdeaList';
 import Modal from '@src/components/common/Modal';
 import Input, { ParentRef } from '@src/components/common/Input';
 import Textarea, { TextareaParentRef } from '@src/components/common/Textarea';
 import Button from '@src/components/common/Button';
-
 import { useCreateIdea } from '@src/hooks/useIdeaQuery';
 
 const IdeaPage = () => {
@@ -44,6 +43,7 @@ const IdeaPage = () => {
 
   return (
     <div className={styles.IdeaPage}>
+      <IdeaList />
       <Modal
         closeModal={hideModal}
         headerText="아이디어 제안하기"
