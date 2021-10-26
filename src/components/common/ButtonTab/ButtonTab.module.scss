@@ -1,0 +1,16 @@
+.ButtonTab {
+  .tabContent {
+    display: grid;
+    padding: 12px 18px;
+    grid-template-columns: repeat(2, auto);
+    column-gap: 5px;
+    align-items: center;
+    background: #f6f6f6;
+    border-radius: 15px 15px 0px 0px;
+  }
+  &.active {
+    .tabContent {
+      background: $blue_1;
+    }
+  }
+}
