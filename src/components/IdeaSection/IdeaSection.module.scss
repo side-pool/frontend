@@ -1,0 +1,31 @@
+.IdeaSection {
+  position: relative;
+  @include flex_col(stretch, stretch);
+  .subText {
+    @include flex_row(stretch, center);
+    padding: 9px 0px;
+    .writtenDate {
+      margin-left: 28px;
+    }
+  }
+  .ideaBody {
+    margin: 17px 0px 10px 0px;
+  }
+  .moreButton {
+    @include flex_row(stretch, stretch);
+    padding: 0;
+  }
+  .labelArea {
+    @include flex_row(stretch, center);
+    margin: 34px 0px;
+    .LabelTag ~ .LabelTag {
+      margin: 0px 10px;
+    }
+  }
+}
+
+.isDoneTag {
+  position: absolute;
+  top: -5px;
+  right: 0px;
+}
