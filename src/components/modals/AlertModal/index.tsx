@@ -28,15 +28,7 @@ const Template = ({
     >
       <Overlay onClick={handleConfirm} />
       <Card className={styles.alertCard}>
-<<<<<<< refs/remotes/origin/feature/idea-read:src/components/modals/AlertModal/index.tsx
         <ModalTop title={title} />
-=======
-        <div className={styles.title}>
-          <Typography fontSize="md" fontWeight="medium" textColor="blueActive">
-            {title}
-          </Typography>
-        </div>
->>>>>>> refactor: 불필요한 중괄호를 제거한다:src/components/AlertModal/index.tsx
         <div className={styles.content}>{content}</div>
         <ModalBottom handleConfirm={handleConfirm} />
       </Card>
