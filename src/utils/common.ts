@@ -59,7 +59,6 @@ export const getDiffTime = ({ newDate, oldDate }: GetDiffTimeProps) => {
     return `${Math.round(diff / WEEK)} 주 전`; // 주
   } else if (diff < YEAR) {
     return `${Math.round(diff / MON)} 달 전`; // 월
-  } else {
-    return `${Math.round(diff / YEAR)} 년 전`; // 년
   }
+  return `${Math.round(diff / YEAR)} 년 전`; // 년
 };
