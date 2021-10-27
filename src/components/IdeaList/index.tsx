@@ -2,7 +2,7 @@ import React from 'react';
 import IdeaCard from '@src/components/IdeaCard';
 import styles from './IdeaList.module.scss';
 import { useReadIdeas } from '@src/hooks/useIdeaQuery';
-import Spinner from '../common/Spinner';
+import Spinner from '@src/components/common/Spinner';
 
 const IdeaList = () => {
   const readIdeaResult = useReadIdeas();
