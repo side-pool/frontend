@@ -16,7 +16,7 @@ const ButtonTab = ({ active, text, children, ...props }: ButtonTabProps) => {
   return (
     <Button
       className={cn(styles.ButtonTab, active && styles.active)}
-      variant={'text'}
+      variant="text"
       {...props}
     >
       <div className={styles.tabContent}>
@@ -28,13 +28,13 @@ const ButtonTab = ({ active, text, children, ...props }: ButtonTabProps) => {
 };
 
 export const CommentTab = ({ ...props }: Partial<ButtonTabProps>) => (
-  <ButtonTab text={'댓글보기'} {...props}>
+  <ButtonTab text="댓글보기" {...props}>
     <CommentIcon />
   </ButtonTab>
 );
 
 export const SimilarServiceTab = ({ ...props }: Partial<ButtonTabProps>) => (
-  <ButtonTab text={'비슷한 서비스가 있어요'} {...props}>
+  <ButtonTab text="비슷한 서비스가 있어요" {...props}>
     <SimilarIcon />
   </ButtonTab>
 );

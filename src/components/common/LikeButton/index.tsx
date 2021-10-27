@@ -14,7 +14,7 @@ export interface LikeButtonProps
 const LikeButton = ({ active = false, count, ...props }: LikeButtonProps) => {
   return (
     <Button
-      variant={'text'}
+      variant="text"
       className={cn(styles.LikeButton, active && styles.active)}
       {...props}
     >

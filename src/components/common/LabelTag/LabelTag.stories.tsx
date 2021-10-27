@@ -17,13 +17,13 @@ ALabelTag.args = {
 
 export const LabelTags = () => (
   <Fragment>
-    <LabelTag wrapperColor={'beige'} textColor={'orange'}>
+    <LabelTag wrapperColor="beige" textColor="orange">
       제안해요
     </LabelTag>
-    <LabelTag wrapperColor={'orange'} textColor={'white'}>
+    <LabelTag wrapperColor="orange" textColor="white">
       해결되었어요
     </LabelTag>
-    <LabelTag wrapperColor={'gray'} textColor={'white'}>
+    <LabelTag wrapperColor="gray" textColor="white">
       # 해시태그
     </LabelTag>
   </Fragment>

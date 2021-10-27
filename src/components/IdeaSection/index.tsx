@@ -17,11 +17,11 @@ interface IsDoneTagProps {
 
 const IsDoneTag = ({ isDone }: IsDoneTagProps) =>
   isDone ? (
-    <LabelTag wrapperColor="orange" textColor="white" className={'isDoneTag'}>
+    <LabelTag wrapperColor="orange" textColor="white" className="isDoneTag">
       해결됐어요
     </LabelTag>
   ) : (
-    <LabelTag wrapperColor="beige" textColor="orange" className={'isDoneTag'}>
+    <LabelTag wrapperColor="beige" textColor="orange" className="isDoneTag">
       제안해요
     </LabelTag>
   );
@@ -30,7 +30,7 @@ const IdeaSection = ({ idea }: IdeaSectionProps) => {
   return (
     <section className={styles.IdeaSection}>
       <header>
-        <Typography fontSize={'md'} fontWeight={'medium'}>
+        <Typography fontSize="md" fontWeight="medium">
           {idea.title}
         </Typography>
       </header>
@@ -38,8 +38,8 @@ const IdeaSection = ({ idea }: IdeaSectionProps) => {
       <div className={styles.subText}>
         <Author nickname={idea.author.nickname} />
         <Typography
-          textColor={'gray'}
-          fontSize={'xxs'}
+          textColor="gray"
+          fontSize="xxs"
           className={styles.writtenDate}
         >
           {getDiffTime({
@@ -53,7 +53,7 @@ const IdeaSection = ({ idea }: IdeaSectionProps) => {
       </Typography>
       <Button
         // TODO: 본문 길이에 따라 hide
-        variant={'text'}
+        variant="text"
         labelText="더보기"
         className={styles.moreButton}
       />

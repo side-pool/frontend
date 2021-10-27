@@ -21,7 +21,7 @@ const IdeaCard = ({ idea }: IdeaCardProps) => {
     <Card className={styles.IdeaCard}>
       <IdeaSection idea={idea} />
       <section>
-        <div className={'buttonContainer'}>
+        <div className="buttonContainer">
           <LikeButton
             count={idea.favoriteCount}
             active={idea.isFavorite ?? false}

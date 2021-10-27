@@ -42,27 +42,27 @@ export const Variant = () => {
   return (
     <Fragment>
       {getHeader('타입/타이틀1')}
-      <Typography fontSize={'xxl'} fontWeight={'bold'} textColor="titleBlack">
+      <Typography fontSize="xxl" fontWeight="bold" textColor="titleBlack">
         타이틀1
       </Typography>
       {getHeader('타입/메뉴버튼')}
-      <Typography fontSize={'lg'} fontWeight={'bold'} textColor="black">
+      <Typography fontSize="lg" fontWeight="bold" textColor="black">
         메뉴버튼
       </Typography>
       {getHeader('타입/텍스트')}
-      <Typography fontSize={'sm'} fontWeight={'medium'} textColor="black">
+      <Typography fontSize="sm" fontWeight="medium" textColor="black">
         답글달기
       </Typography>
       {getHeader('타입/본문 타이틀')}
-      <Typography fontSize={'md'} fontWeight={'medium'} textColor="black">
+      <Typography fontSize="md" fontWeight="medium" textColor="black">
         본문 타이틀
       </Typography>
       {getHeader('타입/본문, 아이디')}
-      <Typography fontSize={'xs'} fontWeight={'regular'} textColor="black">
+      <Typography fontSize="xs" fontWeight="regular" textColor="black">
         본문/아이디
       </Typography>
       {getHeader('타입/21시간 전')}
-      <Typography fontSize={'xxs'} fontWeight={'regular'} textColor="gray">
+      <Typography fontSize="xxs" fontWeight="regular" textColor="gray">
         21시간 전
       </Typography>
     </Fragment>

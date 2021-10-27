@@ -17,7 +17,7 @@ const ToastView = ({ message }: ToastProps) => {
         onClick={() => {
           addToast(message);
         }}
-        variant={'text'}
+        variant="text"
       >
         toast
       </Button>
