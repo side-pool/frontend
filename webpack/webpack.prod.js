@@ -21,7 +21,7 @@ module.exports = merge(baseConfig, {
             loader: 'sass-loader',
             options: {
               sassOptions: {
-                includePaths: [path.join(PROJECT_ROOT, './src/styles')],
+                includePaths: [path.join(PROJECT_ROOT, './src/assets/styles')],
               },
               additionalData: `@import "index";`,
             },

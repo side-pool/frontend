@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UIState {
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const initialState: UIState = {

@@ -1,0 +1,40 @@
+.HashtagInput {
+  @include flex_row(flex-start);
+
+  padding: 0px 10px;
+
+  position: relative;
+  width: fit-content;
+  height: 28px;
+
+  background: $gray_2;
+  border-radius: 15px;
+
+  overflow-x: auto;
+
+  &.maxWidth {
+    width: calc(100% - 28px);
+  }
+
+  .tagContainer {
+    @include flex_row();
+    width: fit-content;
+  }
+
+  .inputArea {
+    background: transparent;
+    border: none;
+
+    &::placeholder {
+      color: $gray_5;
+    }
+
+    &:focus {
+      outline: none;
+    }
+    
+    padding: 0px 10px;
+    width: 100%;
+    min-width: 100px;
+  }
+}

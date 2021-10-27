@@ -41,6 +41,26 @@ $mobile: 'screen and (max-width: 758px)';
   display: block;
 }
 
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin modal_wrapper {
+  @include flex_col();
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: fadein 1s;
+  z-index: $modal-depth;
+}
+
 // * $bgc: background-color (e.g. #fff)
 // * $fc: font-color (e.g. #111)
 // * $dis-bgc: disabled background-color

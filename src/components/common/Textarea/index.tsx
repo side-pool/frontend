@@ -16,6 +16,7 @@ export interface TextareaProps
 export interface TextareaParentRef {
   focus: () => void;
   get: () => string;
+  set: (value: string) => void;
   reset: () => void;
   rawRef: () => React.RefObject<HTMLTextAreaElement>;
   className?: string;
@@ -43,6 +44,11 @@ const Textarea = React.forwardRef<TextareaParentRef, TextareaProps>(
         },
         get: () => {
           return childRef.current?.value || '';
+        },
+        set: (value: string) => {
+          if (childRef.current) {
+            childRef.current.value = value;
+          }
         },
         reset: () => {
           if (childRef.current) childRef.current.value = '';

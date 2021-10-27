@@ -11,7 +11,7 @@ import { getErrorText } from '@src/utils/common';
 import { GuideText } from '@src/constant/enums';
 import { Link, useHistory } from 'react-router-dom';
 import useModalControl from '@src/hooks/useModalControl';
-import AlertModal from '@src/components/AlertModal';
+import AlertModal from '@src/components/modals/AlertModal';
 
 const LoginPage = () => {
   const usernameRef = useRef({} as ParentRef);
