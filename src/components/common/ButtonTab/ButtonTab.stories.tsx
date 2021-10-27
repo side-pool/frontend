@@ -16,8 +16,8 @@ export const buttonTab = () => {
   const styles = {
     width: 'fit-content',
     display: 'grid',
-    'grid-template-columns': 'repeat(3, auto)',
-    'column-gap': '12px',
+    gridTemplateColumns: 'repeat(3, auto)',
+    columnGap: '12px',
   };
 
   return (
