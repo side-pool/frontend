@@ -20,7 +20,7 @@ function LabelTag({
   textColor = 'white',
   className,
   isDeleteButton = false,
-  ...restProps
+  ...props
 }: LabelTagProps) {
   return (
     <div
@@ -30,11 +30,10 @@ function LabelTag({
         className,
         isDeleteButton && styles.isDeleteButton,
       )}
-      aria-label=""
     >
       <p className={cn(styles.text, styles[textColor])}>{children}</p>
       {isDeleteButton && (
-        <div {...restProps}>
+        <div {...props}>
           <Icon iconName="close" color="white" size={14} />
         </div>
       )}

@@ -10,10 +10,8 @@ export interface AuthorProps {
 const Author = ({ nickname }: AuthorProps) => {
   return (
     <div className={styles.Author}>
-      <ProfileIcon className="icon" />
-      <Typography fontSize="xs" className={styles.nickname}>
-        {nickname}
-      </Typography>
+      <ProfileIcon />
+      <Typography fontSize="xs">{nickname}</Typography>
     </div>
   );
 };
