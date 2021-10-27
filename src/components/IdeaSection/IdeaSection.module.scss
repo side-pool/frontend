@@ -9,7 +9,7 @@
     }
   }
   .ideaBody {
-    margin: 17px 0px 10px 0px;
+    margin: 8px 0px 10px 0px;
   }
   .moreButton {
     @include flex_row(stretch, stretch);
@@ -19,7 +19,7 @@
     @include flex_row(stretch, center);
     margin: 34px 0px;
     .LabelTag ~ .LabelTag {
-      margin: 0px 10px;
+      margin-right: 0px 10px;
     }
   }
 }

@@ -1,11 +1,10 @@
 .LabelTag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex_row();
   width: fit-content;
   padding: 0px 13px;
   border-radius: 15px;
   height: 17px;
+  cursor: default;
 
   &.gray {
     background-color: #575757;
@@ -22,9 +21,10 @@
 
   &.isDeleteButton {
     position: relative;
+    cursor: pointer;
+
     .Icon {
       position: absolute;
-
       top: 2px;
       right: 10px;
 
@@ -32,16 +32,16 @@
         opacity: 0.5;
       }
     }
+    .text {
+      padding-right: 20px;
+    }
   }
 
   .text {
     line-height: 15px;
     font-size: 10px;
     font-weight: 500;
-
     width: max-content;
-
-    padding-right: 20px;
 
     &.white {
       color: #ffffff;

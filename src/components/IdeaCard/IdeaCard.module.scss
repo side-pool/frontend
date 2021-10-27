@@ -1,17 +1,12 @@
 .IdeaCard {
   display: flex;
   width: 100%;
+  max-width: 1020px;
   padding: 21px 30px 12px 30px;
   @include flex_col(stretch, stretch);
   .moreButton {
     @include flex_row(stretch, stretch);
     padding: 0;
-  }
-  .labelArea {
-    @include flex_row(stretch, center);
-    .LabelTag ~ .LabelTag {
-      margin: 0px 10px;
-    }
   }
   .buttonContainer {
     width: fit-content;
