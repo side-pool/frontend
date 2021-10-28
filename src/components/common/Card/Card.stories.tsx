@@ -13,11 +13,11 @@ export const EmptyCard = () => <Card />;
 export const CardWithContent = () => {
   return (
     <Card>
-      <Typography textAlign={'center'} lineHeight={'wide'} fontSize={'xl'}>
+      <Typography textAlign="center" lineHeight="wide" fontSize="xl">
         The Old Man and the Sea
       </Typography>
       <br />
-      <Typography fontSize={'md'}>
+      <Typography fontSize="md">
         &quot;But man is not made for defeat,”&nbsp;&nbsp;he said.&nbsp;&nbsp;“A
         man can be destroyed but not defeated.&quot;
       </Typography>

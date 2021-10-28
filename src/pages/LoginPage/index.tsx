@@ -113,7 +113,7 @@ const LoginPage = () => {
           </Button>
         </form>
         <Link to="/join">
-          <Button className={styles.joinButton} variant={'text'}>
+          <Button className={styles.joinButton} variant="text">
             회원가입
           </Button>
         </Link>

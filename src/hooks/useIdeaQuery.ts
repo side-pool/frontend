@@ -1,22 +1,26 @@
+import { Idea, ReadIdeasData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
-import { useMutation } from 'react-query';
+import { AxiosError } from 'axios';
+import { useMutation, useQuery } from 'react-query';
 
-interface IdeaData {
-  title: string;
-  content: string;
-  hashtags?: string[];
-}
+type CreateUpdateIdeaParam = Pick<Idea, 'title' | 'content'> &
+  Pick<Partial<Idea>, 'hashtags'>;
+
+export const useReadIdeas = () =>
+  useQuery<ReadIdeasData, AxiosError<unknown>>('/ideas/without-auth');
 
 export const useCreateIdea = () => {
-  return useMutation<string, unknown, IdeaData>(async (params) => {
+  return useMutation<string, unknown, CreateUpdateIdeaParam>(async (params) => {
     return await getApiInstance().post('/ideas', { ...params });
   });
 };
 
 export const useUpdateIdea = () => {
-  return useMutation<unknown, unknown, IdeaData>(async (params) => {
-    return await getApiInstance().put('/ideas', { ...params });
-  });
+  return useMutation<unknown, unknown, CreateUpdateIdeaParam>(
+    async (params) => {
+      return await getApiInstance().put('/ideas', { ...params });
+    },
+  );
 };
 
 export const useDeleteIdea = () => {

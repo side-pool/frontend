@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './IdeaPage.module.scss';
 
 import Button from '@src/components/common/Button';
+
 import AlertModal from '@src/components/modals/AlertModal';
 
 import useModalControl from '@src/hooks/useModalControl';

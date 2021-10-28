@@ -12,7 +12,7 @@ const Toast = (
   removeToast: (event: React.MouseEvent) => void,
 ) => {
   return (
-    <li key={toast.id} className={'toast'} aria-label={`${toast.id}-toast`}>
+    <li key={toast.id} className="toast" aria-label={`${toast.id}-toast`}>
       <Typography fontSize="xs" lineHeight="narrow">
         {toast.message}
       </Typography>
@@ -20,7 +20,7 @@ const Toast = (
         onClick={removeToast}
         aria-label={`${toast.id}-toast-close-btn`}
         data-toast-id={toast.id}
-        variant={'text'}
+        variant="text"
       >
         x
       </Button>

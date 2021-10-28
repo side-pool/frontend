@@ -1,0 +1,13 @@
+.LikeButton {
+  &.active {
+    .heartIcon > path {
+      fill: $pink-0;
+    }
+  }
+  .likeButtonContent {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    column-gap: 5px;
+    align-items: center;
+  }
+}
