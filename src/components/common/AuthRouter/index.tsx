@@ -11,13 +11,13 @@ const AuthRoute = ({
   render,
   ...rest
 }: AuthRouteProps) => {
-  const { data, isLoading } = useGetUser();
+  const { isSuccess, isLoading } = useGetUser();
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        isLoading || data ? (
+        isLoading || isSuccess ? (
           render ? (
             render(props)
           ) : (
