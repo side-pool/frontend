@@ -11,6 +11,7 @@ import LandingPage from '@src/pages/LandingPage';
 import LoginPage from '@src/pages/LoginPage';
 import JoinPage from '@src/pages/JoinPage';
 import IdeaPage from '@src/pages/IdeaPage';
+import SidePage from '@src/pages/SidePage';
 
 import Sidebar from '@src/components/common/Sidebar';
 
@@ -45,6 +46,7 @@ const App = () => {
             <Route path="/login" component={LoginPage} />
             <Route path="/join" component={JoinPage} />
             <AuthRoute path="/idea" component={IdeaPage} />
+            <AuthRoute path="/side" component={SidePage} />
           </div>
         </div>
       </Switch>
