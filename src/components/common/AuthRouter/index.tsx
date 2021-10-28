@@ -1,17 +1,13 @@
-import React, { JSXElementConstructor } from 'react';
+import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { useGetUser } from '@src/hooks/useUserQuery';
 
-interface AuthRouteProps extends RouteProps {
-  component: JSXElementConstructor<any>;
-}
-
-const AuthRoute = ({
-  component: Component,
-  render,
-  ...rest
-}: AuthRouteProps) => {
+const AuthRoute = ({ component: Component, render, ...rest }: RouteProps) => {
   const { isError } = useGetUser();
+
+  if (!Component) {
+    return null;
+  }
 
   return (
     <Route
