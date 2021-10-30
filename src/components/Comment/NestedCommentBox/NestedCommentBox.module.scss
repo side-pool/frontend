@@ -1,0 +1,30 @@
+.NestedCommentBox {
+  display: flex;
+  gap: 20px;
+  .answer {
+    flex: 1;
+    @include flex_col(stretch, stretch);
+    gap: 14px;
+    .topArea {
+      @include flex_row(space-between, center);
+      .topLeftArea {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .topRightArea {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        .updownBorder {
+          border: 0.5px solid #e0e0e0;
+          width: 1px;
+          height: 16px;
+        }
+        .Button {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
