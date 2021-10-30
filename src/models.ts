@@ -1,3 +1,14 @@
+export interface UserData {
+  username: string;
+  password: string;
+  nickname: string;
+}
+
+export interface MyData extends Exclude<UserData, 'password'> {
+  id: number;
+  point: number;
+}
+
 export type Author = {
   id: number;
   nickname: string;
@@ -18,10 +29,13 @@ export type Idea = {
 };
 
 export type Comment = {
+  author: Author;
   id: number;
   ideaId: number;
   content: string;
-  author: Author;
+  createdDate: string;
+  updatedDate: string;
 };
 
 export type ReadIdeasData = Idea[];
+export type ReadCommentData = Comment[];
