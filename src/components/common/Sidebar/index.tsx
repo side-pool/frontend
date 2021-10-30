@@ -1,16 +1,14 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import cn from 'classnames';
-import { loadItem, ACCESS_TOKEN } from '@src/utils/storage';
 import { useHistory } from 'react-router-dom';
-
 import SideColorIcon from '@src/assets/SideColor.svg';
 import SideMonoIcon from '@src/assets/SideMono.svg';
 import IdeaColorIcon from '@src/assets/IdeaColor.svg';
 import IdeaMonoIcon from '@src/assets/IdeaMono.svg';
-
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
 import styles from './Sidebar.module.scss';
+import { useCheckAuth } from '@src/hooks/useUserQuery';
 export interface SidebarProps {
   className?: string;
   pathname: string;
@@ -18,18 +16,10 @@ export interface SidebarProps {
 
 export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
-  const [isLogin, setIsLogin] = useState(false);
+  const { isSuccess } = useCheckAuth();
 
   const isSide = useMemo(() => pathname.includes('side'), [pathname]);
   const isIdea = useMemo(() => pathname.includes('idea'), [pathname]);
-
-  useEffect(() => {
-    if (loadItem(ACCESS_TOKEN) === null) {
-      setIsLogin(false);
-    } else {
-      setIsLogin(true);
-    }
-  }, []);
 
   return (
     <div className={cn(styles.Sidebar, className)}>
@@ -61,7 +51,7 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
           </div>
         </div>
         <div className={styles.downArea}>
-          {!isLogin && (
+          {!isSuccess && (
             <div className={styles.authButton}>
               <Button
                 variant="text"
