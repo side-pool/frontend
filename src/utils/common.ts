@@ -49,7 +49,7 @@ export const getDiffTime = ({ newDate, oldDate }: GetDiffTimeProps) => {
     return `방금 전`;
   }
   if (diff < MIN) {
-    `${Math.round(diff / SEC)} 초 전`; // 1분보다 차이가 적다면 초 반환
+    return `${Math.round(diff / SEC)} 초 전`; // 1분보다 차이가 적다면 초 반환
   }
   if (diff < HOUR) {
     return `${Math.round(diff / MIN)} 분 전`; // 1시간 보다 차이가 적다면 분 반환
