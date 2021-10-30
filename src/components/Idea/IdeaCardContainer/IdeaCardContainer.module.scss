@@ -1,5 +1,6 @@
-.IdeaList {
+.IdeaCardContainer {
   padding: 0px 150px;
   width: 100%;
   @include flex_col(stretch, center);
+  gap: 50px;
 }
