@@ -9,6 +9,7 @@ export enum HttpStatusCode {
 
 export enum GuideText {
   FILL_ALL_FORM = '값을 모두 입력해주세요',
+  FILL_A_FORM = '값을 입력해주세요',
 }
 
 export enum UserTab {
