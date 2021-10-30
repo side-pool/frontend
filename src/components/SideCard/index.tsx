@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import cn from 'classnames';
 import Typography from '@src/components/common/Typography';
 
@@ -20,13 +20,15 @@ const SideCard = ({
   summary,
   title,
 }: SideCardProps) => {
+  const pickNumber = useMemo(() => Math.floor(Math.random() * 4), []);
+
   return (
     <div className={styles.SideCard}>
       <div
         className={cn(
           styles.topArea,
           !logoUrl && styles.isPadding,
-          PRIMARY_PICK[Math.floor(Math.random() * 4)],
+          PRIMARY_PICK[pickNumber],
         )}
       >
         {logoUrl ? (
