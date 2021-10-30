@@ -5,7 +5,7 @@ import Typography from '@src/components/common/Typography';
 import MiddleArea from './MiddleArea';
 
 import styles from './SideCard.module.scss';
-import LabelTag from '../common/LabelTag';
+import LabelTag from '@src/components/common/LabelTag';
 
 const PRIMARY_PICK = ['primary1', 'primary2', 'primary3', 'primary4'];
 
