@@ -6,21 +6,11 @@ import MiddleArea from './MiddleArea';
 
 import styles from './SideCard.module.scss';
 import LabelTag from '@src/components/common/LabelTag';
+import { Side } from '@src/models';
 
 const PRIMARY_PICK = ['primary1', 'primary2', 'primary3', 'primary4'];
 
-export interface SideCardProps {
-  active: string;
-  category: string[];
-  createdDate?: string;
-  favoriteCount?: number;
-  id?: number;
-  logoUrl?: string;
-  recruiting?: boolean;
-  summary: string;
-  title: string;
-  updatedDate?: string;
-}
+export type SideCardProps = Side;
 
 const SideCard = ({
   active,

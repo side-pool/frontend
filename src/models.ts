@@ -25,3 +25,16 @@ export type Comment = {
 };
 
 export type ReadIdeasData = Idea[];
+
+export type Side = {
+  active: string;
+  category: string[];
+  createdDate?: string;
+  favoriteCount?: number;
+  id?: number;
+  logoUrl?: string;
+  recruiting?: boolean;
+  summary: string;
+  title: string;
+  updatedDate?: string;
+};
