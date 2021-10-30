@@ -39,7 +39,10 @@ module.exports = async ({ config }) => {
 
   config.module.rules.push({
     test: /\.(png|jpg|gif)$/,
-    use: ['file-loader'],
+    type: 'asset/resource',
+    generator: {
+      filename: 'static/chunks/[path][name].[hash][ext]',
+    },
   });
 
   config.resolve.alias = {
