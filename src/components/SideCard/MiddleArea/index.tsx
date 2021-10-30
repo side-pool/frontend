@@ -1,10 +1,13 @@
+import React, { useMemo } from 'react';
+import styles from './MiddleArea.module.scss';
+
 import Typography from '@src/components/common/Typography';
-import React from 'react';
-import styles from './Middle.module.scss';
+
 import OneWeek from '@src/assets/OneWeek.gif';
 import OneMonth from '@src/assets/OneMonth.gif';
 import SixMonth from '@src/assets/SixMonth.gif';
 import Rest from '@src/assets/Rest.gif';
+
 import { getActiveTime } from '@src/utils/common';
 
 interface MiddleProps {
@@ -12,9 +15,10 @@ interface MiddleProps {
   active: string;
 }
 
-const Middle = ({ title, active }: MiddleProps) => {
+const MiddleArea = ({ title, active }: MiddleProps) => {
+  const activeTime = useMemo(() => getActiveTime({ active }), [active]);
   return (
-    <div className={styles.Middle}>
+    <div className={styles.MiddleArea}>
       <Typography fontSize="md" fontWeight="medium" textColor="black">
         {title}
       </Typography>
@@ -25,12 +29,12 @@ const Middle = ({ title, active }: MiddleProps) => {
             oneMonth: OneMonth,
             sixMonth: SixMonth,
             rest: Rest,
-          }[getActiveTime({ active })]
+          }[activeTime]
         }
-        alt={title}
+        alt={activeTime}
       />
     </div>
   );
 };
 
-export default Middle;
+export default MiddleArea;

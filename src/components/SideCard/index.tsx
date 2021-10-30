@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import Typography from '@src/components/common/Typography';
 
-import Middle from './Middle';
+import MiddleArea from './MiddleArea';
 
 import styles from './SideCard.module.scss';
 import LabelTag from '../common/LabelTag';
@@ -47,7 +47,7 @@ const SideCard = ({
           </Typography>
         )}
       </div>
-      <Middle title={title} active={active} />
+      <MiddleArea title={title} active={active} />
       <div className={styles.bottomArea}>
         <div className={styles.tagContainer}>
           <Typography
