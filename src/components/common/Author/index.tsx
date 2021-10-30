@@ -11,7 +11,9 @@ const Author = ({ nickname }: AuthorProps) => {
   return (
     <div className={styles.Author}>
       <ProfileIcon />
-      <Typography fontSize="xs">{nickname}</Typography>
+      <Typography fontSize="xs" fontWeight="medium">
+        {nickname}
+      </Typography>
     </div>
   );
 };
