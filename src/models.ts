@@ -38,3 +38,5 @@ export type Side = {
   title: string;
   updatedDate?: string;
 };
+
+export type ReadSidesData = Side[];
