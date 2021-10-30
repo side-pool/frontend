@@ -1,0 +1,69 @@
+.SideCard {
+  @include flex_col(stretch, stretch);
+
+  width: 320px;
+  min-height: 200px;
+  border: 1px solid $gray_3;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+
+  .topArea {
+    flex: 1;
+
+    &.isPadding {
+      padding: 28px 32px;
+    }
+
+    overflow: hidden;
+
+    img {
+      overflow: hidden;
+    }
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    &.primary1 {
+      background-color: $primary_1;
+    }
+
+    &.primary2 {
+      background-color: $primary_2;
+    }
+
+    &.primary3 {
+      background-color: $primary_3;
+    }
+
+    &.primary4 {
+      background-color: $primary_4;
+    }
+  }
+
+  .bottomArea {
+    padding: 10px 21px 18px 19px;
+
+    .tagContainer {
+      .LabelTag {
+        margin-left: 14px;
+      }
+    }
+
+    .tagContainer ~ .Typography {
+      padding-top: 7px;
+    }
+    .LabelTag {
+      color: #009688;
+      border-color: #009688;
+    }
+
+    .ellipse {
+      @include ellipse;
+    }
+
+    .tagContainer {
+      @include flex_row(space-between);
+    }
+  }
+}

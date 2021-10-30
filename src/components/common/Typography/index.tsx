@@ -5,8 +5,8 @@ import cn from 'classnames';
 
 type FontWeight = 'light' | 'regular' | 'medium' | 'bold';
 type TextAlign = 'start' | 'center' | 'end';
-type LineHeight = 'narrow' | 'normal' | 'wide';
-type TextColor = 'titleBlack' | 'black' | 'gray' | 'blueActive';
+type LineHeight = 'narrow' | 'normal' | 'wide' | 'wider';
+type TextColor = 'titleBlack' | 'black' | 'gray' | 'blueActive' | 'white';
 
 export interface TypographyProps
   extends HTMLAttributes<

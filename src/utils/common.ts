@@ -33,32 +33,60 @@ interface GetDiffTimeProps {
   oldDate: Date;
 }
 
-export const getDiffTime = ({ newDate, oldDate }: GetDiffTimeProps) => {
-  const SEC = 1000;
-  const MIN = SEC * 60;
-  const HOUR = MIN * 60;
-  const DAY = HOUR * 24;
-  const WEEK = DAY * 7;
-  const MON = DAY * 30;
-  const YEAR = DAY * 365;
+const SEC = 1000;
+const MIN = SEC * 60;
+const HOUR = MIN * 60;
+const DAY = HOUR * 24;
+const WEEK = DAY * 7;
+const MON = DAY * 30;
+const YEAR = DAY * 365;
 
+export const getDiffTime = ({ newDate, oldDate }: GetDiffTimeProps) => {
   const diff = newDate.getTime() - oldDate.getTime();
 
   if (diff <= SEC) {
     // 1초보다 차이가 적다면
     return `방금 전`;
-  } else if (diff < MIN) {
+  }
+  if (diff < MIN) {
     return `${Math.round(diff / SEC)} 초 전`; // 1분보다 차이가 적다면 초 반환
-  } else if (diff < HOUR) {
+  }
+  if (diff < HOUR) {
     return `${Math.round(diff / MIN)} 분 전`; // 1시간 보다 차이가 적다면 분 반환
-  } else if (diff < DAY) {
+  }
+  if (diff < DAY) {
     return `${Math.round(diff / HOUR)} 시간 전`; // 1시간 보다 차이가 적다면 분 반환
-  } else if (diff < WEEK) {
+  }
+  if (diff < WEEK) {
     return `${Math.round(diff / DAY)} 일 전`; // 일
-  } else if (diff < MON) {
+  }
+  if (diff < MON) {
     return `${Math.round(diff / WEEK)} 주 전`; // 주
-  } else if (diff < YEAR) {
+  }
+  if (diff < YEAR) {
     return `${Math.round(diff / MON)} 달 전`; // 월
   }
   return `${Math.round(diff / YEAR)} 년 전`; // 년
+};
+
+interface getActiveTimeProps {
+  active: string;
+}
+
+export const getActiveTime = ({ active }: getActiveTimeProps): string => {
+  const activeTime = new Date(active);
+  const currentTime = new Date();
+
+  const diff = currentTime.getTime() - activeTime.getTime();
+
+  if (diff < WEEK) {
+    return 'oneWeek';
+  }
+  if (diff < MON) {
+    return 'oneMonth';
+  }
+  if (diff < MON * 6) {
+    return 'sixMonth';
+  }
+  return 'rest';
 };

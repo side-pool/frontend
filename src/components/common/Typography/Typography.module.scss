@@ -15,6 +15,9 @@
   &.blueActive {
     color: $blue_active;
   }
+  &.white {
+    color: $white;
+  }
 
   /* font size */
   &.xxs {
@@ -34,6 +37,9 @@
   }
   &.xl {
     font-size: $font-size-x-large;
+  }
+  &.xhl {
+    font-size: $font-size-half-x-large;
   }
   &.xxl {
     font-size: $font-size-xx-large;
@@ -74,5 +80,8 @@
   }
   &.wide {
     line-height: 1.6;
+  }
+  &.wider {
+    line-height: 1.8;
   }
 }

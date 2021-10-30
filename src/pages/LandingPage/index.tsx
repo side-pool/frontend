@@ -5,6 +5,7 @@ import { CardWithContent } from '@src/components/common/Card/Card.stories';
 import { LabelTags } from '@src/components/common/LabelTag/LabelTag.stories';
 
 import styles from '@src/pages/LandingPage/LandingPage.module.scss';
+import SideCard from '@src/components/SideCard';
 
 const HIGHLIGHT = 'highlight';
 
@@ -14,6 +15,14 @@ const LandingPage = () => {
 
   return (
     <div className={styles.LandingPage}>
+      <SideCard
+        active="2021-10-29T01:18:23"
+        category={['AI', 'WEB', 'APP', 'AI', 'WEB', 'APP', 'AI', 'WEB', 'APP']}
+        recruiting
+        summary="작은 사이드 프로젝트에서 시작하는 ~~~"
+        title="작은 사이드 프로젝트에서 시작하는 ~~~작은 사이드 프로젝트에서 시작하는 ~~~작은 사이드 프로젝트에서 시작하는 ~~~"
+      />
+
       <button
         type="button"
         onClick={() => dispatch(setLoading({ isLoading: !isLoading }))}
