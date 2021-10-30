@@ -38,10 +38,10 @@ module.exports = async ({ config }) => {
   });
 
   config.module.rules.push({
-    test: /\.(png|svg|jpg|gif)$/,
+    test: /\.(png|jpg|gif)$/,
     use: ['file-loader'],
   });
-  
+
   config.resolve.alias = {
     '@src': SRC_PATH,
   };
