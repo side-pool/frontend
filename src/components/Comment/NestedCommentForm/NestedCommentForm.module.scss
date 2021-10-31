@@ -1,0 +1,25 @@
+.NestedCommentForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  .answer {
+    flex: 1;
+    @include flex_col(stretch, stretch);
+    gap: 14px;
+    .topArea {
+      align-items: center;
+    }
+    .bottomArea {
+      @include flex_row(stretch, center);
+    }
+  }
+  .Author {
+    flex: 0 1 fit-content;
+  }
+  .Input {
+    flex: 1;
+  }
+  .Button {
+    flex: 0 1 fit-content;
+  }
+}

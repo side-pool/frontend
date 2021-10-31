@@ -1,15 +1,15 @@
 import React from 'react';
-
 import styles from './IdeaPage.module.scss';
-
 import Button from '@src/components/common/Button';
-
 import AlertModal from '@src/components/modals/AlertModal';
-
 import useModalControl from '@src/hooks/useModalControl';
 import IdeaFormModal from '@src/components/modals/IdeaFormModal';
+import IdeaCardContainer from '@src/components/Idea/IdeaCardContainer';
+import { useCheckAuth } from '@src/hooks/useUserQuery';
 
 const IdeaPage = () => {
+  const { isSuccess } = useCheckAuth();
+
   const {
     isModalVisible: isAlertVisible,
     modalMessage: alertMessage,
@@ -25,26 +25,31 @@ const IdeaPage = () => {
 
   return (
     <div className={styles.IdeaPage}>
+      <IdeaCardContainer />
       <Button
         className={styles.scrollTopButton}
         variant="floating"
         iconName="expand_less"
       />
-      <Button
-        className={styles.createSideButton}
-        onClick={() => showIdeaForm()}
-        variant="floating"
-        iconName="add"
-      />
-      {isIdeaFormVisible && (
-        <IdeaFormModal
-          hideIdeaForm={hideIdeaForm}
-          showAlert={showAlert}
-          isCreate
-        />
-      )}
-      {isAlertVisible && (
-        <AlertModal content={alertMessage} handleConfirm={hideAlert} />
+      {isSuccess && (
+        <>
+          <Button
+            className={styles.createSideButton}
+            onClick={() => showIdeaForm()}
+            variant="floating"
+            iconName="add"
+          />
+          {isIdeaFormVisible && (
+            <IdeaFormModal
+              hideIdeaForm={hideIdeaForm}
+              showAlert={showAlert}
+              isCreate
+            />
+          )}
+          {isAlertVisible && (
+            <AlertModal content={alertMessage} handleConfirm={hideAlert} />
+          )}
+        </>
       )}
     </div>
   );

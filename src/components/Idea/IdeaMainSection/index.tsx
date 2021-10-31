@@ -5,9 +5,9 @@ import Typography from '@src/components/common/Typography';
 import Author from '@src/components/common/Author';
 import { getDiffTime } from '@src/utils/common';
 import { Idea } from '@src/models';
-import styles from './IdeaSection.module.scss';
+import styles from './IdeaMainSection.module.scss';
 
-interface IdeaSectionProps {
+interface IdeaMainSectionProps {
   idea: Idea;
 }
 
@@ -26,9 +26,9 @@ const IsDoneTag = ({ isDone }: IsDoneTagProps) =>
     </LabelTag>
   );
 
-const IdeaSection = ({ idea }: IdeaSectionProps) => {
+const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
   return (
-    <section className={styles.IdeaSection}>
+    <section className={styles.IdeaMainSection}>
       <header>
         <Typography fontSize="md" fontWeight="medium">
           {idea.title}
@@ -66,4 +66,4 @@ const IdeaSection = ({ idea }: IdeaSectionProps) => {
   );
 };
 
-export default IdeaSection;
+export default IdeaMainSection;

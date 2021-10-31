@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import Card from '@src/components/common/Card';
-import IdeaSection from '@src/components/IdeaSection';
 import { Idea } from '@src/models';
+import IdeaMainSection from '@src/components/Idea/IdeaMainSection';
+import { UserTab } from '@src/constant/enums';
+import IdeaCommentForm from '@src/components/Idea/IdeaComment/IdeaCommentForm';
+import IdeaCommentBox from '@src/components/Idea/IdeaComment/IdeaCommentBox';
 import LikeButton from '@src/components/common/LikeButton';
-import styles from './IdeaCard.module.scss';
 import {
   CommentTab,
   SimilarServiceTab,
 } from '@src/components/common/ButtonTab';
-import { UserTab } from '@src/constant/enums';
+import styles from './IdeaCard.module.scss';
 
 export interface IdeaCardProps {
   idea: Idea;
@@ -19,9 +21,9 @@ const IdeaCard = ({ idea }: IdeaCardProps) => {
 
   return (
     <Card className={styles.IdeaCard}>
-      <IdeaSection idea={idea} />
+      <IdeaMainSection idea={idea} />
       <section>
-        <div className="buttonContainer">
+        <div className={styles.buttonContainer}>
           <LikeButton
             count={idea.favoriteCount}
             active={idea.isFavorite ?? false}
@@ -44,6 +46,10 @@ const IdeaCard = ({ idea }: IdeaCardProps) => {
             }}
           />
         </div>
+      </section>
+      <section className={styles.ideaCommentSection}>
+        <IdeaCommentForm ideaId={idea.id} />
+        <IdeaCommentBox ideaId={idea.id} />
       </section>
     </Card>
   );

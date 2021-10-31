@@ -1,8 +1,6 @@
 .IdeaPage {
   @include flex_col();
-
   width: 100%;
-  height: 100%;
 
   .scrollTopButton {
     position: fixed;
