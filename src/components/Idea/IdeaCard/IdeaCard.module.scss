@@ -24,14 +24,14 @@
       padding: 15px 0px;
     }
     .CommentForm {
-      border-top: 0.5px solid #e0e0e0;
+      border-top: 0.5px solid $gray_3;
     }
     .CommentBox,
     .NestedCommentBox,
     .NestedCommentForm ~ .CommentBox,
     .NestedCommentBox,
     .NestedCommentForm {
-      border-top: 0.5px solid #e0e0e0;
+      border-top: 0.5px solid $gray_3;
     }
   }
 }
