@@ -18,6 +18,7 @@ const UserInfoCard = ({ nickname, level, point }: UserInfoCardProps) => {
         </Typography>
         <div className={styles.nicknameContainer}>
           <Typography
+            className={styles.ellipse}
             fontSize={'xxl'}
             fontWeight={'bold'}
             textColor={'blueActive'}

@@ -12,6 +12,12 @@
 
     .nicknameContainer {
       @include flex_row(flex-start, center);
+
+      width: 230px;
+
+      .ellipse {
+        @include ellipse;
+      }
     }
   }
 
