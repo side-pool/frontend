@@ -13,11 +13,7 @@ const UserInfoCard = ({ nickname, level, point }: UserInfoCardProps) => {
   return (
     <Card className={styles.UserInfoCard}>
       <div className={styles.leftArea}>
-        <div>
-          <Typography
-            className={styles.greetingText}
-          >{`안녕하세요!`}</Typography>
-        </div>
+        <Typography className={styles.greetingText}>{`안녕하세요!`}</Typography>
         <div className={styles.nicknameContainer}>
           <Typography className={styles.nicknameText}>{nickname}</Typography>
           <Typography className={styles.greetingText}>님</Typography>
