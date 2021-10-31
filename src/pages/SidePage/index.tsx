@@ -8,6 +8,8 @@ import AlertModal from '@src/components/modals/AlertModal';
 import useModalControl from '@src/hooks/useModalControl';
 import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 
+import SideList from '@src/components/SideList';
+
 const SidePage = () => {
   const {
     isModalVisible: isAlertVisible,
@@ -24,6 +26,7 @@ const SidePage = () => {
 
   return (
     <div className={styles.SidePage}>
+      <SideList />
       <Button
         className={styles.scrollTopButton}
         variant="floating"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import cn from 'classnames';
 import Typography from '@src/components/common/Typography';
 
@@ -6,21 +6,11 @@ import MiddleArea from './MiddleArea';
 
 import styles from './SideCard.module.scss';
 import LabelTag from '@src/components/common/LabelTag';
+import { Side } from '@src/models';
 
 const PRIMARY_PICK = ['primary1', 'primary2', 'primary3', 'primary4'];
 
-export interface SideCardProps {
-  active: string;
-  category: string[];
-  createdDate?: string;
-  favoriteCount?: number;
-  id?: number;
-  logoUrl?: string;
-  recruiting?: boolean;
-  summary: string;
-  title: string;
-  updatedDate?: string;
-}
+export type SideCardProps = Side;
 
 const SideCard = ({
   active,
@@ -30,13 +20,15 @@ const SideCard = ({
   summary,
   title,
 }: SideCardProps) => {
+  const pickNumber = useMemo(() => Math.floor(Math.random() * 4), []);
+
   return (
     <div className={styles.SideCard}>
       <div
         className={cn(
           styles.topArea,
           !logoUrl && styles.isPadding,
-          PRIMARY_PICK[Math.floor(Math.random() * 4)],
+          PRIMARY_PICK[pickNumber],
         )}
       >
         {logoUrl ? (
