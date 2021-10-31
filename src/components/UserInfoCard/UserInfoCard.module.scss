@@ -1,0 +1,44 @@
+.UserInfoCard {
+  @include flex_row(stretch, stretch);
+
+  width: 660px;
+  height: 210px;
+  min-height: 210px;
+
+  .leftArea {
+    @include flex_col(center, flex-start);
+
+    flex: 4;
+
+    .nicknameContainer {
+      @include flex_row(flex-start, center);
+
+      width: 230px;
+
+      .ellipse {
+        @include ellipse;
+      }
+    }
+  }
+
+  .rightArea {
+    @include flex_row();
+
+    flex: 3;
+    gap: 67px;
+
+    .userInfoContainer {
+      @include flex_col(center, flex-start);
+
+      gap: 18px;
+
+      .valueText {
+        font-size: $font-size-xx-large;
+        font-weight: $font-weight-bold;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 5px;
+      }
+    }
+  }
+}
