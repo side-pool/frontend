@@ -1,0 +1,53 @@
+.UserInfoCard {
+  @include flex_row(stretch, stretch);
+
+  width: 660px;
+  height: 210px;
+
+  .leftArea {
+    @include flex_col(center, flex-start);
+
+    flex: 3;
+
+    .greetingText {
+      font-size: $font-size-xx-large;
+      font-weight: $font-weight-bold;
+    }
+
+    .nicknameContainer {
+      @include flex_row(flex-start, center);
+
+      .nicknameText {
+        font-size: $font-size-xx-large;
+        font-weight: $font-weight-bold;
+        // Question: _color.scss에는 피그마 상의 색이 없어서 아래처럼 추가했는데 어떨지 궁금합니다.
+        color: #004ce5;
+      }
+    }
+  }
+
+  .rightArea {
+    @include flex_row();
+
+    flex: 2;
+    gap: 2rem;
+
+    .userInfoContainer {
+      @include flex_col(center, flex-start);
+
+      gap: 18px;
+
+      .topText {
+        font-size: $font-size-medium;
+      }
+
+      .bottomText {
+        font-size: $font-size-xx-large;
+        font-weight: $font-weight-bold;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 5px;
+      }
+    }
+  }
+}
