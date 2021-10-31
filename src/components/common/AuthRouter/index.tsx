@@ -33,13 +33,12 @@ const AuthRoute = ({
           )
         ) : (
           <>
-            {isAlertVisible && (
+            {isAlertVisible ? (
               <AlertModal
                 content={'유효하지 않은 접근입니다.'}
                 handleConfirm={hideAlert}
               />
-            )}
-            {!isAlertVisible && (
+            ) : (
               <Redirect
                 to={{ pathname: redirectPath, state: { from: props.location } }}
               />
