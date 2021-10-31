@@ -13,20 +13,30 @@ const UserInfoCard = ({ nickname, level, point }: UserInfoCardProps) => {
   return (
     <Card className={styles.UserInfoCard}>
       <div className={styles.leftArea}>
-        <Typography className={styles.greetingText}>{`안녕하세요!`}</Typography>
+        <Typography fontSize={'xxl'} fontWeight={'bold'}>
+          {`안녕하세요!`}
+        </Typography>
         <div className={styles.nicknameContainer}>
-          <Typography className={styles.nicknameText}>{nickname}</Typography>
-          <Typography className={styles.greetingText}>님</Typography>
+          <Typography
+            fontSize={'xxl'}
+            fontWeight={'bold'}
+            textColor={'blueActive'}
+          >
+            {nickname}
+          </Typography>
+          <Typography fontSize={'xxl'} fontWeight={'bold'}>
+            님
+          </Typography>
         </div>
       </div>
       <div className={styles.rightArea}>
         <div className={styles.userInfoContainer}>
-          <Typography className={styles.topText}>My Level</Typography>
-          <Typography className={styles.bottomText}>{level}</Typography>
+          <Typography fontSize={'md'}>My Level</Typography>
+          <Typography className={styles.valueText}>{level}</Typography>
         </div>
         <div className={styles.userInfoContainer}>
-          <Typography className={styles.topText}>My Points</Typography>
-          <Typography className={styles.bottomText}>{point}</Typography>
+          <Typography fontSize={'md'}>My Points</Typography>
+          <Typography className={styles.valueText}>{point}</Typography>
         </div>
       </div>
     </Card>
