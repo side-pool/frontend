@@ -1,18 +1,20 @@
+import { MyData, UserData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 import { AxiosError } from 'axios';
 import { useQuery, useMutation } from 'react-query';
-
-interface UserVariable {
-  username: string;
-  password: string;
-  nickname: string;
-}
 
 interface UserExistData {
   duplicated: boolean;
 }
 
-export const useGetUser = () => useQuery('me');
+export const useGetUser = () => useQuery<MyData, AxiosError<unknown>>('me');
+
+// TODO: staleTime 조절해서 서버 부담 줄이기
+export const useCheckAuth = () =>
+  useQuery<MyData, AxiosError<unknown>>('me', {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
 export const useUserExist = (
   username: string,
@@ -43,6 +45,6 @@ export const useUserExist = (
   );
 
 export const useCreateUser = () =>
-  useMutation<void, AxiosError<unknown>, UserVariable>((params) =>
+  useMutation<void, AxiosError<unknown>, UserData>((params) =>
     getApiInstance().post(`/users`, params),
   );
