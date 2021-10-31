@@ -36,15 +36,23 @@ module.exports = async ({ config }) => {
       },
     ],
   });
-  
+
+  config.module.rules.push({
+    test: /\.(png|jpg|gif)$/,
+    type: 'asset/resource',
+    generator: {
+      filename: 'static/chunks/[path][name].[hash][ext]',
+    },
+  });
+
   config.resolve.alias = {
     '@src': SRC_PATH,
   };
 
   const fileLoaderRule = config.module.rules.find(
-    (rule) => rule.test && rule.test.test(".svg")
+    (rule) => rule.test && rule.test.test('.svg'),
   );
-  
+
   fileLoaderRule.exclude = /\.svg$/;
 
   // don't forget to return.
