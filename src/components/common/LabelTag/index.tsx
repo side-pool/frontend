@@ -9,8 +9,8 @@ export interface LabelTagProps
   extends HTMLAttributes<
     HTMLDivElement | HTMLSpanElement | HTMLHeadingElement
   > {
-  wrapperColor?: 'gray' | 'orange' | 'beige';
-  textColor?: 'white' | 'orange';
+  wrapperColor?: 'gray' | 'orange' | 'beige' | 'white';
+  textColor?: 'white' | 'orange' | 'green';
   isDeleteButton?: boolean;
 }
 
