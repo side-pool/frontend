@@ -48,4 +48,22 @@ const Button = ({
   );
 };
 
+interface NestedCommentToggleBtnProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  toggle: boolean;
+}
+
+export const NestedCommentToggleBtn = ({
+  toggle,
+  ...props
+}: NestedCommentToggleBtnProps) => {
+  return (
+    <Button
+      labelText={toggle ? '대댓글접기' : '대댓글펼치기'}
+      variant="text"
+      {...props}
+    />
+  );
+};
+
 export default Button;
