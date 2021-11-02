@@ -4,6 +4,10 @@ import CommentBox from '@src/components/Comment/CommentBox';
 import { useCheckAuth } from '@src/hooks/useUserQuery';
 import IdeaNestedCommentForm from '@src/components/Idea/IdeaComment/IdeaNestedCommentForm';
 import IdeaNestedCommentBox from '@src/components/Idea/IdeaComment/IdeaNestedCommentBox';
+import {
+  useDeleteIdeaComment,
+  useUpdateIdeaComment,
+} from '@src/hooks/useIdeaCommentQuery';
 
 interface Props {
   ideaId: number;
@@ -12,25 +16,27 @@ interface Props {
 
 const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
   const [isNestedOpened, setIsNestedOpened] = useState(false);
-  const [isNestedFormOpened, setIsNestedFormOpened] = useState(false);
-  const { isSuccess: isAuth } = useCheckAuth();
+  const { data: myData } = useCheckAuth();
+  const updateMutation = useUpdateIdeaComment();
+  const deleteMutation = useDeleteIdeaComment();
 
   return (
     <>
       <CommentBox
         key={comment.id}
         comment={comment}
-        isNestedFormOpened={isNestedFormOpened}
-        setIsNestedFormOpened={setIsNestedFormOpened}
+        ideaId={ideaId}
         isNestedOpened={isNestedOpened}
         setIsNestedOpened={setIsNestedOpened}
-        isAuth={isAuth}
+        isMine={(myData?.id ?? null) === comment.author.id}
+        updateMutation={updateMutation}
+        deleteMutation={deleteMutation}
       />
       {isNestedOpened && (
-        <IdeaNestedCommentBox ideaId={ideaId} commentId={comment.id} />
-      )}
-      {isNestedFormOpened && (
-        <IdeaNestedCommentForm ideaId={ideaId} commentId={comment.id} />
+        <>
+          <IdeaNestedCommentBox ideaId={ideaId} commentId={comment.id} />
+          <IdeaNestedCommentForm ideaId={ideaId} commentId={comment.id} />
+        </>
       )}
     </>
   );

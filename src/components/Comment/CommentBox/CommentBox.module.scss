@@ -9,15 +9,13 @@
     gap: 14px;
     .topArea {
       @include flex_row(space-between, center);
-      .topLeftArea {
+      .topLeftArea,
+      .topRightArea {
         display: flex;
         align-items: center;
         gap: 10px;
       }
       .topRightArea {
-        display: flex;
-        align-items: center;
-        gap: 10px;
         .updownBorder {
           border: 0.5px solid $gray_3;
           width: 1px;
