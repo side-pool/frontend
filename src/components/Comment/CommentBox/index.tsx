@@ -110,9 +110,9 @@ const CommentBox = ({
                 setIsNestedOpened(!isNestedOpened);
               }}
             />
-            <div className={styles.updownBorder} />
             {isMine && (
               <>
+                <div className={styles.updownBorder} />
                 {isEditing ? (
                   <>
                     <Button

@@ -6,6 +6,7 @@ import {
   useUpdateIdeaNestedComment,
   useDeleteIdeaNestedComment,
 } from '@src/hooks/useIdeaCommentQuery';
+import ForbiddenComment from '@src/components/Comment/ForbiddenComment';
 
 interface IdeaNestedCommentBox {
   ideaId: number;
@@ -17,7 +18,7 @@ const IdeaNestedCommentBox = ({ ideaId, commentId }: IdeaNestedCommentBox) => {
     ideaId,
     commentId,
   });
-  const { data: myData } = useCheckAuth();
+  const { data: myData, isError: isLogout } = useCheckAuth();
   const updateMutation = useUpdateIdeaNestedComment();
   const deleteMutation = useDeleteIdeaNestedComment();
 
@@ -35,6 +36,9 @@ const IdeaNestedCommentBox = ({ ideaId, commentId }: IdeaNestedCommentBox) => {
             deleteMutation={deleteMutation}
           />
         ))}
+      {isLogout && dataArr?.length === 0 && (
+        <ForbiddenComment isNested={true} />
+      )}
     </>
   );
 };
