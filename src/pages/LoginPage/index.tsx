@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useQueryClient } from 'react-query';
 import Typography from '@src/components/common/Typography';
 import styles from './LoginPage.module.scss';
 import Card from '@src/components/common/Card';
@@ -17,6 +18,8 @@ const LoginPage = () => {
   const usernameRef = useRef({} as ParentRef);
   const passwordRef = useRef({} as ParentRef);
   const history = useHistory();
+  const queryClient = useQueryClient();
+
   const {
     isModalVisible: isAlertVisible,
     modalMessage: alertMessage,
@@ -29,7 +32,8 @@ const LoginPage = () => {
   const handleConfirm = () => {
     hideAlert();
     if (loginMutation.isSuccess) {
-      history.push('/');
+      history.push('/idea');
+      queryClient.invalidateQueries(`/auth`);
     }
   };
 
@@ -54,6 +58,7 @@ const LoginPage = () => {
           saveItem(ACCESS_TOKEN, `${token}`);
 
           showAlert('로그인 성공');
+          // 로그인 상태 업데이트
         },
         onError: (error) => {
           if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {

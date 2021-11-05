@@ -6,12 +6,12 @@ import LoginPage from '@src/pages/LoginPage';
 import JoinPage from '@src/pages/JoinPage';
 import IdeaPage from '@src/pages/IdeaPage';
 import Sidebar from '@src/components/common/Sidebar';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth } from '@src/hooks/useUserQuery';
 import AuthRoute from '@src/components/common/AuthRouter';
 
 const App = () => {
   const { pathname } = useLocation();
-  const { isSuccess } = useCheckAuth();
+  const { data: isAuth } = useAuth();
 
   return (
     <Switch>
@@ -24,13 +24,13 @@ const App = () => {
           <AuthRoute
             path="/login"
             component={LoginPage}
-            isAuth={!isSuccess}
+            isAuth={!isAuth}
             redirectPath="/"
           />
           <AuthRoute
             path="/join"
             component={JoinPage}
-            isAuth={!isSuccess}
+            isAuth={!isAuth}
             redirectPath="/"
           />
           <Route path="/idea" component={IdeaPage} />

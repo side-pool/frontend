@@ -17,7 +17,7 @@ export const useGetUser = (isAuth: boolean) =>
   });
 
 // TODO: staleTime 조절해서 서버 부담 줄이기
-export const useCheckAuth = () => {
+export const useAuth = () => {
   return useQuery<boolean, AxiosError<unknown>>(
     '/auth',
     async () => {

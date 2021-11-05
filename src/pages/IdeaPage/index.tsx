@@ -5,10 +5,10 @@ import AlertModal from '@src/components/modals/AlertModal';
 import useModalControl from '@src/hooks/useModalControl';
 import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 import IdeaCardContainer from '@src/components/Idea/IdeaCardContainer';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth } from '@src/hooks/useUserQuery';
 
 const IdeaPage = () => {
-  const { isSuccess } = useCheckAuth();
+  const { data: isAuth } = useAuth();
 
   const {
     isModalVisible: isAlertVisible,
@@ -31,7 +31,7 @@ const IdeaPage = () => {
         variant="floating"
         iconName="expand_less"
       />
-      {isSuccess && (
+      {isAuth && (
         <>
           <Button
             className={styles.createSideButton}
