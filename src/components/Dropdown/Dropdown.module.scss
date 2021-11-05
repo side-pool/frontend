@@ -1,0 +1,34 @@
+.Dropdown {
+  position: relative;
+
+  .DropdownButton {
+    @include flex_row(space-between);
+
+    width: 141px;
+    height: 28px;
+    background: $white;
+    border: 1px solid $gray_3;
+    box-sizing: border-box;
+    border-radius: 15px;
+
+    padding: 0px 8px 0px 14px;
+
+    .Typography {
+      @include ellipse;
+    }
+
+    &.open {
+      .Icon {
+        transform: rotate(0.5turn);
+        transition: all 0.3s ease-in;
+      }
+    }
+
+    &.close {
+      .Icon {
+        transform: rotate(0turn);
+        transition: all 0.3s ease-in;
+      }
+    }
+  }
+}
