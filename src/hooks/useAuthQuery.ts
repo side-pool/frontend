@@ -22,9 +22,16 @@ export const useLogin = () =>
     },
   );
 
-export const useLogout = () => {
+export const useLogout = (redirectCallback: () => void) => {
   const queryClient = useQueryClient();
 
-  removeItem(ACCESS_TOKEN);
-  queryClient.removeQueries('me');
+  const logout = () => {
+    removeItem(ACCESS_TOKEN);
+
+    queryClient.removeQueries('/auth');
+    queryClient.removeQueries('/me');
+    redirectCallback();
+  };
+
+  return [logout];
 };
