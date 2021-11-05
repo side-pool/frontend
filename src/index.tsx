@@ -11,9 +11,11 @@ import 'normalize.css';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      queryFn: async ({ queryKey: [url] }) => {
+      queryFn: async ({ queryKey: [url, params] }) => {
         if (typeof url === 'string') {
-          const { data } = await getApiInstance().get(url);
+          const { data } = await getApiInstance().get(url, {
+            params,
+          });
           return data;
         }
         throw new Error('Invalid QueryKey');
