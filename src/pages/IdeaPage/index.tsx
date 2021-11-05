@@ -9,7 +9,7 @@ import IdeaCardContainer from '@src/components/Idea/IdeaCardContainer';
 import { useCheckAuth } from '@src/hooks/useUserQuery';
 
 interface IdeaPageProps {
-  handleToTop: () => void;
+  handleToTop?: () => void;
 }
 
 const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
@@ -38,7 +38,7 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
         )}
         variant="floating"
         iconName="expand_less"
-        onClick={() => handleToTop()}
+        onClick={handleToTop}
       />
       {isSuccess && (
         <>

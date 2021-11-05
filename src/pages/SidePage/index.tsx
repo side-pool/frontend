@@ -22,7 +22,7 @@ import { setSide, useAppDispatch, useSideState } from '@src/store';
 import Input from '@src/components/common/Input';
 
 interface SidePageProps {
-  handleToTop: () => void;
+  handleToTop?: () => void;
 }
 
 const SidePage = ({ handleToTop }: SidePageProps) => {
@@ -106,9 +106,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
         className={styles.scrollTopButton}
         variant="floating"
         iconName="expand_less"
-        onClick={() => {
-          handleToTop();
-        }}
+        onClick={handleToTop}
       />
       <Button
         className={styles.createSideButton}
