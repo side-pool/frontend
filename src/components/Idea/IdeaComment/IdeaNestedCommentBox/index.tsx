@@ -1,7 +1,11 @@
-import NestedCommentBox from '@src/components/Comment/NestedCommentBox/NestedCommentBox';
+import React from 'react';
+import NestedCommentBox from '@src/components/Comment/NestedCommentBox';
 import { useReadIdeaNestedComments } from '@src/hooks/useIdeaCommentQuery';
 import { useCheckAuth } from '@src/hooks/useUserQuery';
-import React from 'react';
+import {
+  useUpdateIdeaNestedComment,
+  useDeleteIdeaNestedComment,
+} from '@src/hooks/useIdeaCommentQuery';
 
 interface IdeaNestedCommentBox {
   ideaId: number;
@@ -13,16 +17,22 @@ const IdeaNestedCommentBox = ({ ideaId, commentId }: IdeaNestedCommentBox) => {
     ideaId,
     commentId,
   });
-  const { isSuccess: isAuth } = useCheckAuth();
+  const { data: myData } = useCheckAuth();
+  const updateMutation = useUpdateIdeaNestedComment();
+  const deleteMutation = useDeleteIdeaNestedComment();
 
   return (
     <>
       {isSuccess &&
-        dataArr?.map((comment) => (
+        dataArr?.map((nestedComment) => (
           <NestedCommentBox
-            key={comment.id}
-            comment={comment}
-            isAuth={isAuth}
+            key={nestedComment.id}
+            ideaId={ideaId}
+            commentId={commentId}
+            nestedComment={nestedComment}
+            isMine={(myData?.id ?? null) === nestedComment.author.id}
+            updateMutation={updateMutation}
+            deleteMutation={deleteMutation}
           />
         ))}
     </>
