@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { loadItem, ACCESS_TOKEN } from '@src/utils/storage';
+import qs from 'qs';
 
 export const SERVER_URL = 'http://13.209.171.179:80/api';
 
@@ -50,6 +51,9 @@ export function getApiInstance() {
 
   axiosInstance.interceptors.request.use(onRequest, onRequestError);
   axiosInstance.interceptors.response.use(onResponse, onResponseError);
+  axiosInstance.defaults.paramsSerializer = function (paramObj) {
+    return qs.stringify(paramObj, { arrayFormat: 'repeat' });
+  };
 
   return axiosInstance;
 }
