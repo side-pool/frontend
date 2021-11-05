@@ -53,4 +53,16 @@ export type Side = {
   updatedDate?: string;
 };
 
+export type SidePrams = {
+  category?: string[];
+  isRecruiting?: boolean;
+  organization?: string[];
+  page?: number;
+  period?: string[];
+  search?: string[];
+  size?: number;
+  skill?: string[];
+  sort?: 'asc' | 'desc';
+};
+
 export type ReadSidesData = Side[];
