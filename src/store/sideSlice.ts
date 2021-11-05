@@ -5,6 +5,7 @@ const initialState: SidePrams = {
   category: [],
   organization: [],
   skill: [],
+  search: [],
   isRecruiting: false,
   page: 0,
   size: 0,

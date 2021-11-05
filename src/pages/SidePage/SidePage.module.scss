@@ -1,19 +1,113 @@
 .SidePage {
-    @include flex_col();
-  
+  @include flex_col();
+
+  width: 100%;
+
+  .sideCardContainer {
     width: 100%;
     height: 100%;
-  
-    .scrollTopButton {
-      position: fixed;
-      bottom: 135px;
-      right: 30px;
-    }
-  
-    .createSideButton {
-      position: fixed;
-      bottom: 65px;
-      right: 30px;
+
+    padding: 60px 150px 0px;
+
+    .topArea {
+      position: relative;
+
+      z-index: 100;
+
+      @include flex_row(space-between);
+      width: 100%;
+
+      backdrop-filter: blur(30px);
+
+      .Typography {
+        width: fit-content;
+      }
+
+      .searchArea {
+        @include flex_row(flex-end);
+
+        .icons {
+          svg {
+            padding-right: 11px;
+          }
+        }
+
+        gap: 5px;
+
+        .teamAvailableCheckbox {
+          @include flex_row(space-between);
+
+          position: relative;
+
+          width: 141px;
+          height: 28px;
+          background: $white;
+          border: 1px solid $gray_3;
+          box-sizing: border-box;
+          border-radius: 15px;
+
+          padding: 0px 8px 0px 14px;
+
+          input {
+            opacity: 0;
+            cursor: pointer;
+          }
+        }
+
+        .teamAvailableCheckmark {
+          position: absolute;
+          top: 5px;
+          right: 11px;
+          height: 14px;
+          width: 14px;
+          background-color: $white;
+          border: 1px solid $gray_3;
+          border-radius: 4px;
+        }
+
+        .teamAvailableCheckbox:hover input ~ .teamAvailableCheckmark {
+          border-color: #7795ff;
+        }
+
+        .teamAvailableCheckbox input:checked ~ .teamAvailableCheckmark {
+          background-color: $white;
+        }
+
+        .teamAvailableCheckmark:after {
+          content: '';
+          position: absolute;
+          display: none;
+        }
+
+        .teamAvailableCheckbox input:checked ~ .teamAvailableCheckmark:after {
+          display: block;
+        }
+
+        .teamAvailableCheckbox .teamAvailableCheckmark:after {
+          width: 8px;
+          height: 8px;
+          top: 3px;
+          left: 3px;
+          border-radius: 100%;
+          background-color: #004ce5;
+        }
+      }
+
+      .searchArea ~ .searchArea {
+        padding-right: 10px;
+      }
     }
   }
-  
+
+  .scrollTopButton {
+    position: fixed;
+    bottom: 135px;
+    right: 30px;
+  }
+
+  .createSideButton {
+    position: fixed;
+    bottom: 65px;
+    right: 30px;
+  }
+}
