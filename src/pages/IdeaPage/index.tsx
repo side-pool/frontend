@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import styles from './IdeaPage.module.scss';
 import Button from '@src/components/common/Button';
 import AlertModal from '@src/components/modals/AlertModal';
@@ -7,7 +8,11 @@ import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 import IdeaCardContainer from '@src/components/Idea/IdeaCardContainer';
 import { useCheckAuth } from '@src/hooks/useUserQuery';
 
-const IdeaPage = () => {
+interface IdeaPageProps {
+  handleToTop: () => void;
+}
+
+const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
   const { isSuccess } = useCheckAuth();
 
   const {
@@ -27,9 +32,13 @@ const IdeaPage = () => {
     <div className={styles.IdeaPage}>
       <IdeaCardContainer />
       <Button
-        className={styles.scrollTopButton}
+        className={cn(
+          styles.scrollTopButton,
+          !isSuccess && styles.changePosition,
+        )}
         variant="floating"
         iconName="expand_less"
+        onClick={() => handleToTop()}
       />
       {isSuccess && (
         <>

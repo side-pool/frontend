@@ -6,6 +6,10 @@
     position: fixed;
     bottom: 135px;
     right: 30px;
+    
+    &.changePosition {
+      bottom: 65px;
+    }
   }
 
   .createSideButton {
