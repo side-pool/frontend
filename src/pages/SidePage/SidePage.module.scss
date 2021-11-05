@@ -97,6 +97,26 @@
         padding-right: 10px;
       }
     }
+
+    .filterArea {
+      padding-top: 67px;
+
+      @include flex_row(flex-end);
+
+      svg {
+        margin-right: 6px;
+      }
+
+      column-gap: 6px;
+
+      .seperator {
+        cursor: default;
+      }
+
+      .Typography {
+        cursor: pointer;
+      }
+    }
   }
 
   .scrollTopButton {

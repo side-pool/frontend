@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styles from './SidePage.module.scss';
 import Search from '@src/assets/Search.svg';
 import Setting from '@src/assets/Setting.svg';
+import Sort from '@src/assets/Sort.svg';
 
 import Button from '@src/components/common/Button';
 import AlertModal from '@src/components/modals/AlertModal';
@@ -29,7 +30,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const dispatch = useAppDispatch();
-  const { isRecruiting } = useSideState();
+  const { isRecruiting, sort } = useSideState();
   const {
     isModalVisible: isAlertVisible,
     modalMessage: alertMessage,
@@ -98,6 +99,26 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
               }
             />
           </div>
+        </div>
+        <div className={styles.filterArea}>
+          <Sort />
+          <Typography
+            fontSize="xs"
+            lineHeight="wide"
+            textColor={sort === 'desc' ? 'gray' : 'blueActive'}
+            onClick={() => dispatch(setSide({ sort: 'asc' }))}
+          >
+            최신순
+          </Typography>
+          <div className="seperator">|</div>
+          <Typography
+            fontSize="xs"
+            lineHeight="wide"
+            textColor={sort === 'asc' ? 'gray' : 'blueActive'}
+            onClick={() => dispatch(setSide({ sort: 'desc' }))}
+          >
+            좋아요순
+          </Typography>
         </div>
         <SideList />
       </div>

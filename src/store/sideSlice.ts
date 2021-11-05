@@ -9,6 +9,7 @@ const initialState: SidePrams = {
   isRecruiting: false,
   page: 0,
   size: 0,
+  sort: 'asc',
 };
 
 const sideReducer = createSlice({
@@ -18,7 +19,7 @@ const sideReducer = createSlice({
     setSide: (
       state,
       {
-        payload: { category, isRecruiting, organization, search, skill },
+        payload: { category, isRecruiting, organization, search, skill, sort },
       }: PayloadAction<SidePrams>,
     ) => {
       if (category !== undefined) state.category = category;
@@ -26,6 +27,7 @@ const sideReducer = createSlice({
       if (organization !== undefined) state.organization = organization;
       if (search !== undefined) state.search = search;
       if (skill !== undefined) state.skill = skill;
+      if (sort !== undefined) state.sort = sort;
     },
   },
 });
