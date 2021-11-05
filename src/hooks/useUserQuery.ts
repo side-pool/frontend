@@ -1,20 +1,47 @@
+import { useQuery, useMutation } from 'react-query';
+import { AxiosError } from 'axios';
+import { HttpStatusCode } from '@src/constant/enums';
 import { MyData, UserData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
-import { AxiosError } from 'axios';
-import { useQuery, useMutation } from 'react-query';
+import { ACCESS_TOKEN, loadItem, removeItem } from '@src/utils/storage';
 
 interface UserExistData {
   duplicated: boolean;
 }
 
-export const useGetUser = () => useQuery<MyData, AxiosError<unknown>>('me');
+export const useGetUser = (isAuth: boolean) =>
+  useQuery<MyData, AxiosError<unknown>>(['/me', isAuth], {
+    enabled: isAuth,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
 
 // TODO: staleTime 조절해서 서버 부담 줄이기
-export const useCheckAuth = () =>
-  useQuery<MyData, AxiosError<unknown>>('me', {
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
+export const useCheckAuth = () => {
+  return useQuery<boolean, AxiosError<unknown>>(
+    '/auth',
+    async () => {
+      const token = loadItem(ACCESS_TOKEN) ?? null;
+
+      if (token) {
+        await getApiInstance().get<MyData>('/me');
+        return true;
+      } else {
+        return false;
+      }
+    },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+      onError: (error) => {
+        if (error.response?.status === HttpStatusCode.UNAUTHORIZED) {
+          // 토큰 만료
+          removeItem(ACCESS_TOKEN);
+        }
+      },
+    },
+  );
+};
 
 export const useUserExist = (
   username: string,
