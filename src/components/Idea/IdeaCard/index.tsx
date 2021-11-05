@@ -22,7 +22,7 @@ const IdeaCard = ({ idea }: IdeaCardProps) => {
   return (
     <Card className={styles.IdeaCard}>
       <IdeaMainSection idea={idea} />
-      <section>
+      <section className={styles.middleArea}>
         <div className={styles.buttonContainer}>
           <LikeButton
             count={idea.favoriteCount}

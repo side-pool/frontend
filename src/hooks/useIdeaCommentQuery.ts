@@ -3,14 +3,19 @@ import { getApiInstance } from '@src/utils/context';
 import { AxiosError } from 'axios';
 import { useMutation, useQuery } from 'react-query';
 
-export type CreateIdeaCommentVariable = {
+export type DataMappedIdea = {
   ideaId: number;
   content: string;
 };
 
-export type CreateIdeaReplyCommentVariable = {
+export type DataMappedComment = {
   commentId: number;
-} & CreateIdeaCommentVariable;
+} & DataMappedIdea;
+
+export type DataMappedNestedComment = {
+  commentId: number;
+  nestedCommentId: number;
+} & DataMappedIdea;
 
 export const useReadIdeaComments = (ideaId: number) =>
   useQuery<ReadCommentData, AxiosError<unknown>>(
@@ -25,9 +30,25 @@ export const useReadIdeaComments = (ideaId: number) =>
   );
 
 export const useCreateIdeaComment = () =>
-  useMutation<unknown, AxiosError<unknown>, CreateIdeaCommentVariable>(
+  useMutation<unknown, AxiosError<unknown>, DataMappedIdea>(
     async ({ ideaId, content }) => {
       await getApiInstance().post(`/ideas/${ideaId}/comments`, { content });
+    },
+  );
+
+export const useUpdateIdeaComment = () =>
+  useMutation<unknown, AxiosError<unknown>, DataMappedComment>(
+    async ({ ideaId, commentId, content }) => {
+      await getApiInstance().put(`/ideas/${ideaId}/comments/${commentId}`, {
+        content,
+      });
+    },
+  );
+
+export const useDeleteIdeaComment = () =>
+  useMutation<unknown, AxiosError<unknown>, DataMappedComment>(
+    async ({ ideaId, commentId }) => {
+      await getApiInstance().delete(`/ideas/${ideaId}/comments/${commentId}`);
     },
   );
 
@@ -51,12 +72,13 @@ export const useReadIdeaNestedComments = ({
       const { data } = await getApiInstance().get<ReadCommentData>(
         `/ideas/${ideaId}/comments/${commentId}/child-comments`,
       );
+      // TODO: reverse 안 쓰도록 수정
       return data?.reverse();
     },
   );
 
 export const useCreateIdeaNestedComment = () =>
-  useMutation<unknown, AxiosError<unknown>, CreateIdeaReplyCommentVariable>(
+  useMutation<unknown, AxiosError<unknown>, DataMappedComment>(
     async ({ ideaId, commentId, content }) => {
       await getApiInstance().post(
         `/ideas/${ideaId}/comments/${commentId}/child-comments`,
@@ -66,20 +88,20 @@ export const useCreateIdeaNestedComment = () =>
   );
 
 export const useUpdateIdeaNestedComment = () =>
-  useMutation<unknown, AxiosError<unknown>, CreateIdeaReplyCommentVariable>(
-    async ({ ideaId, commentId, content }) => {
+  useMutation<unknown, AxiosError<unknown>, DataMappedNestedComment>(
+    async ({ ideaId, commentId, content, nestedCommentId }) => {
       await getApiInstance().put(
-        `/ideas/${ideaId}/comments/${commentId}/child-comments`,
+        `/ideas/${ideaId}/comments/${commentId}/child-comments/${nestedCommentId}`,
         { content },
       );
     },
   );
 
 export const useDeleteIdeaNestedComment = () =>
-  useMutation<unknown, AxiosError<unknown>, CreateIdeaReplyCommentVariable>(
-    async ({ ideaId, commentId }) => {
+  useMutation<unknown, AxiosError<unknown>, DataMappedNestedComment>(
+    async ({ ideaId, commentId, nestedCommentId }) => {
       await getApiInstance().delete(
-        `/ideas/${ideaId}/comments/${commentId}/child-comments`,
+        `/ideas/${ideaId}/comments/${commentId}/child-comments/${nestedCommentId}`,
       );
     },
   );

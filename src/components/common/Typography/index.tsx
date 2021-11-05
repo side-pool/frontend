@@ -6,7 +6,13 @@ import cn from 'classnames';
 type FontWeight = 'light' | 'regular' | 'medium' | 'bold';
 type TextAlign = 'start' | 'center' | 'end';
 type LineHeight = 'narrow' | 'normal' | 'wide' | 'wider';
-type TextColor = 'titleBlack' | 'black' | 'gray' | 'blueActive' | 'white';
+type TextColor =
+  | 'titleBlack'
+  | 'black'
+  | 'gray'
+  | 'blueActive'
+  | 'white'
+  | 'lightGray';
 
 export interface TypographyProps
   extends HTMLAttributes<

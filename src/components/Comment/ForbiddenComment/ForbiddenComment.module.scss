@@ -1,0 +1,9 @@
+.ForbiddenComment {
+  @include flex_row(stretch, center);
+  .Typography {
+    flex: 1;
+    @include flex_row();
+    padding: 30px 0;
+    cursor: default;
+  }
+}

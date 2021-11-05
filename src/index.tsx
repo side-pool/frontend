@@ -7,6 +7,7 @@ import store from '@src/store';
 import App from '@src/App';
 import { getApiInstance } from '@src/utils/context';
 import 'normalize.css';
+// import { ReactQueryDevtools } from 'react-query/devtools';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +30,7 @@ ReactDOM.render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <App />
+        {/* <ReactQueryDevtools /> */}
       </QueryClientProvider>
     </BrowserRouter>
   </Provider>,

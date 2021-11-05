@@ -26,8 +26,6 @@ export const isValidPasswd = (passwd: string) => {
   return re.test(passwd);
 };
 
-type DateProps = Record<string, Date>;
-
 interface GetDiffTimeProps {
   newDate: Date;
   oldDate: Date;

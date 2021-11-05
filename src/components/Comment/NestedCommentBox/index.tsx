@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import ReplyIcon from '@src/assets/Reply.svg';
 import Author from '@src/components/common/Author';
-import styles from './CommentBox.module.scss';
+import styles from './NestedCommentBox.module.scss';
 import Typography from '@src/components/common/Typography';
 import { getDiffTime } from '@src/utils/common';
-import Button, { NestedCommentToggleBtn } from '@src/components/common/Button';
-import cn from 'classnames';
+import Button from '@src/components/common/Button';
 import { Comment } from '@src/models';
 import { GuideText } from '@src/constant/enums';
 import useModalControl from '@src/hooks/useModalControl';
@@ -13,25 +13,23 @@ import Input from '@src/components/common/Input';
 import { UseMutationResult } from 'react-query';
 import { AxiosError } from 'axios';
 
-export interface CommentBoxProps {
-  comment: Comment;
+export interface NestedCommentBoxProps {
   ideaId: number;
-  isNestedOpened: boolean;
-  setIsNestedOpened: (isNestedOpened: boolean) => void;
+  commentId: number;
+  nestedComment: Comment;
   isMine: boolean;
   updateMutation: UseMutationResult<unknown, AxiosError<unknown>, any, unknown>;
   deleteMutation: UseMutationResult<unknown, AxiosError<unknown>, any, unknown>;
 }
 
-const CommentBox = ({
-  comment,
+const NestedCommentBox = ({
   ideaId,
-  isNestedOpened,
-  setIsNestedOpened,
+  commentId,
+  nestedComment,
   isMine,
   updateMutation,
   deleteMutation,
-}: CommentBoxProps) => {
+}: NestedCommentBoxProps) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editTarget, setEditTarget] = useState<string>('');
 
@@ -54,7 +52,12 @@ const CommentBox = ({
 
     // submit to server
     updateMutation.mutate(
-      { ideaId, commentId: comment.id, content: editTarget },
+      {
+        ideaId,
+        commentId,
+        content: editTarget,
+        nestedCommentId: nestedComment.id,
+      },
       {
         onSuccess: () => {
           // TODO: Modal 로 바꾸기
@@ -76,7 +79,7 @@ const CommentBox = ({
     }
 
     deleteMutation.mutate(
-      { ideaId, commentId: comment.id },
+      { ideaId, commentId, nestedCommentId: nestedComment.id },
       {
         onSuccess: () => {
           // TODO: Modal 로 바꾸기
@@ -91,62 +94,58 @@ const CommentBox = ({
   };
 
   return (
-    <div className={cn(styles.CommentBox)}>
+    <div className={styles.NestedCommentBox}>
+      <ReplyIcon />
       <div className={styles.answer}>
         <div className={styles.topArea}>
           <div className={styles.topLeftArea}>
-            <Author nickname={comment.author.nickname} />
-            <Typography textColor="gray" fontSize="xxs">
+            <Author nickname={nestedComment.author.nickname} />
+            <Typography
+              textColor="gray"
+              fontSize="xxs"
+              className={styles.writtenDate}
+            >
               {getDiffTime({
                 newDate: new Date(),
-                oldDate: new Date(comment.updatedDate),
+                oldDate: new Date(nestedComment.updatedDate),
               })}
             </Typography>
           </div>
-          <div className={styles.topRightArea}>
-            <NestedCommentToggleBtn
-              toggle={isNestedOpened}
-              onClick={() => {
-                setIsNestedOpened(!isNestedOpened);
-              }}
-            />
-            {isMine && (
-              <>
-                <div className={styles.updownBorder} />
-                {isEditing ? (
-                  <>
-                    <Button
-                      labelText="수정완료"
-                      variant="text"
-                      onClick={handleEdit}
-                    />
-                    <Button
-                      labelText="수정취소"
-                      variant="text"
-                      onClick={() => setIsEditing(false)}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <Button
-                      labelText="수정"
-                      variant="text"
-                      onClick={() => {
-                        setIsEditing(true);
-                        comment.content.length &&
-                          setEditTarget(comment.content);
-                      }}
-                    />
-                    <Button
-                      labelText="삭제"
-                      variant="text"
-                      onClick={handleRemove}
-                    />
-                  </>
-                )}
-              </>
-            )}
-          </div>
+          {isMine && (
+            <>
+              {isEditing ? (
+                <div className={styles.topRightArea}>
+                  <Button
+                    labelText="수정완료"
+                    variant="text"
+                    onClick={handleEdit}
+                  />
+                  <Button
+                    labelText="수정취소"
+                    variant="text"
+                    onClick={() => setIsEditing(false)}
+                  />
+                </div>
+              ) : (
+                <div className={styles.topRightArea}>
+                  <Button
+                    labelText="수정"
+                    variant="text"
+                    onClick={() => {
+                      setIsEditing(true);
+                      nestedComment.content.length &&
+                        setEditTarget(nestedComment.content);
+                    }}
+                  />
+                  <Button
+                    labelText="삭제"
+                    variant="text"
+                    onClick={handleRemove}
+                  />
+                </div>
+              )}
+            </>
+          )}
         </div>
         {isEditing ? (
           <Input
@@ -159,7 +158,7 @@ const CommentBox = ({
           />
         ) : (
           <Typography className={styles.answerBottom} fontSize="xs">
-            {comment.content}
+            {nestedComment.content}
           </Typography>
         )}
       </div>
@@ -172,4 +171,4 @@ const CommentBox = ({
   );
 };
 
-export default CommentBox;
+export default NestedCommentBox;

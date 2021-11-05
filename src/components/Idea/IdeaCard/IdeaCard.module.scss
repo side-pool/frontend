@@ -8,12 +8,16 @@
     @include flex_row(stretch, stretch);
     padding: 0;
   }
-  .buttonContainer {
-    width: fit-content;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    column-gap: 12px;
+  .middleArea {
+    border-bottom: 0.5px solid $gray_3;
+    .buttonContainer {
+      width: fit-content;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      column-gap: 12px;
+    }
   }
+
   .ideaCommentSection {
     .CommentForm,
     .NestedCommentForm {
@@ -24,14 +28,14 @@
       padding: 15px 0px;
     }
     .CommentForm {
-      border-top: 0.5px solid $gray_3;
+      border-bottom: 0.5px solid $gray_3;
     }
     .CommentBox,
     .NestedCommentBox,
     .NestedCommentForm ~ .CommentBox,
     .NestedCommentBox,
     .NestedCommentForm {
-      border-top: 0.5px solid $gray_3;
+      border-bottom: 0.5px solid $gray_3;
     }
   }
 }
