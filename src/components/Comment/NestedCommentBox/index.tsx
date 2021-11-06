@@ -20,6 +20,7 @@ export interface NestedCommentBoxProps {
   isMine: boolean;
   updateMutation: UseMutationResult<unknown, AxiosError<unknown>, any, unknown>;
   deleteMutation: UseMutationResult<unknown, AxiosError<unknown>, any, unknown>;
+  invalidate: () => void;
 }
 
 const NestedCommentBox = ({
@@ -29,6 +30,7 @@ const NestedCommentBox = ({
   isMine,
   updateMutation,
   deleteMutation,
+  invalidate,
 }: NestedCommentBoxProps) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editTarget, setEditTarget] = useState<string>('');
@@ -63,6 +65,7 @@ const NestedCommentBox = ({
           // TODO: Modal 로 바꾸기
           alert('성공');
           setIsEditing(false);
+          invalidate();
         },
         onError: () => {
           alert('실패');
@@ -85,6 +88,7 @@ const NestedCommentBox = ({
           // TODO: Modal 로 바꾸기
           alert('성공');
           setIsEditing(false);
+          invalidate();
         },
         onError: () => {
           alert('실패');

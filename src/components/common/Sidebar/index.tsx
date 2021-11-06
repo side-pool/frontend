@@ -8,7 +8,8 @@ import IdeaMonoIcon from '@src/assets/IdeaMono.svg';
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
 import styles from './Sidebar.module.scss';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth } from '@src/hooks/useUserQuery';
+import { useLogout } from '@src/hooks/useAuthQuery';
 export interface SidebarProps {
   className?: string;
   pathname: string;
@@ -16,7 +17,11 @@ export interface SidebarProps {
 
 export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
-  const { isSuccess } = useCheckAuth();
+  const { data: isAuth } = useAuth();
+
+  const [logout] = useLogout(() => {
+    history.push('/idea');
+  });
 
   const isSide = useMemo(() => pathname.includes('side'), [pathname]);
   const isIdea = useMemo(() => pathname.includes('idea'), [pathname]);
@@ -51,7 +56,19 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
           </div>
         </div>
         <div className={styles.downArea}>
-          {!isSuccess && (
+          {isAuth && (
+            <Button
+              variant="text"
+              onClick={() => {
+                logout();
+              }}
+            >
+              <Typography fontSize="sm" fontWeight="regular" textColor="black">
+                로그아웃
+              </Typography>
+            </Button>
+          )}
+          {!isAuth && (
             <div className={styles.authButton}>
               <Button
                 variant="text"

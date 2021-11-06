@@ -2,7 +2,7 @@ import React from 'react';
 import { useReadIdeaComments } from '@src/hooks/useIdeaCommentQuery';
 import IdeaCommentBoxContainer from '@src/components/Idea/IdeaComment/IdeaCommentBoxContainer';
 import ForbiddenComment from '@src/components/Comment/ForbiddenComment';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth } from '@src/hooks/useUserQuery';
 
 interface CommentContainerProps {
   ideaId: number;
@@ -10,7 +10,7 @@ interface CommentContainerProps {
 
 const IdeaCommentBox = ({ ideaId }: CommentContainerProps) => {
   const { data: dataArr, isSuccess } = useReadIdeaComments(ideaId);
-  const { isError: isLogout } = useCheckAuth();
+  const { data: isAuth } = useAuth();
 
   return (
     <>
@@ -22,7 +22,7 @@ const IdeaCommentBox = ({ ideaId }: CommentContainerProps) => {
             comment={comment}
           />
         ))}
-      {isLogout && dataArr?.length === 0 && <ForbiddenComment />}
+      {!isAuth && dataArr?.length === 0 && <ForbiddenComment />}
     </>
   );
 };

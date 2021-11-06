@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import { ParentRef } from '@src/components/common/Input';
 import { GuideText } from '@src/constant/enums';
 import useModalControl from '@src/hooks/useModalControl';
@@ -17,8 +17,9 @@ const IdeaNestedCommentForm = ({
   commentId,
 }: IdeaNestedCommentFormProps) => {
   const commentRef = useRef({} as ParentRef);
-  const authResult = useCheckAuth();
-  const creatCommentMutation = useCreateIdeaNestedComment();
+  const { data: isAuth } = useAuth();
+  const { data: userData } = useGetUser(isAuth ?? false);
+  const creatCommentMutation = useCreateIdeaNestedComment(ideaId, commentId);
 
   const {
     isModalVisible: isAlertVisible,
@@ -38,18 +39,7 @@ const IdeaNestedCommentForm = ({
     }
 
     // submit to server
-    creatCommentMutation.mutate(
-      { ideaId, commentId, content },
-      {
-        onSuccess: () => {
-          // TODO: Modal 로 바꾸기
-          alert('성공');
-        },
-        onError: () => {
-          alert('실패');
-        },
-      },
-    );
+    creatCommentMutation.mutate(content);
   };
 
   const handleConfirm = () => {
@@ -58,9 +48,9 @@ const IdeaNestedCommentForm = ({
 
   return (
     <>
-      {authResult.isSuccess && (
+      {isAuth && (
         <NestedCommentForm
-          nickname={authResult.data.nickname}
+          nickname={userData?.nickname ?? ''}
           commentRef={commentRef}
           onSubmit={submitComment}
         />
