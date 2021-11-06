@@ -1,7 +1,8 @@
 import React from 'react';
+import { useQueryClient } from 'react-query';
 import NestedCommentBox from '@src/components/Comment/NestedCommentBox';
 import { useReadIdeaNestedComments } from '@src/hooks/useIdeaCommentQuery';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import {
   useUpdateIdeaNestedComment,
   useDeleteIdeaNestedComment,
@@ -18,9 +19,18 @@ const IdeaNestedCommentBox = ({ ideaId, commentId }: IdeaNestedCommentBox) => {
     ideaId,
     commentId,
   });
-  const { data: myData, isError: isLogout } = useCheckAuth();
+  const { data: isAuth } = useAuth();
+  const { data: userData } = useGetUser(isAuth ?? false);
+
   const updateMutation = useUpdateIdeaNestedComment();
   const deleteMutation = useDeleteIdeaNestedComment();
+  const queryClient = useQueryClient();
+
+  const invalidate = () => {
+    queryClient.invalidateQueries(
+      `/ideas/${ideaId}/comments/${commentId}/child-comments`,
+    );
+  };
 
   return (
     <>
@@ -31,14 +41,13 @@ const IdeaNestedCommentBox = ({ ideaId, commentId }: IdeaNestedCommentBox) => {
             ideaId={ideaId}
             commentId={commentId}
             nestedComment={nestedComment}
-            isMine={(myData?.id ?? null) === nestedComment.author.id}
+            isMine={(userData?.id ?? null) === nestedComment.author.id}
             updateMutation={updateMutation}
             deleteMutation={deleteMutation}
+            invalidate={invalidate}
           />
         ))}
-      {isLogout && dataArr?.length === 0 && (
-        <ForbiddenComment isNested={true} />
-      )}
+      {!isAuth && dataArr?.length === 0 && <ForbiddenComment isNested={true} />}
     </>
   );
 };

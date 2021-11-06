@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Comment } from '@src/models';
 import CommentBox from '@src/components/Comment/CommentBox';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import IdeaNestedCommentForm from '@src/components/Idea/IdeaComment/IdeaNestedCommentForm';
 import IdeaNestedCommentBox from '@src/components/Idea/IdeaComment/IdeaNestedCommentBox';
 import {
   useDeleteIdeaComment,
   useUpdateIdeaComment,
 } from '@src/hooks/useIdeaCommentQuery';
+import { useQueryClient } from 'react-query';
 
 interface Props {
   ideaId: number;
@@ -16,9 +17,15 @@ interface Props {
 
 const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
   const [isNestedOpened, setIsNestedOpened] = useState(false);
-  const { data: myData } = useCheckAuth();
+  const { data: isAuth } = useAuth();
+  const { data: userData } = useGetUser(isAuth ?? false);
   const updateMutation = useUpdateIdeaComment();
   const deleteMutation = useDeleteIdeaComment();
+  const queryClient = useQueryClient();
+
+  const invalidate = () => {
+    queryClient.invalidateQueries(`/ideas/${ideaId}/comments`);
+  };
 
   return (
     <>
@@ -28,9 +35,10 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
         ideaId={ideaId}
         isNestedOpened={isNestedOpened}
         setIsNestedOpened={setIsNestedOpened}
-        isMine={(myData?.id ?? null) === comment.author.id}
+        isMine={(userData?.id ?? null) === comment.author.id}
         updateMutation={updateMutation}
         deleteMutation={deleteMutation}
+        invalidate={invalidate}
       />
       {isNestedOpened && (
         <>

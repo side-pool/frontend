@@ -1,7 +1,7 @@
 import { ReadCommentData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 import { AxiosError } from 'axios';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 export type DataMappedIdea = {
   ideaId: number;
@@ -27,14 +27,28 @@ export const useReadIdeaComments = (ideaId: number) =>
       );
       return data;
     },
+    { refetchOnWindowFocus: false, retry: false },
   );
 
-export const useCreateIdeaComment = () =>
-  useMutation<unknown, AxiosError<unknown>, DataMappedIdea>(
-    async ({ ideaId, content }) => {
-      await getApiInstance().post(`/ideas/${ideaId}/comments`, { content });
+export const useCreateIdeaComment = (ideaId: number) => {
+  const queryClient = useQueryClient();
+  const path = `/ideas/${ideaId}/comments`;
+
+  return useMutation<unknown, AxiosError<unknown>, string>(
+    async (content) => {
+      await getApiInstance().post(path, { content });
+    },
+    {
+      onSuccess: () => {
+        alert('성공');
+        queryClient.invalidateQueries(path);
+      },
+      onError: () => {
+        alert('실패');
+      },
     },
   );
+};
 
 export const useUpdateIdeaComment = () =>
   useMutation<unknown, AxiosError<unknown>, DataMappedComment>(
@@ -75,17 +89,27 @@ export const useReadIdeaNestedComments = ({
       // TODO: reverse 안 쓰도록 수정
       return data?.reverse();
     },
+    { refetchOnWindowFocus: false, retry: false },
   );
 
-export const useCreateIdeaNestedComment = () =>
-  useMutation<unknown, AxiosError<unknown>, DataMappedComment>(
-    async ({ ideaId, commentId, content }) => {
-      await getApiInstance().post(
-        `/ideas/${ideaId}/comments/${commentId}/child-comments`,
-        { content },
-      );
+export const useCreateIdeaNestedComment = (
+  ideaId: number,
+  commentId: number,
+) => {
+  const queryClient = useQueryClient();
+  const path = `/ideas/${ideaId}/comments/${commentId}/child-comments`;
+
+  return useMutation<unknown, AxiosError<unknown>, string>(
+    async (content) => {
+      await getApiInstance().post(path, { content });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(path);
+      },
     },
   );
+};
 
 export const useUpdateIdeaNestedComment = () =>
   useMutation<unknown, AxiosError<unknown>, DataMappedNestedComment>(

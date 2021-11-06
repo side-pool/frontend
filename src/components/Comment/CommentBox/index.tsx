@@ -21,6 +21,7 @@ export interface CommentBoxProps {
   isMine: boolean;
   updateMutation: UseMutationResult<unknown, AxiosError<unknown>, any, unknown>;
   deleteMutation: UseMutationResult<unknown, AxiosError<unknown>, any, unknown>;
+  invalidate: () => void;
 }
 
 const CommentBox = ({
@@ -31,7 +32,9 @@ const CommentBox = ({
   isMine,
   updateMutation,
   deleteMutation,
+  invalidate,
 }: CommentBoxProps) => {
+  // TODO: 리팩터링
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editTarget, setEditTarget] = useState<string>('');
 
@@ -60,6 +63,7 @@ const CommentBox = ({
           // TODO: Modal 로 바꾸기
           alert('성공');
           setIsEditing(false);
+          invalidate();
         },
         onError: () => {
           alert('실패');
@@ -82,6 +86,7 @@ const CommentBox = ({
           // TODO: Modal 로 바꾸기
           alert('성공');
           setIsEditing(false);
+          invalidate();
         },
         onError: () => {
           alert('실패');

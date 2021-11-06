@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import CommentForm from '@src/components/Comment/CommentForm';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import { ParentRef } from '@src/components/common/Input';
 import { GuideText } from '@src/constant/enums';
 import useModalControl from '@src/hooks/useModalControl';
@@ -13,8 +13,9 @@ interface IdeaCommentFormProps {
 
 const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
   const commentRef = useRef({} as ParentRef);
-  const authResult = useCheckAuth();
-  const createCommentMutation = useCreateIdeaComment();
+  const { data: isAuth } = useAuth();
+  const { data: userData } = useGetUser(isAuth ?? false);
+  const createCommentMutation = useCreateIdeaComment(ideaId);
 
   const {
     isModalVisible: isAlertVisible,
@@ -34,18 +35,7 @@ const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
     }
 
     // submit to server
-    createCommentMutation.mutate(
-      { ideaId, content },
-      {
-        onSuccess: () => {
-          // TODO: Modal 로 바꾸기
-          alert('성공');
-        },
-        onError: () => {
-          alert('실패');
-        },
-      },
-    );
+    createCommentMutation.mutate(content);
   };
 
   const handleConfirm = () => {
@@ -54,9 +44,9 @@ const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
 
   return (
     <>
-      {authResult.isSuccess && (
+      {isAuth && (
         <CommentForm
-          nickname={authResult.data.nickname}
+          nickname={userData?.nickname ?? ''}
           commentRef={commentRef}
           onSubmit={handleSubmit}
         />

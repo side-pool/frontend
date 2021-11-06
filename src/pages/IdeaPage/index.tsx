@@ -6,14 +6,14 @@ import AlertModal from '@src/components/modals/AlertModal';
 import useModalControl from '@src/hooks/useModalControl';
 import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 import IdeaCardContainer from '@src/components/Idea/IdeaCardContainer';
-import { useCheckAuth } from '@src/hooks/useUserQuery';
+import { useAuth } from '@src/hooks/useUserQuery';
 
 interface IdeaPageProps {
   handleToTop?: () => void;
 }
 
 const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
-  const { isSuccess } = useCheckAuth();
+  const { data: isAuth } = useAuth();
 
   const {
     isModalVisible: isAlertVisible,
@@ -32,15 +32,12 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
     <div className={styles.IdeaPage}>
       <IdeaCardContainer />
       <Button
-        className={cn(
-          styles.scrollTopButton,
-          !isSuccess && styles.changePosition,
-        )}
+        className={cn(styles.scrollTopButton, !isAuth && styles.changePosition)}
         variant="floating"
         iconName="expand_less"
         onClick={handleToTop}
       />
-      {isSuccess && (
+      {isAuth && (
         <>
           <Button
             className={styles.createSideButton}
