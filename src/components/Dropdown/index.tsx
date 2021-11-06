@@ -11,7 +11,7 @@ import DropdownLists from '@src/components/Dropdown/DropdownLists';
 import Icon from '@src/components/common/Icon';
 import Typography from '../common/Typography';
 import { setSide, useAppDispatch, useSideState } from '@src/store';
-import { SidePrams } from '@src/models';
+import { SideParams } from '@src/models';
 
 export type ListsEachObject = {
   name: string;
@@ -20,7 +20,7 @@ export type ListsEachObject = {
 
 export interface DropdownProps {
   lists: ListsEachObject[] | string[];
-  title: keyof Pick<SidePrams, 'category' | 'organization' | 'skill'>;
+  title: keyof Pick<SideParams, 'category' | 'organization' | 'skill'>;
 }
 
 export interface DropdownEach {

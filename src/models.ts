@@ -53,7 +53,7 @@ export type Side = {
   updatedDate?: string;
 };
 
-export type SidePrams = {
+export type SideParams = {
   category?: string[];
   isRecruiting?: boolean;
   organization?: string[];
