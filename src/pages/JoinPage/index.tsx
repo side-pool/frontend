@@ -141,7 +141,6 @@ const JoinPage = () => {
                   name="nickname"
                   placeholder="nickname"
                   maxWidth
-                  ref={nicknameRef}
                 />
               </div>
             </div>

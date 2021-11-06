@@ -6,6 +6,7 @@ import useModalControl from '@src/hooks/useModalControl';
 import AlertModal from '@src/components/modals/AlertModal';
 import { useCreateIdeaNestedComment } from '@src/hooks/useIdeaCommentQuery';
 import NestedCommentForm from '@src/components/Comment/NestedCommentForm';
+import { getErrorText } from '@src/utils/common';
 
 interface IdeaNestedCommentFormProps {
   ideaId: number;
@@ -39,7 +40,11 @@ const IdeaNestedCommentForm = ({
     }
 
     // submit to server
-    creatCommentMutation.mutate(content);
+    creatCommentMutation.mutate(content, {
+      onError: (error) => {
+        showAlert(getErrorText(error));
+      },
+    });
   };
 
   const handleConfirm = () => {

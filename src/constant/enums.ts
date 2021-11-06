@@ -12,6 +12,11 @@ export enum GuideText {
   FILL_A_FORM = '값을 입력해주세요',
 }
 
+export enum ConfirmText {
+  DELETE = '지우시겠습니까?',
+  UPDATE = '수정하시겠습니까?',
+}
+
 export enum UserTab {
   COMMENT,
   SIMILAR_SERVICE,
