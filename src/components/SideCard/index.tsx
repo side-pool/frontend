@@ -26,7 +26,7 @@ const SideCard = ({
     <div className={styles.SideCard}>
       <div
         className={cn(
-          styles.topArea,
+          styles.sideCardTopArea,
           !logoUrl && styles.isPadding,
           PRIMARY_PICK[pickNumber],
         )}

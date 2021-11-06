@@ -5,16 +5,18 @@ import styles from './SideList.module.scss';
 import { useReadSides } from '@src/hooks/useSideQuery';
 import Spinner from '@src/components/common/Spinner';
 import SideCard from '@src/components//SideCard';
+import { useSideState } from '@src/store';
 
 const BREAKPOINT_COLS = {
   default: 4,
-  1500: 3,
-  1200: 2,
-  800: 1,
+  1800: 3,
+  1500: 2,
+  1100: 1,
 };
 
 const SideList = () => {
-  const { data, isLoading, isError } = useReadSides();
+  const side = useSideState();
+  const { data, isLoading, isError } = useReadSides(side);
 
   return (
     <div className={styles.SideList}>
