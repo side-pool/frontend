@@ -148,7 +148,7 @@ const Template = ({
   );
 };
 
-const AlertModal = ({ ...props }: IdeaFormModalProps) =>
+const IdeaFormModal = ({ ...props }: IdeaFormModalProps) =>
   convertPortal(<Template {...props} />);
 
-export default AlertModal;
+export default IdeaFormModal;

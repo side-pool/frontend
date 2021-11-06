@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 export type DataMappedIdea = {
   ideaId: number;
-  content: string;
+  content?: string;
 };
 
 export type DataMappedComment = {
@@ -13,9 +13,8 @@ export type DataMappedComment = {
 } & DataMappedIdea;
 
 export type DataMappedNestedComment = {
-  commentId: number;
   nestedCommentId: number;
-} & DataMappedIdea;
+} & DataMappedComment;
 
 export const useReadIdeaComments = (ideaId: number) =>
   useQuery<ReadCommentData, AxiosError<unknown>>(
