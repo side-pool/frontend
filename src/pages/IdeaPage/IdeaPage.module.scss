@@ -2,11 +2,136 @@
   @include flex_col();
   width: 100%;
 
+  .ideaCardContainer {
+    width: 100%;
+    height: 100%;
+
+    padding: 60px 150px 0px;
+
+    .topArea {
+      position: relative;
+
+      z-index: 100;
+
+      @include flex_row(space-between);
+      width: 100%;
+
+      backdrop-filter: blur(30px);
+
+      .Typography {
+        width: fit-content;
+      }
+
+      .searchArea {
+        @include flex_row(flex-end);
+
+        .icons {
+          svg {
+            padding-right: 11px;
+          }
+        }
+
+        gap: 5px;
+
+        .isDoneCheckbox {
+          @include flex_row(space-between);
+
+          position: relative;
+
+          width: 141px;
+          height: 28px;
+          background: $white;
+          border: 1px solid $gray_3;
+          box-sizing: border-box;
+          border-radius: 15px;
+
+          padding: 0px 8px 0px 14px;
+
+          input {
+            opacity: 0;
+            cursor: pointer;
+          }
+        }
+
+        .isDoneCheckmark {
+          position: absolute;
+          top: 5px;
+          right: 11px;
+          height: 14px;
+          width: 14px;
+          background-color: $white;
+          border: 1px solid $gray_3;
+          border-radius: 4px;
+        }
+
+        .isDoneCheckbox:hover input ~ .isDoneCheckmark {
+          border-color: #7795ff;
+        }
+
+        .isDoneCheckbox input:checked ~ .isDoneCheckmark {
+          background-color: $white;
+        }
+
+        .isDoneCheckmark:after {
+          content: '';
+          position: absolute;
+          display: none;
+        }
+
+        .isDoneCheckbox input:checked ~ .isDoneCheckmark:after {
+          display: block;
+        }
+
+        .isDoneCheckbox .isDoneCheckmark:after {
+          width: 8px;
+          height: 8px;
+          top: 3px;
+          left: 3px;
+          border-radius: 100%;
+          background-color: #004ce5;
+        }
+      }
+
+      .searchArea ~ .searchArea {
+        padding-right: 10px;
+      }
+    }
+
+    .banner {
+      width: 100%;
+      height: 150px;
+      box-shadow: 0px 4px 12px 6px rgba(0, 0, 0, 0.04);
+      border-radius: 20px;
+
+      margin-top: 66px;
+      margin-bottom: 30px;
+    }
+
+    .filterArea {
+      margin-bottom: 22px;
+      
+      @include flex_row(flex-end);
+
+      svg {
+        margin-right: 6px;
+      }
+
+      column-gap: 6px;
+
+      .seperator {
+        cursor: default;
+      }
+
+      .Typography {
+        cursor: pointer;
+      }
+    }
+  }
   .scrollTopButton {
     position: fixed;
     bottom: 135px;
     right: 30px;
-    
+
     &.changePosition {
       bottom: 65px;
     }

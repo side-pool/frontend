@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SidePrams } from '@src/models';
+import { SideParams } from '@src/models';
 
-const initialState: SidePrams = {
+const initialState: SideParams = {
   category: [],
   organization: [],
   skill: [],
@@ -20,7 +20,7 @@ const sideReducer = createSlice({
       state,
       {
         payload: { category, isRecruiting, organization, search, skill, sort },
-      }: PayloadAction<SidePrams>,
+      }: PayloadAction<SideParams>,
     ) => {
       if (category !== undefined) state.category = category;
       if (isRecruiting !== undefined) state.isRecruiting = isRecruiting;

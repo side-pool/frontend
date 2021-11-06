@@ -3,17 +3,19 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import uiReducer, { setLoading } from '@src/store/uiSlice';
 import sideReducer, { setSide } from '@src/store/sideSlice';
+import ideaReducer, { setIdea } from '@src/store/ideaSlice';
 
 const reducers = combineReducers({
   ui: uiReducer,
   side: sideReducer,
+  idea: ideaReducer,
 });
 
 const store = configureStore({ reducer: reducers });
 
 export default store;
 
-export { setLoading, setSide };
+export { setLoading, setSide, setIdea };
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
@@ -25,3 +27,6 @@ export const useUiState = () =>
 
 export const useSideState = () =>
   useSelector<RootState, RootState['side']>((state) => state.side);
+
+export const useIdeaState = () =>
+  useSelector<RootState, RootState['idea']>((state) => state.idea);
