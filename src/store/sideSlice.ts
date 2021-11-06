@@ -9,7 +9,7 @@ const initialState: SidePrams = {
   isRecruiting: false,
   page: 0,
   size: 0,
-  sort: 'asc',
+  sort: 'createdDate,asc',
 };
 
 const sideReducer = createSlice({

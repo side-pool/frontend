@@ -105,8 +105,20 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
           <Typography
             fontSize="xs"
             lineHeight="wide"
-            textColor={sort === 'desc' ? 'gray' : 'blueActive'}
-            onClick={() => dispatch(setSide({ sort: 'asc' }))}
+            textColor={sort?.includes('createdDate') ? 'blueActive' : 'gray'}
+            onClick={() =>
+              dispatch(
+                setSide({
+                  sort: `createdDate,${
+                    sort?.includes('favoriteCount')
+                      ? 'asc'
+                      : sort?.includes('asc')
+                      ? 'desc'
+                      : 'asc'
+                  }`,
+                }),
+              )
+            }
           >
             최신순
           </Typography>
@@ -114,8 +126,20 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
           <Typography
             fontSize="xs"
             lineHeight="wide"
-            textColor={sort === 'asc' ? 'gray' : 'blueActive'}
-            onClick={() => dispatch(setSide({ sort: 'desc' }))}
+            textColor={sort?.includes('favoriteCount') ? 'blueActive' : 'gray'}
+            onClick={() =>
+              dispatch(
+                setSide({
+                  sort: `favoriteCount,${
+                    sort?.includes('createdDate')
+                      ? 'asc'
+                      : sort?.includes('asc')
+                      ? 'desc'
+                      : 'asc'
+                  }`,
+                }),
+              )
+            }
           >
             좋아요순
           </Typography>

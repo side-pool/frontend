@@ -62,7 +62,11 @@ export type SidePrams = {
   search?: string[];
   size?: number;
   skill?: string[];
-  sort?: 'asc' | 'desc';
+  sort?:
+    | 'createdDate,asc'
+    | 'favoriteCount,asc'
+    | 'createdDate,desc'
+    | 'favoriteCount,desc';
 };
 
 export type ReadSidesData = Side[];
