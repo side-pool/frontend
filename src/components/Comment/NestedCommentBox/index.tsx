@@ -15,7 +15,7 @@ export interface NestedCommentBoxProps {
   clickDeleteBtn: () => void;
   clickCancelUpdateBtn: () => void;
   clickCompleteUpdateBtn: () => void;
-  isEditing: string;
+  isEditing: boolean;
   editTarget: string;
   setEditTarget: Dispatch<React.SetStateAction<string>>;
 }
