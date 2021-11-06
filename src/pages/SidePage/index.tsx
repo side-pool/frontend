@@ -94,7 +94,6 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
             <Input
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>
-                e.target.value.length > 0 &&
                 dispatch(setSide({ search: e.target.value.split(' ') }))
               }
             />

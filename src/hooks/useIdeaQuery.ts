@@ -1,4 +1,5 @@
 import { Idea, ReadIdeasData } from '@src/models';
+import { IdeaParams } from '@src/store/ideaSlice';
 import { getApiInstance } from '@src/utils/context';
 import { AxiosError } from 'axios';
 import { useMutation, useQuery } from 'react-query';
@@ -6,8 +7,8 @@ import { useMutation, useQuery } from 'react-query';
 type CreateUpdateIdeaParam = Pick<Idea, 'title' | 'content'> &
   Pick<Partial<Idea>, 'hashtags'>;
 
-export const useReadIdeas = () =>
-  useQuery<ReadIdeasData, AxiosError<unknown>>('/ideas/without-auth');
+export const useReadIdeas = (params: IdeaParams) =>
+  useQuery<ReadIdeasData, AxiosError<unknown>>(['/ideas/without-auth', params]);
 
 export const useCreateIdea = () => {
   return useMutation<string, unknown, CreateUpdateIdeaParam>(async (params) => {
