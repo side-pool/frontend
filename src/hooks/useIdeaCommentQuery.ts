@@ -39,11 +39,7 @@ export const useCreateIdeaComment = (ideaId: number) => {
     },
     {
       onSuccess: () => {
-        alert('성공');
         queryClient.invalidateQueries(path);
-      },
-      onError: () => {
-        alert('실패');
       },
     },
   );

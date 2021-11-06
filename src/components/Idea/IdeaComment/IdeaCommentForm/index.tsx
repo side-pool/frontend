@@ -6,6 +6,7 @@ import { GuideText } from '@src/constant/enums';
 import useModalControl from '@src/hooks/useModalControl';
 import AlertModal from '@src/components/modals/AlertModal';
 import { useCreateIdeaComment } from '@src/hooks/useIdeaCommentQuery';
+import { getErrorText } from '@src/utils/common';
 
 interface IdeaCommentFormProps {
   ideaId: number;
@@ -35,7 +36,11 @@ const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
     }
 
     // submit to server
-    createCommentMutation.mutate(content);
+    createCommentMutation.mutate(content, {
+      onError: (error) => {
+        showAlert(getErrorText(error));
+      },
+    });
   };
 
   const handleConfirm = () => {
