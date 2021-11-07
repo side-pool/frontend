@@ -1,7 +1,7 @@
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { AxiosError } from 'axios';
 import { ReadCommentData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
-import { AxiosError } from 'axios';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 export type DataMappedIdea = {
   ideaId: number;
