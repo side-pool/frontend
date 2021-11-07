@@ -98,7 +98,6 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
       return;
     }
 
-    setEditTarget(editTarget);
     showConfirm(ConfirmText.UPDATE);
   };
 
@@ -108,7 +107,7 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
 
   const clickUpdateBtn = () => {
     setIsEditing(true);
-    comment.content.length && setEditTarget(comment.content);
+    setEditTarget(comment.content);
   };
 
   const clickCancelUpdateBtn = () => {

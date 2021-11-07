@@ -107,7 +107,6 @@ const IdeaNestedCommentContainer = ({
       return;
     }
 
-    setEditTarget(editTarget);
     showConfirm(ConfirmText.UPDATE);
   };
 
@@ -117,7 +116,7 @@ const IdeaNestedCommentContainer = ({
 
   const clickUpdateBtn = () => {
     setIsEditing(true);
-    nestedComment.content.length && setEditTarget(nestedComment.content);
+    setEditTarget(nestedComment.content);
   };
 
   const clickCancelUpdateBtn = () => {
