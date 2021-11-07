@@ -1,28 +1,29 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 import { ReadCommentsData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 
-export type DataMappedIdea = {
+export type CommentContext = {
   ideaId: number;
+  commentId: number;
   content?: string;
 };
 
-export type DataMappedComment = {
-  commentId: number;
-} & DataMappedIdea;
+export const getCommentUrl = (ideaId: number) => `/ideas/${ideaId}/comments`;
+export const getNestedCommentUrl = (ideaId: number, commentId: number) =>
+  `${getCommentUrl(ideaId)}/${commentId}/child-comments`;
 
-export type DataMappedNestedComment = {
+export type NestedCommentContext = {
   nestedCommentId: number;
-} & DataMappedComment;
+} & CommentContext;
 
 export const useReadIdeaComments = (ideaId: number) =>
   useQuery(
-    [`/ideas/${ideaId}/comments`, ideaId] as const,
+    [`${getCommentUrl(ideaId)}`, ideaId] as const,
     async ({ queryKey }) => {
       const ideaId = queryKey[1];
       const { data } = await getApiInstance().get<ReadCommentsData>(
-        `/ideas/${ideaId}/comments`,
+        `${getCommentUrl(ideaId)}`,
       );
       return data;
     },
@@ -30,34 +31,24 @@ export const useReadIdeaComments = (ideaId: number) =>
   );
 
 export const useCreateIdeaComment = (ideaId: number) => {
-  const queryClient = useQueryClient();
-  const path = `/ideas/${ideaId}/comments`;
-
-  return useMutation<unknown, AxiosError<unknown>, string>(
-    async (content) => {
-      await getApiInstance().post(path, { content });
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(path);
-      },
-    },
-  );
+  return useMutation<unknown, AxiosError<unknown>, string>(async (content) => {
+    await getApiInstance().post(getCommentUrl(ideaId), { content });
+  });
 };
 
 export const useUpdateIdeaComment = () =>
-  useMutation<unknown, AxiosError<unknown>, DataMappedComment>(
+  useMutation<unknown, AxiosError<unknown>, CommentContext>(
     async ({ ideaId, commentId, content }) => {
-      await getApiInstance().put(`/ideas/${ideaId}/comments/${commentId}`, {
+      await getApiInstance().put(`${getCommentUrl(ideaId)}/${commentId}`, {
         content,
       });
     },
   );
 
 export const useDeleteIdeaComment = () =>
-  useMutation<unknown, AxiosError<unknown>, DataMappedComment>(
+  useMutation<unknown, AxiosError<unknown>, CommentContext>(
     async ({ ideaId, commentId }) => {
-      await getApiInstance().delete(`/ideas/${ideaId}/comments/${commentId}`);
+      await getApiInstance().delete(`${getCommentUrl(ideaId)}/${commentId}`);
     },
   );
 
@@ -71,16 +62,12 @@ export const useReadIdeaNestedComments = ({
   commentId,
 }: readNestedCommentsProps) =>
   useQuery(
-    [
-      `/ideas/${ideaId}/comments/${commentId}/child-comments`,
-      ideaId,
-      commentId,
-    ] as const,
+    [`${getNestedCommentUrl(ideaId, commentId)}`, ideaId, commentId] as const,
     async ({ queryKey }) => {
       const ideaId = queryKey[1];
       const commentId = queryKey[2];
       const { data } = await getApiInstance().get<ReadCommentsData>(
-        `/ideas/${ideaId}/comments/${commentId}/child-comments`,
+        `${getNestedCommentUrl(ideaId, commentId)}`,
       );
       // TODO: reverse 안 쓰도록 수정
       return data?.reverse();
@@ -92,36 +79,28 @@ export const useCreateIdeaNestedComment = (
   ideaId: number,
   commentId: number,
 ) => {
-  const queryClient = useQueryClient();
-  const path = `/ideas/${ideaId}/comments/${commentId}/child-comments`;
-
-  return useMutation<unknown, AxiosError<unknown>, string>(
-    async (content) => {
-      await getApiInstance().post(path, { content });
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(path);
-      },
-    },
-  );
+  return useMutation<unknown, AxiosError<unknown>, string>(async (content) => {
+    await getApiInstance().post(getNestedCommentUrl(ideaId, commentId), {
+      content,
+    });
+  });
 };
 
 export const useUpdateIdeaNestedComment = () =>
-  useMutation<unknown, AxiosError<unknown>, DataMappedNestedComment>(
+  useMutation<unknown, AxiosError<unknown>, NestedCommentContext>(
     async ({ ideaId, commentId, content, nestedCommentId }) => {
       await getApiInstance().put(
-        `/ideas/${ideaId}/comments/${commentId}/child-comments/${nestedCommentId}`,
+        `${getNestedCommentUrl(ideaId, commentId)}/${nestedCommentId}`,
         { content },
       );
     },
   );
 
 export const useDeleteIdeaNestedComment = () =>
-  useMutation<unknown, AxiosError<unknown>, DataMappedNestedComment>(
+  useMutation<unknown, AxiosError<unknown>, NestedCommentContext>(
     async ({ ideaId, commentId, nestedCommentId }) => {
       await getApiInstance().delete(
-        `/ideas/${ideaId}/comments/${commentId}/child-comments/${nestedCommentId}`,
+        `${getNestedCommentUrl(ideaId, commentId)}/${nestedCommentId}`,
       );
     },
   );

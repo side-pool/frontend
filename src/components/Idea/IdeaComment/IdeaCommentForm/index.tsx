@@ -1,11 +1,15 @@
 import React, { useRef } from 'react';
+import { useQueryClient } from 'react-query';
 import CommentForm from '@src/components/Comment/CommentForm';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import { ParentRef } from '@src/components/common/Input';
 import { GuideText } from '@src/constant/enums';
 import useModalControl from '@src/hooks/useModalControl';
 import AlertModal from '@src/components/modals/AlertModal';
-import { useCreateIdeaComment } from '@src/hooks/useIdeaCommentQuery';
+import {
+  getCommentUrl,
+  useCreateIdeaComment,
+} from '@src/hooks/useIdeaCommentQuery';
 import { getErrorText } from '@src/utils/common';
 
 interface IdeaCommentFormProps {
@@ -17,6 +21,7 @@ const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
   const { data: isAuth } = useAuth();
   const { data: userData } = useGetUser(isAuth ?? false);
   const createCommentMutation = useCreateIdeaComment(ideaId);
+  const queryClient = useQueryClient();
 
   const {
     isModalVisible: isAlertVisible,
@@ -37,6 +42,10 @@ const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
 
     // submit to server
     createCommentMutation.mutate(content, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(getCommentUrl(ideaId));
+        commentRef.current.reset();
+      },
       onError: (error) => {
         showAlert(getErrorText(error));
       },
