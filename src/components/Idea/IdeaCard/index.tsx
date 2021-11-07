@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './IdeaCard.module.scss';
 import Card from '@src/components/common/Card';
 import { Idea } from '@src/models';
 import IdeaMainSection from '@src/components/Idea/IdeaMainSection';
@@ -8,8 +9,7 @@ import {
   CommentTab,
   SimilarServiceTab,
 } from '@src/components/common/ButtonTab';
-import styles from './IdeaCard.module.scss';
-import IdeaBottomSection from '../IdeaBottomSection/indet';
+import IdeaBottomSection from '@src/components/Idea/IdeaBottomSection';
 
 export interface IdeaCardProps {
   idea: Idea;

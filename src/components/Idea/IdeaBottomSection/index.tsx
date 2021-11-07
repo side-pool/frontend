@@ -5,10 +5,10 @@ import IdeaCommentForm from '@src/components/Idea/IdeaComment/IdeaCommentForm';
 import SimilarFormContainer from '@src/components/Idea/SimilarService/SimilarFormContainer';
 import { useReadIdeaComments } from '@src/hooks/useIdeaCommentQuery';
 import { useAuth } from '@src/hooks/useUserQuery';
-import IdeaCommentBoxContainer from '../IdeaComment/IdeaCommentBoxContainer';
+import IdeaCommentBoxContainer from '@src/components/Idea/IdeaComment/IdeaCommentBoxContainer';
 import ForbiddenComment from '@src/components/Comment/ForbiddenComment';
 import { useReadSimilars } from '@src/hooks/useSimilarQuery';
-import SimilarBoxContainer from '../SimilarService/SimilarBoxContainer';
+import SimilarBoxContainer from '@src/components/Idea/SimilarService/SimilarBoxContainer';
 
 type UserTabValue = typeof UserTab[keyof typeof UserTab];
 

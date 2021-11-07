@@ -2,7 +2,7 @@ import React from 'react';
 import { useReadIdeaNestedComments } from '@src/hooks/useIdeaCommentQuery';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import ForbiddenComment from '@src/components/Comment/ForbiddenComment';
-import IdeaNestedCommentContainer from '../IdeaNestedCommentContainer/indext';
+import IdeaNestedCommentContainer from '@src/components/Idea/IdeaComment/IdeaNestedCommentContainer';
 
 interface IdeaNestedCommentBox {
   ideaId: number;
