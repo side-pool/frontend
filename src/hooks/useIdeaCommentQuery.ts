@@ -17,8 +17,8 @@ export type DataMappedNestedComment = {
 } & DataMappedComment;
 
 export const useReadIdeaComments = (ideaId: number) =>
-  useQuery<ReadCommentsData, AxiosError<unknown>>(
-    [`/ideas/${ideaId}/comments`, ideaId],
+  useQuery(
+    [`/ideas/${ideaId}/comments`, ideaId] as const,
     async ({ queryKey }) => {
       const ideaId = queryKey[1];
       const { data } = await getApiInstance().get<ReadCommentsData>(
@@ -65,16 +65,17 @@ interface readNestedCommentsProps {
   ideaId: number;
   commentId: number;
 }
+
 export const useReadIdeaNestedComments = ({
   ideaId,
   commentId,
 }: readNestedCommentsProps) =>
-  useQuery<ReadCommentsData, AxiosError<unknown>>(
+  useQuery(
     [
       `/ideas/${ideaId}/comments/${commentId}/child-comments`,
       ideaId,
       commentId,
-    ],
+    ] as const,
     async ({ queryKey }) => {
       const ideaId = queryKey[1];
       const commentId = queryKey[2];
