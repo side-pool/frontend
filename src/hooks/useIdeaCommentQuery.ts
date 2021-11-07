@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import { ReadCommentData } from '@src/models';
+import { ReadCommentsData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 
 export type DataMappedIdea = {
@@ -17,11 +17,11 @@ export type DataMappedNestedComment = {
 } & DataMappedComment;
 
 export const useReadIdeaComments = (ideaId: number) =>
-  useQuery<ReadCommentData, AxiosError<unknown>>(
+  useQuery<ReadCommentsData, AxiosError<unknown>>(
     [`/ideas/${ideaId}/comments`, ideaId],
     async ({ queryKey }) => {
       const ideaId = queryKey[1];
-      const { data } = await getApiInstance().get<ReadCommentData>(
+      const { data } = await getApiInstance().get<ReadCommentsData>(
         `/ideas/${ideaId}/comments`,
       );
       return data;
@@ -69,7 +69,7 @@ export const useReadIdeaNestedComments = ({
   ideaId,
   commentId,
 }: readNestedCommentsProps) =>
-  useQuery<ReadCommentData, AxiosError<unknown>>(
+  useQuery<ReadCommentsData, AxiosError<unknown>>(
     [
       `/ideas/${ideaId}/comments/${commentId}/child-comments`,
       ideaId,
@@ -78,7 +78,7 @@ export const useReadIdeaNestedComments = ({
     async ({ queryKey }) => {
       const ideaId = queryKey[1];
       const commentId = queryKey[2];
-      const { data } = await getApiInstance().get<ReadCommentData>(
+      const { data } = await getApiInstance().get<ReadCommentsData>(
         `/ideas/${ideaId}/comments/${commentId}/child-comments`,
       );
       // TODO: reverse 안 쓰도록 수정

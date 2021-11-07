@@ -38,7 +38,7 @@ export type Comment = {
 };
 
 export type ReadIdeasData = Idea[];
-export type ReadCommentData = Comment[];
+export type ReadCommentsData = Comment[];
 
 export type Side = {
   active: string;
