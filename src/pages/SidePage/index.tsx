@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import cn from 'classnames';
 
 import styles from './SidePage.module.scss';
 import Search from '@src/assets/Search.svg';
@@ -9,7 +10,7 @@ import Button from '@src/components/common/Button';
 import AlertModal from '@src/components/modals/AlertModal';
 
 import useModalControl from '@src/hooks/useModalControl';
-import IdeaFormModal from '@src/components/modals/IdeaFormModal';
+import SideGithubModal from '@src/components/modals/SideGithubModal';
 
 import SideList from '@src/components/SideList';
 import {
@@ -21,6 +22,7 @@ import Dropdown, { ListsEachObject } from '@src/components/Dropdown';
 import Typography from '@src/components/common/Typography';
 import { setSide, useAppDispatch, useSideState } from '@src/store';
 import Input from '@src/components/common/Input';
+import { useAuth } from '@src/hooks/useUserQuery';
 
 interface SidePageProps {
   handleToTop?: () => void;
@@ -40,9 +42,10 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
 
   const {
     isModalVisible: isIdeaFormVisible,
-    showModal: showIdeaForm,
-    hideModal: hideIdeaForm,
+    showModal: showGithubModal,
+    hideModal: hideGithubModal,
   } = useModalControl();
+  const { data: isAuth } = useAuth();
 
   const { data: categoryData } = useGetCategory();
   const { data: organizationData } = useGetOrganization();
@@ -147,23 +150,21 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
       </div>
 
       <Button
-        className={styles.scrollTopButton}
+        className={cn(styles.scrollTopButton, !isAuth && styles.changePosition)}
         variant="floating"
         iconName="expand_less"
         onClick={handleToTop}
       />
-      <Button
-        className={styles.createSideButton}
-        onClick={() => showIdeaForm()}
-        variant="floating"
-        iconName="add"
-      />
-      {isIdeaFormVisible && (
-        <IdeaFormModal
-          hideIdeaForm={hideIdeaForm}
-          showAlert={showAlert}
-          isCreate
+      {isAuth && (
+        <Button
+          className={styles.createSideButton}
+          onClick={() => showGithubModal()}
+          variant="floating"
+          iconName="add"
         />
+      )}
+      {isIdeaFormVisible && (
+        <SideGithubModal hideModal={hideGithubModal} showAlert={showAlert} />
       )}
       {isAlertVisible && (
         <AlertModal content={alertMessage} handleConfirm={hideAlert} />
