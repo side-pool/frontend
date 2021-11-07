@@ -1,7 +1,7 @@
 .NestedCommentBox {
   display: flex;
   gap: 20px;
-  .answer {
+  .comment {
     flex: 1;
     @include flex_col(stretch, stretch);
     gap: 14px;
