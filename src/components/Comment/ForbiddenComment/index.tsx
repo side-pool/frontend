@@ -5,15 +5,19 @@ import ReplyIcon from '@src/assets/Reply.svg';
 
 interface ForbiddenCommentProps {
   isNested?: boolean;
+  content?: string;
 }
 
-const ForbiddenComment = ({ isNested = false }: ForbiddenCommentProps) => {
+const COMMENT_PLZ = '로그인 후 댓글을 입력해주세요.';
+
+const ForbiddenComment = ({
+  isNested = false,
+  content = COMMENT_PLZ,
+}: ForbiddenCommentProps) => {
   return (
     <div className={styles.ForbiddenComment}>
       {isNested && <ReplyIcon />}
-      <Typography textColor="lightGray">
-        로그인 후 댓글을 입력해주세요.
-      </Typography>
+      <Typography textColor="lightGray">{content}</Typography>
     </div>
   );
 };
