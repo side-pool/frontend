@@ -33,11 +33,11 @@ const onRequestError = (error: AxiosError): Promise<AxiosError> => {
   return Promise.reject(error);
 };
 
-function onResponse(response: AxiosResponse): AxiosResponse {
+const onResponse = (response: AxiosResponse): AxiosResponse => {
   console.info(`[response] [${JSON.stringify(response)}]`);
 
   return response;
-}
+};
 
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {
   console.error(`[response error] [${JSON.stringify(error)}]`);
@@ -46,7 +46,7 @@ const onResponseError = (error: AxiosError): Promise<AxiosError> => {
 };
 
 // TODO: Response Promise generic type 지정 필요
-export function getApiInstance() {
+export const getApiInstance = () => {
   const axiosInstance = axios.create(defaultOption);
 
   axiosInstance.interceptors.request.use(onRequest, onRequestError);
@@ -56,4 +56,4 @@ export function getApiInstance() {
   };
 
   return axiosInstance;
-}
+};
