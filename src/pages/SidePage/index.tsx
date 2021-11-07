@@ -9,7 +9,7 @@ import Button from '@src/components/common/Button';
 import AlertModal from '@src/components/modals/AlertModal';
 
 import useModalControl from '@src/hooks/useModalControl';
-import IdeaFormModal from '@src/components/modals/IdeaFormModal';
+import SideGithubModal from '@src/components/modals/SideGithubModal';
 
 import SideList from '@src/components/SideList';
 import {
@@ -40,8 +40,8 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
 
   const {
     isModalVisible: isIdeaFormVisible,
-    showModal: showIdeaForm,
-    hideModal: hideIdeaForm,
+    showModal: showGithubModal,
+    hideModal: hideGithubModal,
   } = useModalControl();
 
   const { data: categoryData } = useGetCategory();
@@ -154,16 +154,12 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
       />
       <Button
         className={styles.createSideButton}
-        onClick={() => showIdeaForm()}
+        onClick={() => showGithubModal()}
         variant="floating"
         iconName="add"
       />
       {isIdeaFormVisible && (
-        <IdeaFormModal
-          hideIdeaForm={hideIdeaForm}
-          showAlert={showAlert}
-          isCreate
-        />
+        <SideGithubModal hideModal={hideGithubModal} showAlert={showAlert} />
       )}
       {isAlertVisible && (
         <AlertModal content={alertMessage} handleConfirm={hideAlert} />
