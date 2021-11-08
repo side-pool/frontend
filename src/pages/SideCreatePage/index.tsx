@@ -107,6 +107,11 @@ const SideCreatePage = ({ handleToTop }: SidePageProps) => {
     if (isRecruiting === undefined)
       return showAlert('알 수 없는 에러가 발생했습니다.');
 
+    // TODO: 추후 정규식 or 실제 get 요청 날리는 식으로 리팩토링
+    const serviceLink = serviceLinkRef.current.get();
+    if (serviceLink.length > 0 && !serviceLink.includes('http'))
+      return showAlert('올바릉 형식의 서비스 링크를 입력해주세요!');
+
     const params = {
       categoryNames: category,
       detail: editorRef.current.getInstance().getMarkdown(),
@@ -116,7 +121,7 @@ const SideCreatePage = ({ handleToTop }: SidePageProps) => {
       organizationIds: organization?.map((each) => Number(each)),
       pushedAt: pushed_at,
       recruiting: isRecruiting,
-      serviceLink: serviceLinkRef.current.get(),
+      serviceLink,
       skillIds: skill?.map((each) => Number(each)),
       summary: descriptionRef.current.get(),
       title: name,
