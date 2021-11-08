@@ -165,13 +165,13 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
                   ))}
                 </div>
                 <div className={styles.classification}>
-                  {data?.organizations.map((each) => (
-                    <LabelTag key={each}>{each}</LabelTag>
+                  {data?.organizations.map(({ id, name }) => (
+                    <LabelTag key={id}>{name}</LabelTag>
                   ))}
                 </div>
                 <div className={styles.classification}>
-                  {data?.skills.map((each) => (
-                    <LabelTag key={each}>{each}</LabelTag>
+                  {data?.skills.map(({ id, name }) => (
+                    <LabelTag key={id}>{name}</LabelTag>
                   ))}
                 </div>
               </div>
