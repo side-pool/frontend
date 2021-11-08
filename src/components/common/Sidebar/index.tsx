@@ -31,7 +31,7 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
       <div className={styles.tabContainer}>
         <div className={styles.upperArea}>
           <div className={styles.tabButton}>
-            <Button variant="text" onClick={() => history.push('side')}>
+            <Button variant="text" onClick={() => history.push('/side')}>
               {isSide ? <SideColorIcon /> : <SideMonoIcon />}
               <Typography
                 fontSize="md"
@@ -43,7 +43,7 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
             </Button>
           </div>
           <div className={styles.tabButton}>
-            <Button variant="text" onClick={() => history.push('idea')}>
+            <Button variant="text" onClick={() => history.push('/idea')}>
               {isIdea ? <IdeaColorIcon /> : <IdeaMonoIcon />}
               <Typography
                 fontSize="md"

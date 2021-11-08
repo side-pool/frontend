@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { useLocation, useHistory } from 'react-router';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { Editor } from '@toast-ui/react-editor';
 
@@ -52,7 +52,7 @@ type ContributorsType = {
   login: string;
 };
 
-const SidePage = ({ handleToTop }: SidePageProps) => {
+const SideCreatePage = ({ handleToTop }: SidePageProps) => {
   const location = useLocation();
   const history = useHistory();
 
@@ -284,4 +284,4 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   );
 };
 
-export default SidePage;
+export default SideCreatePage;
