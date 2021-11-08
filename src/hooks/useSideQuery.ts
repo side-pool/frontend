@@ -2,6 +2,7 @@ import { useMutation, useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 import { ReadSidesData, SideParams } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
+import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 
 export type CreateSideParams = {
   categoryNames: string[];
@@ -19,6 +20,11 @@ export type CreateSideParams = {
 };
 
 export type ReadSideParams = {
+  author: {
+    id: number;
+    level: number;
+    nickname: string;
+  };
   createdDate: string;
   updatedDate: string;
   id: number;
@@ -59,4 +65,19 @@ export const useReadSideDetail = (id: string) => {
       enabled: isAuth,
     },
   );
+};
+
+export const useDeleteSide = () => {
+  return useMutation<string, AxiosError<{ error: string }>, string>(
+    async (id) => {
+      return await getApiInstance().delete(`/sides/${id}`);
+    },
+  );
+};
+
+export const useIsMySide = (id: string) => {
+  const { data: isAuth } = useAuth();
+  const { data } = useGetUser(isAuth ?? false);
+
+  return data?.id.toString() === id;
 };
