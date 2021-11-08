@@ -1,4 +1,11 @@
 .SideCard {
+  &:hover {
+    transform: scale(1.02);
+    transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  }
+  
+  cursor: pointer;
+
   @include flex_col(stretch, stretch);
 
   position: relative;

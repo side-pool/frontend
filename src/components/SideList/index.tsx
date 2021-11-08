@@ -18,6 +18,7 @@ const SideList = () => {
   const side = useSideState();
   const { data, isLoading, isError } = useReadSides(side);
 
+  console.log(data);
   return (
     <div className={styles.SideList}>
       {isLoading && <Spinner />}
