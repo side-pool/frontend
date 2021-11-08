@@ -18,6 +18,26 @@ export type CreateSideParams = {
   title: string;
 };
 
+export type ReadSideParams = {
+  createdDate: string;
+  updatedDate: string;
+  id: number;
+  title: string;
+  summary: string;
+  detail: string;
+  categories: string[];
+  logoUrl: string;
+  active: number[]; // ?
+  organizations: string[];
+  skills: string[];
+  githubLink: string;
+  serviceLink: string;
+  recruiting: false;
+  favoriteCount: 0;
+  comments: [];
+  isFavorite: false;
+};
+
 export const useReadSides = (params: SideParams) =>
   useQuery<ReadSidesData, AxiosError<unknown>>(['/sides', params]);
 
@@ -28,3 +48,6 @@ export const useCreateSide = () => {
     },
   );
 };
+
+export const useReadSideDetail = (id: string) =>
+  useQuery<ReadSideParams, AxiosError<unknown>>(`/sides/${id}`);

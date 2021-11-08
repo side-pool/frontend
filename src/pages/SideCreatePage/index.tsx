@@ -22,35 +22,18 @@ import {
   useGetSkills,
 } from '@src/hooks/useDropdownQuery';
 import { useCreateSide } from '@src/hooks/useSideQuery';
-import { useReadContributors, useReadReadme } from '@src/hooks/useGithubQuery';
+import {
+  ContributorsType,
+  GithubInfoType,
+  useReadContributors,
+  useReadReadme,
+} from '@src/hooks/useGithubQuery';
 
 import { setInitSide, setSide, useAppDispatch, useSideState } from '@src/store';
 
 interface SidePageProps {
   handleToTop?: () => void;
 }
-
-type GithubInfoType = {
-  id: string;
-  homepage: string;
-  html_url: string;
-  owner: {
-    avatar_url: string;
-  };
-  pushed_at: string;
-  name: string;
-  description: string;
-  default_branch: string;
-  full_name: string;
-  contributors_url: string;
-};
-
-type ContributorsType = {
-  id: string;
-  html_url: string;
-  avatar_url: string;
-  login: string;
-};
 
 const SideCreatePage = ({ handleToTop }: SidePageProps) => {
   const location = useLocation();

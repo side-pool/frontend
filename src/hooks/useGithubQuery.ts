@@ -2,8 +2,30 @@ import { useQueries, useQuery } from 'react-query';
 import axios from 'axios';
 import { getGithubApiInstance } from '@src/utils/githubContext';
 
+export type GithubInfoType = {
+  id: string;
+  homepage: string;
+  html_url: string;
+  owner: {
+    avatar_url: string;
+  };
+  pushed_at: string;
+  name: string;
+  description: string;
+  default_branch: string;
+  full_name: string;
+  contributors_url: string;
+};
+
+export type ContributorsType = {
+  id: string;
+  html_url: string;
+  avatar_url: string;
+  login: string;
+};
+
 export const useReadGithubInfo = (url: string) =>
-  useQuery(
+  useQuery<GithubInfoType>(
     `https://api.github.com/repos/${url}`,
     async () => {
       const { data } = await getGithubApiInstance().get(
@@ -17,6 +39,12 @@ export const useReadGithubInfo = (url: string) =>
       retry: 0,
     },
   );
+
+export const useReadContributors = (contributors_url: string) =>
+  useQuery<ContributorsType>(contributors_url, async () => {
+    const { data } = await getGithubApiInstance().get(contributors_url);
+    return data;
+  });
 
 export const useReadReadme = (full_name: string, default_branch: string) =>
   useQueries([
@@ -47,9 +75,3 @@ export const useReadReadme = (full_name: string, default_branch: string) =>
       retry: false,
     },
   ]).filter((each) => each.status === 'success')[0];
-
-export const useReadContributors = (contributors_url: string) =>
-  useQuery(contributors_url, async () => {
-    const { data } = await getGithubApiInstance().get(contributors_url);
-    return data;
-  });
