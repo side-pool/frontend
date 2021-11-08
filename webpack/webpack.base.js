@@ -10,6 +10,7 @@ module.exports = {
     path: DIST_PATH,
     filename: '[name].js',
     clean: true,
+    publicPath: '/',
   },
   module: {
     rules: [
