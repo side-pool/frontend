@@ -10,6 +10,7 @@ import SideCreatePage from '@src/pages/SideCreatePage';
 import Sidebar from '@src/components/common/Sidebar';
 import { useAuth } from '@src/hooks/useUserQuery';
 import AuthRoute from '@src/components/common/AuthRouter';
+import SideReadPage from '@src/pages/SideReadPage';
 
 const App = () => {
   const { pathname } = useLocation();
@@ -49,6 +50,9 @@ const App = () => {
           </Route>
           <Route exact path="/side">
             <SidePage handleToTop={handleToTop} />
+          </Route>
+          <Route path="/side/:id">
+            <SideReadPage handleToTop={handleToTop} />
           </Route>
           <Route exact path="/side-create">
             <SideCreatePage handleToTop={handleToTop} />
