@@ -1,13 +1,18 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useLocation, useHistory } from 'react-router';
-import '@toast-ui/editor/dist/toastui-editor.css';
-
+import { useQueryClient } from 'react-query';
 import { Editor } from '@toast-ui/react-editor';
+
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 import styles from './SideCreatePage.module.scss';
 
 import Button from '@src/components/common/Button';
 import AlertModal from '@src/components/modals/AlertModal';
+import Dropdown, { ListsEachObject } from '@src/components/Dropdown';
+import Typography from '@src/components/common/Typography';
+import Input, { ParentRef } from '@src/components/common/Input';
+import Textarea, { TextareaParentRef } from '@src/components/common/Textarea';
 
 import useModalControl from '@src/hooks/useModalControl';
 
@@ -16,15 +21,10 @@ import {
   useGetOrganization,
   useGetSkills,
 } from '@src/hooks/useDropdownQuery';
-import Dropdown, { ListsEachObject } from '@src/components/Dropdown';
-import Typography from '@src/components/common/Typography';
-import { setInitSide, setSide, useAppDispatch, useSideState } from '@src/store';
-import Input, { ParentRef } from '@src/components/common/Input';
-import { useQueries, useQuery, useQueryClient } from 'react-query';
-import Textarea, { TextareaParentRef } from '@src/components/common/Textarea';
 import { useCreateSide } from '@src/hooks/useSideQuery';
-import { getGithubApiInstance } from '@src/utils/githubContext';
-import axios from 'axios';
+import { useReadContributors, useReadReadme } from '@src/hooks/useGithubQuery';
+
+import { setInitSide, setSide, useAppDispatch, useSideState } from '@src/store';
 
 interface SidePageProps {
   handleToTop?: () => void;
@@ -70,33 +70,9 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   } = useMemo(() => location.state as GithubInfoType, [location]);
 
   // TODO: 더 간결한 방법 찾기..
-  const readme = useQueries([
-    {
-      queryKey: `https://raw.githubusercontent.com/${full_name}/${default_branch}/README.md`,
-      queryFn: async () => {
-        const { data } = await axios.get(
-          `https://raw.githubusercontent.com/${full_name}/${default_branch}/README.md`,
-        );
+  const readme = useReadReadme(full_name, default_branch);
 
-        return data;
-      },
-    },
-    {
-      queryKey: `https://raw.githubusercontent.com/${full_name}/${default_branch}/readme.md`,
-      queryFn: async () => {
-        const { data } = await axios.get(
-          `https://raw.githubusercontent.com/${full_name}/${default_branch}/readme.md`,
-        );
-
-        return data;
-      },
-    },
-  ]).filter((each) => each.status === 'success')[0];
-
-  const { data: contributors } = useQuery(contributors_url, async () => {
-    const { data } = await getGithubApiInstance().get(contributors_url);
-    return data;
-  });
+  const { data: contributors } = useReadContributors(contributors_url);
 
   const createSideMutation = useCreateSide();
 

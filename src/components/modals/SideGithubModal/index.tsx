@@ -7,11 +7,10 @@ import Overlay from '@src/components/common/Overlay';
 import ModalTop from '@src/components/modals/ModalTop';
 import ModalBottom from '@src/components/modals/ModalBottom';
 import Input, { ParentRef } from '@src/components/common/Input';
-import { useQuery } from 'react-query';
 import { GuideText } from '@src/constant/enums';
 import { useHistory } from 'react-router-dom';
-import { getGithubApiInstance } from '@src/utils/githubContext';
 import { setInitSide, useAppDispatch } from '@src/store';
+import { useReadGithubInfo } from '@src/hooks/useGithubQuery';
 
 export interface SideGithubModalProps {
   hideModal: () => void;
@@ -29,20 +28,7 @@ const Template = ({
   const [url, setUrl] = useState('');
   const urlRef = useRef({} as ParentRef);
 
-  const { isError, data } = useQuery(
-    `https://api.github.com/repos/${url}`,
-    async () => {
-      const { data } = await getGithubApiInstance().get(
-        `https://api.github.com/repos/${url}`,
-      );
-
-      return data;
-    },
-    {
-      enabled: url.length > 0,
-      retry: 0,
-    },
-  );
+  const { isError, data } = useReadGithubInfo(url);
 
   useEffect(() => {
     if (data) {
