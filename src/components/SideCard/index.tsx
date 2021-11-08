@@ -8,7 +8,6 @@ import styles from './SideCard.module.scss';
 import LabelTag from '@src/components/common/LabelTag';
 import { Side } from '@src/models';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '@src/hooks/useUserQuery';
 
 const PRIMARY_PICK = ['primary1', 'primary2', 'primary3', 'primary4'];
 
@@ -25,14 +24,11 @@ const SideCard = ({
 }: SideCardProps) => {
   const history = useHistory();
   const pickNumber = useMemo(() => Math.floor(Math.random() * 4), []);
-  const { data: isAuth } = useAuth();
 
   return (
     <div
       className={styles.SideCard}
-      onClick={() =>
-        history.push(`/side/${id}${isAuth ? '' : '/without-auth'}`)
-      }
+      onClick={() => history.push(`/side/${id}`)}
       aria-hidden
     >
       <div

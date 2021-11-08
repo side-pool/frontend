@@ -49,5 +49,14 @@ export const useCreateSide = () => {
   );
 };
 
-export const useReadSideDetail = (id: string) =>
-  useQuery<ReadSideParams, AxiosError<unknown>>(`/sides/${id}`);
+export const useReadSideDetail = (id: string) => {
+  // TODO: 추후 리펙토링
+  const { data: isAuth } = useAuth();
+
+  return useQuery<ReadSideParams, AxiosError<unknown>>(
+    `/sides/${id}${isAuth ? '' : '/without-auth'}`,
+    {
+      enabled: isAuth,
+    },
+  );
+};
