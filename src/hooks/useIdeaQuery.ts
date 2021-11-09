@@ -8,7 +8,7 @@ type CreateUpdateIdeaParam = Pick<Idea, 'title' | 'content'> &
   Pick<Partial<Idea>, 'hashtags'>;
 
 export const useReadIdeas = (params: IdeaParams) =>
-  useQuery<ReadIdeasData, AxiosError<unknown>>(['/ideas/without-auth', params]);
+  useQuery<ReadIdeasData, AxiosError<unknown>>(['/ideas', params]);
 
 export const useCreateIdea = () => {
   return useMutation<string, unknown, CreateUpdateIdeaParam>(async (params) => {
