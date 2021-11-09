@@ -60,17 +60,16 @@ export const useCreateSide = () => {
   );
 };
 
-export const useReadSideDetail = (id: string) => {
-  // TODO: 추후 리펙토링
-  const { data: isAuth } = useAuth();
-
-  return useQuery<ReadSideParams, AxiosError<unknown>>(
-    `/sides/${id}${isAuth ? '' : '/without-auth'}`,
-    {
-      enabled: isAuth,
+export const useUpdateSide = (id: string) => {
+  return useMutation<string, AxiosError<{ error: string }>, CreateSideParams>(
+    async (params) => {
+      return await getApiInstance().put(`/sides/${id}`, { ...params });
     },
   );
 };
+
+export const useReadSideDetail = (id: string) =>
+  useQuery<ReadSideParams, AxiosError<unknown>>(`/sides/${id}/without-auth`);
 
 export const useDeleteSide = () => {
   return useMutation<string, AxiosError<{ error: string }>, string>(
