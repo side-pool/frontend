@@ -1,0 +1,47 @@
+.SimilarBox {
+  flex: 1;
+  @include flex_col(stretch, stretch);
+  gap: 14px;
+  .topArea {
+    @include flex_row(space-between, center);
+    .topLeftArea,
+    .topRightArea {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topRightArea {
+      .updownBorder {
+        border: 0.5px solid $gray_3;
+        width: 1px;
+        height: 16px;
+      }
+      .Button {
+        padding: 0;
+      }
+    }
+  }
+  .bottomArea {
+    @include flex_col(stretch, stretch);
+    .urlContainer {
+      margin-bottom: 5px;
+      @include flex_row(stretch, center);
+      gap: 8px;
+      a {
+        color: $blue_active;
+      }
+    }
+    .similarInput {
+      flex: 1;
+      background-color: $gray_2;
+      border-radius: 15px;
+      hr {
+        border-top: 1px solid $gray_5;
+        margin: 0px 9px;
+      }
+      .Input {
+        flex: 1;
+      }
+    }
+  }
+}

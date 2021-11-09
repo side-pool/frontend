@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  .answer {
+  .comment {
     flex: 1;
     @include flex_col(stretch, stretch);
     gap: 14px;

@@ -1,10 +1,14 @@
 import React, { useRef } from 'react';
+import { useQueryClient } from 'react-query';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import { ParentRef } from '@src/components/common/Input';
 import { GuideText } from '@src/constant/enums';
 import useModalControl from '@src/hooks/useModalControl';
 import AlertModal from '@src/components/modals/AlertModal';
-import { useCreateIdeaNestedComment } from '@src/hooks/useIdeaCommentQuery';
+import {
+  getNestedCommentUrl,
+  useCreateIdeaNestedComment,
+} from '@src/hooks/useIdeaCommentQuery';
 import NestedCommentForm from '@src/components/Comment/NestedCommentForm';
 import { getErrorText } from '@src/utils/common';
 
@@ -21,6 +25,7 @@ const IdeaNestedCommentForm = ({
   const { data: isAuth } = useAuth();
   const { data: userData } = useGetUser(isAuth ?? false);
   const creatCommentMutation = useCreateIdeaNestedComment(ideaId, commentId);
+  const queryClient = useQueryClient();
 
   const {
     isModalVisible: isAlertVisible,
@@ -41,6 +46,10 @@ const IdeaNestedCommentForm = ({
 
     // submit to server
     creatCommentMutation.mutate(content, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(getNestedCommentUrl(ideaId, commentId));
+        commentRef.current.reset();
+      },
       onError: (error) => {
         showAlert(getErrorText(error));
       },

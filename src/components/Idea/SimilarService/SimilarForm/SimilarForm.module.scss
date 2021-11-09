@@ -1,0 +1,24 @@
+.SimilarForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  .Author {
+    flex: 0 1 fit-content;
+  }
+  .similarInput {
+    flex: 1;
+    background-color: $gray_2;
+    border-radius: 15px;
+    hr {
+      border-top: 1px solid $gray_5;
+      margin: 0px 9px;
+    }
+    .Input {
+      flex: 1;
+    }
+  }
+  .Button {
+    flex: 0 1 fit-content;
+  }
+}

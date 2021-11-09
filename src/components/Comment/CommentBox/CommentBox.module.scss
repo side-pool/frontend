@@ -3,27 +3,25 @@
   &.childComment {
     gap: 20px;
   }
-  .answer {
-    flex: 1;
-    @include flex_col(stretch, stretch);
-    gap: 14px;
-    .topArea {
-      @include flex_row(space-between, center);
-      .topLeftArea,
-      .topRightArea {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+  flex: 1;
+  @include flex_col(stretch, stretch);
+  gap: 14px;
+  .topArea {
+    @include flex_row(space-between, center);
+    .topLeftArea,
+    .topRightArea {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topRightArea {
+      .updownBorder {
+        border: 0.5px solid $gray_3;
+        width: 1px;
+        height: 16px;
       }
-      .topRightArea {
-        .updownBorder {
-          border: 0.5px solid $gray_3;
-          width: 1px;
-          height: 16px;
-        }
-        .Button {
-          padding: 0;
-        }
+      .Button {
+        padding: 0;
       }
     }
   }

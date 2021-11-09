@@ -1,27 +1,25 @@
 import React, { useRef } from 'react';
 import { useQueryClient } from 'react-query';
-import CommentForm from '@src/components/Comment/CommentForm';
+import SimilarForm from '@src/components/Idea/SimilarService/SimilarForm';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import { ParentRef } from '@src/components/common/Input';
 import { GuideText } from '@src/constant/enums';
 import useModalControl from '@src/hooks/useModalControl';
 import AlertModal from '@src/components/modals/AlertModal';
-import {
-  getCommentUrl,
-  useCreateIdeaComment,
-} from '@src/hooks/useIdeaCommentQuery';
 import { getErrorText } from '@src/utils/common';
+import { getSimilarUrl, useCreateSimilar } from '@src/hooks/useSimilarQuery';
 
-interface IdeaCommentFormProps {
+interface SimilarFormProps {
   ideaId: number;
 }
 
-const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
-  const commentRef = useRef({} as ParentRef);
+const SimilarFormContainer = ({ ideaId }: SimilarFormProps) => {
+  const urlRef = useRef({} as ParentRef);
+  const descRef = useRef({} as ParentRef);
+  const queryClient = useQueryClient();
   const { data: isAuth } = useAuth();
   const { data: userData } = useGetUser(isAuth ?? false);
-  const createCommentMutation = useCreateIdeaComment(ideaId);
-  const queryClient = useQueryClient();
+  const createSimilarMutation = useCreateSimilar(ideaId);
 
   const {
     isModalVisible: isAlertVisible,
@@ -33,23 +31,28 @@ const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const content = commentRef.current.get();
+    const url = urlRef.current.get();
+    const description = descRef.current.get();
 
-    if (!content) {
-      showAlert(GuideText.FILL_A_FORM);
+    if (!url || !description) {
+      showAlert(GuideText.FILL_ALL_FORM);
       return;
     }
 
     // submit to server
-    createCommentMutation.mutate(content, {
-      onSuccess: () => {
-        queryClient.invalidateQueries(getCommentUrl(ideaId));
-        commentRef.current.reset();
+    createSimilarMutation.mutate(
+      { url, description },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(getSimilarUrl(ideaId));
+          urlRef.current.reset();
+          descRef.current.reset();
+        },
+        onError: (error) => {
+          showAlert(getErrorText(error));
+        },
       },
-      onError: (error) => {
-        showAlert(getErrorText(error));
-      },
-    });
+    );
   };
 
   const handleConfirm = () => {
@@ -59,9 +62,10 @@ const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
   return (
     <>
       {isAuth && (
-        <CommentForm
+        <SimilarForm
           nickname={userData?.nickname ?? ''}
-          commentRef={commentRef}
+          urlRef={urlRef}
+          descRef={descRef}
           onSubmit={handleSubmit}
         />
       )}
@@ -74,4 +78,4 @@ const IdeaCommentForm = ({ ideaId }: IdeaCommentFormProps) => {
   );
 };
 
-export default IdeaCommentForm;
+export default SimilarFormContainer;

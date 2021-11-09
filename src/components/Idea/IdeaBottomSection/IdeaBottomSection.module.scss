@@ -1,0 +1,27 @@
+.IdeaBottomSection {
+  .CommentForm,
+  .NestedCommentForm,
+  .SimilarForm {
+    padding: 25px 0px;
+  }
+  .CommentBox,
+  .NestedCommentBox,
+  .SimilarBox {
+    padding: 15px 0px;
+  }
+  .CommentForm,
+  .SimilarForm
+  {
+    border-bottom: 0.5px solid $gray_3;
+  }
+  .SimilarBox,
+  .CommentBox,
+  .NestedCommentBox,
+  .NestedCommentForm ~ .CommentBox,
+  .NestedCommentBox,
+  .NestedCommentForm,
+  .CommentBox,
+  .SimilarBox {
+    border-bottom: 0.5px solid $gray_3;
+  }
+}

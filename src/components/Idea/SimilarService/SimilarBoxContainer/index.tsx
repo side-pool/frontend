@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
-import { Comment } from '@src/models';
-import CommentBox from '@src/components/Comment/CommentBox';
+import { Similar, SimilarState } from '@src/models';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
-import IdeaNestedCommentForm from '@src/components/Idea/IdeaComment/IdeaNestedCommentForm';
-import IdeaNestedCommentBox from '@src/components/Idea/IdeaComment/IdeaNestedCommentBox';
-import {
-  useDeleteIdeaComment,
-  useUpdateIdeaComment,
-} from '@src/hooks/useIdeaCommentQuery';
 import { useQueryClient } from 'react-query';
 import useModalControl from '@src/hooks/useModalControl';
 import { GuideText, ConfirmText } from '@src/constant/enums';
 import AlertModal from '@src/components/modals/AlertModal';
 import ConfirmModal from '@src/components/modals/ConfirmModal';
 import { getErrorText } from '@src/utils/common';
+import SimilarBox from '@src/components/Idea/SimilarService/SimilarBox';
+import {
+  getSimilarUrl,
+  useDeleteSimilar,
+  useUpdateSimilar,
+} from '@src/hooks/useSimilarQuery';
 
-interface Props {
+interface SimilarBoxContainerProps {
   ideaId: number;
-  comment: Comment;
+  similar: Similar;
 }
 
-const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
-  const [isNestedOpened, setIsNestedOpened] = useState(false);
-  // TODO: 지금은 update 와 UI 조작을 위해 상위 컴포넌트에서 많은 상태를 들고 있다. 리팩터링해보자.
+const SimilarBoxContainer = ({ ideaId, similar }: SimilarBoxContainerProps) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editTarget, setEditTarget] = useState<string>('');
+  const [editTarget, setEditTarget] = useState<SimilarState>({
+    url: '',
+    description: '',
+  });
+
+  const updateMutation = useUpdateSimilar();
+  const deleteMutation = useDeleteSimilar();
 
   const {
     isModalVisible: isAlertVisible,
@@ -42,30 +45,28 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
 
   const { data: isAuth } = useAuth();
   const { data: userData } = useGetUser(isAuth ?? false);
-  const updateMutation = useUpdateIdeaComment();
-  const deleteMutation = useDeleteIdeaComment();
   const queryClient = useQueryClient();
 
   const invalidate = () => {
-    queryClient.invalidateQueries(`/ideas/${ideaId}/comments`);
+    queryClient.invalidateQueries(getSimilarUrl(ideaId));
   };
 
   const switchConfirm = () => {
     switch (confirmMessage) {
       case ConfirmText.DELETE:
-        deleteComment();
+        deleteSimilar();
         hideConfirm();
         return;
       case ConfirmText.UPDATE:
-        updateComment();
+        updateSimilar();
         hideConfirm();
         return;
     }
   };
 
-  const deleteComment = () => {
+  const deleteSimilar = () => {
     deleteMutation.mutate(
-      { ideaId, commentId: comment.id },
+      { ideaId, similarId: similar.id },
       {
         onSuccess: () => {
           invalidate();
@@ -77,9 +78,14 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
     );
   };
 
-  const updateComment = () => {
+  const updateSimilar = () => {
     updateMutation.mutate(
-      { ideaId, commentId: comment.id, content: editTarget },
+      {
+        ideaId,
+        similarId: similar.id,
+        url: editTarget.url,
+        description: editTarget.description,
+      },
       {
         onSuccess: () => {
           invalidate();
@@ -93,7 +99,7 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
   };
 
   const clickCompleteUpdateBtn = () => {
-    if (editTarget.length === 0) {
+    if (Object.values(editTarget).some((state) => state.length === 0)) {
       showAlert(GuideText.FILL_A_FORM);
       return;
     }
@@ -107,7 +113,12 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
 
   const clickUpdateBtn = () => {
     setIsEditing(true);
-    setEditTarget(comment.content);
+    if (similar.description.length !== 0 && similar.url.length !== 0) {
+      setEditTarget({
+        url: similar.url,
+        description: similar.description,
+      });
+    }
   };
 
   const clickCancelUpdateBtn = () => {
@@ -116,26 +127,18 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
 
   return (
     <>
-      <CommentBox
-        key={comment.id}
-        comment={comment}
-        isNestedOpened={isNestedOpened}
-        setIsNestedOpened={setIsNestedOpened}
-        isMine={(userData?.id ?? null) === comment.author.id}
-        clickUpdateBtn={clickUpdateBtn}
-        clickDeleteBtn={clickDeleteBtn}
-        clickCancelUpdateBtn={clickCancelUpdateBtn}
-        clickCompleteUpdateBtn={clickCompleteUpdateBtn}
+      <SimilarBox
+        key={similar.id}
+        isMine={(userData?.id ?? null) === similar.author.id}
+        similar={similar}
         isEditing={isEditing}
         editTarget={editTarget}
         setEditTarget={setEditTarget}
+        clickCompleteUpdateBtn={clickCompleteUpdateBtn}
+        clickDeleteBtn={clickDeleteBtn}
+        clickUpdateBtn={clickUpdateBtn}
+        clickCancelUpdateBtn={clickCancelUpdateBtn}
       />
-      {isNestedOpened && (
-        <>
-          <IdeaNestedCommentBox ideaId={ideaId} commentId={comment.id} />
-          <IdeaNestedCommentForm ideaId={ideaId} commentId={comment.id} />
-        </>
-      )}
       {isAlertVisible && (
         <>
           <AlertModal content={alertMessage} handleConfirm={hideAlert} />
@@ -154,4 +157,4 @@ const IdeaCommentBoxContainer = ({ ideaId, comment }: Props) => {
   );
 };
 
-export default IdeaCommentBoxContainer;
+export default SimilarBoxContainer;

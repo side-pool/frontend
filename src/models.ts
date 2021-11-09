@@ -37,8 +37,21 @@ export type Comment = {
   updatedDate: string;
 };
 
+export type Similar = {
+  author: Author;
+  id: number;
+  ideaId: number;
+  createdDate: string;
+  updatedDate: string;
+  url: string;
+  description: string;
+};
+
+export type SimilarState = Pick<Similar, 'url' | 'description'>;
+
 export type ReadIdeasData = Idea[];
-export type ReadCommentData = Comment[];
+export type ReadCommentsData = Comment[];
+export type ReadSimilarData = Similar[];
 
 export type Side = {
   active: string;

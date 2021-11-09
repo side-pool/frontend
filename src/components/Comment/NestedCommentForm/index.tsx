@@ -26,7 +26,7 @@ const NestedCommentForm = ({
       onSubmit={onSubmit}
     >
       <ReplyIcon />
-      <div className={styles.answer}>
+      <div className={styles.comment}>
         <div className={styles.topArea}>
           <Author nickname={nickname} />
         </div>

@@ -34,7 +34,7 @@ const NestedCommentBox = ({
   return (
     <div className={styles.NestedCommentBox}>
       <ReplyIcon />
-      <div className={styles.answer}>
+      <div className={styles.comment}>
         <div className={styles.topArea}>
           <div className={styles.topLeftArea}>
             <Author nickname={nestedComment.author.nickname} />
@@ -91,9 +91,7 @@ const NestedCommentBox = ({
             }
           />
         ) : (
-          <Typography className={styles.answerBottom} fontSize="xs">
-            {nestedComment.content}
-          </Typography>
+          <Typography fontSize="xs">{nestedComment.content}</Typography>
         )}
       </div>
     </div>
