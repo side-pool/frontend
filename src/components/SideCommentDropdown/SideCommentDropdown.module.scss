@@ -1,0 +1,96 @@
+.SideCommentDropdown {
+  position: relative;
+
+  cursor: pointer;
+
+  .DropdownButton {
+    @include flex_row(space-between);
+
+    width: 133px;
+    height: 28px;
+    background: $white;
+    border: 1px solid $gray_3;
+    box-sizing: border-box;
+    border-radius: 15px;
+
+    padding: 0px 8px 0px 14px;
+
+    &.칭찬 {
+      border-color: $pink-0;
+      .Typography {
+        color: $pink-0;
+      }
+      .Icon {
+        color: $pink-0 !important;
+      }
+    }
+
+    &.버그제보 {
+      border-color: $red_0;
+      .Typography {
+        color: $red_0;
+      }
+      .Icon {
+        color: $red_0 !important;
+      }
+    }
+
+    &.개발피드백 {
+      border-color: $blue_0;
+      .Typography {
+        color: $blue_0;
+      }
+      .Icon {
+        color: $blue_0 !important;
+      }
+    }
+
+    &.디자인피드백 {
+      border-color: $purpe_0;
+      .Typography {
+        color: $purpe_0;
+      }
+      .Icon {
+        color: $purpe_0 !important;
+      }
+    }
+
+    &.기획피드백 {
+      border-color: $green_0;
+      .Typography {
+        color: $green_0;
+      }
+      .Icon {
+        color: $green_0 !important;
+      }
+    }
+    
+    &.팀빌딩관련 {
+      border-color: $dark_green;
+      .Typography {
+        color: $dark_green;
+      }
+      .Icon {
+        color: $dark_green !important;
+      }
+    }
+
+    .Typography {
+      @include ellipse;
+    }
+
+    &.open {
+      .Icon {
+        transform: rotate(0.5turn);
+        transition: all 0.3s ease-in;
+      }
+    }
+
+    &.close {
+      .Icon {
+        transform: rotate(0turn);
+        transition: all 0.3s ease-in;
+      }
+    }
+  }
+}
