@@ -4,27 +4,21 @@ import Button from '@src/components/common/Button';
 import Typography from '@src/components/common/Typography';
 import styles from './LikeButton.module.scss';
 import cn from 'classnames';
-import { useAuth } from '@src/hooks/useUserQuery';
-import {
-  useCreateFavorites,
-  useDeleteFavorites,
-  useReadFavorites,
-} from '@src/hooks/useFavoritesQuery';
+import { Favorites } from '@src/models';
 
 export interface LikeButtonProps
   extends React.HTMLAttributes<HTMLButtonElement> {
-  ideaId: number;
+  isAuth: boolean;
+  favorites: Favorites;
+  handleLike: () => void;
 }
 
-const LikeButton = ({ ideaId, ...props }: LikeButtonProps) => {
-  const { data: isAuth } = useAuth();
-  const { data: favorites, isSuccess: isFavoritesSuccess } = useReadFavorites(
-    ideaId,
-    isAuth ?? false,
-  );
-  const createMutation = useCreateFavorites(ideaId);
-  const deleteMutation = useDeleteFavorites(ideaId);
-
+const LikeButton = ({
+  isAuth,
+  handleLike,
+  favorites,
+  ...props
+}: LikeButtonProps) => {
   return (
     <Button
       variant="text"
@@ -33,12 +27,7 @@ const LikeButton = ({ ideaId, ...props }: LikeButtonProps) => {
         (favorites?.isFavorite ?? false) && styles.highlight,
       )}
       disabled={!isAuth}
-      onClick={() => {
-        isFavoritesSuccess &&
-          (favorites?.isFavorite
-            ? deleteMutation.mutate()
-            : createMutation.mutate());
-      }}
+      onClick={handleLike}
       {...props}
     >
       <div className={styles.likeButtonContent}>

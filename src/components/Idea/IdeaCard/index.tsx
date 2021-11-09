@@ -4,12 +4,12 @@ import Card from '@src/components/common/Card';
 import { Idea } from '@src/models';
 import IdeaMainSection from '@src/components/Idea/IdeaMainSection';
 import { UserTab } from '@src/constant/enums';
-import LikeButton from '@src/components/common/LikeButton';
 import {
   CommentTab,
   SimilarServiceTab,
 } from '@src/components/common/ButtonTab';
 import IdeaBottomSection from '@src/components/Idea/IdeaBottomSection';
+import LikeButtonContainer from '../LikeButtonContainer';
 
 export interface IdeaCardProps {
   idea: Idea;
@@ -23,7 +23,7 @@ const IdeaCard = ({ idea }: IdeaCardProps) => {
       <IdeaMainSection idea={idea} />
       <section className={styles.middleArea}>
         <div className={styles.buttonContainer}>
-          <LikeButton ideaId={idea.id} />
+          <LikeButtonContainer ideaId={idea.id} />
           <CommentTab
             active={tabToggle === UserTab.COMMENT}
             onClick={() => {
