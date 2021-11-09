@@ -29,8 +29,18 @@ const sideReducer = createSlice({
       if (skill !== undefined) state.skill = skill;
       if (sort !== undefined) state.sort = sort;
     },
+    setInitSide: (state) => {
+      state.category = [];
+      state.organization = [];
+      state.skill = [];
+      state.search = [];
+      state.isRecruiting = false;
+      state.page = 0;
+      state.size = 0;
+      state.sort = 'createdDate,asc';
+    },
   },
 });
 
-export const { setSide } = sideReducer.actions;
+export const { setSide, setInitSide } = sideReducer.actions;
 export default sideReducer.reducer;

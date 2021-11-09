@@ -12,17 +12,17 @@
     .content {
       @include flex_col(space-between);
 
-
       font-size: 11px;
       color: $gray_7;
-  
+
       margin: 35px 0px;
       width: 100%;
       max-height: calc(100% - 140px);
       height: calc(100% - 140px);
-  
+
       overflow-y: auto;
       .titleArea {
+        @include flex_row();
         width: 100%;
       }
 
@@ -45,6 +45,7 @@
         }
       }
       .hashtagArea {
+        @include flex_row();
         width: 100%;
       }
     }

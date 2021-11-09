@@ -58,7 +58,6 @@ export type SideParams = {
   isRecruiting?: boolean;
   organization?: string[];
   page?: number;
-  period?: string[];
   search?: string[];
   size?: number;
   skill?: string[];
