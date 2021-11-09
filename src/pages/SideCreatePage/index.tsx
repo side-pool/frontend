@@ -31,11 +31,11 @@ import {
 
 import { setInitSide, setSide, useAppDispatch, useSideState } from '@src/store';
 
-interface SidePageProps {
+interface SideCreatePageProps {
   handleToTop?: () => void;
 }
 
-const SideCreatePage = ({ handleToTop }: SidePageProps) => {
+const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
   const location = useLocation();
   const history = useHistory();
 
