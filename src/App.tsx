@@ -7,6 +7,7 @@ import JoinPage from '@src/pages/JoinPage';
 import IdeaPage from '@src/pages/IdeaPage';
 import SidePage from '@src/pages/SidePage';
 import SideCreatePage from '@src/pages/SideCreatePage';
+import SideEditPage from '@src/pages/SideEditPage';
 import Sidebar from '@src/components/common/Sidebar';
 import { useAuth } from '@src/hooks/useUserQuery';
 import AuthRoute from '@src/components/common/AuthRouter';
@@ -51,11 +52,14 @@ const App = () => {
           <Route exact path="/side">
             <SidePage handleToTop={handleToTop} />
           </Route>
-          <Route path="/side/:id">
+          <Route exact path="/side/:id">
             <SideReadPage handleToTop={handleToTop} />
           </Route>
           <Route exact path="/side-create">
             <SideCreatePage handleToTop={handleToTop} />
+          </Route>
+          <Route exact path="/side/edit/:id">
+            <SideEditPage handleToTop={handleToTop} />
           </Route>
         </div>
       </div>
