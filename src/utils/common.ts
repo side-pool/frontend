@@ -11,6 +11,7 @@ export const getErrorText = (error: AxiosError<unknown>) => {
   const NOT_FOUND_TEXT = '페이지를 찾을 수 없습니다 😅';
   const UNAUTHORIZED_TEXT =
     '인증 오류가 발생했습니다. 다시 로그인 해주세요. 😭';
+  const CONFLICT_TEXT = '충돌이 발생했습니다. 😭 다시 실행해 주세요.';
   const REST_ERROR_TEXT = '알 수 없는 오류가 발생했습니다 😭';
 
   switch (error.response?.status) {
@@ -18,6 +19,8 @@ export const getErrorText = (error: AxiosError<unknown>) => {
       return NOT_FOUND_TEXT;
     case HttpStatusCode.UNAUTHORIZED:
       return UNAUTHORIZED_TEXT;
+    case HttpStatusCode.CONFLICT:
+      return CONFLICT_TEXT;
     case HttpStatusCode.BAD_REQUEST:
     default:
       return REST_ERROR_TEXT;
