@@ -1,7 +1,14 @@
 .LikeButton {
-  &.active {
+  &.highlight {
     .heartIcon > path {
       fill: $pink-0;
+    }
+  }
+  &.disabled {
+    opacity: 1;
+    cursor: default;
+    &:hover {
+      opacity: 1;
     }
   }
   .likeButtonContent {

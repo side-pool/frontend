@@ -23,25 +23,17 @@ const IdeaCard = ({ idea }: IdeaCardProps) => {
       <IdeaMainSection idea={idea} />
       <section className={styles.middleArea}>
         <div className={styles.buttonContainer}>
-          <LikeButton
-            count={idea.favoriteCount}
-            active={idea.isFavorite ?? false}
-            onClick={() => {
-              // TODO: API 연결
-            }}
-          />
+          <LikeButton ideaId={idea.id} />
           <CommentTab
             active={tabToggle === UserTab.COMMENT}
             onClick={() => {
               setTabToggle(UserTab.COMMENT);
-              // TODO: API 연결
             }}
           />
           <SimilarServiceTab
             active={tabToggle === UserTab.SIMILAR_SERVICE}
             onClick={() => {
               setTabToggle(UserTab.SIMILAR_SERVICE);
-              // TODO: API 연결
             }}
           />
         </div>
