@@ -1,6 +1,8 @@
 .Dropdown {
   position: relative;
 
+  cursor: pointer;
+  
   .DropdownButton {
     @include flex_row(space-between);
 

@@ -1,4 +1,11 @@
 .SideCard {
+  &:hover {
+    transform: scale(1.02);
+    transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  }
+  
+  cursor: pointer;
+
   @include flex_col(stretch, stretch);
 
   position: relative;
@@ -58,8 +65,8 @@
       padding-top: 7px;
     }
     .LabelTag {
-      color: #009688;
-      border-color: #009688;
+      color: $dark_green;
+      border-color: $dark_green;
     }
 
     .ellipse {

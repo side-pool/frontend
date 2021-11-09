@@ -132,7 +132,7 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
                 .join(', ')
             : title}
         </Typography>
-        <Icon iconName="arrow_drop_down" color="#C4C4C4" />
+        <Icon iconName="arrow_drop_down" color="#C4C4C4" pointer />
       </div>
       {open && (
         <DropdownLists

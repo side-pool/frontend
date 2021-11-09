@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { useLocation, useHistory } from 'react-router';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { Editor } from '@toast-ui/react-editor';
 
@@ -22,7 +22,12 @@ import {
   useGetSkills,
 } from '@src/hooks/useDropdownQuery';
 import { useCreateSide } from '@src/hooks/useSideQuery';
-import { useReadContributors, useReadReadme } from '@src/hooks/useGithubQuery';
+import {
+  ContributorsType,
+  GithubInfoType,
+  useReadContributors,
+  useReadReadme,
+} from '@src/hooks/useGithubQuery';
 
 import { setInitSide, setSide, useAppDispatch, useSideState } from '@src/store';
 
@@ -30,29 +35,7 @@ interface SidePageProps {
   handleToTop?: () => void;
 }
 
-type GithubInfoType = {
-  id: string;
-  homepage: string;
-  html_url: string;
-  owner: {
-    avatar_url: string;
-  };
-  pushed_at: string;
-  name: string;
-  description: string;
-  default_branch: string;
-  full_name: string;
-  contributors_url: string;
-};
-
-type ContributorsType = {
-  id: string;
-  html_url: string;
-  avatar_url: string;
-  login: string;
-};
-
-const SidePage = ({ handleToTop }: SidePageProps) => {
+const SideCreatePage = ({ handleToTop }: SidePageProps) => {
   const location = useLocation();
   const history = useHistory();
 
@@ -124,6 +107,11 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
     if (isRecruiting === undefined)
       return showAlert('알 수 없는 에러가 발생했습니다.');
 
+    // TODO: 추후 정규식 or 실제 get 요청 날리는 식으로 리팩토링
+    const serviceLink = serviceLinkRef.current.get();
+    if (serviceLink.length > 0 && !serviceLink.includes('http'))
+      return showAlert('올바릉 형식의 서비스 링크를 입력해주세요!');
+
     const params = {
       categoryNames: category,
       detail: editorRef.current.getInstance().getMarkdown(),
@@ -133,7 +121,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
       organizationIds: organization?.map((each) => Number(each)),
       pushedAt: pushed_at,
       recruiting: isRecruiting,
-      serviceLink: serviceLinkRef.current.get(),
+      serviceLink,
       skillIds: skill?.map((each) => Number(each)),
       summary: descriptionRef.current.get(),
       title: name,
@@ -284,4 +272,4 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   );
 };
 
-export default SidePage;
+export default SideCreatePage;

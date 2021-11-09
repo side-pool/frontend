@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './SidePage.module.scss';
@@ -23,12 +23,24 @@ import Typography from '@src/components/common/Typography';
 import { setSide, useAppDispatch, useSideState } from '@src/store';
 import Input from '@src/components/common/Input';
 import { useAuth } from '@src/hooks/useUserQuery';
+import { useLocation } from 'react-router-dom';
+import { GuideText } from '@src/constant/enums';
 
 interface SidePageProps {
   handleToTop?: () => void;
 }
 
 const SidePage = ({ handleToTop }: SidePageProps) => {
+  const location = useLocation();
+
+  const status = useMemo(() => location.state as string, [location]);
+
+  useEffect(() => {
+    if (status !== undefined && status === 'delete-success') {
+      showAlert(GuideText.DELETE_SUCCESS);
+    }
+  }, [status]);
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const dispatch = useAppDispatch();

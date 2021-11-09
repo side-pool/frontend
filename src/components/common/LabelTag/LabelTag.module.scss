@@ -17,7 +17,7 @@
   }
   &.white {
     background-color: $white;
-    border: 1px solid #009688;
+    border: 1px solid $dark_green;
   }
 
   & + & {
@@ -55,7 +55,7 @@
       color: #e98c00;
     }
     &.green {
-      color: #009688;
+      color: $dark_green;
     }
   }
 }
