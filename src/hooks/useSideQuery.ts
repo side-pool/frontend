@@ -33,9 +33,14 @@ export type ReadSideParams = {
   detail: string;
   categories: string[];
   logoUrl: string;
-  active: number[]; // ?
-  organizations: string[];
-  skills: string[];
+  organizations: {
+    id: string;
+    name: string;
+  }[];
+  skills: {
+    id: string;
+    name: string;
+  }[];
   githubLink: string;
   serviceLink: string;
   recruiting: false;
