@@ -1,16 +1,28 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import LikeButton, { LikeButtonProps } from '@src/components/common/LikeButton';
+import React, { useState } from 'react';
+import { Meta } from '@storybook/react';
+import LikeButton from '@src/components/common/LikeButton';
 
 export default {
   title: 'Common/LikeButton',
   component: LikeButton,
 } as Meta;
 
-const Template: Story<LikeButtonProps> = (props) => <LikeButton {...props} />;
+export const likeButton = () => {
+  const [favorites, setFavorites] = useState({
+    isFavorite: false,
+    favoriteCount: 0,
+  });
 
-export const likeButton = Template.bind({});
+  const handleLike = () => {
+    setFavorites({
+      isFavorite: !favorites.isFavorite,
+      favoriteCount: favorites.isFavorite
+        ? favorites.favoriteCount - 1
+        : favorites.favoriteCount + 1,
+    });
+  };
 
-likeButton.args = {
-  count: 23,
+  return (
+    <LikeButton isAuth={true} favorites={favorites} handleLike={handleLike} />
+  );
 };

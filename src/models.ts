@@ -15,18 +15,21 @@ export type Author = {
   level: number;
 };
 
+export interface Favorites {
+  isFavorite: boolean | null;
+  favoriteCount: number;
+}
+
 export type Idea = {
   id: number;
   title: string;
   content: string;
   author: Author;
-  isFavorite: boolean | null;
-  favoriteCount: number;
   isDone: boolean;
   hashtags: string[];
   createdDate: string;
   updatedDate: string;
-};
+} & Favorites;
 
 export type Comment = {
   author: Author;

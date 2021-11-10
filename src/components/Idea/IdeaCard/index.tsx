@@ -4,12 +4,12 @@ import Card from '@src/components/common/Card';
 import { Idea } from '@src/models';
 import IdeaMainSection from '@src/components/Idea/IdeaMainSection';
 import { UserTab } from '@src/constant/enums';
-import LikeButton from '@src/components/common/LikeButton';
 import {
   CommentTab,
   SimilarServiceTab,
 } from '@src/components/common/ButtonTab';
 import IdeaBottomSection from '@src/components/Idea/IdeaBottomSection';
+import LikeButtonContainer from '../LikeButtonContainer';
 
 export interface IdeaCardProps {
   idea: Idea;
@@ -23,25 +23,17 @@ const IdeaCard = ({ idea }: IdeaCardProps) => {
       <IdeaMainSection idea={idea} />
       <section className={styles.middleArea}>
         <div className={styles.buttonContainer}>
-          <LikeButton
-            count={idea.favoriteCount}
-            active={idea.isFavorite ?? false}
-            onClick={() => {
-              // TODO: API 연결
-            }}
-          />
+          <LikeButtonContainer ideaId={idea.id} />
           <CommentTab
             active={tabToggle === UserTab.COMMENT}
             onClick={() => {
               setTabToggle(UserTab.COMMENT);
-              // TODO: API 연결
             }}
           />
           <SimilarServiceTab
             active={tabToggle === UserTab.SIMILAR_SERVICE}
             onClick={() => {
               setTabToggle(UserTab.SIMILAR_SERVICE);
-              // TODO: API 연결
             }}
           />
         </div>
