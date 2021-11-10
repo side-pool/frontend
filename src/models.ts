@@ -82,6 +82,7 @@ export type SideParams = {
     | 'favoriteCount,asc'
     | 'createdDate,desc'
     | 'favoriteCount,desc';
+  commentTag?: number;
 };
 
 export type ReadSidesData = Side[];
