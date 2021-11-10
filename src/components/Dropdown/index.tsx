@@ -67,7 +67,7 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
                 {
                   name: name,
                   id: id,
-                  checked: false,
+                  checked: side[title]?.includes(id),
                 },
               ];
             }
@@ -77,7 +77,7 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
               {
                 name: cur,
                 id: cur,
-                checked: false,
+                checked: side[title]?.includes(cur as string),
               },
             ];
           },

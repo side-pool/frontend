@@ -29,6 +29,7 @@ import {
 
 import LabelTag from '@src/components/common/LabelTag';
 import { GuideText } from '@src/constant/enums';
+import { useAppDispatch } from '@src/store';
 
 interface SideReadProps {
   handleToTop?: () => void;
@@ -81,6 +82,10 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
     });
   };
 
+  const handleEditSide = () => {
+    history.push(`/side/edit/${id}`);
+  };
+
   return (
     <div className={styles.SideReadPage}>
       <div className={styles.sideCardContainer}>
@@ -91,7 +96,7 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
           {isMySide && (
             <div className={styles.buttonGroup}>
               <Button onClick={handleDeleteSide}>삭제</Button>
-              <Button onClick={() => history.push('/side')}>수정</Button>
+              <Button onClick={handleEditSide}>수정</Button>
             </div>
           )}
         </div>

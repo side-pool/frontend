@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { Editor } from '@toast-ui/react-editor';
 
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-import styles from './SideCreatePage.module.scss';
+import styles from './SideEditPage.module.scss';
 
 import Button from '@src/components/common/Button';
 import AlertModal from '@src/components/modals/AlertModal';
@@ -21,43 +21,32 @@ import {
   useGetOrganization,
   useGetSkills,
 } from '@src/hooks/useDropdownQuery';
-import { useCreateSide } from '@src/hooks/useSideQuery';
+import { useUpdateSide, useReadSideDetail } from '@src/hooks/useSideQuery';
 import {
   ContributorsType,
-  GithubInfoType,
   useReadContributors,
-  useReadReadme,
+  useReadGithubInfo,
 } from '@src/hooks/useGithubQuery';
 
 import { setInitSide, setSide, useAppDispatch, useSideState } from '@src/store';
 
-interface SideCreatePageProps {
+interface SideEditPageProps {
   handleToTop?: () => void;
 }
 
-const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
-  const location = useLocation();
+const SideEditPage = ({ handleToTop }: SideEditPageProps) => {
   const history = useHistory();
 
-  const {
-    id,
-    homepage,
-    html_url,
-    owner: { avatar_url },
-    pushed_at,
-    name,
-    description,
-    default_branch,
-    full_name,
-    contributors_url,
-  } = useMemo(() => location.state as GithubInfoType, [location]);
+  const { id }: { id: string } = useParams();
+  const { data } = useReadSideDetail(id);
+  const { data: githubData } = useReadGithubInfo(
+    data?.githubLink?.replace('https://github.com/', '') || '',
+  );
+  const { data: contributors } = useReadContributors(
+    githubData?.contributors_url || '',
+  );
 
-  // TODO: 더 간결한 방법 찾기..
-  const readme = useReadReadme(full_name, default_branch);
-
-  const { data: contributors } = useReadContributors(contributors_url);
-
-  const createSideMutation = useCreateSide();
+  const createSideMutation = useUpdateSide(id);
 
   const descriptionRef = useRef({} as TextareaParentRef);
   // TODO: 추후 타입 정의
@@ -78,16 +67,26 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
   const { data: skillsData } = useGetSkills();
 
   useEffect(() => {
-    descriptionRef.current.set(description);
-  }, [description]);
+    dispatch(
+      setSide({
+        category: data?.categories,
+        organization: data?.organizations.map((each) => each.id),
+        skill: data?.skills.map((each) => each.id),
+      }),
+    );
+  }, [data]);
 
   useEffect(() => {
-    serviceLinkRef.current.set(homepage);
-  }, [homepage]);
+    descriptionRef.current.set(data?.summary || '');
+  }, [data?.summary]);
+
+  useEffect(() => {
+    serviceLinkRef.current.set(data?.serviceLink || '');
+  }, [data?.serviceLink]);
 
   const queryClient = useQueryClient();
 
-  const handleSubmit = () => {
+  const handleEditSubmit = () => {
     if (category?.length === 0 || category === undefined)
       return showAlert('Category를 선택해주세요!');
     if (organization?.length === 0 || organization === undefined)
@@ -104,7 +103,11 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
       descriptionRef === undefined
     )
       return showAlert('프로젝트의 간략한 설명을 입력해주세요!');
-    if (isRecruiting === undefined)
+    if (
+      isRecruiting === undefined ||
+      data?.githubLink === undefined ||
+      githubData?.pushed_at === undefined
+    )
       return showAlert('알 수 없는 에러가 발생했습니다.');
 
     // TODO: 추후 정규식 or 실제 get 요청 날리는 식으로 리팩토링
@@ -116,15 +119,15 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
       categoryNames: category,
       detail: editorRef.current.getInstance().getMarkdown(),
       githubIdentifier: Number(id),
-      githubLink: html_url,
-      logoUrl: avatar_url,
+      githubLink: data?.githubLink,
+      logoUrl: data?.logoUrl,
       organizationIds: organization?.map((each) => Number(each)),
-      pushedAt: pushed_at,
+      pushedAt: githubData?.pushed_at,
       recruiting: isRecruiting,
       serviceLink,
       skillIds: skill?.map((each) => Number(each)),
       summary: descriptionRef.current.get(),
-      title: name,
+      title: githubData?.name,
     };
 
     createSideMutation.mutate(params, {
@@ -132,7 +135,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
         await dispatch(setInitSide());
         queryClient.invalidateQueries('/sides');
 
-        history.push('side');
+        history.push('/side');
       },
       // TODO: 추후 타입 정의
       onError: (e: any) => {
@@ -144,7 +147,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
   };
 
   return (
-    <div className={styles.SideCreatePage}>
+    <div className={styles.SideEditPage}>
       <div className={styles.sideCardContainer}>
         <div className={styles.topArea}>
           <Typography fontSize="xxl" fontWeight="bold">
@@ -154,7 +157,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
 
         <div className={styles.title}>
           <Typography fontSize="xxl" fontWeight="bold" lineHeight="wider">
-            {name}
+            {githubData?.name}
           </Typography>
         </div>
         <div className={styles.description}>
@@ -202,7 +205,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
                 {(contributors as unknown as ContributorsType[])?.length >
                   8 && (
                   <a
-                    href={`${html_url}/graphs/contributors`}
+                    href={`${githubData?.html_url}/graphs/contributors`}
                     target="_blank"
                     rel="noreferrer"
                     className={styles.more}
@@ -242,10 +245,10 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
           </div>
         </div>
         <div className={styles.summary}>
-          {(readme?.data as string) && (
+          {(data?.detail as string) && (
             <Editor
               ref={editorRef}
-              initialValue={readme?.data as string}
+              initialValue={data?.detail as string}
               previewStyle="vertical"
               height="660px"
               initialEditType="markdown"
@@ -253,10 +256,10 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
           )}
         </div>
         <div className={styles.buttonGroup}>
-          <Button onClick={handleSubmit} primary>
-            등록
+          <Button onClick={handleEditSubmit} primary>
+            수정
           </Button>
-          <Button onClick={() => history.push('side')}>취소</Button>
+          <Button onClick={() => history.push('/side')}>취소</Button>
         </div>
       </div>
       <Button
@@ -272,4 +275,4 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
   );
 };
 
-export default SideCreatePage;
+export default SideEditPage;
