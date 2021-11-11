@@ -87,3 +87,17 @@ export type SideParams = {
 };
 
 export type ReadSidesData = Side[];
+
+export type Alarm = {
+  content: string;
+  createdDate: string;
+  endPoint: string;
+  id: number;
+  messageType: string;
+  postType: string;
+  read: boolean;
+  title: string;
+  updatedDate: string;
+};
+
+export type AlarmData = Alarm[];
