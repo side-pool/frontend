@@ -7,6 +7,7 @@ export interface UserData {
 export interface MyData extends Exclude<UserData, 'password'> {
   id: number;
   point: number;
+  level: number;
 }
 
 export type Author = {
