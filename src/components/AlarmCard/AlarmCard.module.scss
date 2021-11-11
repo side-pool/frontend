@@ -1,0 +1,32 @@
+.AlarmCard {
+  @include hover_animation;
+
+  cursor: pointer;
+
+  &.Card {
+    @include flex_col(space-between, stretch);
+
+    width: 270px;
+    min-height: 100px;
+    padding: 11px 21px;
+
+    .topArea {
+      @include flex_row(space-between);
+
+      .textArea {
+        @include flex_row();
+        gap: 17px;
+      }
+    }
+
+    .contentArea {
+      @include flex_col(space-between, flex-start);
+      height: 40px;
+
+      .Typography {
+        @include ellipse;
+        width: 200px;
+      }
+    }
+  }
+}
