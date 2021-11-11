@@ -14,9 +14,13 @@ const BREAKPOINT_COLS = {
   1100: 1,
 };
 
-const SideList = () => {
+interface SideListProps {
+  isMyPage?: boolean;
+}
+
+const SideList = ({ isMyPage = false }: SideListProps) => {
   const side = useSideState();
-  const { data, isLoading, isError } = useReadSides(side);
+  const { data, isLoading, isError } = useReadSides(side, isMyPage);
 
   return (
     <div className={styles.SideList}>
