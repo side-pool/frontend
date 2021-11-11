@@ -61,6 +61,13 @@ $mobile: 'screen and (max-width: 758px)';
   z-index: $modal-depth;
 }
 
+@mixin hover_animation {
+  &:hover {
+    transform: scale(1.02);
+    transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  }
+}
+
 // * $bgc: background-color (e.g. #fff)
 // * $fc: font-color (e.g. #111)
 // * $dis-bgc: disabled background-color
