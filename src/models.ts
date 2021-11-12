@@ -114,4 +114,8 @@ export type MiniIdea = {
 
 export type MiniIdeaData = MiniIdea[];
 
-export type MyComment = Comment & { title: string; type: string };
+export type MyComment = Comment & {
+  title: string;
+  type: string;
+  postId: number;
+};
