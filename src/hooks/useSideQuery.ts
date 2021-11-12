@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query';
+import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 import { ReadSidesData, SideParams } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
@@ -49,8 +49,27 @@ export type ReadSideParams = {
   isFavorite: false;
 };
 
-export const useReadSides = (params: SideParams) => {
+export const useReadSides2 = (params: SideParams) => {
   return useQuery<ReadSidesData, AxiosError<unknown>>(['/sides', params]);
+};
+
+export const useReadSides = (params: SideParams) => {
+  const PAGE_SIZE = 5;
+
+  return useInfiniteQuery(
+    ['/sides', params] as const,
+    async ({ queryKey: [url, params], pageParam = 0 }) => {
+      const { data: page } = await getApiInstance().get<ReadSidesData>(url, {
+        params: {
+          ...params,
+          page: pageParam,
+          size: PAGE_SIZE,
+        },
+      });
+
+      return page;
+    },
+  );
 };
 
 export const useCreateSide = () => {
