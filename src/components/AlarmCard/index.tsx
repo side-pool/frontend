@@ -4,8 +4,9 @@ import Card from '@src/components/common/Card';
 import Typography from '@src/components/common/Typography';
 import Close from '@src/assets/Close.svg';
 import cn from 'classnames';
+import { Alarm } from '@src/models';
 
-export interface AlarmCardProps {
+export interface AlarmCardProps extends Alarm {
   postType: string;
   title: string;
   content: string;
