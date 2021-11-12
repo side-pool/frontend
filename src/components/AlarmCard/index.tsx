@@ -37,7 +37,7 @@ const AlarmCard = ({
             fontSize={'sm'}
             textColor={'blueActive'}
           >
-            {postType === 'idea' ? '아이디어' : '사이드'}
+            {postType}
           </Typography>
         </div>
         <Close className={cn(styles.closeIconContainer)} onClick={onClose} />
