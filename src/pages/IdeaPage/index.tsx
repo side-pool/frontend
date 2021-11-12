@@ -4,7 +4,6 @@ import styles from './IdeaPage.module.scss';
 import Search from '@src/assets/Search.svg';
 import Setting from '@src/assets/Setting.svg';
 import Sort from '@src/assets/Sort.svg';
-
 import Button from '@src/components/common/Button';
 import AlertModal from '@src/components/modals/AlertModal';
 import useModalControl from '@src/hooks/useModalControl';
@@ -14,6 +13,9 @@ import { useAuth } from '@src/hooks/useUserQuery';
 import Typography from '@src/components/common/Typography';
 import { setIdea, useAppDispatch, useIdeaState } from '@src/store';
 import Input from '@src/components/common/Input';
+import { useQueryClient } from 'react-query';
+
+const IDEA_URL = '/ideas';
 
 interface IdeaPageProps {
   handleToTop?: () => void;
@@ -21,7 +23,7 @@ interface IdeaPageProps {
 
 const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
+  const queryClient = useQueryClient();
   const { isDone, sort } = useIdeaState();
   const dispatch = useAppDispatch();
   const { data: isAuth } = useAuth();
@@ -146,7 +148,13 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
             />
           )}
           {isAlertVisible && (
-            <AlertModal content={alertMessage} handleConfirm={hideAlert} />
+            <AlertModal
+              content={alertMessage}
+              handleConfirm={() => {
+                hideAlert();
+                queryClient.invalidateQueries(IDEA_URL);
+              }}
+            />
           )}
         </>
       )}

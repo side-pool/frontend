@@ -71,19 +71,19 @@ export type Side = {
 };
 
 export type SideParams = {
-  category?: string[];
-  isRecruiting?: boolean;
-  organization?: string[];
-  page?: number;
-  search?: string[];
-  size?: number;
-  skill?: string[];
-  sort?:
+  category: string[];
+  isRecruiting: boolean;
+  organization: string[];
+  page: number;
+  search: string[];
+  size: number;
+  skill: string[];
+  sort:
     | 'createdDate,asc'
     | 'favoriteCount,asc'
     | 'createdDate,desc'
     | 'favoriteCount,desc';
-  commentTag?: number;
+  commentTag: number;
 };
 
 export type ReadSidesData = Side[];

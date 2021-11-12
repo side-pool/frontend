@@ -2,6 +2,8 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { loadItem, ACCESS_TOKEN } from '@src/utils/storage';
 import qs from 'qs';
 
+// 네트워크 요청, 응답 로그
+export const LOG_TOGGLE = true;
 export const SERVER_URL = 'http://13.209.171.179:80/api';
 
 const defaultOption = {
@@ -14,7 +16,7 @@ const defaultOption = {
  * Check if there's an access token and put it in the header
  */
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-  console.info(`[request] [${JSON.stringify(config)}]`);
+  LOG_TOGGLE && console.info(`[request] [${JSON.stringify(config)}]`);
 
   const token = loadItem(ACCESS_TOKEN) ?? null;
 
@@ -29,18 +31,18 @@ const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
 };
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[request error] [${JSON.stringify(error)}]`);
+  LOG_TOGGLE && console.error(`[request error] [${JSON.stringify(error)}]`);
   return Promise.reject(error);
 };
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {
-  console.info(`[response] [${JSON.stringify(response)}]`);
+  LOG_TOGGLE && console.info(`[response] [${JSON.stringify(response)}]`);
 
   return response;
 };
 
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[response error] [${JSON.stringify(error)}]`);
+  LOG_TOGGLE && console.error(`[response error] [${JSON.stringify(error)}]`);
 
   return Promise.reject(error);
 };
