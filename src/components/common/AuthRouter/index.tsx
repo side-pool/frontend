@@ -15,9 +15,6 @@ const AuthRoute = ({
   isAuth = true,
   ...rest
 }: AuthRouteProps) => {
-  if (!Component) {
-    return null;
-  }
   const { isModalVisible: isAlertVisible, hideModal: hideAlert } =
     useModalControl(true);
 
@@ -29,7 +26,7 @@ const AuthRoute = ({
           render ? (
             render(props)
           ) : (
-            <Component {...props} />
+            Component && <Component {...props} />
           )
         ) : (
           <>

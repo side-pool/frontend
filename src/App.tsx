@@ -8,6 +8,7 @@ import IdeaPage from '@src/pages/IdeaPage';
 import SidePage from '@src/pages/SidePage';
 import SideCreatePage from '@src/pages/SideCreatePage';
 import SideEditPage from '@src/pages/SideEditPage';
+import MyPage from '@src/pages/MyPage';
 import Sidebar from '@src/components/common/Sidebar';
 import { useAuth } from '@src/hooks/useUserQuery';
 import AuthRoute from '@src/components/common/AuthRouter';
@@ -61,6 +62,12 @@ const App = () => {
           <Route exact path="/side/edit/:id">
             <SideEditPage handleToTop={handleToTop} />
           </Route>
+          <AuthRoute
+            path="/mypage"
+            isAuth={isAuth}
+            redirectPath="/"
+            render={(props) => <MyPage {...props} handleToTop={handleToTop} />}
+          />
         </div>
       </div>
     </Switch>

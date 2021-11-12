@@ -7,6 +7,7 @@ export interface UserData {
 export interface MyData extends Exclude<UserData, 'password'> {
   id: number;
   point: number;
+  level: number;
 }
 
 export type Author = {
@@ -86,3 +87,17 @@ export type SideParams = {
 };
 
 export type ReadSidesData = Side[];
+
+export type Alarm = {
+  content: string;
+  createdDate: string;
+  endPoint: string;
+  id: number;
+  messageType: string;
+  postType: string;
+  read: boolean;
+  title: string;
+  updatedDate: string;
+};
+
+export type AlarmData = Alarm[];
