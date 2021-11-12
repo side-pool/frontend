@@ -1,6 +1,6 @@
 import IdeaModal from '@src/components/modals/IdeaModal';
 import React from 'react';
-import IdeaMiniCard from '@src/components/idea/IdeaMiniCard';
+import IdeaMiniCard from '@src/components/Idea/IdeaMiniCard';
 import { MiniIdea } from '@src/models';
 import useModalControl from '@src/hooks/useModalControl';
 import Button from '@src/components/common/Button';
