@@ -11,8 +11,6 @@
     .topArea {
       position: relative;
 
-      z-index: 100;
-
       @include flex_row(space-between);
       width: 100%;
 
@@ -109,7 +107,7 @@
 
     .filterArea {
       margin-bottom: 22px;
-      
+
       @include flex_row(flex-end);
 
       svg {

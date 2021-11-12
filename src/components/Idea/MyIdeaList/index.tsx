@@ -3,7 +3,7 @@ import Masonry from 'react-masonry-css';
 
 import styles from './MyIdeaList.module.scss';
 import Spinner from '@src/components/common/Spinner';
-import IdeaMiniCard from '@src/components/Idea/IdeaMiniCard';
+import IdeaMiniCardContainer from '@src/components/Idea/IdeaMiniCardContainer';
 import { useReadMyIdea } from '@src/hooks/useMyPageQuery';
 
 const BREAKPOINT_COLS = {
@@ -25,7 +25,9 @@ const MyIdeaList = () => {
         columnClassName={styles.gridColumn}
       >
         {!isError &&
-          data?.map((each) => <IdeaMiniCard {...each} key={each.id} />)}
+          data?.map((each) => (
+            <IdeaMiniCardContainer {...each} key={each.id} />
+          ))}
       </Masonry>
     </div>
   );
