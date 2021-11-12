@@ -6,7 +6,6 @@
       @include flex_row(flex-start, flex-start);
       
       width: 100%;
-      padding-top: 22px;
   
       .gridColumn {
         @include flex_col(flex-start);
