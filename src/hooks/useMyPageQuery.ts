@@ -25,7 +25,15 @@ export const useDeleteAlarm = () => {
   );
 };
 
-export const useTurnToReadAlarm = () =>
-  useMutation<void, AxiosError<unknown>, number>((id) =>
-    getApiInstance().put(`/notifications/${id}`),
+export const useTurnToReadAlarm = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, AxiosError<unknown>, number>(
+    (id) => getApiInstance().put(`/notifications/read/${id}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(`/notifications`);
+      },
+    },
   );
+};
