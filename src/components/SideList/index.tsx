@@ -2,7 +2,7 @@ import React from 'react';
 import Masonry from 'react-masonry-css';
 
 import styles from './SideList.module.scss';
-import { useReadSides } from '@src/hooks/useSideQuery';
+import { useReadSides, useReadMySides } from '@src/hooks/useSideQuery';
 import Spinner from '@src/components/common/Spinner';
 import SideCard from '@src/components//SideCard';
 import { useSideState } from '@src/store';
@@ -20,7 +20,9 @@ interface SideListProps {
 
 const SideList = ({ isMyPage = false }: SideListProps) => {
   const side = useSideState();
-  const { data, isLoading, isError } = useReadSides(side, isMyPage);
+  const { data, isLoading, isError } = isMyPage
+    ? useReadMySides()
+    : useReadSides(side);
 
   return (
     <div className={styles.SideList}>

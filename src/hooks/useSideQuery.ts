@@ -49,10 +49,7 @@ export type ReadSideParams = {
   isFavorite: false;
 };
 
-export const useReadSides = (params: SideParams, isMyPage: boolean) => {
-  if (isMyPage) {
-    return useQuery<ReadSidesData, AxiosError<unknown>>(['/me/sides']);
-  }
+export const useReadSides = (params: SideParams) => {
   return useQuery<ReadSidesData, AxiosError<unknown>>(['/sides', params]);
 };
 
@@ -89,3 +86,6 @@ export const useIsMySide = (id: string) => {
 
   return data?.id.toString() === id;
 };
+
+export const useReadMySides = () =>
+  useQuery<ReadSidesData, AxiosError<unknown>>(['/me/sides']);
