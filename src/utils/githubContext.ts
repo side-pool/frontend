@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { LOG_TOGGLE } from './context';
 
 const defaultOption = {
   headers: {
@@ -8,24 +9,25 @@ const defaultOption = {
 };
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-  console.info(`[request] [${JSON.stringify(config)}]`);
+  LOG_TOGGLE && console.info(`[request] [${JSON.stringify(config)}]`);
 
   return config;
 };
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[request error] [${JSON.stringify(error)}]`);
+  LOG_TOGGLE && console.error(`[request error] [${JSON.stringify(error)}]`);
+
   return Promise.reject(error);
 };
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {
-  console.info(`[response] [${JSON.stringify(response)}]`);
+  LOG_TOGGLE && console.info(`[response] [${JSON.stringify(response)}]`);
 
   return response;
 };
 
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[response error] [${JSON.stringify(error)}]`);
+  LOG_TOGGLE && console.error(`[response error] [${JSON.stringify(error)}]`);
 
   return Promise.reject(error);
 };
