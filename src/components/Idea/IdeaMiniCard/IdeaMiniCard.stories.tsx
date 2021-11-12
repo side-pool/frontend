@@ -1,17 +1,14 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import IdeaMiniCard, {
-  IdeaMiniCardProps,
-} from '@src/components/Idea/IdeaMiniCard';
+import IdeaMiniCard from '@src/components/Idea/IdeaMiniCard';
+import { MiniIdea } from '@src/models';
 
 export default {
   title: 'Components/Idea Mini Card',
   component: IdeaMiniCard,
 } as Meta;
 
-const Template: Story<IdeaMiniCardProps> = (props) => (
-  <IdeaMiniCard {...props} />
-);
+const Template: Story<MiniIdea> = (props) => <IdeaMiniCard {...props} />;
 
 export const ideaMiniCard = Template.bind({});
 
