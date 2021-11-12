@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import IdeaCard from '@src/components/Idea/IdeaCard';
 import styles from './IdeaCardContainer.module.scss';
 import { useReadIdeas } from '@src/hooks/useIdeaQuery';
@@ -9,6 +9,7 @@ import useThrottle from '@src/hooks/useThrottle';
 
 const IdeaCardContainer = () => {
   const target = useRef<HTMLDivElement | null>(null);
+  const [page, setPage] = useState(0);
   const idea = useIdeaState();
   const {
     data: infiniteData,
@@ -20,7 +21,8 @@ const IdeaCardContainer = () => {
   } = useReadIdeas(idea);
 
   const handleInfiniteFetch = useThrottle(() => {
-    fetchNextPage();
+    fetchNextPage({ pageParam: page + 1 });
+    setPage(page + 1);
   }, 100);
 
   useIntersectionObserver({
