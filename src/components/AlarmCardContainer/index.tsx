@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useDeleteAlarm, useTurnToReadAlarm } from '@src/hooks/useMyPageQuery';
@@ -8,6 +8,16 @@ import IdeaModal from '@src/components/modals/IdeaModal';
 import { Alarm } from '@src/models';
 
 const AlarmCardContainer = (props: Alarm) => {
+  const id = useMemo(
+    () =>
+      Number(
+        props.endPoint
+          .replace('/v1/api/', '')
+          .replace('sides/', '')
+          .replace('ideas/', ''),
+      ),
+    [props],
+  );
   const {
     isModalVisible: isIdeaVisible,
     showModal: showIdea,
@@ -20,11 +30,10 @@ const AlarmCardContainer = (props: Alarm) => {
   const turnToReadAlarmMutation = useTurnToReadAlarm();
 
   const handleClick = () => {
-    console.log('in?');
     turnToReadAlarmMutation.mutate(props.id, {
       onSuccess: () => {
         if (props.postType === '사이드') {
-          return history.push(`/side/${props.id}`);
+          return history.push(`/side/${id}`);
         }
         return showIdea();
       },
@@ -38,7 +47,7 @@ const AlarmCardContainer = (props: Alarm) => {
         {...props}
       />
       {isIdeaVisible && props.id && (
-        <IdeaModal hideIdeaForm={hideIdea} id={props.id} />
+        <IdeaModal hideIdeaForm={hideIdea} id={id} />
       )}
     </div>
   );
