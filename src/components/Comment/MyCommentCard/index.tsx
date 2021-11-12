@@ -13,7 +13,7 @@ const MyCommentCard = ({ title, type, updatedDate, content }: MyComment) => {
           {title}
         </Typography>
         <Typography fontSize="xs" textColor="blueActive">
-          {type}
+          {type === 'SIDE' ? '사이드' : '아이디어 '}
         </Typography>
       </div>
       <div className={styles.myCommentBottomArea}>
