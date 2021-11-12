@@ -22,8 +22,8 @@ const AlarmCard = ({
 }: AlarmCardProps) => {
   return (
     <Card className={styles.AlarmCard} onClick={onClick}>
-      <div className={styles.topArea}>
-        <div className={styles.textArea}>
+      <div className={styles.alarmCardTopArea}>
+        <div className={styles.alarmCardTextArea}>
           <Typography
             className={styles.newCommentContainer}
             fontSize={'sm'}
@@ -41,7 +41,7 @@ const AlarmCard = ({
         </div>
         <Close className={cn(styles.closeIconContainer)} onClick={onClose} />
       </div>
-      <div className={styles.contentArea}>
+      <div className={styles.alarmCardContentArea}>
         <Typography
           className={styles.ellipse}
           textColor={'gray'}
