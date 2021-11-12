@@ -7,13 +7,13 @@
   cursor: default;
 
   &.gray {
-    background-color: #575757;
+    background-color: $gray_7;
   }
   &.orange {
-    background-color: #ff9900;
+    background-color: $orange;
   }
   &.beige {
-    background-color: #ffefd8;
+    background-color: $beige;
   }
   &.white {
     background-color: $white;
