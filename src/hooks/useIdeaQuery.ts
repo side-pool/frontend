@@ -16,7 +16,6 @@ export const useReadIdeas = (params: IdeaParams) => {
       const { data } = await getApiInstance().get<ReadIdeasData>(url, {
         params: {
           ...params,
-          isDone: false,
           page: pageParam,
           size: PAGE_SIZE,
         },
