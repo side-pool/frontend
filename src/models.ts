@@ -101,3 +101,15 @@ export type Alarm = {
 };
 
 export type AlarmData = Alarm[];
+
+export type MiniIdea = {
+  content: string;
+  createdDate?: string;
+  hashtags: string[];
+  id?: number;
+  isDone: boolean;
+  title: string;
+  updatedDate?: string;
+};
+
+export type MiniIdeaData = MiniIdea[];

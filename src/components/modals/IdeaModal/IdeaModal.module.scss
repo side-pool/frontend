@@ -1,0 +1,8 @@
+.IdeaModal {
+  @include modal_wrapper();
+
+  .IdeaCard {
+    z-index: $modal-depth;
+    position: relative;
+  }
+}

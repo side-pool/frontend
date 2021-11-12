@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useMutation } from 'react-query';
+import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
 import { Idea, ReadIdeasData } from '@src/models';
 import { IdeaParams } from '@src/store/ideaSlice';
 import { getApiInstance } from '@src/utils/context';
@@ -24,6 +24,9 @@ export const useReadIdeas = (params: IdeaParams) => {
     },
   );
 };
+
+export const useReadIdea = (id: number) =>
+  useQuery<Idea, unknown>([`/ideas/${id}`]);
 
 export const useCreateIdea = () => {
   return useMutation<string, unknown, CreateUpdateIdeaParam>(async (params) => {

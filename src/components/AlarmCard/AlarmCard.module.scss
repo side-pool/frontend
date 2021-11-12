@@ -10,16 +10,16 @@
     min-height: 100px;
     padding: 11px 21px;
 
-    .topArea {
+    .alarmCardTopArea {
       @include flex_row(space-between);
 
-      .textArea {
+      .alarmCardTextArea {
         @include flex_row();
         gap: 17px;
       }
     }
 
-    .contentArea {
+    .alarmCardContentArea {
       @include flex_col(space-between, flex-start);
       height: 40px;
 

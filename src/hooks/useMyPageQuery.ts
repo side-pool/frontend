@@ -1,10 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import { AlarmData } from '@src/models';
+import { AlarmData, MiniIdeaData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 
 export const useReadAlarm = () =>
   useQuery<AlarmData, AxiosError<unknown>>(['/notifications']);
+
+export const useReadMyIdea = () =>
+  useQuery<MiniIdeaData, AxiosError<unknown>>(['/me/ideas']);
 
 export const useDeleteAlarm = () => {
   const queryClient = useQueryClient();
