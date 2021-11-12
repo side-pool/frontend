@@ -14,6 +14,7 @@ import {
 } from '@src/hooks/useMyPageQuery';
 import AlarmCard from '@src/components/AlarmCard';
 import MyIdeaList from '@src/components/Idea/MyIdeaList';
+import MyCommentContainer from '@src/components/Comment/MyCommentContainer';
 
 interface MyPageProps {
   handleToTop?: () => void;
@@ -109,8 +110,9 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
           </div>
           {
             {
-              [MY_SIDE]: <SideList isMyPage />,
+              [MY_SIDE]: <SideList />,
               [MY_IDEA]: <MyIdeaList />,
+              [MY_COMMENT]: <MyCommentContainer />,
             }[currentTab]
           }
         </div>
