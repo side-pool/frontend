@@ -113,3 +113,5 @@ export type MiniIdea = {
 };
 
 export type MiniIdeaData = MiniIdea[];
+
+export type MyComment = Comment & { title: string; type: string };

@@ -65,7 +65,7 @@ const App = () => {
           <AuthRoute
             path="/mypage"
             isAuth={isAuth}
-            redirectPath="/"
+            redirectPath="/login"
             render={(props) => <MyPage {...props} handleToTop={handleToTop} />}
           />
         </div>
