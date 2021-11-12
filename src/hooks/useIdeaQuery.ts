@@ -10,6 +10,9 @@ type CreateUpdateIdeaParam = Pick<Idea, 'title' | 'content'> &
 export const useReadIdeas = (params: IdeaParams) =>
   useQuery<ReadIdeasData, AxiosError<unknown>>(['/ideas', params]);
 
+export const useReadIdea = (id: number) =>
+  useQuery<Idea, AxiosError<unknown>>([`/ideas/${id}`]);
+
 export const useCreateIdea = () => {
   return useMutation<string, unknown, CreateUpdateIdeaParam>(async (params) => {
     return await getApiInstance().post('/ideas', { ...params });
