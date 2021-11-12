@@ -62,9 +62,12 @@ const App = () => {
           <Route exact path="/side/edit/:id">
             <SideEditPage handleToTop={handleToTop} />
           </Route>
-          <Route exact path="/mypage">
-            <MyPage handleToTop={handleToTop} />
-          </Route>
+          <AuthRoute
+            path="/mypage"
+            isAuth={isAuth}
+            redirectPath="/"
+            render={(props) => <MyPage {...props} handleToTop={handleToTop} />}
+          />
         </div>
       </div>
     </Switch>
