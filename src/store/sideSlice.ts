@@ -28,7 +28,7 @@ const sideReducer = createSlice({
           sort,
           commentTag,
         },
-      }: PayloadAction<SideParams>,
+      }: PayloadAction<Partial<SideParams>>,
     ) => {
       if (category !== undefined) state.category = category;
       if (isRecruiting !== undefined) state.isRecruiting = isRecruiting;

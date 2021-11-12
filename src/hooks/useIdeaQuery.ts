@@ -8,27 +8,19 @@ type CreateUpdateIdeaParam = Pick<Idea, 'title' | 'content'> &
 
 export const useReadIdeas = (params: IdeaParams) => {
   const PAGE_SIZE = 5;
-  let page = 0;
 
   return useInfiniteQuery(
     ['/ideas', params] as const,
     async ({ queryKey: [url, params], pageParam = 0 }) => {
-      const { data } = await getApiInstance().get<ReadIdeasData>(url, {
+      const { data: page } = await getApiInstance().get<ReadIdeasData>(url, {
         params: {
           ...params,
-          isDone: false,
           page: pageParam,
           size: PAGE_SIZE,
         },
       });
-      // TODO: 마지막 페이지 체크
-      return data;
-    },
-    {
-      getNextPageParam: () => {
-        page += 1;
-        return page;
-      },
+
+      return page;
     },
   );
 };
