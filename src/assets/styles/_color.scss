@@ -1,4 +1,5 @@
 // Primary Blue
+$blue_0: #03a9f4;
 $blue_1: #f4f8ff;
 $blue_2: #c5e1ff;
 $blue_3: #92c7ff;
@@ -8,14 +9,26 @@ $blue_6: #0c6cd3;
 $blue_7: #004c9e;
 $blue_8: #003267;
 
+$blue_active: #004ce5;
+$primary_1: #4768eb;
+$primary_2: #6e85ef;
+$primary_3: #9ba7f3;
+$primary_4: #c4caf8;
+
+
 // Achromatic color
 $white: #fff;
 $black: #000;
 $gray_0: #f9f9fb;
+$gray_1: #fbfbfb;
+$gray_2: #f6f6f6;
+$gray_3: #e0e0e0;
 $gray_4: #cacacc;
+$gray_5: #c4c4c4;
 $gray_6: #888888;
-$gray_7: #575757;
+$gray_7: #303030;
 $gray_8: #15141a;
+
 
 // System Color
 $active_green: #69db7c;
@@ -24,13 +37,15 @@ $warning-red-1: #fff0ee;
 $warning-red-2: #f8d0d1;
 
 // Green
-$green: #34c759;
+$green_0: #8bc34a;
+$green_1: #34c759;
 $thumbs-green: #40c057;
 $text-green: #00a21d;
-
 $dark_green: #009688;
 
+
 // Red
+$red_0: #f44336;
 $red-5: #ff6b6b;
 $red-6: #fa5252;
 $red-7: #f03e3e;
@@ -39,37 +54,16 @@ $red-9: #c92a2a;
 $red-10: #a51111;
 
 // Pink
+$pink-0: #f06292;
 
 // Orange
 $orange-1: #ffece2;
 $interview-orange-7: #f38119;
 
+// Purple
+$purpe_0: #673ab7;
+
+
 // Refferal Color
 $referral-blue_1: #e8eff7;
 $referral-blue_7: #1864ab;
-
-// Fixed Color
-$blue_active: #004ce5;
-$gray_1: #fbfbfb;
-$gray_2: #f6f6f6;
-$gray_3: #e0e0e0;
-$gray_5: #c4c4c4;
-$gray_6: #888;
-$gray_7: #303030;
-
-$primary_1: #4768eb;
-$primary_2: #6e85ef;
-$primary_3: #9ba7f3;
-$primary_4: #c4caf8;
-
-// dropdown
-$pink-0: #f06292;
-$red_0: #f44336;
-$blue_0: #03a9f4;
-$purpe_0: #673ab7;
-$green_0: #8bc34a;
-$dark_green: #009688;
-
-
-$orange: #ff9900;
-$beige: #ffefd8;

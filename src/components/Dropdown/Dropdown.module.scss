@@ -1,7 +1,7 @@
 .Dropdown {
   position: relative;
-
   cursor: pointer;
+  @include no-drag();
   
   .DropdownButton {
     @include flex_row(space-between);
@@ -12,7 +12,6 @@
     border: 1px solid $gray_3;
     box-sizing: border-box;
     border-radius: 15px;
-
     padding: 0px 8px 0px 14px;
 
     .Typography {

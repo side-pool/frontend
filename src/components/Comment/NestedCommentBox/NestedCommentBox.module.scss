@@ -11,6 +11,9 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        .commentTag {
+          margin-left: 5px;
+        }
       }
       .topRightArea {
         display: flex;

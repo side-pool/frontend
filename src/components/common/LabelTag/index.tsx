@@ -9,19 +9,29 @@ export interface LabelTagProps
   extends HTMLAttributes<
     HTMLDivElement | HTMLSpanElement | HTMLHeadingElement
   > {
-  wrapperColor?: 'gray' | 'orange' | 'beige' | 'white';
+  wrapperColor?:
+    | 'gray'
+    | 'orange'
+    | 'beige'
+    | 'white'
+    | 'pink'
+    | 'red'
+    | 'blue'
+    | 'purple'
+    | 'green'
+    | 'darkGreen';
   textColor?: 'white' | 'orange' | 'green';
   isDeleteButton?: boolean;
 }
 
-function LabelTag({
+const LabelTag = ({
   children,
   wrapperColor = 'gray',
   textColor = 'white',
   className,
   isDeleteButton = false,
   ...props
-}: LabelTagProps) {
+}: LabelTagProps) => {
   return (
     <div
       className={cn(
@@ -39,6 +49,40 @@ function LabelTag({
       )}
     </div>
   );
+};
+
+export const HashTag = ({ ...props }: LabelTagProps) => (
+  <LabelTag {...props} className="hashTag" />
+);
+
+const commentTagInfos = [
+  { desc: '칭찬', wrapperColor: 'pink' },
+  { desc: '버그 제보', wrapperColor: 'red' },
+  { desc: '개발 피드백', wrapperColor: 'blue' },
+  { desc: '디자인 피드백', wrapperColor: 'purple' },
+  { desc: '기획 피드백', wrapperColor: 'green' },
+  { desc: '팀 빌딩 관련', wrapperColor: 'darkGreen' },
+] as const;
+
+interface CommentTagProps {
+  commentTag: number;
 }
+
+export const CommentTag = ({ commentTag, ...props }: CommentTagProps) => {
+  const commentTagInfo = commentTagInfos[commentTag];
+
+  return (
+    <>
+      <LabelTag
+        wrapperColor={commentTagInfo.wrapperColor}
+        textColor="white"
+        className="commentTag"
+        {...props}
+      >
+        {commentTagInfo.desc}
+      </LabelTag>
+    </>
+  );
+};
 
 export default LabelTag;

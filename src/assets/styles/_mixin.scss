@@ -68,6 +68,14 @@ $mobile: 'screen and (max-width: 758px)';
   }
 }
 
+@mixin no-drag {
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select:none;
+}
+
 // * $bgc: background-color (e.g. #fff)
 // * $fc: font-color (e.g. #111)
 // * $dis-bgc: disabled background-color
