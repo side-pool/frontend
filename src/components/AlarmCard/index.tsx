@@ -18,11 +18,15 @@ const AlarmCard = ({
   postType,
   title,
   content,
+  read,
   onClose,
   onClick,
 }: AlarmCardProps) => {
   return (
-    <Card className={styles.AlarmCard} onClick={onClick}>
+    <Card
+      className={cn(styles.AlarmCard, read && styles.alarmCardIsRead)}
+      onClick={onClick}
+    >
       <div className={styles.alarmCardTopArea}>
         <div className={styles.alarmCardTextArea}>
           <Typography
