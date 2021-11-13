@@ -91,10 +91,10 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
                 setIdea({
                   sort: `createdDate,${
                     sort?.includes('favoriteCount')
-                      ? 'asc'
-                      : sort?.includes('asc')
                       ? 'desc'
-                      : 'asc'
+                      : sort?.includes('desc')
+                      ? 'asc'
+                      : 'desc'
                   }`,
                 }),
               )
@@ -112,10 +112,10 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
                 setIdea({
                   sort: `favoriteCount,${
                     sort?.includes('createdDate')
-                      ? 'asc'
-                      : sort?.includes('asc')
                       ? 'desc'
-                      : 'asc'
+                      : sort?.includes('desc')
+                      ? 'asc'
+                      : 'desc'
                   }`,
                 }),
               )

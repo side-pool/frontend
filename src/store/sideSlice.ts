@@ -8,7 +8,7 @@ const initialState: SideParams = {
   isRecruiting: false,
   page: 0,
   size: 0,
-  sort: 'createdDate,asc',
+  sort: 'createdDate,desc',
   commentTag: 0,
 };
 
