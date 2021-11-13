@@ -14,6 +14,8 @@ import Typography from '@src/components/common/Typography';
 import { setIdea, useAppDispatch, useIdeaState } from '@src/store';
 import Input from '@src/components/common/Input';
 import { useQueryClient } from 'react-query';
+import HashTagBanner from '@src/components/HashTagBanner';
+import { useGetHashTags } from '@src/hooks/useHashTagQuery';
 
 const IDEA_URL = '/ideas';
 
@@ -27,6 +29,7 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
   const { isDone, sort } = useIdeaState();
   const dispatch = useAppDispatch();
   const { data: isAuth } = useAuth();
+  const { data: hashTagInfos, isSuccess: isHashTagSuccess } = useGetHashTags();
 
   const {
     isModalVisible: isAlertVisible,
@@ -78,8 +81,9 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
             />
           </div>
         </div>
-        <div className={styles.banner} />
-
+        {isHashTagSuccess && (
+          <HashTagBanner hashTagInfos={hashTagInfos ?? []} />
+        )}
         <div className={styles.filterArea}>
           <Sort />
           <Typography
