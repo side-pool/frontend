@@ -60,12 +60,16 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
           <IsDoneTag isDone={idea.isDone} />
           {isMySide && (
             <div className={styles.ideaMaintopButtonContainer}>
-              <Button variant="text" labelText="수정" onClick={showIdeaForm} />
+              <Button
+                variant="text"
+                labelText="수정"
+                onClick={() => showIdeaForm()}
+              />
               <Button
                 variant="text"
                 labelText="삭제"
                 onClick={() =>
-                  deleteIdeaMutation.mutate(idea.id, {
+                  deleteIdeaMutation.mutate(String(idea.id), {
                     onSuccess: () => showAlert(GuideText.DELETE_SUCCESS),
                     onError: () => showAlert(GuideText.ERROR),
                   })

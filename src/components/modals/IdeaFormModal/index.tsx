@@ -24,7 +24,7 @@ export interface IdeaFormModalProps {
     content: string;
     hashtags: string[];
   };
-  id: number;
+  id?: number;
 }
 
 const Template = ({
@@ -55,7 +55,7 @@ const Template = ({
   }, []);
 
   const createIdeaMutation = useCreateIdea();
-  const updateIdeaMutation = useUpdateIdea(id);
+  const updateIdeaMutation = useUpdateIdea(id || 0);
 
   const onKeyUp = useCallback(
     (e) => {
