@@ -137,9 +137,9 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
     createSideMutation.mutate(params, {
       onSuccess: async () => {
         await dispatch(setInitSide());
-        queryClient.invalidateQueries('/sides');
+        queryClient.removeQueries('/sides');
 
-        history.push('side');
+        history.push('/side');
       },
       // TODO: 추후 타입 정의
       onError: (e: any) => {
