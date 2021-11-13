@@ -24,6 +24,7 @@ export interface IdeaFormModalProps {
     content: string;
     hashtags: string[];
   };
+  id: number;
 }
 
 const Template = ({
@@ -36,6 +37,7 @@ const Template = ({
     content: '',
     hashtags: [],
   },
+  id,
 }: IdeaFormModalProps) => {
   const titleRef = useRef({} as ParentRef);
   const contentRef = useRef({} as TextareaParentRef);
@@ -53,7 +55,7 @@ const Template = ({
   }, []);
 
   const createIdeaMutation = useCreateIdea();
-  const updateIdeaMutation = useUpdateIdea();
+  const updateIdeaMutation = useUpdateIdea(id);
 
   const onKeyUp = useCallback(
     (e) => {
