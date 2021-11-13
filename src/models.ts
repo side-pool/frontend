@@ -86,7 +86,13 @@ export type SideParams = {
   commentTag: number;
 };
 
+export type SideComment = Omit<Comment, 'ideaId'> & {
+  commentTag?: number;
+  sideId: number;
+};
+
 export type ReadSidesData = Side[];
+export type ReadSidesCommentData = SideComment[];
 
 export type Alarm = {
   content: string;
