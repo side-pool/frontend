@@ -63,7 +63,7 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
         // TODO: 타입 추후 정의
         (lists as any)?.reduce(
           (acc: Partial<DropdownEach>[], cur: ListsEachObject | string) => {
-            if (cur.hasOwnProperty('id')) {
+            if (title === 'skill' || title === 'organization') {
               // skill, organization 확인
               const { name, id: curId } = cur as ListsEachObject;
 
@@ -81,6 +81,7 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
 
             // category
             const curSideList = side[title] as string[];
+
             return [
               ...acc,
               {
@@ -93,7 +94,7 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
           [],
         ),
       ),
-    [lists],
+    [side],
   );
 
   const handleCheckSelected = (e: ChangeEvent<HTMLInputElement>) => {
@@ -105,15 +106,19 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
         const id = e.target.id;
         const curId = String(each.id);
 
-        if (curId == id) {
+        if (curId === id) {
           if (each.checked) {
             dispatch(
               setSide({
-                [title]: curSideList.filter((each) => each !== id),
+                [title]: curSideList.filter((each) => String(each) !== id),
               }),
             );
           } else {
-            dispatch(setSide({ [title]: [...curSideList, id] }));
+            if (title === 'category') {
+              dispatch(setSide({ [title]: [...curSideList, id] }));
+            } else {
+              dispatch(setSide({ [title]: [...curSideList, Number(id)] }));
+            }
           }
 
           return {
