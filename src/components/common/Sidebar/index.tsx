@@ -57,16 +57,36 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
         </div>
         <div className={styles.downArea}>
           {isAuth && (
-            <Button
-              variant="text"
-              onClick={() => {
-                logout();
-              }}
-            >
-              <Typography fontSize="sm" fontWeight="regular" textColor="black">
-                로그아웃
-              </Typography>
-            </Button>
+            <div className={styles.authButton}>
+              <Button
+                variant="text"
+                onClick={() => {
+                  history.push('/mypage');
+                }}
+              >
+                <Typography
+                  fontSize="sm"
+                  fontWeight="regular"
+                  textColor="black"
+                >
+                  마이페이지
+                </Typography>
+              </Button>
+              <Button
+                variant="text"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                <Typography
+                  fontSize="sm"
+                  fontWeight="regular"
+                  textColor="black"
+                >
+                  로그아웃
+                </Typography>
+              </Button>
+            </div>
           )}
           {!isAuth && (
             <div className={styles.authButton}>
