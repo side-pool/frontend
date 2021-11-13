@@ -1,0 +1,10 @@
+.SideMiddleSection {
+  border-bottom: 0.5px solid $gray_3;
+  .buttonContainer {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: 12px;
+  }
+
+}
