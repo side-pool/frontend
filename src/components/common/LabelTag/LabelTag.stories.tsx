@@ -1,6 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import LabelTag, { LabelTagProps } from '@src/components/common/LabelTag';
+import LabelTag, {
+  CommentTag,
+  HashTag,
+  LabelTagProps,
+} from '@src/components/common/LabelTag';
 
 export default {
   title: 'Common/LabelTag',
@@ -31,9 +35,28 @@ export const LabelTags = () => {
       <LabelTag wrapperColor="orange" textColor="white">
         해결되었어요
       </LabelTag>
-      <LabelTag wrapperColor="gray" textColor="white">
+      <HashTag wrapperColor="gray" textColor="white">
         # 해시태그
-      </LabelTag>
+      </HashTag>
+    </div>
+  );
+};
+
+export const CommentTags = () => {
+  const style = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 'fit-content',
+  };
+
+  return (
+    <div style={style}>
+      {Array(6)
+        .fill(0)
+        .map((_, i) => (
+          <CommentTag key={i} commentTag={i} />
+        ))}
     </div>
   );
 };

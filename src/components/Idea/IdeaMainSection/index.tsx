@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@src/components/common/Button';
-import LabelTag from '@src/components/common/LabelTag';
+import LabelTag, { HashTag } from '@src/components/common/LabelTag';
 import Typography from '@src/components/common/Typography';
 import Author from '@src/components/common/Author';
 import { getDiffTime } from '@src/utils/common';
@@ -59,7 +59,7 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
       />
       <div className={styles.labelArea}>
         {idea.hashtags.map((tag, index) => (
-          <LabelTag key={index}>{`# ${tag}`}</LabelTag>
+          <HashTag key={index}>{`# ${tag}`}</HashTag>
         ))}
       </div>
     </section>

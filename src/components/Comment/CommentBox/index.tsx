@@ -7,10 +7,12 @@ import Button, { NestedCommentToggleBtn } from '@src/components/common/Button';
 import cn from 'classnames';
 import { Comment } from '@src/models';
 import Input from '@src/components/common/Input';
+import { SideComment } from '@src/models';
+import { CommentTag } from '@src/components/common/LabelTag';
 
 export interface CommentBoxProps {
   // 서버에서 패치받은 데이터
-  comment: Comment;
+  comment: Comment | SideComment;
   isMine: boolean;
   // UI 조작을 위한 데이터
   isNestedOpened: boolean;
@@ -23,6 +25,8 @@ export interface CommentBoxProps {
   clickDeleteBtn: () => void;
   clickCancelUpdateBtn: () => void;
   clickCompleteUpdateBtn: () => void;
+  /// side 의 commentTag
+  commentTag?: number | null;
 }
 
 const CommentBox = ({
@@ -37,6 +41,7 @@ const CommentBox = ({
   clickDeleteBtn,
   clickCancelUpdateBtn,
   clickCompleteUpdateBtn,
+  commentTag = null,
 }: CommentBoxProps) => {
   // TODO: 리팩터링
 
@@ -51,6 +56,7 @@ const CommentBox = ({
               oldDate: new Date(comment.updatedDate),
             })}
           </Typography>
+          {commentTag !== null && <CommentTag commentTag={commentTag} />}
         </div>
         <div className={styles.topRightArea}>
           <NestedCommentToggleBtn

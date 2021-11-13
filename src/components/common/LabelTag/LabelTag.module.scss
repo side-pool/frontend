@@ -1,4 +1,5 @@
 .LabelTag {
+  @include no-drag();
   @include flex_row();
   width: fit-content;
   padding: 0px 13px;
@@ -6,6 +7,9 @@
   height: 17px;
   cursor: default;
 
+  &.hashTag {
+    cursor: pointer;
+  }
   &.gray {
     background-color: #575757;
   }
@@ -19,6 +23,25 @@
     background-color: $white;
     border: 1px solid $dark_green;
   }
+  &.pink {
+    background-color: $pink_0;
+  }
+  &.red {
+    background-color: $red_0;
+  }
+  &.blue {
+    background-color: $blue_0;
+  }
+  &.purple {
+    background-color: $purpe_0;
+  }
+  &.green {
+    background-color: $green_0;
+  }
+  &.darkGreen {
+    background-color: $dark_green;
+  }
+
 
   & + & {
     margin-left: 10px;

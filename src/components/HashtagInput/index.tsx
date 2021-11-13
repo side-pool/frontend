@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
 
 import cn from 'classnames';
-import LabelTag from '@src/components/common/LabelTag';
+import { HashTag } from '@src/components/common/LabelTag';
 import styles from './HashtagInput.module.scss';
 
 export interface Hashtag {
@@ -26,9 +26,9 @@ const HashtagInput = ({
     <div className={cn(styles.HashtagInput, maxWidth && styles.maxWidth)}>
       <div className={styles.tagContainer}>
         {hashtagArr.map(({ id, content }) => (
-          <LabelTag key={id} isDeleteButton onClick={() => deleteHashtag(id)}>
+          <HashTag key={id} isDeleteButton onClick={() => deleteHashtag(id)}>
             {content}
-          </LabelTag>
+          </HashTag>
         ))}
       </div>
       <input className={styles.inputArea} {...restProps} />
