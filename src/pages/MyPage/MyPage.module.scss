@@ -12,8 +12,6 @@
     .topArea {
       position: relative;
 
-      z-index: 100;
-
       @include flex_row(space-between);
       width: 100%;
 
