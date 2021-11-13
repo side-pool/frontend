@@ -10,6 +10,7 @@ import Button from '@src/components/common/Button';
 import styles from './Sidebar.module.scss';
 import { useAuth } from '@src/hooks/useUserQuery';
 import { useLogout } from '@src/hooks/useAuthQuery';
+import { useReadAlarm } from '@src/hooks/useMyPageQuery';
 export interface SidebarProps {
   className?: string;
   pathname: string;
@@ -17,7 +18,14 @@ export interface SidebarProps {
 
 export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
+
+  const { data } = useReadAlarm();
   const { data: isAuth } = useAuth();
+
+  const isNotificationExist = useMemo(
+    () => data?.some(({ read }) => !read),
+    [data],
+  );
 
   const [logout] = useLogout(() => {
     history.push('/idea');
@@ -71,6 +79,9 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
                 >
                   마이페이지
                 </Typography>
+                {isNotificationExist && (
+                  <div className={styles.isNotificationExist} />
+                )}
               </Button>
               <Button
                 variant="text"
