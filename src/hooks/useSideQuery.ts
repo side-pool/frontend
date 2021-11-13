@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { ReadSidesData, SideParams } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
+import { SideComment } from '@src/models';
 
 export type CreateSideParams = {
   categoryNames: string[];
@@ -34,18 +35,18 @@ export type ReadSideParams = {
   categories: string[];
   logoUrl: string;
   organizations: {
-    id: string;
+    id: number;
     name: string;
   }[];
   skills: {
-    id: string;
+    id: number;
     name: string;
   }[];
   githubLink: string;
   serviceLink: string;
   recruiting: false;
   favoriteCount: 0;
-  comments: [];
+  comments: SideComment[];
   isFavorite: false;
 };
 
@@ -80,7 +81,7 @@ export const useCreateSide = () => {
   );
 };
 
-export const useUpdateSide = (id: string) => {
+export const useUpdateSide = (id: number) => {
   return useMutation<string, AxiosError<{ error: string }>, CreateSideParams>(
     async (params) => {
       return await getApiInstance().put(`/sides/${id}`, { ...params });
@@ -88,22 +89,22 @@ export const useUpdateSide = (id: string) => {
   );
 };
 
-export const useReadSideDetail = (id: string) =>
+export const useReadSideDetail = (id: number) =>
   useQuery<ReadSideParams, AxiosError<unknown>>(`/sides/${id}/without-auth`);
 
 export const useDeleteSide = () => {
-  return useMutation<string, AxiosError<{ error: string }>, string>(
+  return useMutation<string, AxiosError<{ error: string }>, number>(
     async (id) => {
       return await getApiInstance().delete(`/sides/${id}`);
     },
   );
 };
 
-export const useIsMySide = (id: string) => {
+export const useIsMySide = (id: number) => {
   const { data: isAuth } = useAuth();
   const { data } = useGetUser(isAuth ?? false);
 
-  return data?.id.toString() === id;
+  return data?.id === id;
 };
 
 export const useReadMySides = () =>

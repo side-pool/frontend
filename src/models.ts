@@ -72,12 +72,12 @@ export type Side = {
 
 export type SideParams = {
   category: string[];
+  organization: number[];
+  skill: number[];
   isRecruiting: boolean;
-  organization: string[];
   page: number;
   search: string[];
   size: number;
-  skill: string[];
   sort:
     | 'createdDate,asc'
     | 'favoriteCount,asc'
@@ -86,7 +86,13 @@ export type SideParams = {
   commentTag: number;
 };
 
+export type SideComment = Omit<Comment, 'ideaId'> & {
+  commentTag?: number;
+  sideId: number;
+};
+
 export type ReadSidesData = Side[];
+export type ReadSidesCommentData = SideComment[];
 
 export type Alarm = {
   content: string;

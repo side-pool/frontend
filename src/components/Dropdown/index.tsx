@@ -15,7 +15,7 @@ import { SideParams } from '@src/models';
 
 export type ListsEachObject = {
   name: string;
-  id: string;
+  id: number;
 };
 
 export interface DropdownProps {
@@ -23,17 +23,21 @@ export interface DropdownProps {
   title: keyof Pick<SideParams, 'category' | 'organization' | 'skill'>;
 }
 
+// TODO: number, string 문제 해결하기, DropdownLists
 export interface DropdownEach {
   name: string;
-  id: string;
+  id: number | string;
   checked: boolean;
 }
 
+// TODO 제네릭으로 해결
+// category, skill, organization 하나씩
+// title 은 확인용
 const Dropdown = ({ lists = [], title }: DropdownProps) => {
   const dispatch = useAppDispatch();
   const side = useSideState();
   const [open, setOpen] = useState(false);
-  const [dropdwonLists, setDropdwonLists] = useState<DropdownEach[]>([]);
+  const [dropdwonLists, setDropdownLists] = useState<DropdownEach[]>([]);
 
   const wrapperRef = useRef<HTMLInputElement>(null);
   const isChecked = useMemo(
@@ -55,29 +59,34 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
 
   useEffect(
     () =>
-      setDropdwonLists(() =>
+      setDropdownLists(() =>
         // TODO: 타입 추후 정의
         (lists as any)?.reduce(
           (acc: Partial<DropdownEach>[], cur: ListsEachObject | string) => {
             if (cur.hasOwnProperty('id')) {
-              const { name, id } = cur as ListsEachObject;
+              // skill, organization 확인
+              const { name, id: curId } = cur as ListsEachObject;
+
+              const curSideList = side[title] as number[];
 
               return [
                 ...acc,
                 {
                   name: name,
-                  id: id,
-                  checked: side[title]?.includes(id),
+                  id: curId,
+                  checked: curSideList.includes(curId),
                 },
               ];
             }
 
+            // category
+            const curSideList = side[title] as string[];
             return [
               ...acc,
               {
                 name: cur,
                 id: cur,
-                checked: side[title]?.includes(cur as string),
+                checked: curSideList.includes(cur as string),
               },
             ];
           },
@@ -88,15 +97,23 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
   );
 
   const handleCheckSelected = (e: ChangeEvent<HTMLInputElement>) => {
-    setDropdwonLists((prev) =>
+    setDropdownLists((prev) =>
       prev.map((each: DropdownEach) => {
-        const datas = side[title] || [];
-        const id = e.target.id.toString();
-        if (each.id == id) {
+        const curSideList = (side[title] as any[]) || [];
+
+        // category, skill은 numeric
+        const id = e.target.id;
+        const curId = String(each.id);
+
+        if (curId == id) {
           if (each.checked) {
-            dispatch(setSide({ [title]: datas.filter((each) => each !== id) }));
+            dispatch(
+              setSide({
+                [title]: curSideList.filter((each) => each !== id),
+              }),
+            );
           } else {
-            dispatch(setSide({ [title]: [...datas, id] }));
+            dispatch(setSide({ [title]: [...curSideList, id] }));
           }
 
           return {
