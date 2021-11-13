@@ -37,7 +37,9 @@ interface SideEditPageProps {
 const SideEditPage = ({ handleToTop }: SideEditPageProps) => {
   const history = useHistory();
 
-  const { id }: { id: string } = useParams();
+  const { id: paramId }: { id: string } = useParams();
+  const id = Number(paramId);
+
   const { data } = useReadSideDetail(id);
   const { data: githubData } = useReadGithubInfo(
     data?.githubLink?.replace('https://github.com/', '') || '',

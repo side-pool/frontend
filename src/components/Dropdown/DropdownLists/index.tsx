@@ -31,7 +31,7 @@ const DropdownLists = ({ dropdwonLists, ...props }: DropdownListsProps) => {
                   type="checkbox"
                   className={styles.checkbox}
                   checked={checked}
-                  id={id}
+                  id={String(id)}
                   {...props}
                 />
                 <span className={styles.checkmark} />

@@ -72,12 +72,12 @@ export type Side = {
 
 export type SideParams = {
   category: string[];
+  organization: number[];
+  skill: number[];
   isRecruiting: boolean;
-  organization: string[];
   page: number;
   search: string[];
   size: number;
-  skill: string[];
   sort:
     | 'createdDate,asc'
     | 'favoriteCount,asc'
