@@ -30,7 +30,7 @@ import {
 import LabelTag from '@src/components/common/LabelTag';
 import { GuideText } from '@src/constant/enums';
 import SideMiddleSection from '@src/pages/SideReadPage/SideMiddleSection';
-import SideBottomSection from 'src/pages/SideReadPage/SideBottomSection';
+import SideBottomSection from '@src/pages/SideReadPage/SideBottomSection';
 
 interface SideReadProps {
   handleToTop?: () => void;
