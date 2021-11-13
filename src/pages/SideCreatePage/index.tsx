@@ -247,7 +247,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
           </div>
         </div>
         <div className={styles.summary}>
-          {(readme?.data as string) ? (
+          {(readme?.data as string) && (
             <Editor
               ref={editorRef}
               initialValue={readme?.data as string}
@@ -255,7 +255,8 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
               height="660px"
               initialEditType="markdown"
             />
-          ) : (
+          )}
+          {!readme && (
             <Editor
               ref={editorRef}
               previewStyle="vertical"
