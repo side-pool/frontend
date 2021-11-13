@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import Masonry from 'react-masonry-css';
 
 import styles from './SideList.module.scss';
-import { useReadSides, useReadMySides } from '@src/hooks/useSideQuery';
+import { useReadSides } from '@src/hooks/useSideQuery';
 import Spinner from '@src/components/common/Spinner';
 import SideCard from '@src/components//SideCard';
 import { useSideState } from '@src/store';
@@ -16,11 +16,7 @@ const BREAKPOINT_COLS = {
   1100: 1,
 };
 
-interface SideListProps {
-  isMyPage?: boolean;
-}
-
-const SideList = ({ isMyPage = false }: SideListProps) => {
+const SideList = () => {
   const target = useRef<HTMLDivElement | null>(null);
   const [page, setPage] = useState(0);
   const side = useSideState();

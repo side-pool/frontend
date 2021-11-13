@@ -7,13 +7,10 @@ import React, { useState } from 'react';
 import styles from './MyPage.module.scss';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
 import SideList from '@src/components/SideList';
-import {
-  useDeleteAlarm,
-  useReadAlarm,
-  useTurnToReadAlarm,
-} from '@src/hooks/useMyPageQuery';
-import AlarmCard from '@src/components/AlarmCard';
+import { useReadAlarm } from '@src/hooks/useMyPageQuery';
 import MyIdeaList from '@src/components/Idea/MyIdeaList';
+import MyCommentList from '@src/components/Comment/MyCommentList';
+import AlarmCardContainer from '@src/components/AlarmCardContainer';
 
 interface MyPageProps {
   handleToTop?: () => void;
@@ -30,9 +27,6 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
   const { data } = useGetUser(isAuth ?? false);
 
   const { data: alarmData } = useReadAlarm();
-
-  const deleteAlarmMutation = useDeleteAlarm();
-  const turnToReadAlarmMutation = useTurnToReadAlarm();
 
   return (
     <div className={styles.MyPage}>
@@ -61,15 +55,8 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
               </Typography>
             </div>
             <div className={styles.alarmCardArea}>
-              {alarmData?.map(({ id, postType, title, content }) => (
-                <AlarmCard
-                  key={id}
-                  postType={postType}
-                  title={title}
-                  content={content}
-                  onClick={() => turnToReadAlarmMutation.mutate(id)}
-                  onClose={() => deleteAlarmMutation.mutate(id)}
-                />
+              {alarmData?.map((props) => (
+                <AlarmCardContainer key={props.id} {...props} />
               ))}
             </div>
           </div>
@@ -109,8 +96,9 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
           </div>
           {
             {
-              [MY_SIDE]: <SideList isMyPage />,
+              [MY_SIDE]: <SideList />,
               [MY_IDEA]: <MyIdeaList />,
+              [MY_COMMENT]: <MyCommentList />,
             }[currentTab]
           }
         </div>

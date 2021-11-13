@@ -6,8 +6,12 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-function Card({ children, className }: CardProps) {
-  return <div className={cn(styles.Card, className)}>{children}</div>;
+function Card({ children, className, ...props }: CardProps) {
+  return (
+    <div className={cn(styles.Card, className)} {...props} aria-hidden>
+      {children}
+    </div>
+  );
 }
 
 export default Card;

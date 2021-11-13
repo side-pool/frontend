@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import { AlarmData, MiniIdeaData } from '@src/models';
+import { AlarmData, MiniIdeaData, MyComment } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 
 export const useReadAlarm = () =>
@@ -8,6 +8,9 @@ export const useReadAlarm = () =>
 
 export const useReadMyIdea = () =>
   useQuery<MiniIdeaData, AxiosError<unknown>>(['/me/ideas']);
+
+export const useReadMyComment = () =>
+  useQuery<MyComment[], AxiosError<unknown>>(['/me/comments']);
 
 export const useDeleteAlarm = () => {
   const queryClient = useQueryClient();
@@ -22,7 +25,15 @@ export const useDeleteAlarm = () => {
   );
 };
 
-export const useTurnToReadAlarm = () =>
-  useMutation<void, AxiosError<unknown>, number>((id) =>
-    getApiInstance().put(`/notifications/${id}`),
+export const useTurnToReadAlarm = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, AxiosError<unknown>, number>(
+    (id) => getApiInstance().put(`/notifications/read/${id}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(`/notifications`);
+      },
+    },
   );
+};

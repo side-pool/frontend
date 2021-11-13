@@ -104,6 +104,7 @@ export type Alarm = {
   read: boolean;
   title: string;
   updatedDate: string;
+  postId: number;
 };
 
 export type AlarmData = Alarm[];
@@ -120,4 +121,8 @@ export type MiniIdea = {
 
 export type MiniIdeaData = MiniIdea[];
 
-export type MyComment = Comment & { title: string; type: string };
+export type MyComment = Comment & {
+  title: string;
+  type: string;
+  postId: number;
+};

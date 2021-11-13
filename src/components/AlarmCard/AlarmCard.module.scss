@@ -1,4 +1,8 @@
 .AlarmCard {
+  &.alarmCardIsRead {
+    opacity: 0.5;
+  }
+
   @include hover_animation;
 
   cursor: pointer;
