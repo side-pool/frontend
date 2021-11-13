@@ -1,4 +1,9 @@
-import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query';
 import { Idea, ReadIdeasData } from '@src/models';
 import { IdeaParams } from '@src/store/ideaSlice';
 import { getApiInstance } from '@src/utils/context';
@@ -34,16 +39,32 @@ export const useCreateIdea = () => {
   });
 };
 
-export const useUpdateIdea = () => {
+export const useUpdateIdea = (id: number) => {
+  const queryClient = useQueryClient();
+
   return useMutation<unknown, unknown, CreateUpdateIdeaParam>(
     async (params) => {
-      return await getApiInstance().put('/ideas', { ...params });
+      return await getApiInstance().put(`/ideas/${id}`, { ...params });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('/ideas');
+      },
     },
   );
 };
 
 export const useDeleteIdea = () => {
-  return useMutation<unknown, unknown, string>(async (id) => {
-    return await getApiInstance().delete(`/ideas/${id}`);
-  });
+  const queryClient = useQueryClient();
+
+  return useMutation<unknown, unknown, string>(
+    async (id) => {
+      return await getApiInstance().delete(`/ideas/${id}`);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('/ideas');
+      },
+    },
+  );
 };
