@@ -74,4 +74,30 @@ export const useReadReadme = (full_name: string, default_branch: string) =>
       refetchOnWindowFocus: false,
       retry: false,
     },
+    {
+      queryKey: `https://raw.githubusercontent.com/${full_name}/${default_branch}/docs/README.md`,
+      queryFn: async () => {
+        const { data } = await axios.get(
+          `https://raw.githubusercontent.com/${full_name}/${default_branch}/docs/README.md`,
+        );
+
+        return data;
+      },
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+    {
+      queryKey: `https://raw.githubusercontent.com/${full_name}/${default_branch}/docs/readme.md`,
+      queryFn: async () => {
+        const { data } = await axios.get(
+          `https://raw.githubusercontent.com/${full_name}/${default_branch}/docs/readme.md`,
+        );
+
+        return data;
+      },
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
   ]).filter((each) => each.status === 'success')[0];
