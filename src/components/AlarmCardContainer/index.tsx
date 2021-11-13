@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useDeleteAlarm, useTurnToReadAlarm } from '@src/hooks/useMyPageQuery';
