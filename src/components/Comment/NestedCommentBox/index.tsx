@@ -5,11 +5,11 @@ import styles from './NestedCommentBox.module.scss';
 import Typography from '@src/components/common/Typography';
 import { getDiffTime } from '@src/utils/common';
 import Button from '@src/components/common/Button';
-import { Comment } from '@src/models';
+import { Comment, SideComment } from '@src/models';
 import Input from '@src/components/common/Input';
 
 export interface NestedCommentBoxProps {
-  nestedComment: Comment;
+  nestedComment: Comment | SideComment;
   isMine: boolean;
   clickUpdateBtn: () => void;
   clickDeleteBtn: () => void;
