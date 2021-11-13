@@ -29,14 +29,15 @@ import {
 
 import LabelTag from '@src/components/common/LabelTag';
 import { GuideText } from '@src/constant/enums';
-import { useAppDispatch } from '@src/store';
+import SideMiddleSection from '@src/pages/SideReadPage/SideMiddleSection';
+import SideBottomSection from 'src/pages/SideReadPage/SideBottomSection';
 
 interface SideReadProps {
   handleToTop?: () => void;
 }
 
 type ContributorsType = {
-  id: string;
+  id: number;
   html_url: string;
   avatar_url: string;
   login: string;
@@ -45,7 +46,9 @@ type ContributorsType = {
 const SideReadPage = ({ handleToTop }: SideReadProps) => {
   const history = useHistory();
 
-  const { id }: { id: string } = useParams();
+  const { id: paramId }: { id: string } = useParams();
+  const id = Number(paramId);
+
   const { data } = useReadSideDetail(id);
   const { data: githubData } = useReadGithubInfo(
     data?.githubLink?.replace('https://github.com/', '') ?? '',
@@ -54,7 +57,7 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
     githubData?.contributors_url ?? '',
   );
 
-  const isMySide = useIsMySide(data?.author?.id.toString() ?? '');
+  const isMySide = useIsMySide(data?.author?.id ?? 0);
 
   const deleteSideMutation = useDeleteSide();
 
@@ -89,6 +92,7 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
   return (
     <div className={styles.SideReadPage}>
       <div className={styles.sideCardContainer}>
+        {/* side main section */}
         <div className={styles.topArea}>
           <Typography fontSize="xxl" fontWeight="bold">
             사이드
@@ -100,7 +104,6 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
             </div>
           )}
         </div>
-
         <div className={styles.title}>
           <Typography fontSize="xxl" fontWeight="bold" lineHeight="wider">
             {data?.title}
@@ -217,6 +220,8 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
             <Viewer ref={editorRef} initialValue={data?.detail} />
           )}
         </div>
+        <SideMiddleSection sideId={id} />
+        <SideBottomSection sideId={id} />
       </div>
       <Button
         className={styles.scrollTopButton}
