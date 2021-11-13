@@ -13,6 +13,7 @@ import {
   useTurnToReadAlarm,
 } from '@src/hooks/useMyPageQuery';
 import AlarmCard from '@src/components/AlarmCard';
+import MyIdeaList from '@src/components/Idea/MyIdeaList';
 
 interface MyPageProps {
   handleToTop?: () => void;
@@ -91,7 +92,7 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
                 fontSize="md"
                 textColor={currentTab === MY_IDEA ? 'blueActive' : 'black'}
               >
-                네가 쓴 아이디어
+                내가 쓴 아이디어
               </Typography>
             </Button>
             <Typography fontSize="md" textColor="black">
@@ -106,7 +107,12 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
               </Typography>
             </Button>
           </div>
-          <SideList isMyPage />
+          {
+            {
+              [MY_SIDE]: <SideList isMyPage />,
+              [MY_IDEA]: <MyIdeaList />,
+            }[currentTab]
+          }
         </div>
       </div>
       <Button
