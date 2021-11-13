@@ -8,16 +8,6 @@ import IdeaModal from '@src/components/modals/IdeaModal';
 import { Alarm } from '@src/models';
 
 const AlarmCardContainer = (props: Alarm) => {
-  const id = useMemo(
-    () =>
-      Number(
-        props.endPoint
-          .replace('/v1/api/', '')
-          .replace('sides/', '')
-          .replace('ideas/', ''),
-      ),
-    [props],
-  );
   const {
     isModalVisible: isIdeaVisible,
     showModal: showIdea,
@@ -33,7 +23,7 @@ const AlarmCardContainer = (props: Alarm) => {
     turnToReadAlarmMutation.mutate(props.id, {
       onSuccess: () => {
         if (props.postType === '사이드') {
-          return history.push(`/side/${id}`);
+          return history.push(`/side/${props.postId}`);
         }
         return showIdea();
       },
@@ -47,7 +37,7 @@ const AlarmCardContainer = (props: Alarm) => {
         {...props}
       />
       {isIdeaVisible && props.id && (
-        <IdeaModal hideIdeaForm={hideIdea} id={id} />
+        <IdeaModal hideIdeaForm={hideIdea} id={props.postId} />
       )}
     </div>
   );

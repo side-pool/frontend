@@ -98,6 +98,7 @@ export type Alarm = {
   read: boolean;
   title: string;
   updatedDate: string;
+  postId: number;
 };
 
 export type AlarmData = Alarm[];
