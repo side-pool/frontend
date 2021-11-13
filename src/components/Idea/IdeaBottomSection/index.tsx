@@ -18,7 +18,7 @@ interface IdeaBottomSectionProps {
 }
 
 const IdeaBottomSection = ({ tabToggle, ideaId }: IdeaBottomSectionProps) => {
-  const { data: commentArr, isSuccess: isCommentSuccess } =
+  const { data: comments, isSuccess: isCommentSuccess } =
     useReadIdeaComments(ideaId);
   const { data: similarArr, isSuccess: isSimilarSuccess } =
     useReadSimilars(ideaId);
@@ -30,14 +30,14 @@ const IdeaBottomSection = ({ tabToggle, ideaId }: IdeaBottomSectionProps) => {
         <>
           <IdeaCommentForm ideaId={ideaId} />
           {isCommentSuccess &&
-            commentArr?.map((comment) => (
+            comments?.map((comment) => (
               <IdeaCommentBoxContainer
                 key={comment.id}
                 ideaId={ideaId}
                 comment={comment}
               />
             ))}
-          {!isAuth && commentArr?.length === 0 && <ForbiddenComment />}
+          {!isAuth && comments?.length === 0 && <ForbiddenComment />}
         </>
       )}
       {tabToggle === UserTab.SIMILAR_SERVICE && (
