@@ -4,7 +4,10 @@ import qs from 'qs';
 
 // 네트워크 요청, 응답 로그
 export const LOG_TOGGLE = true;
-export const SERVER_URL = 'http://13.209.171.179:80/api';
+export const SERVER_URL =
+  process.env.NODE_ENV === 'product'
+    ? process.env.PAASTA_SERVER_URL
+    : process.env.LOCAL_SERVER_URL;
 
 const defaultOption = {
   baseURL: SERVER_URL,
