@@ -125,10 +125,10 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
                 setSide({
                   sort: `createdDate,${
                     sort?.includes('favoriteCount')
-                      ? 'asc'
-                      : sort?.includes('asc')
                       ? 'desc'
-                      : 'asc'
+                      : sort?.includes('desc')
+                      ? 'asc'
+                      : 'desc'
                   }`,
                 }),
               )
@@ -146,10 +146,10 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
                 setSide({
                   sort: `favoriteCount,${
                     sort?.includes('createdDate')
-                      ? 'asc'
-                      : sort?.includes('asc')
                       ? 'desc'
-                      : 'asc'
+                      : sort?.includes('desc')
+                      ? 'asc'
+                      : 'desc'
                   }`,
                 }),
               )

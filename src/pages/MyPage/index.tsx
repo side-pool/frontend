@@ -6,7 +6,7 @@ import Typography from '@src/components/common/Typography';
 import React, { useState } from 'react';
 import styles from './MyPage.module.scss';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
-import SideList from '@src/components/SideList';
+import MySideList from '@src/components/MySideList';
 import { useReadAlarm } from '@src/hooks/useMyPageQuery';
 import MyIdeaList from '@src/components/Idea/MyIdeaList';
 import MyCommentList from '@src/components/Comment/MyCommentList';
@@ -96,7 +96,7 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
           </div>
           {
             {
-              [MY_SIDE]: <SideList />,
+              [MY_SIDE]: <MySideList />,
               [MY_IDEA]: <MyIdeaList />,
               [MY_COMMENT]: <MyCommentList />,
             }[currentTab]
