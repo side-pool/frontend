@@ -8,7 +8,6 @@ const useThrottle = <T>(callback: (...args: T[]) => void, delay: number) => {
 
     timer.current = setTimeout(() => {
       timer.current = null;
-      console.log('done');
     }, delay);
 
     callback(...args);
