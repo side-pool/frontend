@@ -1,0 +1,61 @@
+.IdeaMiniCard {
+  @include flex_col(flex-start);
+
+  @include hover_animation;
+  
+  cursor: pointer;
+
+  width: 320px;
+  min-height: 100px;
+
+  padding: 0px 0px;
+
+  .ideaMiniTopArea {
+    @include flex_col(center, flex-start);
+
+    padding: 16px 81px 18px 19px;
+
+    .titleContainer {
+      @include flex_row(flex-start, center);
+
+      width: 220px;
+
+      .ellipse {
+        @include ellipse;
+      }
+    }
+
+    border-bottom: 1px solid $gray_3;
+  }
+
+  .ideaMiniBottomArea {
+    @include flex_col();
+
+    width: 100%;
+
+    padding: 10px 21px 18px 19px;
+
+    gap: 9px;
+
+    .ideaMiniInfoContainer {
+      @include flex_row(space-between);
+
+      width: 100%;
+
+      .Typography {
+        width: 160px;
+
+        @include ellipse;
+      }
+
+      .LabelTag {
+        border-color: $orange-1;
+      }
+    }
+
+    .ideaMiniContentContainer {
+      inline-size: 100%;
+      overflow-wrap: break-word;
+    }
+  }
+}

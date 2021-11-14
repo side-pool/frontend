@@ -50,6 +50,7 @@ const SideEditPage = ({ handleToTop }: SideEditPageProps) => {
 
   const createSideMutation = useUpdateSide(id);
 
+  const titleRef = useRef({} as ParentRef);
   const descriptionRef = useRef({} as TextareaParentRef);
   // TODO: 추후 타입 정의
   const editorRef = useRef<any>();
@@ -79,6 +80,10 @@ const SideEditPage = ({ handleToTop }: SideEditPageProps) => {
   }, [data]);
 
   useEffect(() => {
+    titleRef.current.set(data?.title || '');
+  }, [data?.title]);
+
+  useEffect(() => {
     descriptionRef.current.set(data?.summary || '');
   }, [data?.summary]);
 
@@ -89,6 +94,8 @@ const SideEditPage = ({ handleToTop }: SideEditPageProps) => {
   const queryClient = useQueryClient();
 
   const handleEditSubmit = () => {
+    if (titleRef.current.get().length === 0 || titleRef === undefined)
+      return showAlert('제목을 입력해주세요!');
     if (category?.length === 0 || category === undefined)
       return showAlert('Category를 선택해주세요!');
     if (organization?.length === 0 || organization === undefined)
@@ -129,7 +136,7 @@ const SideEditPage = ({ handleToTop }: SideEditPageProps) => {
       serviceLink,
       skillIds: skill?.map((each) => Number(each)),
       summary: descriptionRef.current.get(),
-      title: githubData?.name,
+      title: titleRef.current.get(),
     };
 
     createSideMutation.mutate(params, {
@@ -158,9 +165,7 @@ const SideEditPage = ({ handleToTop }: SideEditPageProps) => {
         </div>
 
         <div className={styles.title}>
-          <Typography fontSize="xxl" fontWeight="bold" lineHeight="wider">
-            {githubData?.name}
-          </Typography>
+          <Input ref={titleRef} />
         </div>
         <div className={styles.description}>
           <Textarea

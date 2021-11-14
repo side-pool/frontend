@@ -6,13 +6,11 @@ import Typography from '@src/components/common/Typography';
 import React, { useState } from 'react';
 import styles from './MyPage.module.scss';
 import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
-import SideList from '@src/components/SideList';
-import {
-  useDeleteAlarm,
-  useReadAlarm,
-  useTurnToReadAlarm,
-} from '@src/hooks/useMyPageQuery';
-import AlarmCard from '@src/components/AlarmCard';
+import MySideList from '@src/components/MySideList';
+import { useReadAlarm } from '@src/hooks/useMyPageQuery';
+import MyIdeaList from '@src/components/Idea/MyIdeaList';
+import MyCommentList from '@src/components/Comment/MyCommentList';
+import AlarmCardContainer from '@src/components/AlarmCardContainer';
 
 interface MyPageProps {
   handleToTop?: () => void;
@@ -29,9 +27,6 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
   const { data } = useGetUser(isAuth ?? false);
 
   const { data: alarmData } = useReadAlarm();
-
-  const deleteAlarmMutation = useDeleteAlarm();
-  const turnToReadAlarmMutation = useTurnToReadAlarm();
 
   return (
     <div className={styles.MyPage}>
@@ -60,15 +55,8 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
               </Typography>
             </div>
             <div className={styles.alarmCardArea}>
-              {alarmData?.map(({ id, postType, title, content }) => (
-                <AlarmCard
-                  key={id}
-                  postType={postType}
-                  title={title}
-                  content={content}
-                  onClick={() => turnToReadAlarmMutation.mutate(id)}
-                  onClose={() => deleteAlarmMutation.mutate(id)}
-                />
+              {alarmData?.map((props) => (
+                <AlarmCardContainer key={props.id} {...props} />
               ))}
             </div>
           </div>
@@ -91,7 +79,7 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
                 fontSize="md"
                 textColor={currentTab === MY_IDEA ? 'blueActive' : 'black'}
               >
-                네가 쓴 아이디어
+                내가 쓴 아이디어
               </Typography>
             </Button>
             <Typography fontSize="md" textColor="black">
@@ -106,7 +94,13 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
               </Typography>
             </Button>
           </div>
-          <SideList isMyPage />
+          {
+            {
+              [MY_SIDE]: <MySideList />,
+              [MY_IDEA]: <MyIdeaList />,
+              [MY_COMMENT]: <MyCommentList />,
+            }[currentTab]
+          }
         </div>
       </div>
       <Button

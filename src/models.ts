@@ -104,6 +104,7 @@ export type Alarm = {
   read: boolean;
   title: string;
   updatedDate: string;
+  postId: number;
 };
 
 export type AlarmData = Alarm[];
@@ -111,4 +112,22 @@ export type AlarmData = Alarm[];
 export type HashTagInfo = {
   word: string;
   count: number;
+};
+
+export type MiniIdea = {
+  content: string;
+  createdDate?: string;
+  hashtags: string[];
+  id?: number;
+  isDone: boolean;
+  title: string;
+  updatedDate?: string;
+};
+
+export type MiniIdeaData = MiniIdea[];
+
+export type MyComment = Comment & {
+  title: string;
+  type: string;
+  postId: number;
 };

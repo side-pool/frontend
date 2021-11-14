@@ -8,7 +8,7 @@ const initialState: SideParams = {
   isRecruiting: false,
   page: 0,
   size: 0,
-  sort: 'createdDate,asc',
+  sort: 'createdDate,desc',
   commentTag: 0,
 };
 
@@ -46,7 +46,7 @@ const sideReducer = createSlice({
       state.isRecruiting = false;
       state.page = 0;
       state.size = 0;
-      state.sort = 'createdDate,asc';
+      state.sort = 'createdDate,desc';
       state.commentTag = 0;
     },
   },

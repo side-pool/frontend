@@ -77,6 +77,7 @@ const JoinPage = () => {
       {
         onSuccess: () => {
           showAlert('회원가입 성공');
+          history.push('/login');
         },
         onError: (error) => {
           showAlert(getErrorText(error));

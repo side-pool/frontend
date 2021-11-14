@@ -11,13 +11,13 @@
     cursor: pointer;
   }
   &.gray {
-    background-color: #575757;
+    background-color: $gray_7;
   }
   &.orange {
-    background-color: #ff9900;
+    background-color: $orange-1;
   }
   &.beige {
-    background-color: #ffefd8;
+    background-color: $beige_0;
   }
   &.white {
     background-color: $white;

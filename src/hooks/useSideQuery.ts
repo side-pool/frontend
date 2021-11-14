@@ -50,8 +50,8 @@ export type ReadSideParams = {
   isFavorite: false;
 };
 
-export const useReadSides2 = (params: SideParams) => {
-  return useQuery<ReadSidesData, AxiosError<unknown>>(['/sides', params]);
+export const useMyReadSides = (params: SideParams) => {
+  return useQuery<ReadSidesData, AxiosError<unknown>>(['/me/sides', params]);
 };
 
 export const useReadSides = (params: SideParams) => {

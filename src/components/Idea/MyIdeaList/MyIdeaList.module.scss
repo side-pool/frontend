@@ -1,0 +1,19 @@
+.MyIdeaList {
+    @include flex_col(flex-start);
+    width: 100%;
+  
+    .grid {
+      @include flex_row(flex-start, flex-start);
+      
+      width: 100%;
+  
+      .gridColumn {
+        @include flex_col(flex-start);
+        background-clip: padding-box;
+        > div {
+          margin-bottom: 30px;
+        }
+      }
+    }
+  }
+  

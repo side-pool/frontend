@@ -1,6 +1,16 @@
 .IdeaMainSection {
-  position: relative;
   @include flex_col(stretch, stretch);
+
+  header {
+    @include flex_row(space-between);
+    .ideMainTopLeftArea {
+      gap: 15px;
+      @include flex_row();
+      .ideaMaintopButtonContainer {
+        @include flex_row();
+      }
+    }
+  }
   .subText {
     @include flex_row(stretch, center);
     padding: 9px 0px;
@@ -22,10 +32,4 @@
       margin-right: 0px 10px;
     }
   }
-}
-
-.isDoneTag {
-  position: absolute;
-  top: -5px;
-  right: 0px;
 }

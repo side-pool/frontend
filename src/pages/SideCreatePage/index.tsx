@@ -59,6 +59,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
 
   const createSideMutation = useCreateSide();
 
+  const titleRef = useRef({} as ParentRef);
   const descriptionRef = useRef({} as TextareaParentRef);
   // TODO: 추후 타입 정의
   const editorRef = useRef<any>();
@@ -78,6 +79,10 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
   const { data: skillsData } = useGetSkills();
 
   useEffect(() => {
+    titleRef.current.set(name);
+  }, [name]);
+
+  useEffect(() => {
     descriptionRef.current.set(description);
   }, [description]);
 
@@ -88,6 +93,8 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
   const queryClient = useQueryClient();
 
   const handleSubmit = () => {
+    if (titleRef.current.get().length === 0 || titleRef === undefined)
+      return showAlert('제목을 입력해주세요!');
     if (category?.length === 0 || category === undefined)
       return showAlert('Category를 선택해주세요!');
     if (organization?.length === 0 || organization === undefined)
@@ -124,15 +131,15 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
       serviceLink,
       skillIds: skill?.map((each) => Number(each)),
       summary: descriptionRef.current.get(),
-      title: name,
+      title: titleRef.current.get(),
     };
 
     createSideMutation.mutate(params, {
       onSuccess: async () => {
         await dispatch(setInitSide());
-        queryClient.invalidateQueries('/sides');
+        queryClient.removeQueries('/sides');
 
-        history.push('side');
+        history.push('/side');
       },
       // TODO: 추후 타입 정의
       onError: (e: any) => {
@@ -153,9 +160,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
         </div>
 
         <div className={styles.title}>
-          <Typography fontSize="xxl" fontWeight="bold" lineHeight="wider">
-            {name}
-          </Typography>
+          <Input ref={titleRef} />
         </div>
         <div className={styles.description}>
           <Textarea
@@ -246,6 +251,14 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
             <Editor
               ref={editorRef}
               initialValue={readme?.data as string}
+              previewStyle="vertical"
+              height="660px"
+              initialEditType="markdown"
+            />
+          )}
+          {!readme && (
+            <Editor
+              ref={editorRef}
               previewStyle="vertical"
               height="660px"
               initialEditType="markdown"

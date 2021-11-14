@@ -13,7 +13,7 @@ export type IdeaParams = {
 const initialState: IdeaParams = {
   isDone: false,
   search: [],
-  sort: 'createdDate,asc',
+  sort: 'createdDate,desc',
 };
 
 const ideaReducer = createSlice({

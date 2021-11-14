@@ -1,0 +1,36 @@
+.MyCommentCard {
+  @include flex_col();
+
+  @include hover_animation;
+  
+  cursor: pointer;
+  min-height: 100px;
+  width: 100%;
+
+  padding: 0px 0px;
+
+  .myCommentTopArea {
+    @include flex_row(space-between);
+
+    width: 100%;
+    padding: 19px 16px;
+
+    border-bottom: 1px solid $gray_3;
+
+    .myCommentTitle {
+      color: $gray_6;
+    }
+  }
+
+  .myCommentBottomArea {
+    width: 100%;
+    padding: 10px 16px 21px 16px;
+
+    gap: 9px;
+
+    .myCommentTime {
+      color: $gray_6;
+      padding-bottom: 9px;
+    }
+  }
+}
