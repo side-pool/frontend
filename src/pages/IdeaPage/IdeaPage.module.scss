@@ -23,10 +23,9 @@
       .searchArea {
         @include flex_row(flex-end);
 
-        .icons {
-          svg {
-            padding-right: 11px;
-          }
+        svg {
+          cursor: pointer;
+          padding: 0px 5.5px;
         }
 
         gap: 5px;
@@ -35,6 +34,8 @@
           @include flex_row(space-between);
 
           position: relative;
+
+          cursor: pointer;
 
           width: 141px;
           height: 28px;
@@ -97,7 +98,7 @@
 
     .filterArea {
       @include flex_col();
-      
+
       .filter {
         display: flex;
         justify-content: flex-end;
@@ -107,13 +108,13 @@
         svg {
           margin-right: 6px;
         }
-  
+
         column-gap: 6px;
-  
+
         .seperator {
           cursor: default;
         }
-  
+
         .Typography {
           cursor: pointer;
         }
