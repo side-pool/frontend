@@ -35,7 +35,7 @@ const SideCard = ({
         className={cn(
           styles.sideCardTopArea,
           !logoUrl && styles.isPadding,
-          PRIMARY_PICK[pickNumber],
+          !logoUrl && PRIMARY_PICK[pickNumber],
         )}
       >
         {logoUrl ? (
