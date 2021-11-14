@@ -3,6 +3,10 @@ const path = require('path');
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const DIST_PATH = path.resolve(PROJECT_ROOT, 'dist');
 const SRC_PATH = path.resolve(PROJECT_ROOT, 'src');
+const dotenv = require('dotenv');
+const webpack = require('webpack');
+
+dotenv.config();
 
 module.exports = {
   entry: path.resolve(SRC_PATH, 'index.tsx'),
@@ -44,4 +48,9 @@ module.exports = {
     },
     modules: ['node_modules'],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
+  ],
 };
