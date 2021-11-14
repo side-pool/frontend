@@ -66,15 +66,12 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   return (
     <div className={styles.SidePage}>
       <div className={styles.sideCardContainer}>
-        <div className={styles.topArea}>
+        <div className={styles.sidePageTopArea}>
           <Typography fontSize="xxl" fontWeight="bold">
             사이드
           </Typography>
           <div className={styles.searchArea}>
-            <div className={styles.icons}>
-              <Search />
-              <Setting onClick={() => setIsFilterOpen((prev) => !prev)} />
-            </div>
+            <Setting onClick={() => setIsFilterOpen((prev) => !prev)} />
             {isFilterOpen && (
               <>
                 <Dropdown
@@ -106,6 +103,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
                 </label>
               </>
             )}
+            <Search />
             <Input
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>

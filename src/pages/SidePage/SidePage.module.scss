@@ -9,13 +9,15 @@
 
     padding: 60px 150px;
 
-    .topArea {
+    .sidePageTopArea {
       position: relative;
 
       @include flex_row(space-between);
       width: 100%;
 
       backdrop-filter: blur(30px);
+
+      z-index: 100;
 
       .Typography {
         width: fit-content;
@@ -24,10 +26,9 @@
       .searchArea {
         @include flex_row(flex-end);
 
-        .icons {
-          svg {
-            padding-right: 11px;
-          }
+        svg {
+          cursor: pointer;
+          padding: 0px 5.5px;
         }
 
         gap: 5px;
@@ -36,6 +37,8 @@
           @include flex_row(space-between);
 
           position: relative;
+
+          cursor: pointer;
 
           width: 141px;
           height: 28px;
