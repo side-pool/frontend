@@ -123,6 +123,7 @@ const Template = ({
               ref={contentRef}
               placeholder="내용을 입력해주세요."
               maxWidth
+              maxLength={255}
             />
           </div>
           <div className={styles.hashtagArea}>

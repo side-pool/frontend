@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Button from '@src/components/common/Button';
 import LabelTag, { HashTag } from '@src/components/common/LabelTag';
 import Typography from '@src/components/common/Typography';
@@ -33,6 +33,7 @@ const IsDoneTag = ({ isDone }: IsDoneTagProps) =>
   );
 
 const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
+  const [isMore, setIsMore] = useState(false);
   const {
     isModalVisible: isAlertVisible,
     modalMessage: alertMessage,
@@ -49,6 +50,8 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
   const isMySide = useIsMySide(idea?.author?.id ?? 0);
 
   const deleteIdeaMutation = useDeleteIdea();
+
+  const content = useMemo(() => idea.content.split('\n'), [idea]);
 
   return (
     <section className={styles.IdeaMainSection}>
@@ -93,14 +96,16 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
         </Typography>
       </div>
       <Typography fontSize="xs" className={styles.ideaBody}>
-        {idea.content}
+        {isMore ? content.join('\n') : content.slice(0, 10).join('\n')}
       </Typography>
-      <Button
-        // TODO: 본문 길이에 따라 hide
-        variant="text"
-        labelText="더보기"
-        className={styles.moreButton}
-      />
+      {content.length > 5 && (
+        <Button
+          variant="text"
+          labelText={isMore ? '접기' : '더보기'}
+          className={styles.moreButton}
+          onClick={() => setIsMore((prev) => !prev)}
+        />
+      )}
       <div className={styles.labelArea}>
         {idea.hashtags.map((tag, index) => (
           <HashTag key={index}>{`# ${tag}`}</HashTag>

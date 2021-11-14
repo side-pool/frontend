@@ -20,6 +20,7 @@
   }
   .ideaBody {
     margin: 8px 0px 10px 0px;
+    white-space: pre-wrap;
   }
   .moreButton {
     @include flex_row(stretch, stretch);
