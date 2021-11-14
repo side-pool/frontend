@@ -14,6 +14,7 @@ export enum GuideText {
   FILL_CORRECT_URL = '정확한 리포지토리 URL을 입력해주세요',
   ERROR = '에러가 발생했습니다',
   DELETE_SUCCESS = '삭제를 성공했습니다',
+  DUPLICATE = '중복된 값 입니다',
 }
 
 export enum ConfirmText {
