@@ -109,6 +109,11 @@ export type Alarm = {
 
 export type AlarmData = Alarm[];
 
+export type HashTagInfo = {
+  word: string;
+  count: number;
+};
+
 export type MiniIdea = {
   content: string;
   createdDate?: string;

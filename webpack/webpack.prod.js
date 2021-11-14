@@ -16,7 +16,15 @@ module.exports = merge(baseConfig, {
         test: /\.s?css$/,
         use: [
           { loader: MiniCssExtractPlugin.loader },
-          { loader: 'css-loader' },
+          // TODO: 추후 options을 제거하도록 함
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[local]',
+              },
+            },
+          },
           {
             loader: 'sass-loader',
             options: {
