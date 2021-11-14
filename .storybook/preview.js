@@ -1,7 +1,7 @@
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import { QueryClientProvider, QueryClient } from 'react-query';
 
