@@ -28,7 +28,7 @@ jobs:
 
       - name: Build for prod
         run: npm run build-prod
-        if: contains(github.ref, 'master)
+        if: contains(github.ref, 'master')
 
       - name: Docker login
         env:
