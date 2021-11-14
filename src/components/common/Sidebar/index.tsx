@@ -10,6 +10,7 @@ import Button from '@src/components/common/Button';
 import styles from './Sidebar.module.scss';
 import { useAuth } from '@src/hooks/useUserQuery';
 import { useLogout } from '@src/hooks/useAuthQuery';
+import { useReadAlarm } from '@src/hooks/useMyPageQuery';
 export interface SidebarProps {
   className?: string;
   pathname: string;
@@ -17,7 +18,14 @@ export interface SidebarProps {
 
 export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
+
+  const { data } = useReadAlarm();
   const { data: isAuth } = useAuth();
+
+  const isNotificationExist = useMemo(
+    () => data?.some(({ read }) => !read),
+    [data],
+  );
 
   const [logout] = useLogout(() => {
     history.push('/idea');
@@ -57,16 +65,39 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
         </div>
         <div className={styles.downArea}>
           {isAuth && (
-            <Button
-              variant="text"
-              onClick={() => {
-                logout();
-              }}
-            >
-              <Typography fontSize="sm" fontWeight="regular" textColor="black">
-                로그아웃
-              </Typography>
-            </Button>
+            <div className={styles.authButton}>
+              <Button
+                variant="text"
+                onClick={() => {
+                  history.push('/mypage');
+                }}
+              >
+                <Typography
+                  fontSize="sm"
+                  fontWeight="regular"
+                  textColor="black"
+                >
+                  마이페이지
+                </Typography>
+                {isNotificationExist && (
+                  <div className={styles.isNotificationExist} />
+                )}
+              </Button>
+              <Button
+                variant="text"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                <Typography
+                  fontSize="sm"
+                  fontWeight="regular"
+                  textColor="black"
+                >
+                  로그아웃
+                </Typography>
+              </Button>
+            </div>
           )}
           {!isAuth && (
             <div className={styles.authButton}>

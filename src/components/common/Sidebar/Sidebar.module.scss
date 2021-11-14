@@ -36,6 +36,21 @@
 
       width: 100%;
 
+      .authButton {
+        .Button {
+          span {
+            @include flex_row(space-between);
+            .isNotificationExist {
+              background-color: $blue_active;
+              width: 8px;
+              height: 8px;
+              border-radius: 8px;
+            }
+            gap: 4px;
+          }
+        }
+      }
+
       > div > button:first-child {
         margin-bottom: 4px;
       }
