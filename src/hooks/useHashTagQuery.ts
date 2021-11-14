@@ -18,8 +18,9 @@ export const useGetHashTags = () =>
         }
 
         const data = responseData
-          .sort(() => 0.5 - Math.random())
-          .slice(0, HASH_CIRCLE_NUM);
+          .sort((a, b) => b.count - a.count)
+          .slice(0, HASH_CIRCLE_NUM)
+          .sort(() => 0.5 - Math.random());
 
         return data;
       }
