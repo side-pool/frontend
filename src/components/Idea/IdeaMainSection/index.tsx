@@ -96,7 +96,7 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
         </Typography>
       </div>
       <Typography fontSize="xs" className={styles.ideaBody}>
-        {isMore ? content.join('\n') : content.slice(0, 10).join('\n')}
+        {isMore ? content.join('\n') : content.slice(0, 5).join('\n')}
       </Typography>
       {content.length > 5 && (
         <Button

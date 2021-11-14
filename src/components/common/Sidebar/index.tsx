@@ -19,8 +19,9 @@ export interface SidebarProps {
 export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
 
-  const { data } = useReadAlarm();
   const { data: isAuth } = useAuth();
+
+  const { data } = useReadAlarm(isAuth ?? false);
 
   const isNotificationExist = useMemo(
     () => data?.some(({ read }) => !read),
