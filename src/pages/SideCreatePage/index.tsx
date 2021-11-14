@@ -137,9 +137,9 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
     createSideMutation.mutate(params, {
       onSuccess: async () => {
         await dispatch(setInitSide());
-        queryClient.invalidateQueries('/sides');
+        queryClient.removeQueries('/sides');
 
-        history.push('side');
+        history.push('/side');
       },
       // TODO: 추후 타입 정의
       onError: (e: any) => {
@@ -247,7 +247,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
           </div>
         </div>
         <div className={styles.summary}>
-          {(readme?.data as string) ? (
+          {(readme?.data as string) && (
             <Editor
               ref={editorRef}
               initialValue={readme?.data as string}
@@ -255,7 +255,8 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
               height="660px"
               initialEditType="markdown"
             />
-          ) : (
+          )}
+          {!readme && (
             <Editor
               ref={editorRef}
               previewStyle="vertical"
