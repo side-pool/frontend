@@ -3,8 +3,10 @@ import { AxiosError } from 'axios';
 import { AlarmData, MiniIdeaData, MyComment } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 
-export const useReadAlarm = () =>
-  useQuery<AlarmData, AxiosError<unknown>>(['/notifications']);
+export const useReadAlarm = (isAuth: boolean) =>
+  useQuery<AlarmData, AxiosError<unknown>>(['/notifications'], {
+    enabled: isAuth,
+  });
 
 export const useReadMyIdea = () =>
   useQuery<MiniIdeaData, AxiosError<unknown>>(['/me/ideas']);
