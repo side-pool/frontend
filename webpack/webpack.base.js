@@ -6,8 +6,6 @@ const SRC_PATH = path.resolve(PROJECT_ROOT, 'src');
 const dotenv = require('dotenv');
 const webpack = require('webpack');
 
-dotenv.config();
-
 module.exports = {
   entry: path.resolve(SRC_PATH, 'index.tsx'),
   output: {
@@ -50,7 +48,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(process.env),
+      'process.env': JSON.stringify(dotenv.config().parsed),
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
     }),
   ],
 };

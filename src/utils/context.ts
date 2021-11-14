@@ -1,11 +1,12 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { loadItem, ACCESS_TOKEN } from '@src/utils/storage';
 import qs from 'qs';
+import { NODE_ENV } from '@src/utils/NODE_ENV_TYPE';
 
 // 네트워크 요청, 응답 로그
 export const LOG_TOGGLE = true;
 export const SERVER_URL =
-  process.env.NODE_ENV === 'product'
+  NODE_ENV === 'product'
     ? process.env.PAASTA_SERVER_URL
     : process.env.LOCAL_SERVER_URL;
 
