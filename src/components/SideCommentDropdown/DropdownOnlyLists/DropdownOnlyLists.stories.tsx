@@ -12,7 +12,6 @@ export default {
 } as Meta;
 
 const Template: Story<DropdownOnlyListsProps> = () => {
-  console.log(COMMENT_DROPDOWN);
   return <DropdownOnlyLists dropdwonLists={COMMENT_DROPDOWN} />;
 };
 
