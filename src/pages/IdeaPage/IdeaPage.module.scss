@@ -96,22 +96,27 @@
     }
 
     .filterArea {
-      margin-bottom: 22px;
+      @include flex_col();
+      
+      .filter {
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+        width: 1020px;
 
-      @include flex_row(flex-end);
-
-      svg {
-        margin-right: 6px;
-      }
-
-      column-gap: 6px;
-
-      .seperator {
-        cursor: default;
-      }
-
-      .Typography {
-        cursor: pointer;
+        svg {
+          margin-right: 6px;
+        }
+  
+        column-gap: 6px;
+  
+        .seperator {
+          cursor: default;
+        }
+  
+        .Typography {
+          cursor: pointer;
+        }
       }
     }
   }

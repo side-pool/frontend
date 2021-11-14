@@ -85,48 +85,52 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
           <HashTagBanner hashTagInfos={hashTagInfos ?? []} />
         )}
         <div className={styles.filterArea}>
-          <Sort />
-          <Typography
-            fontSize="xs"
-            lineHeight="wide"
-            textColor={sort?.includes('createdDate') ? 'blueActive' : 'gray'}
-            onClick={() =>
-              dispatch(
-                setIdea({
-                  sort: `createdDate,${
-                    sort?.includes('favoriteCount')
-                      ? 'desc'
-                      : sort?.includes('desc')
-                      ? 'asc'
-                      : 'desc'
-                  }`,
-                }),
-              )
-            }
-          >
-            최신순
-          </Typography>
-          <div className="seperator">|</div>
-          <Typography
-            fontSize="xs"
-            lineHeight="wide"
-            textColor={sort?.includes('favoriteCount') ? 'blueActive' : 'gray'}
-            onClick={() =>
-              dispatch(
-                setIdea({
-                  sort: `favoriteCount,${
-                    sort?.includes('createdDate')
-                      ? 'desc'
-                      : sort?.includes('desc')
-                      ? 'asc'
-                      : 'desc'
-                  }`,
-                }),
-              )
-            }
-          >
-            좋아요순
-          </Typography>
+          <div className={styles.filter}>
+            <Sort />
+            <Typography
+              fontSize="xs"
+              lineHeight="wide"
+              textColor={sort?.includes('createdDate') ? 'blueActive' : 'gray'}
+              onClick={() =>
+                dispatch(
+                  setIdea({
+                    sort: `createdDate,${
+                      sort?.includes('favoriteCount')
+                        ? 'desc'
+                        : sort?.includes('desc')
+                        ? 'asc'
+                        : 'desc'
+                    }`,
+                  }),
+                )
+              }
+            >
+              최신순
+            </Typography>
+            <div className="seperator">|</div>
+            <Typography
+              fontSize="xs"
+              lineHeight="wide"
+              textColor={
+                sort?.includes('favoriteCount') ? 'blueActive' : 'gray'
+              }
+              onClick={() =>
+                dispatch(
+                  setIdea({
+                    sort: `favoriteCount,${
+                      sort?.includes('createdDate')
+                        ? 'desc'
+                        : sort?.includes('desc')
+                        ? 'asc'
+                        : 'desc'
+                    }`,
+                  }),
+                )
+              }
+            >
+              좋아요순
+            </Typography>
+          </div>
         </div>
       </div>
       <IdeaCardContainer />
