@@ -20,6 +20,7 @@ const SideList = () => {
   const target = useRef<HTMLDivElement | null>(null);
   const [page, setPage] = useState(0);
   const side = useSideState();
+
   const {
     data: infiniteData,
     fetchNextPage,
@@ -27,7 +28,11 @@ const SideList = () => {
     isLoading,
     isFetchingNextPage,
     isFetchedAfterMount,
-  } = useReadSides(side);
+  } = useReadSides({
+    ...side,
+    // TODO: undefined는 isRecruiting 프로퍼티 삭제를 위한 방법 => 좀 더 나은 방법을 생각해보기
+    isRecruiting: side.isRecruiting ? true : undefined,
+  });
 
   const handleInfiniteFetch = useThrottle(() => {
     fetchNextPage({ pageParam: page + 1 });
