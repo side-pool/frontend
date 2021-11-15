@@ -8,6 +8,23 @@ const HEIGHT = 180;
 
 const OPACITIES = [0.8, 0.9, 1];
 
+const divide = function <T>(arr: T[], secCnt: number) {
+  const sections: T[][] = [];
+
+  while (arr.length !== 0) {
+    const section: T[] = [];
+
+    for (let idx = 0; idx < secCnt; idx++) {
+      const hashInfo = arr.pop();
+      hashInfo && section.push(hashInfo);
+    }
+
+    sections.push(section);
+  }
+
+  return sections;
+};
+
 // 주어진 캔버스에서 랜덤한 원 중점의 좌표
 const getRandCoordinate = (height: number, minX: number, maxX: number) => {
   const x = Math.random() * (maxX - minX) + minX;
@@ -38,36 +55,25 @@ const getCirclePropsArr = (
   }
   const maxHashTagInfo = hashTagInfos.pop()!; // 최댓값 따로 추출
 
-  // binning
   const weight = getWeight(hashTagInfos);
-  const binLen = hashLength > 4 ? 4 : hashLength; // 구간 길이
-  const binCnt = Math.floor(hashLength / binLen); // 구간 개수
-  const binWidth = Math.floor(WIDTH / binLen); // 구간별 실제 너비
-
-  let binNumber = -1;
+  const secLen = hashLength > 4 ? 4 : hashLength; // 구간 길이
+  const secCnt = Math.floor(hashLength / secLen); // 구간 개수
+  const secWidth = Math.floor(WIDTH / secLen); // 구간별 실제 너비
 
   hashTagInfos.sort(() => 0.5 - Math.random()); // 셔플
 
-  while (hashTagInfos.length !== 0) {
-    // 하나의 구간
-    binNumber += 1;
-    const bin = [];
+  const dividedInfos = divide(hashTagInfos, secCnt);
 
-    for (let binIdx = 0; binIdx < binCnt; binIdx++) {
-      const hashInfo = hashTagInfos.pop();
-      hashInfo && bin.push(hashInfo);
-    }
-
-    // 값 지정
-    const res = bin.map((hashTagInfo) => {
+  dividedInfos.forEach((hashSec, secIdx) => {
+    const res = hashSec.map((hashTagInfo) => {
       return {
         weight,
         coordinate: {
           ...getRandCoordinate(
             HEIGHT,
             // 구간 별 x 좌표
-            binNumber * binWidth,
-            (binNumber + 1) * binWidth,
+            secIdx * secWidth,
+            (secIdx + 1) * secWidth,
           ),
         },
         opacity: getRandOpacity(),
@@ -76,15 +82,15 @@ const getCirclePropsArr = (
     });
 
     circlePropsArr.push(...res);
-  }
+  });
 
   circlePropsArr.push({
     weight,
     coordinate: {
       ...getRandCoordinate(
         HEIGHT,
-        Math.floor(binCnt / 2) * binWidth, // 최댓값 중앙에 추가
-        (Math.floor(binCnt / 2) + 1) * binWidth,
+        Math.floor(secCnt / 2) * secWidth, // 최댓값 중앙에 추가
+        (Math.floor(secCnt / 2) + 1) * secWidth,
       ),
     },
     opacity: getRandOpacity(),
