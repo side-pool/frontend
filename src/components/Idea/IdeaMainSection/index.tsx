@@ -12,6 +12,7 @@ import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 import AlertModal from '@src/components/modals/AlertModal';
 import { useIsMySide } from '@src/hooks/useSideQuery';
 import { GuideText } from '@src/constant/enums';
+import { setIdea, useAppDispatch, useIdeaState } from '@src/store';
 
 interface IdeaMainSectionProps {
   idea: Idea;
@@ -33,6 +34,9 @@ const IsDoneTag = ({ isDone }: IsDoneTagProps) =>
   );
 
 const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
+  const dispatch = useAppDispatch();
+  const { search } = useIdeaState();
+
   const [isMore, setIsMore] = useState(false);
   const {
     isModalVisible: isAlertVisible,
@@ -108,7 +112,18 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
       )}
       <div className={styles.labelArea}>
         {idea.hashtags.map((tag, index) => (
-          <HashTag key={index}>{`# ${tag}`}</HashTag>
+          <HashTag
+            key={index}
+            onClick={() =>
+              dispatch(
+                setIdea({
+                  search: search.includes(tag)
+                    ? search.filter((each) => tag !== each)
+                    : [...search, tag],
+                }),
+              )
+            }
+          >{`# ${tag}`}</HashTag>
         ))}
       </div>
       {isIdeaFormVisible && (
