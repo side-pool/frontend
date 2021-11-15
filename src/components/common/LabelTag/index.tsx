@@ -40,10 +40,11 @@ const LabelTag = ({
         className,
         isDeleteButton && styles.isDeleteButton,
       )}
+      {...props}
     >
       <p className={cn(styles.text, styles[textColor])}>{children}</p>
       {isDeleteButton && (
-        <div {...props}>
+        <div>
           <Icon iconName="close" color="white" size={14} />
         </div>
       )}

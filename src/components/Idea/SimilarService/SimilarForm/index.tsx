@@ -32,7 +32,7 @@ const SimilarForm = ({
         <hr />
         <Input
           maxWidth
-          placeholder="비슷한 서비스가 있다면 알려주세요."
+          placeholder="해당 서비스를 설명해주세요."
           ref={descRef}
         />
       </div>
