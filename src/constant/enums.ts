@@ -15,6 +15,7 @@ export enum GuideText {
   ERROR = '에러가 발생했습니다',
   DELETE_SUCCESS = '삭제를 성공했습니다',
   DUPLICATE = '중복된 값 입니다',
+  DUPLICATE_SIDE = '입력하신 리포지토리로는 SIDE가 이미 생성되어있습니다.',
 }
 
 export enum ConfirmText {
