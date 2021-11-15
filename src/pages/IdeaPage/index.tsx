@@ -52,10 +52,7 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
             아이디어
           </Typography>
           <div className={styles.searchArea}>
-            <div className={styles.icons}>
-              <Search />
-              <Setting onClick={() => setIsFilterOpen((prev) => !prev)} />
-            </div>
+            <Setting onClick={() => setIsFilterOpen((prev) => !prev)} />
             {isFilterOpen && (
               <>
                 <label className={styles.isDoneCheckbox}>
@@ -73,6 +70,7 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
                 </label>
               </>
             )}
+            <Search />
             <Input
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>
