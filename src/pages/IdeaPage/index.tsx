@@ -24,6 +24,7 @@ interface IdeaPageProps {
 }
 
 const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
+  const { search } = useIdeaState();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const queryClient = useQueryClient();
   const { isDone, sort } = useIdeaState();
@@ -76,6 +77,7 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
               onChange={(e) =>
                 dispatch(setIdea({ search: e.target.value.split(' ') }))
               }
+              value={search?.join(' ')}
             />
           </div>
         </div>
