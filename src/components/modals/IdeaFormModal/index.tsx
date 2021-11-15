@@ -64,6 +64,9 @@ const Template = ({
         hashtag.length !== 0 &&
         hashtag.trim()
       ) {
+        if (hashtagArr.some(({ content }) => content === hashtag)) {
+          return showAlert(GuideText.DUPLICATE);
+        }
         setHashtagArr((prev) => [...prev, { id: uuidv4(), content: hashtag }]);
         setHashtag('');
       }
@@ -91,10 +94,12 @@ const Template = ({
       {
         title,
         content,
-        hashtags: hashtagArr?.reduce<string[]>(
-          (acc: Partial<string>[], cur: Hashtag) => [...acc, cur.content],
-          [],
-        ),
+        hashtags: hashtagArr
+          ?.filter(({ content }) => content.length > 0)
+          .reduce<string[]>(
+            (acc: Partial<string>[], cur: Hashtag) => [...acc, cur.content],
+            [],
+          ),
       },
       {
         onSuccess: () => {
