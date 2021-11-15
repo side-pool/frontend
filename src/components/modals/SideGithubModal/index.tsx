@@ -10,7 +10,10 @@ import Input, { ParentRef } from '@src/components/common/Input';
 import { GuideText } from '@src/constant/enums';
 import { useHistory } from 'react-router-dom';
 import { setInitSide, useAppDispatch } from '@src/store';
-import { useReadGithubInfo } from '@src/hooks/useGithubQuery';
+import {
+  useIsExistRepository,
+  useReadGithubInfo,
+} from '@src/hooks/useGithubQuery';
 
 export interface SideGithubModalProps {
   hideModal: () => void;
@@ -29,16 +32,19 @@ const Template = ({
   const urlRef = useRef({} as ParentRef);
 
   const { isError, data } = useReadGithubInfo(url);
+  const { data: isExist, isLoading } = useIsExistRepository(data?.id || 0);
 
   useEffect(() => {
-    if (data) {
+    if (data && !isLoading) {
+      if (isExist?.duplicated) return showAlert(GuideText.DUPLICATE_SIDE);
+
       dispatch(setInitSide());
       history.push({
         pathname: '/side-create',
         state: data,
       });
     }
-  }, [data]);
+  }, [data, isExist]);
 
   useEffect(() => {
     if (isError) {

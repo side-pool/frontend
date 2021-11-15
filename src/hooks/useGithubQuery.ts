@@ -1,9 +1,9 @@
-import { useQueries, useQuery } from 'react-query';
+import { useQueries, useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import { getGithubApiInstance } from '@src/utils/githubContext';
 
 export type GithubInfoType = {
-  id: string;
+  id: number;
   homepage: string;
   html_url: string;
   owner: {
@@ -18,11 +18,14 @@ export type GithubInfoType = {
 };
 
 export type ContributorsType = {
-  id: string;
+  id: number;
   html_url: string;
   avatar_url: string;
   login: string;
 };
+
+export const useIsExistRepository = (id: number) =>
+  useQuery<{ duplicated: boolean }>(`/sides/exists/${id}`, { enabled: !!id });
 
 export const useReadGithubInfo = (url: string) =>
   useQuery<GithubInfoType>(

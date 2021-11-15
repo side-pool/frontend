@@ -29,6 +29,7 @@ import {
 } from '@src/hooks/useGithubQuery';
 
 import { setInitSide, setSide, useAppDispatch, useSideState } from '@src/store';
+import { GuideText } from '@src/constant/enums';
 
 interface SideEditPageProps {
   handleToTop?: () => void;
@@ -149,7 +150,7 @@ const SideEditPage = ({ handleToTop }: SideEditPageProps) => {
       // TODO: 추후 타입 정의
       onError: (e: any) => {
         if (e.response.status === 400) {
-          showAlert('입력하신 리포지토리로는 toy가 이미 생성되어있습니다');
+          showAlert(GuideText.ERROR);
         }
       },
     });
