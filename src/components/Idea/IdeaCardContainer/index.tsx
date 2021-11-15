@@ -18,7 +18,8 @@ const IdeaCardContainer = () => {
     isLoading,
     isFetchingNextPage,
     isFetchedAfterMount,
-  } = useReadIdeas(idea);
+    // TODO: undefined는 isDone 프로퍼티 삭제를 위한 방법 => 좀 더 나은 방법을 생각해보기
+  } = useReadIdeas({ ...idea, isDone: idea.isDone ? true : undefined });
 
   const handleInfiniteFetch = useThrottle(() => {
     fetchNextPage({ pageParam: page + 1 });
