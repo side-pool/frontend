@@ -36,54 +36,59 @@ const getCirclePropsArr = (
   if (hashLength === 0) {
     return circlePropsArr;
   }
+  const maxHashTagInfo = hashTagInfos.pop()!; // 최댓값 따로 추출
 
+  // binning
   const weight = getWeight(hashTagInfos);
-  const binMaxIdx = hashLength > 4 ? 4 : hashLength; // 구간 index 개수
-  const binIdxLength = Math.floor(hashLength / binMaxIdx); // 구간 index 길이
-  const binWidth = Math.floor(WIDTH / binMaxIdx); // 구간 너비
+  const binLen = hashLength > 4 ? 4 : hashLength; // 구간 길이
+  const binCnt = Math.floor(hashLength / binLen); // 구간 개수
+  const binWidth = Math.floor(WIDTH / binLen); // 구간별 실제 너비
 
-  // 좌표 구간을 나누는 작업
-  for (let binIdx = 0; binIdx < binMaxIdx; binIdx++) {
-    const targets = [];
+  let binNumber = -1;
 
-    // 구간 index 길이 만큼 pop
-    for (let curIdx = 0; curIdx < binIdxLength; curIdx++) {
-      const target = hashTagInfos.pop();
-      target && targets.push(target);
+  hashTagInfos.sort(() => 0.5 - Math.random()); // 셔플
+
+  while (hashTagInfos.length !== 0) {
+    // 하나의 구간
+    binNumber += 1;
+    const bin = [];
+
+    for (let binIdx = 0; binIdx < binCnt; binIdx++) {
+      const hashInfo = hashTagInfos.pop();
+      hashInfo && bin.push(hashInfo);
     }
 
-    const newInfo = targets.map((targetInfo) => {
+    // 값 지정
+    const res = bin.map((hashTagInfo) => {
       return {
         weight,
         coordinate: {
           ...getRandCoordinate(
             HEIGHT,
-            binIdx * binWidth,
-            (binIdx + 1) * binWidth,
+            // 구간 별 x 좌표
+            binNumber * binWidth,
+            (binNumber + 1) * binWidth,
           ),
         },
         opacity: getRandOpacity(),
-        ...targetInfo,
+        ...hashTagInfo,
       };
     });
 
-    circlePropsArr.push(...newInfo);
+    circlePropsArr.push(...res);
   }
 
-  // 남은 애들을 중앙에 배치시킨다.
-  hashTagInfos.forEach((hashTagInfo) => {
-    circlePropsArr.push({
-      weight,
-      coordinate: {
-        ...getRandCoordinate(
-          HEIGHT,
-          Math.floor(binIdxLength / 2) * binWidth,
-          (Math.floor(binIdxLength / 2) + 1) * binWidth,
-        ),
-      },
-      opacity: getRandOpacity(),
-      ...hashTagInfo,
-    });
+  circlePropsArr.push({
+    weight,
+    coordinate: {
+      ...getRandCoordinate(
+        HEIGHT,
+        Math.floor(binCnt / 2) * binWidth, // 최댓값 중앙에 추가
+        (Math.floor(binCnt / 2) + 1) * binWidth,
+      ),
+    },
+    opacity: getRandOpacity(),
+    ...maxHashTagInfo,
   });
 
   return circlePropsArr;

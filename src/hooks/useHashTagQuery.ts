@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { HashTagInfo } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 
-const HASH_CIRCLE_NUM = 10;
+const HASH_CIRCLE_LEN = 10;
 
 export const useGetHashTags = () =>
   useQuery(
@@ -13,16 +13,12 @@ export const useGetHashTags = () =>
           HashTagInfo[]
         >(url);
 
-        if (responseData.length < HASH_CIRCLE_NUM) {
-          return responseData;
-        }
+        // 오름차순 정렬
+        responseData.sort((a, b) => a.count - b.count);
 
-        const data = responseData
-          .sort((a, b) => b.count - a.count)
-          .slice(0, HASH_CIRCLE_NUM)
-          .sort(() => 0.5 - Math.random());
-
-        return data;
+        return responseData.length < HASH_CIRCLE_LEN
+          ? responseData
+          : responseData.slice(responseData.length - HASH_CIRCLE_LEN);
       }
     },
     {
