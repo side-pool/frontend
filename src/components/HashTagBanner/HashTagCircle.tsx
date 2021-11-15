@@ -49,7 +49,7 @@ const HashTagCircle = ({
         textAnchor="middle"
         className={styles.word}
       >
-        {word}
+        {`#${word}`}
       </text>
     </g>
   );
