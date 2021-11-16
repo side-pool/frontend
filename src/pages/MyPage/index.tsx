@@ -11,6 +11,8 @@ import { useReadAlarm } from '@src/hooks/useMyPageQuery';
 import MyIdeaList from '@src/components/Idea/MyIdeaList';
 import MyCommentList from '@src/components/Comment/MyCommentList';
 import AlarmCardContainer from '@src/components/AlarmCardContainer';
+import useModalControl from '@src/hooks/useModalControl';
+import AlertModal from '@src/components/modals/AlertModal';
 
 interface MyPageProps {
   handleToTop?: () => void;
@@ -28,6 +30,13 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
 
   const { data: alarmData } = useReadAlarm(isAuth ?? false);
 
+  const {
+    isModalVisible: isAlertVisible,
+    modalMessage: alertMessage,
+    showModal: showAlert,
+    hideModal: hideAlert,
+  } = useModalControl();
+
   return (
     <div className={styles.MyPage}>
       <div className={styles.myPageContainer}>
@@ -44,7 +53,16 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
           />
           <div className={styles.buttonArea}>
             <Button variant="text">회원정보수정</Button>
-            <Button variant="text">탈퇴하기</Button>
+            <Button
+              variant="text"
+              onClick={() =>
+                showAlert(
+                  'seung-00@naver.com 로 메일을 주시면 48시간 내에 처리하겠습니다.',
+                )
+              }
+            >
+              탈퇴하기
+            </Button>
           </div>
         </div>
         <div className={styles.alertContainer}>
@@ -117,6 +135,14 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
         iconName="expand_less"
         onClick={handleToTop}
       />
+      {isAlertVisible && (
+        <AlertModal
+          content={alertMessage}
+          handleConfirm={() => {
+            hideAlert();
+          }}
+        />
+      )}
     </div>
   );
 };
