@@ -26,7 +26,7 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
 
   const { data } = useGetUser(isAuth ?? false);
 
-  const { data: alarmData } = useReadAlarm();
+  const { data: alarmData } = useReadAlarm(isAuth ?? false);
 
   return (
     <div className={styles.MyPage}>
@@ -47,20 +47,28 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
             <Button variant="text">탈퇴하기</Button>
           </div>
         </div>
-        {(alarmData || [])?.length > 0 && (
-          <div className={styles.alertContainer}>
-            <div className={styles.alertTitle}>
-              <Typography fontSize="md" textColor="black">
-                알람
-              </Typography>
-            </div>
-            <div className={styles.alarmCardArea}>
-              {alarmData?.map((props) => (
-                <AlarmCardContainer key={props.id} {...props} />
-              ))}
-            </div>
+        <div className={styles.alertContainer}>
+          <div className={styles.alertTitle}>
+            <Typography fontSize="md" textColor="black">
+              알람
+            </Typography>
           </div>
-        )}
+          <div className={styles.alarmCardArea}>
+            {(alarmData || [])?.length > 0 ? (
+              alarmData?.map((props) => (
+                <AlarmCardContainer key={props.id} {...props} />
+              ))
+            ) : (
+              <Typography
+                className={styles.myAlarmTypography}
+                fontSize="md"
+                textColor="lightGray"
+              >
+                새로운 알람이 없습니다.
+              </Typography>
+            )}
+          </div>
+        </div>
         <div className={styles.myContentContainer}>
           <div className={styles.tabArea}>
             <Button variant="text" onClick={() => setCurrentTab(MY_SIDE)}>
