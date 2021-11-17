@@ -6,7 +6,7 @@ import { HashTagInfo } from '@src/models';
 const WIDTH = 1020;
 const HEIGHT = 180;
 
-const OPACITIES = [0.8, 0.9, 1];
+const OPACITIES = [0.3, 0.7, 0.9];
 
 const divide = function <T>(arr: T[], secCnt: number) {
   const sections: T[][] = [];
