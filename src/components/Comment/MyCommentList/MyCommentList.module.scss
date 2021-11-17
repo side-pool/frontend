@@ -5,4 +5,9 @@
     margin-bottom: 20px;
     width: 100%;
   }
+
+  .myCommentTypography {
+    @include flex_row();
+    padding: 70px 0px;
+  }
 }

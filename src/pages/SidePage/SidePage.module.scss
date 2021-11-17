@@ -18,6 +18,10 @@
       backdrop-filter: blur(30px);
 
       z-index: 100;
+      
+      &.isGithubVisible {
+        z-index: 0;
+      }
 
       .Typography {
         width: fit-content;

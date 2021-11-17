@@ -53,7 +53,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   } = useModalControl();
 
   const {
-    isModalVisible: isIdeaFormVisible,
+    isModalVisible: isGithubVisible,
     showModal: showGithubModal,
     hideModal: hideGithubModal,
   } = useModalControl();
@@ -66,7 +66,12 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   return (
     <div className={styles.SidePage}>
       <div className={styles.sideCardContainer}>
-        <div className={styles.sidePageTopArea}>
+        <div
+          className={cn(
+            styles.sidePageTopArea,
+            isGithubVisible && styles.isGithubVisible,
+          )}
+        >
           <Typography fontSize="xxl" fontWeight="bold">
             사이드
           </Typography>
@@ -173,7 +178,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
           iconName="add"
         />
       )}
-      {isIdeaFormVisible && (
+      {isGithubVisible && (
         <SideGithubModal hideModal={hideGithubModal} showAlert={showAlert} />
       )}
       {isAlertVisible && (

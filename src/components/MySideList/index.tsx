@@ -6,6 +6,7 @@ import { useMyReadSides } from '@src/hooks/useSideQuery';
 import Spinner from '@src/components/common/Spinner';
 import SideCard from '@src/components//SideCard';
 import { useSideState } from '@src/store';
+import Typography from '@src/components/common/Typography';
 
 const BREAKPOINT_COLS = {
   default: 4,
@@ -21,13 +22,24 @@ const MySideList = () => {
   return (
     <div className={styles.MySideList}>
       {isLoading && <Spinner />}
-      <Masonry
-        breakpointCols={BREAKPOINT_COLS}
-        className={styles.grid}
-        columnClassName={styles.gridColumn}
-      >
-        {!isError && data?.map((each) => <SideCard {...each} key={each.id} />)}
-      </Masonry>
+      {(data || []).length > 0 ? (
+        <Masonry
+          breakpointCols={BREAKPOINT_COLS}
+          className={styles.grid}
+          columnClassName={styles.gridColumn}
+        >
+          {!isError &&
+            data?.map((each) => <SideCard {...each} key={each.id} />)}
+        </Masonry>
+      ) : (
+        <Typography
+          className={styles.mySideTypography}
+          fontSize="md"
+          textColor="lightGray"
+        >
+          아직 작성된 글이 없습니다.
+        </Typography>
+      )}
     </div>
   );
 };

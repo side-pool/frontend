@@ -57,6 +57,11 @@
         margin-bottom: 50px;
         overflow-x: auto;
         gap: 20px;
+        .myAlarmTypography {
+          @include flex_row();
+          width: 100%;
+          padding: 70px 0px;
+        }
       }
     }
 

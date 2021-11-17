@@ -1,20 +1,23 @@
 .MySideList {
-    @include flex_col(flex-start);
+  @include flex_col(flex-start);
+  width: 100%;
+
+  .grid {
+    @include flex_row(flex-start, flex-start);
+
     width: 100%;
-  
-    .grid {
-      @include flex_row(flex-start, flex-start);
-      
-      width: 100%;
-      padding-top: 22px;
-  
-      .gridColumn {
-        @include flex_col(flex-start);
-        background-clip: padding-box;
-        > div {
-          margin-bottom: 30px;
-        }
+    padding-top: 22px;
+
+    .gridColumn {
+      @include flex_col(flex-start);
+      background-clip: padding-box;
+      > div {
+        margin-bottom: 30px;
       }
     }
   }
-  
+
+  .mySideTypography {
+    padding: 70px 0px;
+  }
+}
