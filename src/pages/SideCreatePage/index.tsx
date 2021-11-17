@@ -44,7 +44,6 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
     id,
     homepage,
     html_url,
-    owner: { avatar_url },
     pushed_at,
     name,
     description,
@@ -94,6 +93,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
   const queryClient = useQueryClient();
 
   const handleSubmit = () => {
+    const editorContent = editorRef.current.getInstance().getMarkdown();
     if (titleRef.current.get().length === 0 || titleRef === undefined)
       return showAlert('제목을 입력해주세요!');
     if (category?.length === 0 || category === undefined)
@@ -102,10 +102,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
       return showAlert('Organization을 선택해주세요!');
     if (skill?.length === 0 || skill === undefined)
       return showAlert('Skill을 선택해주세요!');
-    if (
-      editorRef.current.getInstance().getMarkdown().length === 0 ||
-      editorRef === undefined
-    )
+    if (editorContent.length === 0 || editorRef === undefined)
       return showAlert('프로젝트의 자세한 설명을 입력해주세요!');
     if (
       descriptionRef.current.get().length === 0 ||
@@ -120,12 +117,16 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
     if (serviceLink.length > 0 && !serviceLink.includes('http'))
       return showAlert('올바릉 형식의 서비스 링크를 입력해주세요!');
 
+    const getImageRegex = /(https?:\/\/.*\.(?:png|jpg))/i;
+
+    const logoUrl = getImageRegex.exec(editorContent) || [];
+
     const params = {
       categoryNames: category,
       detail: editorRef.current.getInstance().getMarkdown(),
       githubIdentifier: Number(id),
       githubLink: html_url,
-      logoUrl: avatar_url,
+      logoUrl: logoUrl.length > 0 ? logoUrl[0] : '',
       organizationIds: organization?.map((each) => Number(each)),
       pushedAt: pushed_at,
       recruiting: isRecruiting,
