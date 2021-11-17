@@ -4,14 +4,15 @@ import styles from './HashTagCircle.module.scss';
 const BLUE_ACTIVE = '#004ce5';
 const DEFAULT_RADIUS = 15;
 const MAX_RADIUS = 150;
+const MIN_RADIUS = 25;
 
 const getRadius = (count: number, weight: number) => {
   const rad = count * weight * DEFAULT_RADIUS;
   if (rad > MAX_RADIUS) {
     return MAX_RADIUS;
   }
-  if (rad < DEFAULT_RADIUS) {
-    return DEFAULT_RADIUS;
+  if (rad < MIN_RADIUS) {
+    return MIN_RADIUS;
   }
   return rad;
 };
@@ -48,7 +49,7 @@ const HashTagCircle = ({
         textAnchor="middle"
         className={styles.word}
       >
-        {word}
+        {`#${word}`}
       </text>
     </g>
   );
