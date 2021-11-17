@@ -8,6 +8,7 @@ import SideCard from '@src/components//SideCard';
 import { useSideState } from '@src/store';
 import useThrottle from '@src/hooks/useThrottle';
 import useIntersectionObserver from '@src/hooks/useIntersectionObserver';
+import Typography from '@src/components/common/Typography';
 
 const BREAKPOINT_COLS = {
   default: 4,
@@ -52,6 +53,15 @@ const SideList = () => {
 
   return (
     <div className={styles.SideList}>
+      {!isLoading && (infiniteData?.pages || []).length === 0 && (
+        <Typography
+          className={styles.sideTypography}
+          fontSize="md"
+          textColor="lightGray"
+        >
+          아직 작성된 글이 없습니다.
+        </Typography>
+      )}
       <Masonry
         breakpointCols={BREAKPOINT_COLS}
         className={styles.grid}
