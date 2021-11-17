@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './SidePage.module.scss';
@@ -21,7 +21,7 @@ import {
 import Dropdown, { ListsEachObject } from '@src/components/Dropdown';
 import Typography from '@src/components/common/Typography';
 import { setSide, useAppDispatch, useSideState } from '@src/store';
-import Input from '@src/components/common/Input';
+import Input, { ParentRef } from '@src/components/common/Input';
 import { useAuth } from '@src/hooks/useUserQuery';
 import { useLocation } from 'react-router-dom';
 import { GuideText } from '@src/constant/enums';
@@ -42,9 +42,14 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   }, [status]);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isInputFocus, setIsInputFocus] = useState(false);
 
   const dispatch = useAppDispatch();
   const { isRecruiting, sort } = useSideState();
+
+  const wrapperRef = useRef<HTMLInputElement>(null);
+  const searchRef = useRef({} as ParentRef);
+
   const {
     isModalVisible: isAlertVisible,
     modalMessage: alertMessage,
@@ -63,6 +68,18 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   const { data: organizationData } = useGetOrganization();
   const { data: skillsData } = useGetSkills();
 
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () =>
+      document.removeEventListener('click', handleClickOutside, true);
+  }, []);
+
+  const handleClickOutside = ({ target }: MouseEvent) => {
+    if (!wrapperRef.current?.contains(target as HTMLDivElement)) {
+      setIsFilterOpen(false);
+    }
+  };
+
   return (
     <div className={styles.SidePage}>
       <div className={styles.sideCardContainer}>
@@ -78,7 +95,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
           <div className={styles.searchArea}>
             <Setting onClick={() => setIsFilterOpen((prev) => !prev)} />
             {isFilterOpen && (
-              <>
+              <div ref={wrapperRef} className={styles.sideFilter}>
                 <Dropdown
                   lists={categoryData?.data as string[]}
                   title="category"
@@ -106,14 +123,29 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
                     <span className={styles.teamAvailableCheckmark} />
                   </>
                 </label>
-              </>
+              </div>
             )}
-            <Search />
+            <Search
+              onClick={() => {
+                setIsInputFocus(true);
+                searchRef.current.focus();
+              }}
+            />
             <Input
+              ref={searchRef}
+              className={cn(
+                styles.sidePageSeachbar,
+                isInputFocus ? styles.isInputFocus : styles.isInputFocusOut,
+              )}
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>
                 dispatch(setSide({ search: e.target.value.split(' ') }))
               }
+              onFocus={() => {
+                setIsFilterOpen(false);
+                setIsInputFocus(true);
+              }}
+              onBlur={() => setIsInputFocus(false)}
             />
           </div>
         </div>

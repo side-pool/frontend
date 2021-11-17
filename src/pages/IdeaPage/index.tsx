@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import styles from './IdeaPage.module.scss';
 import Search from '@src/assets/Search.svg';
@@ -12,7 +12,7 @@ import IdeaCardContainer from '@src/components/Idea/IdeaCardContainer';
 import { useAuth } from '@src/hooks/useUserQuery';
 import Typography from '@src/components/common/Typography';
 import { setIdea, useAppDispatch, useIdeaState } from '@src/store';
-import Input from '@src/components/common/Input';
+import Input, { ParentRef } from '@src/components/common/Input';
 import { useQueryClient } from 'react-query';
 import HashTagBanner from '@src/components/HashTagBanner';
 import { useGetHashTags } from '@src/hooks/useHashTagQuery';
@@ -26,11 +26,15 @@ interface IdeaPageProps {
 const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
   const { search } = useIdeaState();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isInputFocus, setIsInputFocus] = useState(false);
   const queryClient = useQueryClient();
   const { isDone, sort } = useIdeaState();
   const dispatch = useAppDispatch();
   const { data: isAuth } = useAuth();
   const { data: hashTagInfos, isSuccess: isHashTagSuccess } = useGetHashTags();
+
+  const wrapperRef = useRef<HTMLInputElement>(null);
+  const searchRef = useRef({} as ParentRef);
 
   const {
     isModalVisible: isAlertVisible,
@@ -45,6 +49,18 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
     hideModal: hideIdeaForm,
   } = useModalControl();
 
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () =>
+      document.removeEventListener('click', handleClickOutside, true);
+  }, []);
+
+  const handleClickOutside = ({ target }: MouseEvent) => {
+    if (!wrapperRef.current?.contains(target as HTMLDivElement)) {
+      setIsFilterOpen(false);
+    }
+  };
+
   return (
     <div className={styles.IdeaPage}>
       <div className={styles.ideaCardContainer}>
@@ -55,7 +71,7 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
           <div className={styles.searchArea}>
             <Setting onClick={() => setIsFilterOpen((prev) => !prev)} />
             {isFilterOpen && (
-              <>
+              <div ref={wrapperRef}>
                 <label className={styles.isDoneCheckbox}>
                   <Typography fontSize="xs" lineHeight="wide" textColor="gray">
                     해결되었어요
@@ -69,15 +85,30 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
                     <span className={styles.isDoneCheckmark} />
                   </>
                 </label>
-              </>
+              </div>
             )}
-            <Search />
+            <Search
+              onClick={() => {
+                setIsInputFocus(true);
+                searchRef.current.focus();
+              }}
+            />
             <Input
+              ref={searchRef}
+              className={cn(
+                styles.ideaPageSeachbar,
+                isInputFocus ? styles.isInputFocus : styles.isInputFocusOut,
+              )}
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>
                 dispatch(setIdea({ search: e.target.value.split(' ') }))
               }
               value={search?.join(' ')}
+              onFocus={() => {
+                setIsFilterOpen(false);
+                setIsInputFocus(true);
+              }}
+              onBlur={() => setIsInputFocus(false)}
             />
           </div>
         </div>
