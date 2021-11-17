@@ -23,6 +23,29 @@
       .searchArea {
         @include flex_row(flex-end);
 
+        .ideaPageSeachbar {
+          @include slide_keyframes;
+ 
+          input {
+            width: 150px;
+          }
+
+          &.isInputFocusOut {
+            input {
+              animation-duration: 0.2s;
+              animation-name: slideout;
+            }
+          }
+
+          &.isInputFocus {
+            input {
+              width: 300px;
+              animation-duration: 0.2s;
+              animation-name: slidein;
+            }
+          }
+        }
+
         svg {
           cursor: pointer;
           padding: 0px 5.5px;
