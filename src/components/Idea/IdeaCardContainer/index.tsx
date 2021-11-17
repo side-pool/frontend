@@ -6,7 +6,6 @@ import Spinner from '@src/components/common/Spinner';
 import { useIdeaState } from '@src/store';
 import useIntersectionObserver from '@src/hooks/useIntersectionObserver';
 import useThrottle from '@src/hooks/useThrottle';
-import Typography from '@src/components/common/Typography';
 
 const IdeaCardContainer = () => {
   const target = useRef<HTMLDivElement | null>(null);
@@ -40,19 +39,10 @@ const IdeaCardContainer = () => {
 
   return (
     <div className={styles.IdeaCardContainer}>
-      {isSuccess && (infiniteData?.pages || []).length > 0 ? (
+      {isSuccess &&
         infiniteData?.pages?.map((page) =>
           page.map((data) => <IdeaCard key={data.id} idea={data} />),
-        )
-      ) : (
-        <Typography
-          className={styles.ideaTypography}
-          fontSize="md"
-          textColor="lightGray"
-        >
-          아직 작성된 글이 없습니다.
-        </Typography>
-      )}
+        )}
       {(isFetchingNextPage || isLoading) && <Spinner />}
       <div ref={target} className="last-item" />
     </div>
