@@ -18,7 +18,7 @@
       backdrop-filter: blur(30px);
 
       z-index: 100;
-      
+
       &.isGithubVisible {
         z-index: 0;
       }
@@ -29,6 +29,34 @@
 
       .searchArea {
         @include flex_row(flex-end);
+
+        .sideFilter {
+          @include flex_row();
+          gap: 5px;
+        }
+
+        .sidePageSeachbar {
+          @include slide_keyframes;
+
+          input {
+            width: 150px;
+          }
+
+          &.isInputFocusOut {
+            input {
+              animation-duration: 0.2s;
+              animation-name: slideout;
+            }
+          }
+
+          &.isInputFocus {
+            input {
+              width: 300px;
+              animation-duration: 0.2s;
+              animation-name: slidein;
+            }
+          }
+        }
 
         svg {
           cursor: pointer;
