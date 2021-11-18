@@ -108,7 +108,7 @@
         }
 
         .teamAvailableCheckbox:hover input ~ .teamAvailableCheckmark {
-          border-color: #7795ff;
+          border-color: $primary_5;
         }
 
         .teamAvailableCheckbox input:checked ~ .teamAvailableCheckmark {

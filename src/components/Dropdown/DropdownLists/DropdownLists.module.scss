@@ -47,7 +47,7 @@
     }
 
     .checkboxContainer:hover input ~ .checkmark {
-      border-color: #7795ff;
+      border-color: $primary_5;
     }
 
     .checkboxContainer input:checked ~ .checkmark {

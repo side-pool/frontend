@@ -85,7 +85,7 @@
         }
 
         .isDoneCheckbox:hover input ~ .isDoneCheckmark {
-          border-color: #7795ff;
+          border-color: $primary_5;
         }
 
         .isDoneCheckbox input:checked ~ .isDoneCheckmark {
