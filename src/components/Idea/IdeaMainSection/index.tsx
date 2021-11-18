@@ -12,7 +12,12 @@ import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 import AlertModal from '@src/components/modals/AlertModal';
 import { useIsMySide } from '@src/hooks/useSideQuery';
 import { GuideText } from '@src/constant/enums';
-import { setIdea, useAppDispatch, useIdeaState } from '@src/store';
+import {
+  setIdea,
+  useAppDispatch,
+  useIdeaState,
+  showGlobalAlert,
+} from '@src/store';
 
 interface IdeaMainSectionProps {
   idea: Idea;
@@ -46,6 +51,12 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
   } = useModalControl();
 
   const {
+    isModalVisible: isDeleteConfirmAlertVisible,
+    showModal: showDeleteConfirmAlert,
+    hideModal: hideDeleteConfirmAlert,
+  } = useModalControl();
+
+  const {
     isModalVisible: isIdeaFormVisible,
     showModal: showIdeaForm,
     hideModal: hideIdeaForm,
@@ -75,12 +86,7 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
               <Button
                 variant="text"
                 labelText="삭제"
-                onClick={() =>
-                  deleteIdeaMutation.mutate(String(idea.id), {
-                    onSuccess: () => showAlert(GuideText.DELETE_SUCCESS),
-                    onError: () => showAlert(GuideText.ERROR),
-                  })
-                }
+                onClick={() => showDeleteConfirmAlert()}
               />
             </div>
           )}
@@ -143,6 +149,23 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
           content={alertMessage}
           handleConfirm={() => {
             hideAlert();
+          }}
+        />
+      )}
+      {isDeleteConfirmAlertVisible && (
+        <AlertModal
+          content="삭제하시겠습니까?"
+          handleConfirm={() => {
+            hideDeleteConfirmAlert();
+            deleteIdeaMutation.mutate(String(idea.id), {
+              onSuccess: () =>
+                dispatch(
+                  showGlobalAlert({
+                    globalAlertMessage: GuideText.DELETE_SUCCESS,
+                  }),
+                ),
+              onError: () => showAlert(GuideText.ERROR),
+            });
           }}
         />
       )}
