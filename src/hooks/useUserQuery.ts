@@ -75,3 +75,21 @@ export const useCreateUser = () =>
   useMutation<void, AxiosError<unknown>, UserData>((params) =>
     getApiInstance().post(`/users`, params),
   );
+
+export const useUpdateNickname = () => {
+  const { data: isAuth } = useAuth();
+  const { data } = useGetUser(isAuth ?? false);
+  return useMutation<void, AxiosError<unknown>, Pick<UserData, 'nickname'>>(
+    (params) => getApiInstance().put(`/users/nickname/${data?.id}`, params),
+  );
+};
+
+export const useUpdatePassword = () => {
+  const { data: isAuth } = useAuth();
+  const { data } = useGetUser(isAuth ?? false);
+  return useMutation<
+    void,
+    AxiosError<unknown>,
+    Pick<UserData, 'password'> & { updatePassword: string }
+  >((params) => getApiInstance().put(`/users/password/${data?.id}`, params));
+};

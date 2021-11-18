@@ -42,15 +42,13 @@
             width: 150px;
           }
 
-          &.isInputFocusOut {
-            input {
+          &.activeAnimation {
+            input:not(:focus) {
               animation-duration: 0.2s;
               animation-name: slideout;
             }
-          }
 
-          &.isInputFocus {
-            input {
+            input:focus {
               width: 300px;
               animation-duration: 0.2s;
               animation-name: slidein;
@@ -99,7 +97,7 @@
         }
 
         .teamAvailableCheckbox:hover input ~ .teamAvailableCheckmark {
-          border-color: #7795ff;
+          border-color: $primary_5;
         }
 
         .teamAvailableCheckbox input:checked ~ .teamAvailableCheckmark {

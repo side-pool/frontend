@@ -25,8 +25,10 @@ interface IdeaPageProps {
 
 const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
   const { search } = useIdeaState();
+
+  // 첫 화면 렌더링시 애니메이션 실행 안되도록 처리함
+  const [init, setInit] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isInputFocus, setIsInputFocus] = useState(false);
   const queryClient = useQueryClient();
   const { isDone, sort } = useIdeaState();
   const dispatch = useAppDispatch();
@@ -89,7 +91,6 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
             )}
             <Search
               onClick={() => {
-                setIsInputFocus(true);
                 searchRef.current.focus();
               }}
             />
@@ -97,7 +98,7 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
               ref={searchRef}
               className={cn(
                 styles.ideaPageSeachbar,
-                isInputFocus ? styles.isInputFocus : styles.isInputFocusOut,
+                init && styles.activeAnimation,
               )}
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>
@@ -106,9 +107,8 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
               value={search?.join(' ')}
               onFocus={() => {
                 setIsFilterOpen(false);
-                setIsInputFocus(true);
+                setInit(true);
               }}
-              onBlur={() => setIsInputFocus(false)}
             />
           </div>
         </div>

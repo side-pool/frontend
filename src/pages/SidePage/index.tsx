@@ -41,8 +41,9 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
     }
   }, [status]);
 
+  // 첫 화면 렌더링시 애니메이션 실행 안되도록 처리함
+  const [init, setInit] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isInputFocus, setIsInputFocus] = useState(false);
 
   const dispatch = useAppDispatch();
   const { isRecruiting, sort } = useSideState();
@@ -70,6 +71,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
+
     return () =>
       document.removeEventListener('click', handleClickOutside, true);
   }, []);
@@ -127,7 +129,6 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
             )}
             <Search
               onClick={() => {
-                setIsInputFocus(true);
                 searchRef.current.focus();
               }}
             />
@@ -135,7 +136,7 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
               ref={searchRef}
               className={cn(
                 styles.sidePageSeachbar,
-                isInputFocus ? styles.isInputFocus : styles.isInputFocusOut,
+                init && styles.activeAnimation,
               )}
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>
@@ -143,9 +144,8 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
               }
               onFocus={() => {
                 setIsFilterOpen(false);
-                setIsInputFocus(true);
+                setInit(true);
               }}
-              onBlur={() => setIsInputFocus(false)}
             />
           </div>
         </div>
