@@ -73,7 +73,7 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
           setIsEdit(INIT);
         },
         onError: () => {
-          showAlert(GuideText.ERROR);
+          showAlert('기존 비밀번호를 정확하게 입력해주세요.');
         },
       },
     );
