@@ -42,7 +42,7 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
       <div className={styles.myPageContainer}>
         <div className={styles.topArea}>
           <Typography fontSize="xxl" fontWeight="bold">
-            사이드
+            마이페이지
           </Typography>
         </div>
         <div className={styles.infoContainer}>
