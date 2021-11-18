@@ -31,6 +31,7 @@ import LabelTag from '@src/components/common/LabelTag';
 import { GuideText } from '@src/constant/enums';
 import SideMiddleSection from '@src/pages/SideReadPage/SideMiddleSection';
 import SideBottomSection from '@src/pages/SideReadPage/SideBottomSection';
+import { showGlobalAlert, useAppDispatch } from '@src/store';
 
 interface SideReadProps {
   handleToTop?: () => void;
@@ -44,6 +45,7 @@ type ContributorsType = {
 };
 
 const SideReadPage = ({ handleToTop }: SideReadProps) => {
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const { id: paramId }: { id: string } = useParams();
@@ -74,10 +76,10 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
   const handleDeleteSide = () => {
     deleteSideMutation.mutate(id, {
       onSuccess: () => {
-        history.push({
-          pathname: '/side',
-          state: 'delete-success',
-        });
+        dispatch(
+          showGlobalAlert({ globalAlertMessage: GuideText.DELETE_SUCCESS }),
+        );
+        history.push('/side');
       },
       onError: () => {
         showAlert(GuideText.ERROR);
