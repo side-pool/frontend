@@ -13,8 +13,12 @@ import Sidebar from '@src/components/common/Sidebar';
 import { useAuth } from '@src/hooks/useUserQuery';
 import AuthRoute from '@src/components/common/AuthRouter';
 import SideReadPage from '@src/pages/SideReadPage';
+import AlertModal from '@src/components/modals/AlertModal';
+import { useAppDispatch, useUiState, hideGlobalAlert } from '@src/store';
 
 const App = () => {
+  const { isGlobalAlertVisible, globalAlertMessage } = useUiState();
+  const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { data: isAuth } = useAuth();
 
@@ -69,6 +73,14 @@ const App = () => {
             render={(props) => <MyPage {...props} handleToTop={handleToTop} />}
           />
         </div>
+        {isGlobalAlertVisible && (
+          <AlertModal
+            content={globalAlertMessage}
+            handleConfirm={() => {
+              dispatch(hideGlobalAlert());
+            }}
+          />
+        )}
       </div>
     </Switch>
   );
