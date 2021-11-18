@@ -3,9 +3,14 @@ import Button from '@src/components/common/Button';
 import cn from 'classnames';
 import UserInfoCard from '@src/components/UserInfoCard';
 import Typography from '@src/components/common/Typography';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './MyPage.module.scss';
-import { useAuth, useGetUser } from '@src/hooks/useUserQuery';
+import {
+  useAuth,
+  useGetUser,
+  useUpdateNickname,
+  useUpdatePassword,
+} from '@src/hooks/useUserQuery';
 import MySideList from '@src/components/MySideList';
 import { useReadAlarm } from '@src/hooks/useMyPageQuery';
 import MyIdeaList from '@src/components/Idea/MyIdeaList';
@@ -13,7 +18,11 @@ import MyCommentList from '@src/components/Comment/MyCommentList';
 import AlarmCardContainer from '@src/components/AlarmCardContainer';
 import useModalControl from '@src/hooks/useModalControl';
 import AlertModal from '@src/components/modals/AlertModal';
-import Input from '@src/components/common/Input';
+import Input, { ParentRef } from '@src/components/common/Input';
+import { GuideText } from '@src/constant/enums';
+import { isValidPasswd } from '@src/utils/common';
+
+const INVALID_PASSWD_TEXT = '비밀번호는 숫자, 문자 포함 8~15로 입력해주세요.';
 
 interface MyPageProps {
   handleToTop?: () => void;
@@ -43,6 +52,58 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
     showModal: showAlert,
     hideModal: hideAlert,
   } = useModalControl();
+
+  const nicknameRef = useRef({} as ParentRef);
+  const passwordRef = useRef({} as ParentRef);
+  const updatePasswordRef = useRef({} as ParentRef);
+
+  const updateNicknameMutate = useUpdateNickname();
+  const updatePasswordMutate = useUpdatePassword();
+
+  const handleNicknameChange = () => {
+    const nickname = nicknameRef.current.get();
+    if (nickname.length === 0 || nicknameRef === undefined)
+      return showAlert('닉네임을 입력해주세요!');
+
+    updateNicknameMutate.mutate(
+      { nickname },
+      {
+        onSuccess: () => {
+          showAlert('닉네임이 변경되었습니다!');
+          setIsEdit(INIT);
+        },
+        onError: () => {
+          showAlert(GuideText.ERROR);
+        },
+      },
+    );
+  };
+
+  const handlePasswordChange = () => {
+    const password = passwordRef.current.get();
+    const updatePassword = updatePasswordRef.current.get();
+
+    if (password.length === 0 || passwordRef === undefined)
+      return showAlert('비밀번호를 입력해주세요!');
+    if (updatePassword.length === 0 || updatePasswordRef === undefined)
+      return showAlert('새로운 비밀번호를 입력해주세요!');
+    if (!isValidPasswd(password) || !isValidPasswd(updatePassword)) {
+      return showAlert(INVALID_PASSWD_TEXT);
+    }
+
+    updatePasswordMutate.mutate(
+      { password, updatePassword },
+      {
+        onSuccess: () => {
+          showAlert('비밀번호가 변경되었습니다!');
+          setIsEdit(INIT);
+        },
+        onError: () => {
+          showAlert(GuideText.ERROR);
+        },
+      },
+    );
+  };
 
   return (
     <div className={styles.MyPage}>
@@ -183,9 +244,9 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
                   닉네임
                 </Typography>
                 <div className={styles.editNicknameLastCol}>
-                  <Input placeholder="nickname" />
+                  <Input ref={nicknameRef} placeholder="nickname" />
                   <Button onClick={() => setIsEdit(IS_EDIT)}>취소</Button>
-                  <Button onClick={() => setIsEdit(INIT)} primary>
+                  <Button onClick={handleNicknameChange} primary>
                     변경
                   </Button>
                 </div>
@@ -197,16 +258,20 @@ const MyPage = ({ handleToTop }: MyPageProps) => {
                   <Typography fontSize="xxs" textColor="black">
                     현재 비밀번호
                   </Typography>
-                  <Input placeholder="" />
+                  <Input ref={passwordRef} placeholder="" password />
                 </div>
                 <div className={styles.editPasswordRow}>
                   <Typography fontSize="xxs" textColor="black">
                     새로운 비밀번호
                   </Typography>
                   <div className={styles.editPasswordLastCol}>
-                    <Input placeholder="숫자, 문자 포함 8~15자리" />
+                    <Input
+                      ref={updatePasswordRef}
+                      placeholder="숫자, 문자 포함 8~15자리"
+                      password
+                    />
                     <Button onClick={() => setIsEdit(IS_EDIT)}>취소</Button>
-                    <Button onClick={() => setIsEdit(INIT)} primary>
+                    <Button onClick={handlePasswordChange} primary>
                       변경
                     </Button>
                   </div>
