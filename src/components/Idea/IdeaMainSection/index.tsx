@@ -155,6 +155,7 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
       {isDeleteConfirmAlertVisible && (
         <AlertModal
           content="삭제하시겠습니까?"
+          handleCancel={hideDeleteConfirmAlert}
           handleConfirm={() => {
             hideDeleteConfirmAlert();
             deleteIdeaMutation.mutate(String(idea.id), {

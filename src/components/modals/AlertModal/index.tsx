@@ -10,6 +10,7 @@ import ModalBottom from '@src/components/modals/ModalBottom';
 export interface AlertModalProps {
   content: string;
   handleConfirm: (event: React.MouseEvent) => void;
+  handleCancel?: (event: React.MouseEvent) => void;
   title?: string;
   className?: string;
 }
@@ -18,6 +19,7 @@ const Template = ({
   title = '알림',
   content,
   handleConfirm,
+  handleCancel,
   className,
 }: AlertModalProps) => {
   return (
@@ -26,7 +28,7 @@ const Template = ({
       data-testid="modal"
       aria-hidden="true"
     >
-      <Overlay onClick={handleConfirm} />
+      <Overlay onClick={handleCancel ? handleCancel : handleConfirm} />
       <Card className={styles.alertCard}>
         <ModalTop title={title} />
         <div className={styles.content}>{content}</div>
