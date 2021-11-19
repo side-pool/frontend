@@ -6,6 +6,8 @@ import AlarmCard from '@src/components/AlarmCard';
 import useModalControl from '@src/hooks/useModalControl';
 import IdeaModal from '@src/components/modals/IdeaModal';
 import { Alarm } from '@src/models';
+import { showGlobalAlert, useAppDispatch } from '@src/store';
+import { GuideText } from '@src/constant/enums';
 
 const AlarmCardContainer = (props: Alarm) => {
   const {
@@ -13,7 +15,7 @@ const AlarmCardContainer = (props: Alarm) => {
     showModal: showIdea,
     hideModal: hideIdea,
   } = useModalControl();
-
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const deleteAlarmMutation = useDeleteAlarm();
@@ -33,7 +35,24 @@ const AlarmCardContainer = (props: Alarm) => {
     <div>
       <AlarmCard
         onClick={handleClick}
-        onClose={() => deleteAlarmMutation.mutate(props.id)}
+        onClose={() =>
+          deleteAlarmMutation.mutate(props.id, {
+            onSuccess: () => {
+              dispatch(
+                showGlobalAlert({
+                  globalAlertMessage: '댓글 알림을 삭제하였습니다.',
+                }),
+              );
+            },
+            onError: () => {
+              dispatch(
+                showGlobalAlert({
+                  globalAlertMessage: GuideText.ERROR,
+                }),
+              );
+            },
+          })
+        }
         {...props}
       />
       {isIdeaVisible && props.id && (
