@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation, Redirect } from 'react-router-dom';
 import styles from '@src/App.module.scss';
-import LandingPage from '@src/pages/LandingPage';
 import LoginPage from '@src/pages/LoginPage';
 import JoinPage from '@src/pages/JoinPage';
 import IdeaPage from '@src/pages/IdeaPage';
@@ -38,7 +37,6 @@ const App = () => {
           <Sidebar pathname={pathname} />
         </div>
         <div className={styles.content} ref={pageRef}>
-          <Route exact path="/" component={LandingPage} />
           <AuthRoute
             path="/login"
             component={LoginPage}
@@ -72,6 +70,7 @@ const App = () => {
             redirectPath="/login"
             render={(props) => <MyPage {...props} handleToTop={handleToTop} />}
           />
+          <Redirect from="*" to="/side" />
         </div>
         {isGlobalAlertVisible && (
           <AlertModal
