@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './SidePage.module.scss';
@@ -23,18 +23,12 @@ import Typography from '@src/components/common/Typography';
 import { setSide, useAppDispatch, useSideState } from '@src/store';
 import Input, { ParentRef } from '@src/components/common/Input';
 import { useAuth } from '@src/hooks/useUserQuery';
-import { useLocation } from 'react-router-dom';
-import { GuideText } from '@src/constant/enums';
 
 interface SidePageProps {
   handleToTop?: () => void;
 }
 
 const SidePage = ({ handleToTop }: SidePageProps) => {
-  const location = useLocation();
-
-  const status = useMemo(() => location.state as string, [location]);
-
   // 첫 화면 렌더링시 애니메이션 실행 안되도록 처리함
   const [init, setInit] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
