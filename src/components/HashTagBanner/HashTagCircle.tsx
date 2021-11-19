@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './HashTagCircle.module.scss';
+import { useAppDispatch, setIdea, useIdeaState } from '@src/store';
 
 const BLUE_ACTIVE = '#004ce5';
 const DEFAULT_RADIUS = 15;
@@ -35,8 +36,23 @@ const HashTagCircle = ({
   word,
   coordinate,
 }: HashTagCircleProps) => {
+  const dispatch = useAppDispatch();
+  const { search } = useIdeaState();
+
   return (
-    <g fill={`${BLUE_ACTIVE}`} className={styles.HashTagCircle}>
+    <g
+      fill={`${BLUE_ACTIVE}`}
+      className={styles.HashTagCircle}
+      onClick={() =>
+        dispatch(
+          setIdea({
+            search: search?.includes(word)
+              ? search?.filter((each) => word !== each)
+              : [...(search || []), word],
+          }),
+        )
+      }
+    >
       <circle
         cx={coordinate?.x ?? '50%'}
         cy={coordinate?.y ?? '50%'}
