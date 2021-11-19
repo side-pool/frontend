@@ -15,6 +15,8 @@ import SideReadPage from '@src/pages/SideReadPage';
 import AlertModal from '@src/components/modals/AlertModal';
 import { useAppDispatch, useUiState, hideGlobalAlert } from '@src/store';
 
+const PATH_CHECK = ['login', 'join', 'idea', 'side', 'mypage'];
+
 const App = () => {
   const { isGlobalAlertVisible, globalAlertMessage } = useUiState();
   const dispatch = useAppDispatch();
@@ -70,7 +72,9 @@ const App = () => {
             redirectPath="/login"
             render={(props) => <MyPage {...props} handleToTop={handleToTop} />}
           />
-          <Redirect from="*" to="/side" />
+          {pathname && !PATH_CHECK.some((each) => pathname.includes(each)) && (
+            <Redirect to="/side" />
+          )}
         </div>
         {isGlobalAlertVisible && (
           <AlertModal
