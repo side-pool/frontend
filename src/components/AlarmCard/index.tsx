@@ -44,7 +44,13 @@ const AlarmCard = ({
             {postType}
           </Typography>
         </div>
-        <Close className={cn(styles.closeIconContainer)} onClick={onClose} />
+        <Close
+          className={cn(styles.closeIconContainer)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+        />
       </div>
       <div className={styles.alarmCardContentArea}>
         <Typography
