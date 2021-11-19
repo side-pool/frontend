@@ -35,12 +35,6 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
 
   const status = useMemo(() => location.state as string, [location]);
 
-  useEffect(() => {
-    if (status !== undefined && status === 'delete-success') {
-      showAlert(GuideText.DELETE_SUCCESS);
-    }
-  }, [status]);
-
   // 첫 화면 렌더링시 애니메이션 실행 안되도록 처리함
   const [init, setInit] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);

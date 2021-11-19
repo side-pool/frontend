@@ -1,7 +1,11 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
 
-import uiReducer, { setLoading } from '@src/store/uiSlice';
+import uiReducer, {
+  setLoading,
+  showGlobalAlert,
+  hideGlobalAlert,
+} from '@src/store/uiSlice';
 import sideReducer, { setSide, setInitSide } from '@src/store/sideSlice';
 import ideaReducer, { setIdea } from '@src/store/ideaSlice';
 
@@ -15,7 +19,14 @@ const store = configureStore({ reducer: reducers });
 
 export default store;
 
-export { setLoading, setSide, setInitSide, setIdea };
+export {
+  setLoading,
+  showGlobalAlert,
+  hideGlobalAlert,
+  setSide,
+  setInitSide,
+  setIdea,
+};
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
