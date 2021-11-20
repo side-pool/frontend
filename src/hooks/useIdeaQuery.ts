@@ -15,8 +15,8 @@ export const useReadIdeas = (params: IdeaParams) => {
   const PAGE_SIZE = 5;
 
   return useInfiniteQuery(
-    ['/ideas', params] as const,
-    async ({ queryKey: [url, params], pageParam = 0 }) => {
+    ['/ideas'] as const,
+    async ({ queryKey: [url], pageParam = 0 }) => {
       const { data: page } = await getApiInstance().get<ReadIdeasData>(url, {
         params: {
           ...params,
@@ -26,6 +26,14 @@ export const useReadIdeas = (params: IdeaParams) => {
       });
 
       return page;
+    },
+    {
+      getNextPageParam: (lastPage, allPage) => {
+        if (lastPage.length === 0) {
+          return undefined;
+        }
+        return allPage.length;
+      },
     },
   );
 };

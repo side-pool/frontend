@@ -58,8 +58,8 @@ export const useReadSides = (params: SideParams) => {
   const PAGE_SIZE = 5;
 
   return useInfiniteQuery(
-    ['/sides', params] as const,
-    async ({ queryKey: [url, params], pageParam = 0 }) => {
+    ['/sides'] as const,
+    async ({ queryKey: [url], pageParam = 0 }) => {
       const { data: page } = await getApiInstance().get<ReadSidesData>(url, {
         params: {
           ...params,
@@ -69,6 +69,14 @@ export const useReadSides = (params: SideParams) => {
       });
 
       return page;
+    },
+    {
+      getNextPageParam: (lastPage, allPage) => {
+        if (lastPage.length === 0) {
+          return undefined;
+        }
+        return allPage.length;
+      },
     },
   );
 };
