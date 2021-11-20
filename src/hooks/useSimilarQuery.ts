@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import { ReadSimilarData } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
@@ -29,13 +29,22 @@ export const useReadSimilars = (ideaId: number) =>
   );
 
 export const useCreateSimilar = (ideaId: number) => {
+  const queryClient = useQueryClient();
+
   return useMutation<
     unknown,
     AxiosError<unknown>,
     Omit<SimilarContext, 'ideaId' | 'similarId'>
-  >(async ({ description, url }) => {
-    await getApiInstance().post(getSimilarUrl(ideaId), { description, url });
-  });
+  >(
+    async ({ description, url }) => {
+      await getApiInstance().post(getSimilarUrl(ideaId), { description, url });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(`/ideas`);
+      },
+    },
+  );
 };
 
 export const useUpdateSimilar = () =>
@@ -48,11 +57,21 @@ export const useUpdateSimilar = () =>
     },
   );
 
-export const useDeleteSimilar = () =>
-  useMutation<
+export const useDeleteSimilar = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<
     unknown,
     AxiosError<unknown>,
     Omit<SimilarContext, 'url' | 'description'>
-  >(async ({ ideaId, similarId }) => {
-    await getApiInstance().delete(`${getSimilarUrl(ideaId)}/${similarId}`);
-  });
+  >(
+    async ({ ideaId, similarId }) => {
+      await getApiInstance().delete(`${getSimilarUrl(ideaId)}/${similarId}`);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(`/ideas`);
+      },
+    },
+  );
+};
