@@ -15,8 +15,8 @@ export const useReadIdeas = (params: IdeaParams) => {
   const PAGE_SIZE = 5;
 
   return useInfiniteQuery(
-    ['/ideas'] as const,
-    async ({ queryKey: [url], pageParam = 0 }) => {
+    ['/ideas', params] as const,
+    async ({ queryKey: [url, params], pageParam = 0 }) => {
       const { data: page } = await getApiInstance().get<ReadIdeasData>(url, {
         params: {
           ...params,
