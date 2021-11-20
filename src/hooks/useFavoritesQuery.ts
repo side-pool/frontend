@@ -13,7 +13,7 @@ export const useReadFavorites = (ideaId: number, isAuth: boolean) =>
       : `${getFavoritesUrl(ideaId)}/without-auth`,
     {
       onError: (error) => {
-        console.log(getErrorText(error));
+        console.error(getErrorText(error));
       },
     },
   );

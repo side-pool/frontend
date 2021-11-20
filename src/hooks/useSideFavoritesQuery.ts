@@ -13,7 +13,7 @@ export const useReadSideFavorites = (sideId: number, isAuth: boolean) =>
       : `${getFavoritesUrl(sideId)}/without-auth`,
     {
       onError: (error) => {
-        console.log(getErrorText(error));
+        console.error(getErrorText(error));
       },
     },
   );
