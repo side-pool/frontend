@@ -49,25 +49,27 @@ const SideList = () => {
 
   return (
     <div className={styles.SideList}>
-      {!isLoading && (infiniteData?.pages || []).length === 0 && (
-        <Typography
-          className={styles.sideTypography}
-          fontSize="md"
-          textColor="lightGray"
-        >
-          아직 작성된 글이 없습니다.
-        </Typography>
-      )}
-      <Masonry
-        breakpointCols={BREAKPOINT_COLS}
-        className={styles.grid}
-        columnClassName={styles.gridColumn}
-      >
-        {isSuccess &&
-          infiniteData?.pages?.map((page) =>
-            page.map((data) => <SideCard {...data} key={data.id} />),
-          )}
-      </Masonry>
+      {isSuccess &&
+        (infiniteData?.pages[0].length === 0 ? (
+          // 사이드가 없는 경우
+          <Typography
+            className={styles.sideTypography}
+            fontSize="xl"
+            textColor="lightGray"
+          >
+            아직 작성된 사이드가 없습니다.
+          </Typography>
+        ) : (
+          <Masonry
+            breakpointCols={BREAKPOINT_COLS}
+            className={styles.grid}
+            columnClassName={styles.gridColumn}
+          >
+            {infiniteData?.pages?.map((page) =>
+              page.map((data) => <SideCard {...data} key={data.id} />),
+            )}
+          </Masonry>
+        ))}
       {(isFetchingNextPage || isLoading) && <Spinner />}
       <div ref={target} className="last-item" />
     </div>
