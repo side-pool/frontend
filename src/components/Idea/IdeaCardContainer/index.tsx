@@ -44,7 +44,7 @@ const IdeaCardContainer = () => {
             fontSize="xl"
             textColor="lightGray"
           >
-            아직 작성된 글이 없습니다.
+            아직 작성된 아이디어가 없습니다.
           </Typography>
         ) : (
           infiniteData?.pages?.map((page) =>
