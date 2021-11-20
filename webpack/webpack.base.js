@@ -37,15 +37,6 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.ico$/i,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-          },
-        },
-      },
     ],
   },
   resolve: {
