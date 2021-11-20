@@ -65,6 +65,7 @@ const Template = ({
         hashtag.trim()
       ) {
         if (hashtagArr.some(({ content }) => content === hashtag)) {
+          setHashtag('');
           return showAlert(GuideText.DUPLICATE);
         }
         setHashtagArr((prev) => [...prev, { id: uuidv4(), content: hashtag }]);

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import Button from '@src/components/common/Button';
 import LabelTag, { HashTag } from '@src/components/common/LabelTag';
 import Typography from '@src/components/common/Typography';
@@ -18,6 +18,7 @@ import {
   useIdeaState,
   showGlobalAlert,
 } from '@src/store';
+import useThrottle from '@src/hooks/useThrottle';
 
 interface IdeaMainSectionProps {
   idea: Idea;
@@ -42,7 +43,12 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
   const dispatch = useAppDispatch();
   const { search } = useIdeaState();
 
+  const hasthagWidthRef = useRef();
+
   const [isMore, setIsMore] = useState(false);
+  const [isMoreHashtag, setIsMoreHastag] = useState(true);
+  const [restHashtagLength, setRestHashtagLength] = useState(0);
+
   const {
     isModalVisible: isAlertVisible,
     modalMessage: alertMessage,
@@ -67,6 +73,37 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
   const deleteIdeaMutation = useDeleteIdea();
 
   const content = useMemo(() => idea.content.split('\n'), [idea]);
+
+  const calcIsMorePointer = useThrottle(
+    () =>
+      setRestHashtagLength(
+        idea.hashtags.reduce(
+          (acc, cur) => {
+            const calcWdith = acc.width + 50 + cur.length * 4;
+
+            if (calcWdith < hasthagWidthRef?.current?.offsetWidth) {
+              return {
+                width: calcWdith,
+                pointer: acc.pointer + 1,
+              };
+            }
+            return { ...acc };
+          },
+          {
+            pointer: 0,
+            width: 0,
+          },
+        ).pointer,
+      ),
+    100,
+  );
+
+  useLayoutEffect(() => {
+    window.addEventListener('resize', calcIsMorePointer);
+
+    calcIsMorePointer();
+    return () => window.removeEventListener('resize', calcIsMorePointer);
+  }, []);
 
   return (
     <section className={styles.IdeaMainSection}>
@@ -116,21 +153,31 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
           onClick={() => setIsMore((prev) => !prev)}
         />
       )}
-      <div className={styles.labelArea}>
-        {idea.hashtags.map((tag, index) => (
-          <HashTag
-            key={index}
-            onClick={() =>
-              dispatch(
-                setIdea({
-                  search: search.includes(tag)
-                    ? search.filter((each) => tag !== each)
-                    : [...search, tag],
-                }),
-              )
-            }
-          >{`# ${tag}`}</HashTag>
-        ))}
+      <div className={styles.labelArea} ref={hasthagWidthRef}>
+        {idea.hashtags
+          .slice(0, isMoreHashtag ? restHashtagLength : idea.hashtags.length)
+          .map((tag, index) => (
+            <HashTag
+              key={index}
+              onClick={() =>
+                dispatch(
+                  setIdea({
+                    search: search.includes(tag)
+                      ? search.filter((each) => tag !== each)
+                      : [...search, tag],
+                  }),
+                )
+              }
+            >{`# ${tag}`}</HashTag>
+          ))}
+        {restHashtagLength !== idea.hashtags.length && (
+          <Button
+            variant="text"
+            onClick={() => setIsMoreHastag((prev) => !prev)}
+          >
+            {isMoreHashtag ? '더보기' : '접기'}
+          </Button>
+        )}
       </div>
       {isIdeaFormVisible && (
         <IdeaFormModal
@@ -155,6 +202,7 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
       {isDeleteConfirmAlertVisible && (
         <AlertModal
           content="삭제하시겠습니까?"
+          handleCancel={hideDeleteConfirmAlert}
           handleConfirm={() => {
             hideDeleteConfirmAlert();
             deleteIdeaMutation.mutate(String(idea.id), {

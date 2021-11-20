@@ -1,6 +1,6 @@
 .SideCard {
   @include hover_animation;
-  
+
   cursor: pointer;
 
   @include flex_col(stretch, stretch);
@@ -23,6 +23,7 @@
     }
 
     overflow: hidden;
+    word-wrap: break-word;
 
     img {
       overflow: hidden;
