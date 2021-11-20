@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import cn from 'classnames';
 import Typography from '@src/components/common/Typography';
 
@@ -24,6 +24,7 @@ const SideCard = ({
 }: SideCardProps) => {
   const history = useHistory();
   const pickNumber = useMemo(() => Math.floor(Math.random() * 4), []);
+  const [imageUrl, setImageUrl] = useState(logoUrl);
 
   return (
     <div
@@ -34,12 +35,12 @@ const SideCard = ({
       <div
         className={cn(
           styles.sideCardTopArea,
-          !logoUrl && styles.isPadding,
-          !logoUrl && PRIMARY_PICK[pickNumber],
+          !imageUrl && styles.isPadding,
+          !imageUrl && PRIMARY_PICK[pickNumber],
         )}
       >
-        {logoUrl ? (
-          <img src={logoUrl} alt={title} />
+        {imageUrl ? (
+          <img src={imageUrl} alt={title} onError={() => setImageUrl('')} />
         ) : (
           <Typography fontSize="xhl" textColor="white">
             {summary}
