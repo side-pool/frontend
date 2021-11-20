@@ -117,7 +117,7 @@ const SideCreatePage = ({ handleToTop }: SideCreatePageProps) => {
     if (serviceLink.length > 0 && !serviceLink.includes('http'))
       return showAlert('올바릉 형식의 서비스 링크를 입력해주세요!');
 
-    const getImageRegex = /(https?:\/\/.*\.(?:png|jpg))/i;
+    const getImageRegex = /(https?:\/\/.*\.(?:png|jpg|svg|jpeg))/i;
 
     const logoUrl = getImageRegex.exec(editorContent) || [];
 
