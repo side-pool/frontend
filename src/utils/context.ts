@@ -4,7 +4,7 @@ import qs from 'qs';
 import { NODE_ENV } from '@src/utils/NODE_ENV_TYPE';
 
 // 네트워크 요청, 응답 로그
-export const LOG_TOGGLE = true;
+export const LOG_TOGGLE = false;
 export const SERVER_URL =
   NODE_ENV === 'product'
     ? process.env.PAASTA_SERVER_URL
