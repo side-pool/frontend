@@ -46,9 +46,7 @@ const HashTagCircle = ({
       onClick={() =>
         dispatch(
           setIdea({
-            search: search?.includes(word)
-              ? search?.filter((each) => word !== each)
-              : [...(search || []), word],
+            search: search?.includes(word) ? [] : [word],
           }),
         )
       }
