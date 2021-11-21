@@ -130,7 +130,7 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
                 )}
               >
                 <Typography fontSize="xs" lineHeight="wide" textColor="gray">
-                  {!data?.recruiting
+                  {data?.recruiting
                     ? '팀원을 모집 중 입니다'
                     : '팀원모집을 완료했습니다.'}
                 </Typography>
