@@ -5,6 +5,7 @@ import styles from './ButtonTab.module.scss';
 import CommentIcon from '@src/assets/Comment.svg';
 import SimilarIcon from '@src/assets/WarningCircle.svg';
 import cn from 'classnames';
+import useWindowSize from '@src/hooks/useWindowSize';
 
 export interface ButtonTabProps
   extends React.HTMLAttributes<HTMLButtonElement> {
@@ -27,14 +28,25 @@ const ButtonTab = ({ active, text, children, ...props }: ButtonTabProps) => {
   );
 };
 
-export const CommentTab = ({ ...props }: Partial<ButtonTabProps>) => (
-  <ButtonTab text="댓글보기" {...props}>
-    <CommentIcon />
-  </ButtonTab>
-);
+export const CommentTab = ({ ...props }: Partial<ButtonTabProps>) => {
+  const { isMobile } = useWindowSize();
 
-export const SimilarServiceTab = ({ ...props }: Partial<ButtonTabProps>) => (
-  <ButtonTab text="비슷한 서비스가 있어요" {...props}>
-    <SimilarIcon />
-  </ButtonTab>
-);
+  return (
+    <ButtonTab text={isMobile ? '댓글' : '댓글보기'} {...props}>
+      <CommentIcon />
+    </ButtonTab>
+  );
+};
+
+export const SimilarServiceTab = ({ ...props }: Partial<ButtonTabProps>) => {
+  const { isMobile } = useWindowSize();
+
+  return (
+    <ButtonTab
+      text={isMobile ? '비슷한 서비스' : '비슷한 서비스가 있어요'}
+      {...props}
+    >
+      <SimilarIcon />
+    </ButtonTab>
+  );
+};

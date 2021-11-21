@@ -79,7 +79,7 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
       setRestHashtagLength(
         idea.hashtags.reduce(
           (acc, cur) => {
-            const calcWdith = acc.width + 50 + cur.length * 4;
+            const calcWdith = acc.width + 50 + cur.length * 7;
 
             if (calcWdith < hasthagWidthRef?.current?.offsetWidth) {
               return {

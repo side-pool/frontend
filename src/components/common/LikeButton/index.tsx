@@ -32,7 +32,9 @@ const LikeButton = ({
     >
       <div className={styles.likeButtonContent}>
         <HeartIcon className={styles.heartIcon} />
-        <Typography fontSize="sm">좋아요</Typography>
+        <Typography className={styles.typoLike} fontSize="sm">
+          좋아요
+        </Typography>
         <Typography fontSize="sm" textColor="gray">
           {favorites?.favoriteCount ?? 0}
         </Typography>

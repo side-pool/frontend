@@ -163,8 +163,8 @@
       @include mobile {
         @include flex_row(flex-start);
         width: 100%;
-        padding-top: 24px;
-        padding-bottom: 17px;
+        padding-top: 0px;
+        padding-bottom: 16px;
       }
 
       svg {

@@ -9,6 +9,15 @@
       .ideaMaintopButtonContainer {
         @include flex_row();
       }
+      @include mobile {
+        width: 100%;
+        @include flex_row(space-between);
+      }
+    }
+    @include mobile {
+      @include flex_col(stretch, flex-start);
+      flex-direction: column-reverse;
+      gap: 20px;
     }
   }
   .subText {
@@ -21,6 +30,9 @@
   .ideaBody {
     margin: 8px 0px 10px 0px;
     white-space: pre-wrap;
+    @include mobile {
+      font-size: $font-size-x-medium;
+    }
   }
   .moreButton {
     @include flex_row(stretch, stretch);
@@ -34,6 +46,10 @@
 
     .LabelTag ~ .LabelTag {
       margin-left: 0px;
+    }
+
+    .Button {
+      color: $gray_7;
     }
   }
 }

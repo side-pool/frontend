@@ -4,9 +4,15 @@
 
   .ideaCardContainer {
     width: 100%;
+    max-width: 1800px;
     height: 100%;
 
     padding: 60px 150px;
+
+    @include mobile {
+      padding: 16px 16px 0px 16px;
+      @include flex_col();
+    }
 
     .topArea {
       position: relative;
@@ -115,19 +121,33 @@
       .searchArea ~ .searchArea {
         padding-right: 10px;
       }
+
+      @include mobile {
+        display: none;
+      }
+    }
+
+    .HashTagBanner {
+      @include mobile {
+        display: none;
+      }
     }
 
     .filterArea {
       @include flex_col();
-
+      width: 100%;
       .filter {
         display: flex;
         justify-content: flex-end;
         gap: 6px;
+
         width: 1020px;
 
         svg {
           margin-right: 6px;
+          @include mobile {
+            display: none;
+          }
         }
 
         column-gap: 6px;
@@ -138,6 +158,15 @@
 
         .Typography {
           cursor: pointer;
+        }
+
+        @include mobile {
+          @include flex_row(flex-start);
+          width: 100%;
+          padding-bottom: 0px;
+          .typoLike {
+            display: none;
+          }
         }
       }
     }
@@ -150,11 +179,19 @@
     &.changePosition {
       bottom: 65px;
     }
+
+    @include mobile {
+      display: none;
+    }
   }
 
   .createSideButton {
     position: fixed;
     bottom: 65px;
     right: 30px;
+
+    @include mobile {
+      display: none;
+    }
   }
 }
