@@ -3,6 +3,7 @@ import { HashTagInfo } from '@src/models';
 import { getApiInstance } from '@src/utils/context';
 
 const HASH_CIRCLE_LEN = 10;
+const SMALL_PART_LEN = 3;
 
 export const useGetHashTags = () =>
   useQuery(
@@ -15,10 +16,16 @@ export const useGetHashTags = () =>
 
         // 오름차순 정렬
         responseData.sort((a, b) => a.count - b.count);
+        const smallPart = responseData.splice(0, SMALL_PART_LEN);
 
         return responseData.length < HASH_CIRCLE_LEN
           ? responseData
-          : responseData.slice(responseData.length - HASH_CIRCLE_LEN);
+          : [
+              ...smallPart,
+              ...responseData.slice(
+                responseData.length - HASH_CIRCLE_LEN + smallPart.length,
+              ),
+            ];
       }
     },
     {

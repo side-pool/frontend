@@ -24,11 +24,13 @@ const IdeaMiniCard = ({
             {hashtags.map((each) => '#' + each).join(' ')}
           </Typography>
           {isDone ? (
-            <LabelTag textColor="orange" wrapperColor="white">
+            <LabelTag textColor="white" wrapperColor="orange">
               해결되었어요
             </LabelTag>
           ) : (
-            <></>
+            <LabelTag textColor="orange" wrapperColor="beige">
+              제안해요
+            </LabelTag>
           )}
         </div>
         <div className={styles.ideaMiniContentContainer}>
