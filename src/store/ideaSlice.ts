@@ -29,8 +29,13 @@ const ideaReducer = createSlice({
       if (search !== undefined) state.search = search;
       if (sort !== undefined) state.sort = sort;
     },
+    setInitIdea: (state) => {
+      state.isDone = false;
+      state.search = [];
+      state.sort = 'createdDate,desc';
+    },
   },
 });
 
-export const { setIdea } = ideaReducer.actions;
+export const { setIdea, setInitIdea } = ideaReducer.actions;
 export default ideaReducer.reducer;

@@ -11,7 +11,7 @@ import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 import IdeaCardContainer from '@src/components/Idea/IdeaCardContainer';
 import { useAuth } from '@src/hooks/useUserQuery';
 import Typography from '@src/components/common/Typography';
-import { setIdea, useAppDispatch, useIdeaState } from '@src/store';
+import { setIdea, setInitIdea, useAppDispatch, useIdeaState } from '@src/store';
 import Input, { ParentRef } from '@src/components/common/Input';
 import { useQueryClient } from 'react-query';
 import HashTagBanner from '@src/components/HashTagBanner';
@@ -53,8 +53,10 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
-    return () =>
+    return () => {
+      dispatch(setInitIdea());
       document.removeEventListener('click', handleClickOutside, true);
+    };
   }, []);
 
   const handleClickOutside = ({ target }: MouseEvent) => {

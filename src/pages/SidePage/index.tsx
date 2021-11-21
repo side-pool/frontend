@@ -20,7 +20,7 @@ import {
 } from '@src/hooks/useDropdownQuery';
 import Dropdown, { ListsEachObject } from '@src/components/Dropdown';
 import Typography from '@src/components/common/Typography';
-import { setSide, useAppDispatch, useSideState } from '@src/store';
+import { setSide, setInitSide, useAppDispatch, useSideState } from '@src/store';
 import Input, { ParentRef } from '@src/components/common/Input';
 import { useAuth } from '@src/hooks/useUserQuery';
 
@@ -60,8 +60,11 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
 
-    return () =>
+    return () => {
+      dispatch(setInitSide());
+
       document.removeEventListener('click', handleClickOutside, true);
+    };
   }, []);
 
   const handleClickOutside = ({ target }: MouseEvent) => {

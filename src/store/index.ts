@@ -7,7 +7,7 @@ import uiReducer, {
   hideGlobalAlert,
 } from '@src/store/uiSlice';
 import sideReducer, { setSide, setInitSide } from '@src/store/sideSlice';
-import ideaReducer, { setIdea } from '@src/store/ideaSlice';
+import ideaReducer, { setIdea, setInitIdea } from '@src/store/ideaSlice';
 
 const reducers = combineReducers({
   ui: uiReducer,
@@ -26,6 +26,7 @@ export {
   setSide,
   setInitSide,
   setIdea,
+  setInitIdea,
 };
 
 export type AppDispatch = typeof store.dispatch;
