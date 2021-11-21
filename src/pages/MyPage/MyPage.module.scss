@@ -5,9 +5,15 @@
 
   .myPageContainer {
     width: 100%;
+    max-width: 1800px;
     height: 100%;
 
     padding: 60px 150px 0px;
+
+    @include mobile {
+      padding: 16px 16px;
+      @include flex_col();
+    }
 
     .topArea {
       position: relative;

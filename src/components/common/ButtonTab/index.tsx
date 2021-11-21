@@ -8,11 +8,18 @@ import cn from 'classnames';
 
 export interface ButtonTabProps
   extends React.HTMLAttributes<HTMLButtonElement> {
+  className?: string;
   active?: boolean;
-  text: string;
+  text?: string;
 }
 
-const ButtonTab = ({ active, text, children, ...props }: ButtonTabProps) => {
+const ButtonTab = ({
+  className,
+  active,
+  text,
+  children,
+  ...props
+}: ButtonTabProps) => {
   return (
     <Button
       className={cn(styles.ButtonTab, active && styles.active)}
@@ -21,20 +28,23 @@ const ButtonTab = ({ active, text, children, ...props }: ButtonTabProps) => {
     >
       <div className={styles.tabContent}>
         {children}
-        <Typography fontSize="sm">{text}</Typography>
+        <Typography className={className} fontSize="sm">
+          {text}
+        </Typography>
       </div>
     </Button>
   );
 };
 
+// text props는 css content로 대체(모바일 대응을 위함)
 export const CommentTab = ({ ...props }: Partial<ButtonTabProps>) => (
-  <ButtonTab text="댓글보기" {...props}>
+  <ButtonTab className={styles.commentTab} {...props}>
     <CommentIcon />
   </ButtonTab>
 );
 
 export const SimilarServiceTab = ({ ...props }: Partial<ButtonTabProps>) => (
-  <ButtonTab text="비슷한 서비스가 있어요" {...props}>
+  <ButtonTab className={styles.similarServiceTab} {...props}>
     <SimilarIcon />
   </ButtonTab>
 );

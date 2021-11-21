@@ -7,11 +7,19 @@
 
     width: 100%;
 
+    gap: 30px;
+    @include mobile {
+      gap: 15px;
+    }
+
     .gridColumn {
       @include flex_col(flex-start);
       background-clip: padding-box;
       > div {
         margin-bottom: 30px;
+        @include mobile {
+          margin-bottom: 21px;
+        }
       }
     }
   }

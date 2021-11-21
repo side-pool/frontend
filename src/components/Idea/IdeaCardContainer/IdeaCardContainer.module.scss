@@ -6,4 +6,9 @@
   .ideaTypography {
     padding: 70px 0px;
   }
+
+  @include mobile {
+    padding: 16px 16px;
+    gap: 20px;
+  }
 }

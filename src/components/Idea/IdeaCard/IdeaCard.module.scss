@@ -17,4 +17,16 @@
       column-gap: 12px;
     }
   }
+  @include mobile {
+    padding: 0px 0px;
+    .IdeaMainSection {
+      padding: 18px 21px 0px 21px;
+    }
+    .middleArea {
+      padding: 0px 21px 0px 21px;
+    }
+  }
+  .Button {
+    color: $gray_6;
+  }
 }

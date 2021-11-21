@@ -1,6 +1,6 @@
-$desktop: 'screen and (min-width: 1024px)';
-$tablet: 'screen and (min-width: 758px) and (max-width: 1024px)';
-$mobile: 'screen and (max-width: 758px)';
+$desktop: 'screen and (min-width: 1400px)';
+$tablet: 'screen and (min-width: 1024px) and (max-width: 1400px)';
+$mobile: 'screen and (max-width: 1024px)';
 
 @mixin desktop {
   @media #{$desktop} {
