@@ -162,7 +162,7 @@ const IdeaMainSection = ({ idea }: IdeaMainSectionProps) => {
               onClick={() =>
                 dispatch(
                   setIdea({
-                    search: search.includes(tag) ? [] : [tag],
+                    search: search.includes(tag) ? [] : [tag.trim()],
                   }),
                 )
               }
