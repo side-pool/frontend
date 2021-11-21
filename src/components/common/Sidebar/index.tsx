@@ -11,6 +11,7 @@ import styles from './Sidebar.module.scss';
 import { useAuth } from '@src/hooks/useUserQuery';
 import { useLogout } from '@src/hooks/useAuthQuery';
 import { useReadAlarm } from '@src/hooks/useMyPageQuery';
+import { showGlobalAlert, useAppDispatch } from '@src/store';
 export interface SidebarProps {
   className?: string;
   pathname: string;
@@ -18,6 +19,7 @@ export interface SidebarProps {
 
 export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   const history = useHistory();
+  const dispatch = useAppDispatch();
 
   const { data: isAuth } = useAuth();
 
@@ -29,7 +31,7 @@ export const Sidebar = ({ className, pathname = '' }: SidebarProps) => {
   );
 
   const [logout] = useLogout(() => {
-    history.push('/idea');
+    dispatch(showGlobalAlert({ globalAlertMessage: '로그아웃 되었습니다.' }));
   });
 
   const isSide = useMemo(() => pathname.includes('side'), [pathname]);
