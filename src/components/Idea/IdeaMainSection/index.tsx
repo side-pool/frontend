@@ -31,7 +31,7 @@ interface IsDoneTagProps {
 const IsDoneTag = ({ isDone }: IsDoneTagProps) =>
   isDone ? (
     <LabelTag wrapperColor="orange" textColor="white" className="isDoneTag">
-      해결됐어요
+      해결되었어요
     </LabelTag>
   ) : (
     <LabelTag wrapperColor="beige" textColor="orange" className="isDoneTag">
