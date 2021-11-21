@@ -8,6 +8,7 @@ import IdeaMonoIcon from '@src/assets/IdeaMono.svg';
 import Typography from '@src/components/common/Typography';
 import Button from '@src/components/common/Button';
 import styles from './MobileSidebar.module.scss';
+import { useAppDispatch, showGlobalAlert } from '@src/store';
 
 export interface MobileSidebarProps {
   className?: string;
@@ -18,6 +19,7 @@ export const MobileSidebar = ({
   className,
   pathname = '',
 }: MobileSidebarProps) => {
+  const distpatch = useAppDispatch();
   const history = useHistory();
 
   const isSide = useMemo(() => pathname.includes('side'), [pathname]);
@@ -44,7 +46,17 @@ export const MobileSidebar = ({
           </Button>
         </div>
         <div className={styles.tabButton}>
-          <Button variant="text" onClick={() => history.push('/mypage')}>
+          <Button
+            variant="text"
+            onClick={() =>
+              distpatch(
+                showGlobalAlert({
+                  globalAlertMessage:
+                    '모바일 환경에서는 마이페이지 확인이 불가합니다.',
+                }),
+              )
+            }
+          >
             {isMypage ? <IdeaColorIcon /> : <IdeaMonoIcon />}
             <Typography fontSize="xs" textColor={isIdea ? 'black' : 'gray'}>
               마이페이지
