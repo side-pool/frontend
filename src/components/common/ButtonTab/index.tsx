@@ -5,15 +5,21 @@ import styles from './ButtonTab.module.scss';
 import CommentIcon from '@src/assets/Comment.svg';
 import SimilarIcon from '@src/assets/WarningCircle.svg';
 import cn from 'classnames';
-import useWindowSize from '@src/hooks/useWindowSize';
 
 export interface ButtonTabProps
   extends React.HTMLAttributes<HTMLButtonElement> {
+  className?: string;
   active?: boolean;
-  text: string;
+  text?: string;
 }
 
-const ButtonTab = ({ active, text, children, ...props }: ButtonTabProps) => {
+const ButtonTab = ({
+  className,
+  active,
+  text,
+  children,
+  ...props
+}: ButtonTabProps) => {
   return (
     <Button
       className={cn(styles.ButtonTab, active && styles.active)}
@@ -22,31 +28,23 @@ const ButtonTab = ({ active, text, children, ...props }: ButtonTabProps) => {
     >
       <div className={styles.tabContent}>
         {children}
-        <Typography fontSize="sm">{text}</Typography>
+        <Typography className={className} fontSize="sm">
+          {text}
+        </Typography>
       </div>
     </Button>
   );
 };
 
-export const CommentTab = ({ ...props }: Partial<ButtonTabProps>) => {
-  const { isMobile } = useWindowSize();
+// text props는 css content로 대체(모바일 대응을 위함)
+export const CommentTab = ({ ...props }: Partial<ButtonTabProps>) => (
+  <ButtonTab className={styles.commentTab} {...props}>
+    <CommentIcon />
+  </ButtonTab>
+);
 
-  return (
-    <ButtonTab text={isMobile ? '댓글' : '댓글보기'} {...props}>
-      <CommentIcon />
-    </ButtonTab>
-  );
-};
-
-export const SimilarServiceTab = ({ ...props }: Partial<ButtonTabProps>) => {
-  const { isMobile } = useWindowSize();
-
-  return (
-    <ButtonTab
-      text={isMobile ? '비슷한 서비스' : '비슷한 서비스가 있어요'}
-      {...props}
-    >
-      <SimilarIcon />
-    </ButtonTab>
-  );
-};
+export const SimilarServiceTab = ({ ...props }: Partial<ButtonTabProps>) => (
+  <ButtonTab className={styles.similarServiceTab} {...props}>
+    <SimilarIcon />
+  </ButtonTab>
+);

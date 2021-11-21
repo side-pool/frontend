@@ -11,6 +11,20 @@
     align-items: center;
     background: #f6f6f6;
     border-radius: 15px 15px 0px 0px;
+
+    .commentTab:after {
+      content: '댓글보기';
+      @include mobile {
+        content: '댓글';
+      }
+    }
+
+    .similarServiceTab:after {
+      content: '비슷한 서비스가 있어요';
+      @include mobile {
+        content: '비슷한 서비스';
+      }
+    }
   }
   &.active {
     .tabContent {
