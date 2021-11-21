@@ -21,8 +21,8 @@
       .Typography {
         color: $pink-0;
       }
-      .Icon {
-        color: $pink-0 !important;
+      .arrowDown > path {
+        fill: $pink-0 !important;
       }
     }
 
@@ -31,8 +31,8 @@
       .Typography {
         color: $red_0;
       }
-      .Icon {
-        color: $red_0 !important;
+      .arrowDown > path {
+        fill: $red_0 !important;
       }
     }
 
@@ -41,8 +41,8 @@
       .Typography {
         color: $blue_0;
       }
-      .Icon {
-        color: $blue_0 !important;
+      .arrowDown > path {
+        fill: $blue_0 !important;
       }
     }
 
@@ -51,8 +51,8 @@
       .Typography {
         color: $purpe_0;
       }
-      .Icon {
-        color: $purpe_0 !important;
+      .arrowDown > path {
+        fill: $purpe_0 !important;
       }
     }
 
@@ -61,18 +61,18 @@
       .Typography {
         color: $green_0;
       }
-      .Icon {
-        color: $green_0 !important;
+      .arrowDown > path {
+        fill: $green_0 !important;
       }
     }
-    
+
     &.팀빌딩관련 {
       border-color: $dark_green;
       .Typography {
         color: $dark_green;
       }
-      .Icon {
-        color: $dark_green !important;
+      .arrowDown > path {
+        fill: $dark_green !important;
       }
     }
 
@@ -81,14 +81,14 @@
     }
 
     &.open {
-      .Icon {
+      .arrowDown {
         transform: rotate(0.5turn);
         transition: all 0.3s ease-in;
       }
     }
 
     &.close {
-      .Icon {
+      .arrowDown {
         transform: rotate(0turn);
         transition: all 0.3s ease-in;
       }

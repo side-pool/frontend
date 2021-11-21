@@ -6,9 +6,13 @@ import { setSide, useAppDispatch } from '@src/store';
 
 export interface DropdownOnlyListsProps {
   dropdwonLists: string[];
+  setDropdownHide: () => void;
 }
 
-const DropdownOnlyLists = ({ dropdwonLists }: DropdownOnlyListsProps) => {
+const DropdownOnlyLists = ({
+  dropdwonLists,
+  setDropdownHide,
+}: DropdownOnlyListsProps) => {
   const dispatch = useAppDispatch();
   return (
     <div className={styles.DropdownOnlyLists}>
@@ -26,7 +30,10 @@ const DropdownOnlyLists = ({ dropdwonLists }: DropdownOnlyListsProps) => {
             key={each}
             className={styles.eachList}
             data-index={index}
-            onClick={() => dispatch(setSide({ commentTag: index }))}
+            onClick={() => {
+              dispatch(setSide({ commentTag: index }));
+              setDropdownHide();
+            }}
             aria-hidden
           >
             <label className={styles.checkboxContainer}>
