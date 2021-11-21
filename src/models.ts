@@ -74,10 +74,9 @@ export type SideParams = {
   category: string[];
   organization: number[];
   skill: number[];
-  // undefined 는 쿼리 파람 요청시 프로퍼티 삭제를 위해서 사용되어짐
-  isRecruiting: boolean | undefined;
+  isRecruiting?: boolean;
   page: number;
-  search: string[];
+  search?: string[];
   size: number;
   sort:
     | 'createdDate,asc'

@@ -104,7 +104,14 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
               )}
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>
-                dispatch(setIdea({ search: e.target.value.split(' ') }))
+                dispatch(
+                  setIdea({
+                    search:
+                      e.target.value.length > 0
+                        ? e.target.value.split(' ')
+                        : [],
+                  }),
+                )
               }
               value={search?.join(' ')}
               onFocus={() => {
