@@ -9,6 +9,11 @@
 
     padding: 60px 150px;
 
+    @include mobile {
+      padding: 16px 16px;
+      @include flex_col();
+    }
+
     .sidePageTopArea {
       position: relative;
 
@@ -30,9 +35,24 @@
       .searchArea {
         @include flex_row(flex-end);
 
+        .settingIcon {
+          @include tablet {
+            display: none;
+          }
+          @include mobile {
+            display: none;
+          }
+        }
+
         .sideFilter {
           @include flex_row();
           gap: 5px;
+          @include tablet {
+            display: none;
+          }
+          @include mobile {
+            display: none;
+          }
         }
 
         .sidePageSeachbar {
@@ -127,6 +147,10 @@
       .searchArea ~ .searchArea {
         padding-right: 10px;
       }
+
+      @include mobile {
+        display: none;
+      }
     }
 
     .filterArea {
@@ -135,8 +159,18 @@
 
       @include flex_row(flex-end);
 
+      @include mobile {
+        @include flex_row(flex-start);
+        width: 318px;
+        padding-top: 24px;
+        padding-bottom: 17px;
+      }
+
       svg {
         margin-right: 6px;
+        @include mobile {
+          display: none;
+        }
       }
 
       column-gap: 6px;
@@ -159,11 +193,19 @@
     &.changePosition {
       bottom: 65px;
     }
+
+    @include mobile {
+      display: none;
+    }
   }
 
   .createSideButton {
     position: fixed;
     bottom: 65px;
     right: 30px;
+
+    @include mobile {
+      display: none;
+    }
   }
 }

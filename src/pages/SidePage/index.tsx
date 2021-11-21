@@ -83,7 +83,10 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
             사이드
           </Typography>
           <div className={styles.searchArea}>
-            <Setting onClick={() => setIsFilterOpen((prev) => !prev)} />
+            <Setting
+              className={styles.settingIcon}
+              onClick={() => setIsFilterOpen((prev) => !prev)}
+            />
             {isFilterOpen && (
               <div ref={wrapperRef} className={styles.sideFilter}>
                 <Dropdown

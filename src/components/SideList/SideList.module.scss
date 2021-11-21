@@ -12,6 +12,10 @@
       background-clip: padding-box;
       > div {
         margin-bottom: 30px;
+        @include mobile {
+          margin-bottom: 21px;
+        }
+  
       }
     }
   }

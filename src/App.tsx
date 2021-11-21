@@ -14,6 +14,7 @@ import AuthRoute from '@src/components/common/AuthRouter';
 import SideReadPage from '@src/pages/SideReadPage';
 import AlertModal from '@src/components/modals/AlertModal';
 import { useAppDispatch, useUiState, hideGlobalAlert } from '@src/store';
+import MobileSidebar from './components/mobile/MobileSidebar';
 
 const PATH_CHECK = ['login', 'join', 'idea', 'side', 'mypage'];
 
@@ -75,6 +76,9 @@ const App = () => {
           {pathname && !PATH_CHECK.some((each) => pathname.includes(each)) && (
             <Redirect to="/side" />
           )}
+        </div>
+        <div className={styles.mobileSidebar}>
+          <MobileSidebar pathname={pathname} />
         </div>
         {isGlobalAlertVisible && (
           <AlertModal
