@@ -4,6 +4,7 @@ import IdeaMiniCard from '@src/components/Idea/IdeaMiniCard';
 import { MiniIdea } from '@src/models';
 import useModalControl from '@src/hooks/useModalControl';
 import Button from '@src/components/common/Button';
+import styles from './IdeaMiniCardContainer.module.scss';
 
 const IdeaMiniCardContainer = (props: MiniIdea) => {
   const {
@@ -13,8 +14,8 @@ const IdeaMiniCardContainer = (props: MiniIdea) => {
   } = useModalControl();
 
   return (
-    <div>
-      <Button variant="text" onClick={() => showIdea()}>
+    <div className={styles.IdeaMiniCardContainer}>
+      <Button variant="text" onClick={() => showIdea()} fullWidth>
         <IdeaMiniCard {...props} />
       </Button>
       {isIdeaVisible && props.id && (
