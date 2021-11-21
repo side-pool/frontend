@@ -89,8 +89,8 @@ const getCirclePropsArr = (
     coordinate: {
       ...getRandCoordinate(
         HEIGHT,
-        Math.floor(secCnt / 2) * secWidth, // 최댓값 중앙에 추가
-        (Math.floor(secCnt / 2) + 1) * secWidth,
+        Math.floor(secLen / 2) * secWidth, // 최댓값 중앙에 추가
+        (Math.floor(secLen / 2) + 1) * secWidth,
       ),
     },
     opacity: getRandOpacity(),
@@ -105,6 +105,7 @@ export interface HashTagBannerProps {
 }
 
 const HashTagBanner = ({ hashTagInfos, ...props }: HashTagBannerProps) => {
+  console.log(hashTagInfos);
   const circlePropsArr = useMemo(
     () => getCirclePropsArr([...hashTagInfos]),
     hashTagInfos,
