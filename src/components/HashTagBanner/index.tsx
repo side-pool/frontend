@@ -105,7 +105,6 @@ export interface HashTagBannerProps {
 }
 
 const HashTagBanner = ({ hashTagInfos, ...props }: HashTagBannerProps) => {
-  console.log(hashTagInfos);
   const circlePropsArr = useMemo(
     () => getCirclePropsArr([...hashTagInfos]),
     hashTagInfos,

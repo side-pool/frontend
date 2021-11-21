@@ -15,11 +15,13 @@ import SideReadPage from '@src/pages/SideReadPage';
 import AlertModal from '@src/components/modals/AlertModal';
 import { useAppDispatch, useUiState, hideGlobalAlert } from '@src/store';
 import MobileSidebar from './components/mobile/MobileSidebar';
+import Gnb from '@src/components/mobile/Gnb';
 
 const PATH_CHECK = ['login', 'join', 'idea', 'side', 'mypage'];
 
 const App = () => {
   const { isGlobalAlertVisible, globalAlertMessage } = useUiState();
+
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { data: isAuth } = useAuth();
@@ -39,6 +41,7 @@ const App = () => {
         <div className={styles.sidebar}>
           <Sidebar pathname={pathname} />
         </div>
+        <Gnb />
         <div className={styles.content} ref={pageRef}>
           <AuthRoute
             path="/login"
