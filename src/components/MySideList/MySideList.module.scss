@@ -8,6 +8,11 @@
     width: 100%;
     padding-top: 22px;
 
+    gap: 30px;
+    @include mobile {
+      gap: 15px;
+    }
+
     .gridColumn {
       @include flex_col(flex-start);
       background-clip: padding-box;

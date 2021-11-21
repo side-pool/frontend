@@ -14,7 +14,7 @@ const BREAKPOINT_COLS = {
   default: 4,
   1800: 3,
   1500: 2,
-  1100: 1,
+  700: 1,
 };
 
 const SideList = () => {
