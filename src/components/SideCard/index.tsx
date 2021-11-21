@@ -43,7 +43,7 @@ const SideCard = ({
           <img src={imageUrl} alt={title} onError={() => setImageUrl('')} />
         ) : (
           <Typography fontSize="xhl" textColor="white">
-            {summary}
+            {summary.slice(0, 100)}
           </Typography>
         )}
       </div>
@@ -64,7 +64,7 @@ const SideCard = ({
           )}
         </div>
         <Typography fontSize="xs" textColor="black" lineHeight="wider">
-          {summary}
+          {summary.slice(0, 100)}
         </Typography>
       </div>
     </div>
