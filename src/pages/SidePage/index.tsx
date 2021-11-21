@@ -134,7 +134,14 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
               )}
               placeholder="검색어를 입력해주세요"
               onChange={(e) =>
-                dispatch(setSide({ search: e.target.value.split(' ') }))
+                dispatch(
+                  setSide({
+                    search:
+                      e.target.value.length > 0
+                        ? e.target.value.split(' ')
+                        : [],
+                  }),
+                )
               }
               onFocus={() => {
                 setIsFilterOpen(false);

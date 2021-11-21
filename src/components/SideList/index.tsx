@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useCallback } from 'react';
 import Masonry from 'react-masonry-css';
 
 import styles from './SideList.module.scss';
@@ -20,6 +20,20 @@ const BREAKPOINT_COLS = {
 const SideList = () => {
   const target = useRef<HTMLDivElement | null>(null);
   const side = useSideState();
+
+  const handleDeleteQueryKey = useCallback(() => {
+    const sideCopy = { ...side };
+    if (!sideCopy?.isRecruiting) {
+      delete sideCopy?.isRecruiting;
+    }
+
+    if (sideCopy?.search?.length === 0) {
+      delete sideCopy?.search;
+    }
+
+    return sideCopy;
+  }, [side]);
+
   const {
     data: infiniteData,
     fetchNextPage,
@@ -27,10 +41,7 @@ const SideList = () => {
     isLoading,
     isFetchingNextPage,
     isFetchedAfterMount,
-  } = useReadSides({
-    ...side,
-    isRecruiting: side.isRecruiting ? true : undefined,
-  });
+  } = useReadSides(handleDeleteQueryKey());
 
   const handleInfiniteFetch = useThrottle(() => {
     fetchNextPage();
