@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import cn from 'classnames';
 import styles from './SideCommentDropdown.module.scss';
 import DropdownOnlyList from '@src/components/SideCommentDropdown/DropdownOnlyLists';
-import Icon from '@src/components/common/Icon';
 import Typography from '../common/Typography';
 import { useSideState } from '@src/store';
+import ArrowDown from '@src/assets/ArrowDown.svg';
 
 export type ListsEachObject = {
   name: string;
@@ -58,9 +58,14 @@ const SideCommentDropdown = () => {
         <Typography fontSize="xs" lineHeight="wider" textColor="gray">
           {COMMENT_DROPDOWN[commentTag || 0]}
         </Typography>
-        <Icon iconName="arrow_drop_down" color="#C4C4C4" pointer />
+        <ArrowDown className={styles.arrowDown} />
       </div>
-      {open && <DropdownOnlyList dropdwonLists={COMMENT_DROPDOWN} />}
+      {open && (
+        <DropdownOnlyList
+          dropdwonLists={COMMENT_DROPDOWN}
+          setDropdownHide={() => setOpen(false)}
+        />
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 
-import Icon from '@src/components/common/Icon';
+import CloseMini from '@src/assets/CloseMini.svg';
 
 import styles from './LabelTag.module.scss';
 import cn from 'classnames';
@@ -45,7 +45,7 @@ const LabelTag = ({
       <p className={cn(styles.text, styles[textColor])}>{children}</p>
       {isDeleteButton && (
         <div>
-          <Icon iconName="close" color="white" size={14} />
+          <CloseMini className={styles.closeMini} />
         </div>
       )}
     </div>

@@ -1,8 +1,8 @@
 import React, { ButtonHTMLAttributes, ReactElement, ReactNode } from 'react';
 import cn from 'classnames';
 import styles from './Button.module.scss';
-import Icon from '@src/components/common/Icon';
-
+import Add from '@src/assets/Add.svg';
+import UpArrow from '@src/assets/UpArrow.svg';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'normal' | 'floating' | 'text';
   primary?: boolean;
@@ -39,8 +39,11 @@ const Button = ({
       disabled={disabled}
       {...restProps}
     >
-      {variant === 'floating' ? (
-        <Icon iconName={iconName} color="white" size={35} bold pointer />
+      {variant === 'floating' && iconName ? (
+        {
+          add: <Add />,
+          expand_less: <UpArrow />,
+        }[iconName]
       ) : (
         <span>{labelText ? <> {labelText} </> : children}</span>
       )}

@@ -51,10 +51,8 @@
     position: relative;
     cursor: pointer;
 
-    .Icon {
-      position: absolute;
-      top: 2px;
-      right: 10px;
+    .closeMini {
+      display: flex;
 
       &:hover {
         opacity: 0.5;

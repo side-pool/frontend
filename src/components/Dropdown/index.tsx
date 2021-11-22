@@ -8,7 +8,7 @@ import React, {
 import cn from 'classnames';
 import styles from './Dropdown.module.scss';
 import DropdownLists from '@src/components/Dropdown/DropdownLists';
-import Icon from '@src/components/common/Icon';
+import ArrowDown from '@src/assets/ArrowDown.svg';
 import Typography from '../common/Typography';
 import { setSide, useAppDispatch, useSideState } from '@src/store';
 import { SideParams } from '@src/models';
@@ -154,7 +154,7 @@ const Dropdown = ({ lists = [], title }: DropdownProps) => {
                 .join(', ')
             : title}
         </Typography>
-        <Icon iconName="arrow_drop_down" color="#C4C4C4" pointer />
+        <ArrowDown className={styles.arrowDown} />
       </div>
       {open && (
         <DropdownLists
