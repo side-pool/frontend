@@ -20,7 +20,7 @@ const useScrollPosition = (): { isActive: boolean } => {
         lastY: last.y,
       };
     });
-  }, 500);
+  }, 200);
 
   useEffect(() => {
     handleScroll();
