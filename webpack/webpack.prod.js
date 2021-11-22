@@ -34,6 +34,7 @@ module.exports = merge(baseConfig, {
               additionalData: `@import "index";`,
             },
           },
+          'postcss-loader',
         ],
       },
     ],
