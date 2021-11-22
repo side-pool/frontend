@@ -1,4 +1,30 @@
+@keyframes slidein {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 90%;
+  }
+}
+
+@keyframes slideout {
+  from {
+    width: 90%;
+  }
+
+  to {
+    width: 0px;
+  }
+}
+
 .Gnb {
+  display: none;
+
+  @include mobile {
+    @include flex_row(space-between);
+  }
+
   position: fixed;
   top: 0;
 
@@ -8,9 +34,34 @@
   height: 59px;
   background-color: $white;
 
+  padding: 0px 16px;
+
   transition: transform 150ms ease-in-out;
 
   &.isActiveGnb {
     transform: translateY(-100%);
+  }
+
+  .gnbSearchbar {
+    input {
+      width: 90%;
+    }
+
+    &.activeAnimation {
+      width: 90%;
+      animation-duration: 0.2s;
+      animation-name: slidein;
+    }
+  }
+
+  .gnbIconContainer {
+    @include flex_row(flex-end);
+    svg {
+      cursor: pointer;
+    }
+
+    :last-child {
+      padding-left: 12px;
+    }
   }
 }

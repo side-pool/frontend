@@ -41,7 +41,7 @@ const App = () => {
         <div className={styles.sidebar}>
           <Sidebar pathname={pathname} />
         </div>
-        <Gnb />
+        <Gnb pathname={pathname} />
         <div className={styles.content} ref={pageRef}>
           <AuthRoute
             path="/login"
