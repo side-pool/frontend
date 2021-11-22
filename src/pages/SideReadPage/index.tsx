@@ -141,7 +141,7 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
               <div className={styles.contributors}>
                 {(contributors as unknown as ContributorsType[])
                   ?.slice(0, 7)
-                  .map((each: ContributorsType) => (
+                  ?.map((each: ContributorsType) => (
                     <a
                       key={each.id}
                       href={each.html_url}
