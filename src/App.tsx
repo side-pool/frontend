@@ -23,6 +23,7 @@ import MobileSidebar from './components/mobile/MobileSidebar';
 import Gnb from '@src/components/mobile/Gnb';
 import useModalControl from '@src/hooks/useModalControl';
 import SideGithubModal from '@src/components/modals/SideGithubModal';
+import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 
 const PATH_CHECK = ['login', 'join', 'idea', 'side', 'mypage'];
 
@@ -33,6 +34,12 @@ const App = () => {
     isModalVisible: isGithubVisible,
     showModal: showGithubModal,
     hideModal: hideGithubModal,
+  } = useModalControl();
+
+  const {
+    isModalVisible: isIdeaFormVisible,
+    showModal: showIdeaForm,
+    hideModal: hideIdeaForm,
   } = useModalControl();
 
   const dispatch = useAppDispatch();
@@ -54,7 +61,11 @@ const App = () => {
         <div className={styles.sidebar}>
           <Sidebar pathname={pathname} />
         </div>
-        <Gnb pathname={pathname} showGithubModal={showGithubModal} />
+        <Gnb
+          pathname={pathname}
+          showGithubModal={showGithubModal}
+          showIdeaForm={showIdeaForm}
+        />
         <div className={styles.content} ref={pageRef}>
           <AuthRoute
             path="/login"
@@ -69,7 +80,7 @@ const App = () => {
             redirectPath="/"
           />
           <Route path="/idea">
-            <IdeaPage handleToTop={handleToTop} />
+            <IdeaPage handleToTop={handleToTop} showIdeaForm={showIdeaForm} />
           </Route>
           <Route exact path="/side">
             <SidePage
@@ -114,6 +125,15 @@ const App = () => {
             showAlert={(title) =>
               dispatch(showGlobalAlert({ globalAlertMessage: title }))
             }
+          />
+        )}
+        {isIdeaFormVisible && (
+          <IdeaFormModal
+            hideIdeaForm={hideIdeaForm}
+            showAlert={(title) =>
+              dispatch(showGlobalAlert({ globalAlertMessage: title }))
+            }
+            isCreate
           />
         )}
       </div>

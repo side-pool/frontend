@@ -5,31 +5,25 @@ import Search from '@src/assets/Search.svg';
 import Setting from '@src/assets/Setting.svg';
 import Sort from '@src/assets/Sort.svg';
 import Button from '@src/components/common/Button';
-import AlertModal from '@src/components/modals/AlertModal';
-import useModalControl from '@src/hooks/useModalControl';
-import IdeaFormModal from '@src/components/modals/IdeaFormModal';
 import IdeaCardContainer from '@src/components/Idea/IdeaCardContainer';
 import { useAuth } from '@src/hooks/useUserQuery';
 import Typography from '@src/components/common/Typography';
 import { setIdea, setInitIdea, useAppDispatch, useIdeaState } from '@src/store';
 import Input, { ParentRef } from '@src/components/common/Input';
-import { useQueryClient } from 'react-query';
 import HashTagBanner from '@src/components/HashTagBanner';
 import { useGetHashTags } from '@src/hooks/useHashTagQuery';
 
-const IDEA_URL = '/ideas';
-
 interface IdeaPageProps {
   handleToTop?: () => void;
+  showIdeaForm: () => void;
 }
 
-const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
+const IdeaPage = ({ handleToTop, showIdeaForm }: IdeaPageProps) => {
   const { search } = useIdeaState();
 
   // 첫 화면 렌더링시 애니메이션 실행 안되도록 처리함
   const [init, setInit] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const queryClient = useQueryClient();
   const { isDone, sort } = useIdeaState();
   const dispatch = useAppDispatch();
   const { data: isAuth } = useAuth();
@@ -37,19 +31,6 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
 
   const wrapperRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef({} as ParentRef);
-
-  const {
-    isModalVisible: isAlertVisible,
-    modalMessage: alertMessage,
-    showModal: showAlert,
-    hideModal: hideAlert,
-  } = useModalControl();
-
-  const {
-    isModalVisible: isIdeaFormVisible,
-    showModal: showIdeaForm,
-    hideModal: hideIdeaForm,
-  } = useModalControl();
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
@@ -188,22 +169,6 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
             variant="floating"
             iconName="add"
           />
-          {isIdeaFormVisible && (
-            <IdeaFormModal
-              hideIdeaForm={hideIdeaForm}
-              showAlert={showAlert}
-              isCreate
-            />
-          )}
-          {isAlertVisible && (
-            <AlertModal
-              content={alertMessage}
-              handleConfirm={() => {
-                hideAlert();
-                queryClient.invalidateQueries(IDEA_URL);
-              }}
-            />
-          )}
         </>
       )}
     </div>
