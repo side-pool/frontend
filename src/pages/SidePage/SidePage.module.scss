@@ -22,8 +22,6 @@
       @include flex_row(space-between);
       width: 100%;
 
-      backdrop-filter: blur(30px);
-
       z-index: 100;
 
       &.isGithubVisible {

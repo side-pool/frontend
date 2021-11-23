@@ -101,7 +101,7 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
     return (
       <div className={styles.SideReadPage}>
         <div className={styles.sideCardContainer}>
-          <div className={styles.topArea}>
+          <div className={styles.sideReadTopArea}>
             <div className={styles.mobileTitle}>
               <Typography fontSize="md" fontWeight="bold" lineHeight="wider">
                 {data?.title}
@@ -132,7 +132,7 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
     <div className={styles.SideReadPage}>
       <div className={styles.sideCardContainer}>
         {/* side main section */}
-        <div className={styles.topArea}>
+        <div className={styles.sideReadTopArea}>
           <Typography fontSize="xxl" fontWeight="bold">
             사이드
           </Typography>

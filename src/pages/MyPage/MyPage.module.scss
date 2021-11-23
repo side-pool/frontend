@@ -21,8 +21,6 @@
       @include flex_row(space-between);
       width: 100%;
 
-      backdrop-filter: blur(30px);
-
       .Typography {
         width: fit-content;
       }

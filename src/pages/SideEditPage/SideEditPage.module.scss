@@ -5,6 +5,7 @@
 
   .sideCardContainer {
     width: 100%;
+    max-width: 1800px;
     height: 100%;
 
     padding: 60px 150px;
@@ -14,8 +15,6 @@
 
       @include flex_row(space-between);
       width: 100%;
-
-      backdrop-filter: blur(30px);
 
       .Typography {
         width: fit-content;
