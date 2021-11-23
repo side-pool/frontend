@@ -40,7 +40,7 @@ const Template = ({
 
       dispatch(setInitSide());
       history.push({
-        pathname: '/side-create',
+        pathname: '/side/create',
         state: data,
       });
     }

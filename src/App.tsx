@@ -64,7 +64,7 @@ const App = () => {
           <Route exact path="/side/:id">
             <SideReadPage handleToTop={handleToTop} />
           </Route>
-          <Route exact path="/side-create">
+          <Route exact path="/side/create">
             <SideCreatePage handleToTop={handleToTop} />
           </Route>
           <Route exact path="/side/edit/:id">
