@@ -11,7 +11,7 @@
 
     @include mobile {
       padding: 16px 16px;
-      height: 100vh;
+      min-height: 100vh;
       @include flex_col(flex-start);
     }
 
