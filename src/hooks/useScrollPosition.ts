@@ -20,7 +20,7 @@ const useScrollPosition = (): { isActive: boolean } => {
         lastY: last.y,
       };
     });
-  }, 200);
+  }, 100);
 
   useEffect(() => {
     handleScroll();
@@ -32,10 +32,7 @@ const useScrollPosition = (): { isActive: boolean } => {
   }, []);
 
   useEffect(() => {
-    let flag = false;
-    if (data.y > 150 && data.y - data.lastY > 0) flag = true;
-
-    setIsActive(flag);
+    setIsActive(data.y > 59 && data.y - data.lastY > 0);
   }, [data.y, data.lastY]);
 
   return { isActive };
