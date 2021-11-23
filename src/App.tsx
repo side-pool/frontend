@@ -13,14 +13,27 @@ import { useAuth } from '@src/hooks/useUserQuery';
 import AuthRoute from '@src/components/common/AuthRouter';
 import SideReadPage from '@src/pages/SideReadPage';
 import AlertModal from '@src/components/modals/AlertModal';
-import { useAppDispatch, useUiState, hideGlobalAlert } from '@src/store';
+import {
+  useAppDispatch,
+  useUiState,
+  hideGlobalAlert,
+  showGlobalAlert,
+} from '@src/store';
 import MobileSidebar from './components/mobile/MobileSidebar';
 import Gnb from '@src/components/mobile/Gnb';
+import useModalControl from '@src/hooks/useModalControl';
+import SideGithubModal from '@src/components/modals/SideGithubModal';
 
 const PATH_CHECK = ['login', 'join', 'idea', 'side', 'mypage'];
 
 const App = () => {
   const { isGlobalAlertVisible, globalAlertMessage } = useUiState();
+
+  const {
+    isModalVisible: isGithubVisible,
+    showModal: showGithubModal,
+    hideModal: hideGithubModal,
+  } = useModalControl();
 
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
@@ -41,7 +54,7 @@ const App = () => {
         <div className={styles.sidebar}>
           <Sidebar pathname={pathname} />
         </div>
-        <Gnb pathname={pathname} />
+        <Gnb pathname={pathname} showGithubModal={showGithubModal} />
         <div className={styles.content} ref={pageRef}>
           <AuthRoute
             path="/login"
@@ -59,7 +72,11 @@ const App = () => {
             <IdeaPage handleToTop={handleToTop} />
           </Route>
           <Route exact path="/side">
-            <SidePage handleToTop={handleToTop} />
+            <SidePage
+              handleToTop={handleToTop}
+              isGithubVisible={isGithubVisible}
+              showGithubModal={showGithubModal}
+            />
           </Route>
           <Route exact path="/side/:id">
             <SideReadPage handleToTop={handleToTop} />
@@ -89,6 +106,14 @@ const App = () => {
             handleConfirm={() => {
               dispatch(hideGlobalAlert());
             }}
+          />
+        )}
+        {isGithubVisible && (
+          <SideGithubModal
+            hideModal={hideGithubModal}
+            showAlert={(title) =>
+              dispatch(showGlobalAlert({ globalAlertMessage: title }))
+            }
           />
         )}
       </div>

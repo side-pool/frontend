@@ -16,7 +16,12 @@ import {
 } from '@src/store';
 import { useAuth } from '@src/hooks/useUserQuery';
 
-const Gnb = ({ pathname }: { pathname: string }) => {
+interface GnbProps {
+  pathname: string;
+  showGithubModal: () => void;
+}
+
+const Gnb = ({ pathname, showGithubModal }: GnbProps) => {
   const { search: sideSearch } = useSideState();
   const { search: ideaSearch } = useIdeaState();
   const { data: isAuth } = useAuth();
@@ -60,7 +65,6 @@ const Gnb = ({ pathname }: { pathname: string }) => {
             )
           }
           onBlur={() => {
-            console.log('/');
             setIsSearchOpen(false);
           }}
           // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -74,7 +78,9 @@ const Gnb = ({ pathname }: { pathname: string }) => {
       )}
 
       <div className={styles.gnbIconContainer}>
-        {isAuth && !isSearchOpen && <Create />}
+        {isAuth && !isSearchOpen && (
+          <Create onClick={() => showGithubModal()} />
+        )}
         <SearchMini
           onClick={() => {
             setIsSearchOpen(true);
