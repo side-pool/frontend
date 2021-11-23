@@ -29,6 +29,7 @@ body {
   height: 100%;
   @include mobile {
     height: auto;
+    background-color: $gray_1;
   }
 }
 
