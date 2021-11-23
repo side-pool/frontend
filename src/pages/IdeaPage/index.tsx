@@ -183,7 +183,7 @@ const IdeaPage = ({ handleToTop }: IdeaPageProps) => {
       {isAuth && (
         <>
           <Button
-            className={styles.createSideButton}
+            className={styles.createIdeaButton}
             onClick={() => showIdeaForm()}
             variant="floating"
             iconName="add"
