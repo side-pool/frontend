@@ -40,7 +40,12 @@ const SideCard = ({
         )}
       >
         {imageUrl ? (
-          <img src={imageUrl} alt={title} onError={() => setImageUrl('')} />
+          <img
+            src={imageUrl}
+            alt={title}
+            onError={() => setImageUrl('')}
+            loading="lazy"
+          />
         ) : (
           <Typography fontSize="xhl" textColor="white">
             {summary.slice(0, 100)}

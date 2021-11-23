@@ -32,6 +32,7 @@ const MiddleArea = ({ title, active }: MiddleProps) => {
           }[activeTime]
         }
         alt={activeTime}
+        loading="lazy"
       />
     </div>
   );
