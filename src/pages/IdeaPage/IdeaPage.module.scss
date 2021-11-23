@@ -10,8 +10,9 @@
     padding: 60px 150px;
 
     @include mobile {
-      padding: 16px 16px 0px 16px;
-      @include flex_col();
+      padding: 16px 16px;
+      height: 100vh;
+      @include flex_col(flex-start);
     }
 
     .topArea {
@@ -136,6 +137,13 @@
     .filterArea {
       @include flex_col();
       width: 100%;
+
+      padding-bottom: 22px;
+
+      @include mobile {
+        padding-bottom: 0px;
+      }
+
       .filter {
         display: flex;
         justify-content: flex-end;

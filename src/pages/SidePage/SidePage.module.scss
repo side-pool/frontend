@@ -12,7 +12,8 @@
 
     @include mobile {
       padding: 16px 16px;
-      @include flex_col();
+      height: 100vh;
+      @include flex_col(flex-start);
     }
 
     .sidePageTopArea {

@@ -153,8 +153,8 @@ const IdeaPage = ({ handleToTop, showIdeaForm }: IdeaPageProps) => {
             </Typography>
           </div>
         </div>
+        <IdeaCardContainer />
       </div>
-      <IdeaCardContainer />
       <Button
         className={cn(styles.scrollTopButton, !isAuth && styles.changePosition)}
         variant="floating"
