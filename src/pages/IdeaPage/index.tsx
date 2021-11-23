@@ -12,6 +12,7 @@ import { setIdea, setInitIdea, useAppDispatch, useIdeaState } from '@src/store';
 import Input, { ParentRef } from '@src/components/common/Input';
 import HashTagBanner from '@src/components/HashTagBanner';
 import { useGetHashTags } from '@src/hooks/useHashTagQuery';
+import useWindowSize from '@src/hooks/useWindowSize';
 
 interface IdeaPageProps {
   handleToTop?: () => void;
@@ -20,7 +21,7 @@ interface IdeaPageProps {
 
 const IdeaPage = ({ handleToTop, showIdeaForm }: IdeaPageProps) => {
   const { search } = useIdeaState();
-
+  const { isMobile } = useWindowSize();
   // 첫 화면 렌더링시 애니메이션 실행 안되도록 처리함
   const [init, setInit] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -102,7 +103,7 @@ const IdeaPage = ({ handleToTop, showIdeaForm }: IdeaPageProps) => {
             />
           </div>
         </div>
-        {isHashTagSuccess && (
+        {!isMobile && isHashTagSuccess && (
           <HashTagBanner hashTagInfos={hashTagInfos ?? []} />
         )}
         <div className={styles.filterArea}>
