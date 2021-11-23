@@ -80,7 +80,7 @@ const Gnb = ({ pathname, showGithubModal, showIdeaForm }: GnbProps) => {
           ref={searchRef}
           className={cn(
             styles.gnbSearchbar,
-            isSearchOpen && styles.activeAnimation,
+            isSearchOpen && styles.gnbActiveAnimation,
           )}
           placeholder="검색어를 입력해주세요"
           onChange={(e) =>

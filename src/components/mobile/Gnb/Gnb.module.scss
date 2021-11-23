@@ -1,20 +1,10 @@
-@keyframes slidein {
+@keyframes slideinGnb {
   from {
     width: 0px;
   }
 
   to {
     width: 90%;
-  }
-}
-
-@keyframes slideout {
-  from {
-    width: 90%;
-  }
-
-  to {
-    width: 0px;
   }
 }
 
@@ -52,10 +42,10 @@
       width: 90%;
     }
 
-    &.activeAnimation {
+    &.gnbActiveAnimation {
       width: 90%;
       animation-duration: 0.2s;
-      animation-name: slidein;
+      animation-name: slideinGnb;
     }
   }
 
