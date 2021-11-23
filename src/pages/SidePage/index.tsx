@@ -7,10 +7,6 @@ import Setting from '@src/assets/Setting.svg';
 import Sort from '@src/assets/Sort.svg';
 
 import Button from '@src/components/common/Button';
-import AlertModal from '@src/components/modals/AlertModal';
-
-import useModalControl from '@src/hooks/useModalControl';
-import SideGithubModal from '@src/components/modals/SideGithubModal';
 
 import SideList from '@src/components/SideList';
 import {
@@ -26,9 +22,15 @@ import { useAuth } from '@src/hooks/useUserQuery';
 
 interface SidePageProps {
   handleToTop?: () => void;
+  isGithubVisible: boolean;
+  showGithubModal: () => void;
 }
 
-const SidePage = ({ handleToTop }: SidePageProps) => {
+const SidePage = ({
+  handleToTop,
+  isGithubVisible,
+  showGithubModal,
+}: SidePageProps) => {
   // 첫 화면 렌더링시 애니메이션 실행 안되도록 처리함
   const [init, setInit] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -39,18 +41,6 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
   const wrapperRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef({} as ParentRef);
 
-  const {
-    isModalVisible: isAlertVisible,
-    modalMessage: alertMessage,
-    showModal: showAlert,
-    hideModal: hideAlert,
-  } = useModalControl();
-
-  const {
-    isModalVisible: isGithubVisible,
-    showModal: showGithubModal,
-    hideModal: hideGithubModal,
-  } = useModalControl();
   const { data: isAuth } = useAuth();
 
   const { data: categoryData } = useGetCategory();
@@ -210,12 +200,6 @@ const SidePage = ({ handleToTop }: SidePageProps) => {
           variant="floating"
           iconName="add"
         />
-      )}
-      {isGithubVisible && (
-        <SideGithubModal hideModal={hideGithubModal} showAlert={showAlert} />
-      )}
-      {isAlertVisible && (
-        <AlertModal content={alertMessage} handleConfirm={hideAlert} />
       )}
     </div>
   );

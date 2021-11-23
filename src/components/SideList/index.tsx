@@ -81,7 +81,9 @@ const SideList = () => {
             )}
           </Masonry>
         ))}
-      {(isFetchingNextPage || isLoading) && <Spinner />}
+      <div className={styles.isLoading}>
+        {(isFetchingNextPage || isLoading) && <Spinner />}
+      </div>
       <div ref={target} className="last-item" />
     </div>
   );

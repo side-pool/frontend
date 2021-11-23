@@ -12,7 +12,8 @@
 
     @include mobile {
       padding: 16px 16px;
-      @include flex_col();
+      height: 100vh;
+      @include flex_col(flex-start);
     }
 
     .sidePageTopArea {
@@ -47,12 +48,15 @@
 
         .sideFilter {
           @include flex_row();
-          gap: 5px;
           @include tablet {
             display: none;
           }
           @include mobile {
             display: none;
+          }
+
+          .seperator {
+            padding: 0px 6px;
           }
         }
 
@@ -174,10 +178,9 @@
         }
       }
 
-      column-gap: 6px;
-
       .seperator {
         cursor: default;
+        padding: 0px 6px;
       }
 
       .Typography {

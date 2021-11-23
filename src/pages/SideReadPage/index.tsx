@@ -91,6 +91,10 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
     history.push(`/side/edit/${id}`);
   };
 
+  if (paramId === 'create') {
+    return null;
+  }
+
   return (
     <div className={styles.SideReadPage}>
       <div className={styles.sideCardContainer}>

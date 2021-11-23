@@ -3,12 +3,26 @@
   width: 100%;
   @include flex_col(center, center);
   gap: 50px;
+
+  .isLoading {
+    @include flex_col();
+
+    height: 50vh;
+
+    @include mobile {
+      height: 75vh;
+    }
+  }
+
   .ideaTypography {
     padding: 70px 0px;
   }
 
   @include mobile {
     padding: 16px 16px;
-    gap: 20px;
+    gap: 0px;
+    .IdeaCard {
+      margin-bottom: 20px;
+    }
   }
 }

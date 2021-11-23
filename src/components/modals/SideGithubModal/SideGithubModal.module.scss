@@ -7,6 +7,10 @@
     min-width: 388px;
     min-height: 200px;
     max-height: 50%;
+    
+    @include mobile {
+      min-width: 350px;
+    }
 
     padding: 20px;
   }

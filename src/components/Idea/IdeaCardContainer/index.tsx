@@ -66,7 +66,9 @@ const IdeaCardContainer = () => {
             page.map((data) => <IdeaCard key={data.id} idea={data} />),
           )
         ))}
-      {(isFetchingNextPage || isLoading) && <Spinner />}
+      <div className={styles.isLoading}>
+        {(isFetchingNextPage || isLoading) && <Spinner />}
+      </div>
       <div ref={target} className="last-item" />
     </div>
   );

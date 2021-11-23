@@ -38,9 +38,10 @@ const Template = ({
     if (data && !isLoading) {
       if (isExist?.duplicated) return showAlert(GuideText.DUPLICATE_SIDE);
 
+      hideModal();
       dispatch(setInitSide());
       history.push({
-        pathname: '/side-create',
+        pathname: '/side/create',
         state: data,
       });
     }
@@ -75,7 +76,13 @@ const Template = ({
         <ModalTop title="깃헙 불러오기" />
         <div className={styles.content}>
           GitHub URL을 입력해주세요
-          <Input placeholder="https://" ref={urlRef} />
+          <Input
+            placeholder="https://"
+            ref={urlRef}
+            onKeyUp={(e) => e.key === 'Enter' && handleConfirm()}
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
+          />
         </div>
         <ModalBottom handleConfirm={handleConfirm} />
       </Card>
