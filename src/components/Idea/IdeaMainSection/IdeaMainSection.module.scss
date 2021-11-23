@@ -5,6 +5,7 @@
     @include flex_row(space-between);
     .ideMainTopLeftArea {
       gap: 15px;
+
       @include flex_row();
       .ideaMaintopButtonContainer {
         @include flex_row();
@@ -12,12 +13,13 @@
       @include mobile {
         width: 100%;
         @include flex_row(space-between);
+        padding-bottom: 15px;
       }
     }
     @include mobile {
       @include flex_col(stretch, flex-start);
       flex-direction: column-reverse;
-      gap: 20px;
+      gap: 0px;
     }
   }
   .subText {

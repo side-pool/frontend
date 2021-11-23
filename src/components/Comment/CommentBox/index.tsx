@@ -47,7 +47,7 @@ const CommentBox = ({
 
   return (
     <div className={cn(styles.CommentBox)}>
-      <div className={styles.topArea}>
+      <div className={styles.commentBoxTopArea}>
         <div className={styles.topLeftArea}>
           <Author nickname={comment.author.nickname} />
           <Typography textColor="gray" fontSize="xxs">
