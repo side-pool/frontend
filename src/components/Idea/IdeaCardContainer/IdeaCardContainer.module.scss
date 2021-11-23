@@ -4,16 +4,6 @@
   @include flex_col(center, center);
   gap: 50px;
 
-  .isLoading {
-    @include flex_col();
-
-    height: 50vh;
-
-    @include mobile {
-      height: 75vh;
-    }
-  }
-
   .ideaTypography {
     padding: 70px 0px;
   }

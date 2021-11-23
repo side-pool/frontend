@@ -1,13 +1,6 @@
 .SideList {
   @include flex_col(flex-start);
   width: 100%;
-
-  .isLoading {
-    @include flex_col();
-
-    height: 75vh;
-  }
-
   .grid {
     @include flex_row(flex-start, flex-start);
 
