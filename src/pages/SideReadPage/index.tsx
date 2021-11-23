@@ -32,6 +32,7 @@ import { GuideText } from '@src/constant/enums';
 import SideMiddleSection from '@src/pages/SideReadPage/SideMiddleSection';
 import SideBottomSection from '@src/pages/SideReadPage/SideBottomSection';
 import { showGlobalAlert, useAppDispatch } from '@src/store';
+import useWindowSize from '@src/hooks/useWindowSize';
 
 interface SideReadProps {
   handleToTop?: () => void;
@@ -47,6 +48,7 @@ type ContributorsType = {
 const SideReadPage = ({ handleToTop }: SideReadProps) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const { isMobile } = useWindowSize();
 
   const { id: paramId }: { id: string } = useParams();
   const id = Number(paramId);
@@ -93,6 +95,37 @@ const SideReadPage = ({ handleToTop }: SideReadProps) => {
 
   if (paramId === 'create') {
     return null;
+  }
+
+  if (isMobile) {
+    return (
+      <div className={styles.SideReadPage}>
+        <div className={styles.sideCardContainer}>
+          <div className={styles.topArea}>
+            <div className={styles.mobileTitle}>
+              <Typography fontSize="md" fontWeight="bold" lineHeight="wider">
+                {data?.title}
+              </Typography>
+            </div>
+            <div className={styles.mobileDescription}>
+              <Textarea
+                value={data?.summary}
+                maxWidth
+                placeholder="프로젝트에 대한 간단한 설명을 적어주세요!"
+                disabled
+              />
+            </div>
+          </div>
+          <div className={styles.summary}>
+            {(data?.detail as string) && (
+              <Viewer ref={editorRef} initialValue={data?.detail} />
+            )}
+          </div>
+          <SideMiddleSection sideId={id} />
+          <SideBottomSection sideId={id} />
+        </div>
+      </div>
+    );
   }
 
   return (

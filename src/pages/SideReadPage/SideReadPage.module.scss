@@ -8,6 +8,15 @@
     height: 100%;
 
     padding: 60px 150px;
+    @include mobile {
+      margin: 29px 16px;
+
+      padding: 0px 0px;
+
+      border-radius: 20px;
+      background-color: $white;
+      width: auto;
+    }
 
     .topArea {
       position: relative;
@@ -23,8 +32,24 @@
 
       .buttonGroup {
         @include flex_row();
-    
+
         gap: 10px;
+      }
+      @include mobile {
+        @include flex_col();
+        border-bottom: 1px solid $gray_3;
+
+        padding: 20px 0px;
+        gap: 10px;
+
+        .Textarea {
+          background-color: $white;
+          width: 100%;
+          .textarea {
+            font-size: $font-size-x-medium;
+            text-align: center;
+          }
+        }
       }
     }
 
@@ -197,12 +222,34 @@
         height: auto;
         margin: 50px 0px;
         background-color: $gray_1;
+        @include mobile {
+          border: none;
+          border-radius: 0px;
+          background-color: transparent;
+          margin: 0px 0px;
+          width: 100%;
+          padding: 20px 20px;
+        }
       }
 
       .toastui-editor-toolbar,
       .toastui-editor-mode-switch {
         display: none !important;
         height: 0;
+      }
+      @include mobile {
+        width: 100%;
+      }
+    }
+    @include mobile {
+      .SideMiddleSection {
+        padding: 20px 20px 0px 20px;
+        background-color: transparent;
+      }
+      .SideBottomSection {
+        padding: 20px 20px;
+        background-color: transparent;
+        margin-bottom: 0px;
       }
     }
   }
