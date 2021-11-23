@@ -58,7 +58,7 @@ const Gnb = ({ pathname, showGithubModal, showIdeaForm }: GnbProps) => {
           {isSide ? '사이드' : '아이디어'}
         </Typography>
         <div className="gnbButtonArea">
-          {isAuth && (
+          {pathname.includes('create') && (
             <Button variant="text">
               <Typography fontSize="md" textColor="gray">
                 등록
