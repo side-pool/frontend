@@ -13,6 +13,7 @@ import { GuideText } from '@src/constant/enums';
 import Overlay from '@src/components/common/Overlay';
 import ModalTop from '@src/components/modals/ModalTop';
 import ModalBottom from '@src/components/modals/ModalBottom';
+import { QueryClient } from 'react-query';
 
 export interface IdeaFormModalProps {
   hideIdeaForm: (event?: React.MouseEvent) => void;
@@ -39,6 +40,8 @@ const Template = ({
   },
   id,
 }: IdeaFormModalProps) => {
+  const queryClient = new QueryClient();
+
   const titleRef = useRef({} as ParentRef);
   const contentRef = useRef({} as TextareaParentRef);
   const [hashtag, setHashtag] = useState<string>('');
@@ -64,11 +67,16 @@ const Template = ({
         hashtag.length !== 0 &&
         hashtag.trim()
       ) {
-        if (hashtagArr.some(({ content }) => content === hashtag)) {
+        if (
+          hashtagArr.some(({ content }) => content.trim() === hashtag.trim())
+        ) {
           setHashtag('');
           return showAlert(GuideText.DUPLICATE);
         }
-        setHashtagArr((prev) => [...prev, { id: uuidv4(), content: hashtag }]);
+        setHashtagArr((prev) => [
+          ...prev,
+          { id: uuidv4(), content: hashtag.trim() },
+        ]);
         setHashtag('');
       }
       if (e.keyCode === 8 && hashtag.length === 0) {
@@ -91,6 +99,18 @@ const Template = ({
       return;
     }
 
+    if (hashtag.length > 0) {
+      if (hashtagArr.some(({ content }) => content.trim() === hashtag.trim())) {
+        setHashtag('');
+      } else {
+        setHashtagArr((prev) => [
+          ...prev,
+          { id: uuidv4(), content: hashtag.trim() },
+        ]);
+        setHashtag('');
+      }
+    }
+
     (isCreate ? createIdeaMutation : updateIdeaMutation).mutate(
       {
         title,
@@ -106,6 +126,8 @@ const Template = ({
         onSuccess: () => {
           hideIdeaForm();
           showAlert(`아이디어 ${isCreate ? '생성' : '수정'}을 성공하였습니다.`);
+          // TODO: create시 refetch가 되지 않는 이슈 해결
+          queryClient.invalidateQueries('/ideas');
         },
       },
     );
