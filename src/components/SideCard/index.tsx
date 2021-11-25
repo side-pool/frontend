@@ -8,6 +8,7 @@ import styles from './SideCard.module.scss';
 import LabelTag from '@src/components/common/LabelTag';
 import { Side } from '@src/models';
 import { useHistory } from 'react-router-dom';
+import LazyLoad from 'react-lazyload';
 
 const PRIMARY_PICK = ['primary1', 'primary2', 'primary3', 'primary4'];
 
@@ -40,12 +41,14 @@ const SideCard = ({
         )}
       >
         {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={title}
-            onError={() => setImageUrl('')}
-            loading="lazy"
-          />
+          <LazyLoad>
+            <img
+              src={imageUrl}
+              alt={title}
+              onError={() => setImageUrl('')}
+              loading="lazy"
+            />
+          </LazyLoad>
         ) : (
           <Typography fontSize="xhl" textColor="white">
             {summary.slice(0, 100)}
