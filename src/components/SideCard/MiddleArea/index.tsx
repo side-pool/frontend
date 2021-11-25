@@ -3,6 +3,7 @@ import styles from './MiddleArea.module.scss';
 
 import Typography from '@src/components/common/Typography';
 
+// import Lottie from '@src/components/common/Lottie';
 import OneWeek from '@src/assets/OneWeek.gif';
 import OneMonth from '@src/assets/OneMonth.gif';
 import SixMonth from '@src/assets/SixMonth.gif';
@@ -16,12 +17,17 @@ interface MiddleProps {
 }
 
 const MiddleArea = ({ title, active }: MiddleProps) => {
-  const activeTime = useMemo(() => getActiveTime({ active }), [active]);
+  const activeTime = useMemo(() => getActiveTime({ active }), [active]) as
+    | 'oneWeek'
+    | 'oneMonth'
+    | 'sixMonth'
+    | 'rest';
   return (
     <div className={styles.MiddleArea}>
       <Typography fontSize="md" fontWeight="medium" textColor="black">
         {title}
       </Typography>
+      {/* <Lottie activeTime={activeTime} /> */}
       <img
         src={
           {
