@@ -45,6 +45,12 @@ module.exports = async ({ config }) => {
     },
   });
 
+  config.module.rules.push({
+    test: /\.json5$/i,
+    loader: 'json5-loader',
+    type: 'javascript/auto',
+  });
+
   config.resolve.alias = {
     '@src': SRC_PATH,
   };
