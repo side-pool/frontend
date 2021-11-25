@@ -8,14 +8,23 @@
     border-bottom: 1px solid $gray_3;
   }
 
-  img {
+  img, .Lottie {
     position: absolute;
 
     width: 74px;
     height: 74px;
     right: 0px;
     top: -37px;
-    
+    border-radius: 100%;
+  }
+
+  .Lottie {
+    position: absolute;
+
+    width: 74px;
+    height: 74px;
+    right: 0px;
+    top: -37px;
     border-radius: 100%;
   }
 }
