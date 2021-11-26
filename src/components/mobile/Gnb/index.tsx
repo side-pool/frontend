@@ -1,7 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react';
 import cn from 'classnames';
 import styles from './Gnb.module.scss';
-import useScrollPosition from '@src/hooks/useScrollPosition';
 import Typography from '@src/components/common/Typography';
 import SearchMini from '@src/assets/SearchMini.svg';
 import Create from '@src/assets/Create.svg';
@@ -32,7 +31,6 @@ const Gnb = ({ pathname, showGithubModal, showIdeaForm }: GnbProps) => {
   const { data: isAuth } = useAuth();
 
   const dispatch = useAppDispatch();
-  const { isActive } = useScrollPosition();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const wrapperRef = useRef<HTMLInputElement>(null);
@@ -47,10 +45,7 @@ const Gnb = ({ pathname, showGithubModal, showIdeaForm }: GnbProps) => {
 
   if (isNavigation) {
     return (
-      <div
-        ref={wrapperRef}
-        className={cn(styles.Gnb, isActive && styles.isActiveGnb)}
-      >
+      <div ref={wrapperRef} className={cn(styles.Gnb)}>
         <div className="gnbButtonArea">
           <ArrowLeft onClick={() => history.push(isSide ? '/side' : '/idea')} />
         </div>
@@ -71,10 +66,7 @@ const Gnb = ({ pathname, showGithubModal, showIdeaForm }: GnbProps) => {
   }
 
   return (
-    <div
-      ref={wrapperRef}
-      className={cn(styles.Gnb, isActive && styles.isActiveGnb)}
-    >
+    <div ref={wrapperRef} className={cn(styles.Gnb)}>
       {isSearchOpen ? (
         <Input
           ref={searchRef}
