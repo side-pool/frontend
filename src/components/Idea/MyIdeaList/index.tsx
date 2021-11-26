@@ -15,9 +15,12 @@ const BREAKPOINT_COLS = {
 const MyIdeaList = () => {
   const { data, isLoading, isError } = useReadMyIdea();
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className={styles.MyIdeaList}>
-      {isLoading && <Spinner />}
       {(data || []).length > 0 ? (
         <Masonry
           breakpointCols={BREAKPOINT_COLS}

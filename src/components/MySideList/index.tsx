@@ -19,10 +19,13 @@ const MySideList = () => {
   const side = useSideState();
   const { data, isLoading, isError } = useMyReadSides(side);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className={styles.MySideList}>
-      {isLoading && <Spinner />}
-      {(data || []).length > 0 ? (
+      {data && (data || []).length > 0 ? (
         <Masonry
           breakpointCols={BREAKPOINT_COLS}
           className={styles.grid}
