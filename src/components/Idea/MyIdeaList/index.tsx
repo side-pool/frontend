@@ -8,10 +8,8 @@ import { useReadMyIdea } from '@src/hooks/useMyPageQuery';
 import Typography from '@src/components/common/Typography';
 
 const BREAKPOINT_COLS = {
-  default: 4,
-  1800: 3,
-  1500: 2,
-  1100: 1,
+  default: 2,
+  1500: 1,
 };
 
 const MyIdeaList = () => {
