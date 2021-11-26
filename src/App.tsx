@@ -111,7 +111,7 @@ const App = () => {
             />
             {pathname &&
               !PATH_CHECK.some((each) => pathname.includes(each)) && (
-                <Redirect to="/side" />
+                <Redirect to="/idea" />
               )}
           </Suspense>
         </div>

@@ -32,7 +32,7 @@ const LoginPage = () => {
   const handleConfirm = () => {
     hideAlert();
     if (loginMutation.isSuccess) {
-      history.push('/side');
+      history.push('/idea');
       queryClient.invalidateQueries(`/auth`);
     }
   };
