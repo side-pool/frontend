@@ -44,10 +44,16 @@ export const useReadGithubInfo = (url: string) =>
   );
 
 export const useReadContributors = (contributors_url: string) =>
-  useQuery<ContributorsType>(contributors_url, async () => {
-    const { data } = await getGithubApiInstance().get(contributors_url);
-    return data;
-  });
+  useQuery<ContributorsType>(
+    contributors_url,
+    async () => {
+      const { data } = await getGithubApiInstance().get(contributors_url);
+      return data;
+    },
+    {
+      enabled: !!contributors_url,
+    },
+  );
 
 export const useReadReadme = (full_name: string, default_branch: string) =>
   useQueries([
