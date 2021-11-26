@@ -10,6 +10,7 @@ import SixMonth from '@src/assets/SixMonth.gif';
 import Rest from '@src/assets/Rest.gif';
 
 import { getActiveTime } from '@src/utils/common';
+import LazyLoad from 'react-lazyload';
 
 interface MiddleProps {
   title: string;
@@ -27,19 +28,20 @@ const MiddleArea = ({ title, active }: MiddleProps) => {
       <Typography fontSize="md" fontWeight="medium" textColor="black">
         {title}
       </Typography>
-      {/* <Lottie activeTime={activeTime} /> */}
-      <img
-        src={
-          {
-            oneWeek: OneWeek,
-            oneMonth: OneMonth,
-            sixMonth: SixMonth,
-            rest: Rest,
-          }[activeTime]
-        }
-        alt={activeTime}
-        loading="lazy"
-      />
+      <LazyLoad>
+        {/* <Lottie activeTime={activeTime} /> */}
+        <img
+          src={
+            {
+              oneWeek: OneWeek,
+              oneMonth: OneMonth,
+              sixMonth: SixMonth,
+              rest: Rest,
+            }[activeTime]
+          }
+          alt={activeTime}
+        />
+      </LazyLoad>
     </div>
   );
 };
