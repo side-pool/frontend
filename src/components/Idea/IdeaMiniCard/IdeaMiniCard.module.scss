@@ -58,7 +58,10 @@
 
     .ideaMiniContentContainer {
       inline-size: 100%;
-      overflow-wrap: break-word;
+      span {
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+      }
     }
   }
 }

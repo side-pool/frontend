@@ -25,7 +25,14 @@ const Template = ({ hideIdeaForm, className, id }: IdeaModalProps) => {
         >
           <Overlay onClick={hideIdeaForm} />
 
-          <LazyLoad style={{ width: '100%' }}>
+          <LazyLoad
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <IdeaCard idea={data} />
           </LazyLoad>
         </div>
