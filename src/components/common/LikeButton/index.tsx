@@ -31,7 +31,7 @@ const LikeButton = ({
       )}
       onClick={() =>
         isAuth
-          ? handleLike
+          ? handleLike()
           : dispatch(
               showGlobalAlert({
                 globalAlertMessage: '좋아요는 로그인 후 가능합니다.',
