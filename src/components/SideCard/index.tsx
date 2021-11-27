@@ -28,54 +28,54 @@ const SideCard = ({
   const [imageUrl, setImageUrl] = useState(logoUrl);
 
   return (
-    <div
-      className={styles.SideCard}
-      onClick={() => history.push(`/side/${id}`)}
-      aria-hidden
-    >
+    <LazyLoad style={{ width: '100%' }} throttle>
       <div
-        className={cn(
-          styles.sideCardTopArea,
-          !imageUrl && styles.isPadding,
-          !imageUrl && PRIMARY_PICK[pickNumber],
-        )}
+        className={styles.SideCard}
+        onClick={() => history.push(`/side/${id}`)}
+        aria-hidden
       >
-        {imageUrl ? (
-          <LazyLoad>
+        <div
+          className={cn(
+            styles.sideCardTopArea,
+            !imageUrl && styles.isPadding,
+            !imageUrl && PRIMARY_PICK[pickNumber],
+          )}
+        >
+          {imageUrl ? (
             <img
               src={imageUrl}
               alt={title}
               onError={() => setImageUrl('')}
               loading="lazy"
             />
-          </LazyLoad>
-        ) : (
-          <Typography fontSize="xhl" textColor="white">
-            {summary.slice(0, 100)}
-          </Typography>
-        )}
-      </div>
-      <MiddleArea title={title} active={active} />
-      <div className={styles.bottomArea}>
-        <div className={styles.tagContainer}>
-          <Typography
-            className={styles.ellipse}
-            fontSize="xs"
-            textColor="blueActive"
-          >
-            {category.join(' • ')}
-          </Typography>
-          {recruiting && (
-            <LabelTag wrapperColor="white" textColor="green">
-              팀원모집중
-            </LabelTag>
+          ) : (
+            <Typography fontSize="xhl" textColor="white">
+              {summary.slice(0, 100)}
+            </Typography>
           )}
         </div>
-        <Typography fontSize="xs" textColor="black" lineHeight="wider">
-          {summary.slice(0, 100)}
-        </Typography>
+        <MiddleArea title={title} active={active} />
+        <div className={styles.bottomArea}>
+          <div className={styles.tagContainer}>
+            <Typography
+              className={styles.ellipse}
+              fontSize="xs"
+              textColor="blueActive"
+            >
+              {category.join(' • ')}
+            </Typography>
+            {recruiting && (
+              <LabelTag wrapperColor="white" textColor="green">
+                팀원모집중
+              </LabelTag>
+            )}
+          </div>
+          <Typography fontSize="xs" textColor="black" lineHeight="wider">
+            {summary.slice(0, 100)}
+          </Typography>
+        </div>
       </div>
-    </div>
+    </LazyLoad>
   );
 };
 

@@ -44,7 +44,10 @@
     @include flex_row(stretch, center);
     margin: 34px 0px;
     flex-wrap: wrap;
-    gap: 10px;
+
+    .LabelTag {
+      margin-right: 10px;
+    }
 
     .LabelTag ~ .LabelTag {
       margin-left: 0px;
