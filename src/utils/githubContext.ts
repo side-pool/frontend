@@ -4,7 +4,7 @@ import { LOG_TOGGLE } from './context';
 const defaultOption = {
   headers: {
     // TODO: 환경변수 등록 <= 근데 안할듯..
-    Authorization: `token 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`,
+    Authorization: process.env.GH_TOKEN || '',
   },
 };
 

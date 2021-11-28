@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY ./package*.json ./
 RUN npm ci
 COPY . ./
-RUN npm run build-prod
+RUN export GH_TOKEN=$GH_TOKEN && npm run build-prod
 
 FROM nginx:1.17-alpine
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html

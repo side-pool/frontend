@@ -42,12 +42,12 @@ jobs:
 
       - name: Build and push the Docker image for develop env
         run: |
-          docker build -f ./Dockerfile.dev --tag ${{secrets.DOCKER_USERNAME}}/side-pool-frontend:dev .
+          docker build -f ./Dockerfile.dev --tag ${{secrets.DOCKER_USERNAME}}/side-pool-frontend:dev . --build-arg GH_TOKEN='${{ secrets.GH_TOKEN }}'
           docker push ${{secrets.DOCKER_USERNAME}}/side-pool-frontend:dev
         if: contains(github.ref, 'develop') || contains(github.ref, 'ci')
 
       - name: Build and push the Docker image for production env
         run: |
-          docker build --tag ${{secrets.DOCKER_USERNAME}}/side-pool-frontend:prod .
+          docker build --tag ${{secrets.DOCKER_USERNAME}}/side-pool-frontend:prod . --build-arg GH_TOKEN='${{ secrets.GH_TOKEN }}'
           docker push ${{secrets.DOCKER_USERNAME}}/side-pool-frontend:prod
         if: contains(github.ref, 'master')
