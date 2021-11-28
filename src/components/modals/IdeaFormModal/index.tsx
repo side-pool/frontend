@@ -126,8 +126,6 @@ const Template = ({
         onSuccess: () => {
           hideIdeaForm();
           showAlert(`아이디어 ${isCreate ? '생성' : '수정'}을 성공하였습니다.`);
-          // TODO: create시 refetch가 되지 않는 이슈 해결
-          queryClient.invalidateQueries('/ideas');
         },
       },
     );

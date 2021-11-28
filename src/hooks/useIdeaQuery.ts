@@ -42,9 +42,18 @@ export const useReadIdea = (id: number) =>
   useQuery<Idea, unknown>([`/ideas/${id}`]);
 
 export const useCreateIdea = () => {
-  return useMutation<string, unknown, CreateUpdateIdeaParam>(async (params) => {
-    return await getApiInstance().post('/ideas', { ...params });
-  });
+  const queryClient = useQueryClient();
+
+  return useMutation<string, unknown, CreateUpdateIdeaParam>(
+    async (params) => {
+      return await getApiInstance().post('/ideas', { ...params });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('/ideas');
+      },
+    },
+  );
 };
 
 export const useUpdateIdea = (id: number) => {
