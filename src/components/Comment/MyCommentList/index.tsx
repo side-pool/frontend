@@ -3,10 +3,14 @@ import styles from './MyCommentList.module.scss';
 import MyCommentContainer from '@src/components/Comment/MyCommentContainer';
 import { useReadMyComment } from '@src/hooks/useMyPageQuery';
 import Typography from '@src/components/common/Typography';
+import Spinner from '@src/components/common/Spinner';
 
 const MyCommentList = () => {
-  const { data } = useReadMyComment();
+  const { data, isLoading } = useReadMyComment();
 
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <div className={styles.MyCommentList}>
       {(data || []).length > 0 ? (

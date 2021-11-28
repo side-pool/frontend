@@ -18,7 +18,6 @@
     align-items: center;
   }
   @include mobile {
-    margin-right: 30px;
     .typoLike {
       display: none;
     }

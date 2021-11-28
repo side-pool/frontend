@@ -53,6 +53,10 @@
             display: none;
           }
 
+          :not(:last-child) {
+            padding-right: 10px;
+          }
+          
           .seperator {
             padding: 0px 6px;
           }

@@ -5,6 +5,7 @@ import { convertPortal } from '@src/utils/portalUtils';
 import { useReadIdea } from '@src/hooks/useIdeaQuery';
 import Overlay from '@src/components/common/Overlay';
 import IdeaCard from '@src/components/Idea/IdeaCard';
+import LazyLoad from 'react-lazyload';
 
 export interface IdeaModalProps {
   hideIdeaForm: (event?: React.MouseEvent) => void;
@@ -24,7 +25,16 @@ const Template = ({ hideIdeaForm, className, id }: IdeaModalProps) => {
         >
           <Overlay onClick={hideIdeaForm} />
 
-          <IdeaCard idea={data} />
+          <LazyLoad
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <IdeaCard idea={data} />
+          </LazyLoad>
         </div>
       )}
     </>

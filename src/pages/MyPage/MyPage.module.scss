@@ -51,6 +51,7 @@
 
     .alertContainer {
       width: auto;
+
       .alertTitle {
         @include flex_col(center, flex-start);
         width: 100%;
@@ -64,7 +65,7 @@
         .myAlarmTypography {
           @include flex_row();
           width: 100%;
-          padding: 70px 0px;
+          padding: 37px 0px;
         }
       }
     }

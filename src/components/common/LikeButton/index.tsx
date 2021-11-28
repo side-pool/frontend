@@ -5,6 +5,7 @@ import Typography from '@src/components/common/Typography';
 import styles from './LikeButton.module.scss';
 import cn from 'classnames';
 import { Favorites } from '@src/models';
+import { showGlobalAlert, useAppDispatch } from '@src/store';
 
 export interface LikeButtonProps
   extends React.HTMLAttributes<HTMLButtonElement> {
@@ -19,6 +20,8 @@ const LikeButton = ({
   favorites,
   ...props
 }: LikeButtonProps) => {
+  const dispatch = useAppDispatch();
+
   return (
     <Button
       variant="text"
@@ -26,8 +29,15 @@ const LikeButton = ({
         styles.LikeButton,
         (favorites?.isFavorite ?? false) && styles.highlight,
       )}
-      disabled={!isAuth}
-      onClick={handleLike}
+      onClick={() =>
+        isAuth
+          ? handleLike()
+          : dispatch(
+              showGlobalAlert({
+                globalAlertMessage: '좋아요는 로그인 후 가능합니다.',
+              }),
+            )
+      }
       {...props}
     >
       <div className={styles.likeButtonContent}>

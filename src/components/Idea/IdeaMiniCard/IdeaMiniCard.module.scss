@@ -21,10 +21,11 @@
     .titleContainer {
       @include flex_row(flex-start, center);
 
-      width: 220px;
+      width: 100%;
 
-      .ellipse {
+      .Typography {
         @include ellipse;
+        width: 100%;
       }
     }
 
@@ -58,7 +59,10 @@
 
     .ideaMiniContentContainer {
       inline-size: 100%;
-      overflow-wrap: break-word;
+      span {
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+      }
     }
   }
 }
